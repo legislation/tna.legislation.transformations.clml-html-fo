@@ -925,7 +925,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<tso:status>
 					<xsl:attribute name="scenarioId"><xsl:choose><xsl:when test="$pointInTimeView"><xsl:choose><xsl:when test="@Concurrent = 'true' and @AltVersionRefs">S6</xsl:when><xsl:when test="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title = 'prospective']">S3</xsl:when><xsl:otherwise>S4</xsl:otherwise></xsl:choose></xsl:when><xsl:otherwise>S3</xsl:otherwise></xsl:choose></xsl:attribute>
 					<xsl:if test="@Concurrent = 'true' and @AltVersionRefs">
-						<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p42')"/>
+						<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p42a')"/>
+						<xsl:value-of select="string(' ')"/>
 						<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p43')"/>
 					</xsl:if>
 					<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p49')"/> <xsl:value-of select="leg:TranslateMessage('status_warning_revised_p50')"/>
@@ -933,7 +934,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			</xsl:when>
 			<xsl:when test="@Concurrent = 'true'">
 				<tso:status scenarioId="{if ($pointInTimeView) then 'S5' else 'S3' }">
-					<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p42')"/>
+					<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p42a')"/>
+					<xsl:value-of select="string(' ')"/>
 					<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p43')"/>
 					<tso:extent><xsl:apply-templates select="." mode="TSOExtentLinks" /></tso:extent>
 				</tso:status>

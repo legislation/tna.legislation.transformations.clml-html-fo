@@ -459,16 +459,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:if test="$generalSearch">
 				<fieldset class="searchLang searchFieldCategory">
 					<legend class="searchCol1">
-						<xsl:value-of select="leg:TranslateText('Language')"/>:
+						<xsl:value-of select="leg:TranslateText('Welshlanguage')"/>						
 					</legend>
-					<div class="searchCol2">
-						<div class="englishLang formGroup">
-							<input type="radio" id="englishRadio" name="lang" value="en" checked="true"/>
-							<label for="englishRadio"><xsl:value-of select="leg:TranslateText('English')"/></label>
-						</div>
+					<div class="searchCol2">						
 						<div class="welshLang formGroup">
-							<input type="radio" id="welshRadio" name="lang" value="cy"/>
-							<label for="welshRadio"><xsl:value-of select="leg:TranslateText('Welsh')"/></label>
+							<input type="checkbox" id="welshRadio" name="lang" value="cy"/>
+							<label for="welshRadio">
+								<span><xsl:value-of select="leg:TranslateText('Choose if you are using a Welsh language search term')"/></span>
+								<br/>
+								<span class="welshLangCol2"><xsl:value-of select="concat('(',leg:TranslateText('this will only search Welsh legislation in the Welsh language'),')')"/></span>
+							</label>
 						</div>
 					</div>
 					<div class="searchCol3">

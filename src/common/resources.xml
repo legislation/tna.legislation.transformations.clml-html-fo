@@ -1300,6 +1300,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p41">Nid yw'r fersiwn hon o'r ddarpariaeth hon yn ddilys ar gyfer y pwynt hwn mewn amser.</resource>
 		<!-- There are multiple prospective versions of this provision on screen. -->
 		<resource id="status_warning_revised_p42">Mae sawl fersiwn ragolygol o'r ddarpariaeth hon ar y sgrin.</resource>
+		<!-- There are multiple versions of this provision on screen. -->
+		<resource id="status_warning_revised_p42a">There are multiple versions of this provision on screen.</resource>
 		<!--  These apply to different geographical extents. -->
 		<resource id="status_warning_revised_p43">Mae'r rhain yn berthnasol i wahanol rhychwantau daearyddol.</resource>
 		<!-- This version of this provision is prospective. -->
@@ -1368,6 +1370,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="W+S+N.I.">C+A+G.I.</resource>
 		<resource id="E+W+S+N.I.">LL+C+A+G.I.</resource>
 		<resource id="E+S+N.I.">LL+A+G.I.</resource>
+		
+		<!-- [Advanced Search] -->
+		<resource id="Choose if you are using a Welsh language search term">Dewiswch os ydych yn defnyddio term chwilio Cymraeg</resource>
+		<resource id="this will only search Welsh legislation in the Welsh language">bydd hyn ond yn chwilio deddfwriaeth Cymraeg yn yr iaith Gymraeg</resource>
+		<resource id="including Welsh legislation in Welsh language">gan gynnwys deddfwriaeth Cymraeg yn yr iaith Gymraeg</resource>
+		<resource id="Welshlanguage">Iaith Cymraeg</resource>
 	</resources>
 
 	<resources lang="en">
@@ -2027,6 +2035,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p41">This version of this provision is not valid for this point in time.</resource>
 		<!-- There are multiple prospective versions of this provision on screen. -->
 		<resource id="status_warning_revised_p42">There are multiple prospective versions of this provision on screen.</resource>
+		<!-- There are multiple versions of this provision on screen. -->
+		<resource id="status_warning_revised_p42a">There are multiple versions of this provision on screen.</resource>
 		<!--  These apply to different geographical extents. -->
 		<resource id="status_warning_revised_p43">These apply to different geographical extents.</resource>
 		<!-- This version of this provision is prospective. -->
@@ -2052,7 +2062,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Coronavirus Legislation">Coronavirus Legislation</resource>
 		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland</resource>				
 		<resource id="understanding_legislation_text">How UK legislation is introduced, amended and brought into force, and what we hold on legislation.gov.uk</resource>
-		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 December 2020 is now a part of domestic legislation</resource>		
+		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 December 2020 is now a part of domestic legislation</resource>
+		
+		<!-- [Advanced Search] -->
+		<resource id="Choose if you are using a Welsh language search term">Choose if you are using a Welsh language search term</resource>
+		<resource id="this will only search Welsh legislation in the Welsh language">this will only search Welsh legislation in the Welsh language</resource>
+		<resource id="including Welsh legislation in Welsh language">including Welsh legislation in Welsh language</resource>
+		<resource id="Welshlanguage">Welsh language</resource>		
 	</resources>
 </allResources>
 
