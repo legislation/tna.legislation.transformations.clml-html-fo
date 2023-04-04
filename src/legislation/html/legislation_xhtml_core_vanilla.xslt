@@ -1238,8 +1238,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 						</span>
 					</xsl:when> -->
 					<!-- Combined N3-N4 paragraph -->
-					<!-- Removed : LEGDEV-1653 - P3group need pnumber before title (pnumber duplication fix)-->
-					<!--<xsl:when test="parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]">
+					<!-- LEGDEV-1653 - Reverted previous removal of below condition due to LEGDEV-2360 side effects. Instead added extra not condition within it now, 
+						to deal when P3group need P3/pnumber has title before, which resulted in pnumber dupliction earlier  -->
+					<xsl:when test="parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para[not(parent::leg:P3/preceding-sibling::*[1][self::leg:Title])]/preceding-sibling::*[1][self::leg:Pnumber]">
 						<span class="LegDS LegLHS {concat('LegN3No', $strAmendmentSuffix)}">
 							<xsl:for-each select="parent::*/parent::*/parent::*/preceding-sibling::leg:Pnumber">
 								<xsl:for-each select="..">
@@ -1256,7 +1257,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								<xsl:apply-templates select="."/>
 							</xsl:for-each>
 						</span>
-					</xsl:when>-->
+					</xsl:when>
 					<!-- Combined N4-N5 paragraph -->
 					<xsl:when test="parent::leg:P5para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P5[not(preceding-sibling::*)]/parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]">
 						<span class="LegDS LegLHS {concat('LegN4N5No', $strAmendmentSuffix)}">
