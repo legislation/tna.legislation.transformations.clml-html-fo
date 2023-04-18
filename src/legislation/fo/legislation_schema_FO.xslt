@@ -4514,7 +4514,7 @@ exclude-result-prefixes="tso atom">
 	
 	<xsl:template match="leg:Repeal[@SubstitutionRef]">
 		<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
-		<xsl:if test="$selectedSectionSubstituted or $showRepeals">
+		<xsl:if test="$selectedSectionSubstituted or $showRepeals or @RetainText='true'">
 			<xsl:next-match />
 		</xsl:if>
 	</xsl:template>
