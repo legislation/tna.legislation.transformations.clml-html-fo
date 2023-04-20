@@ -313,7 +313,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<!-- determine the display order of the IA stages -->
 						<!-- first will be all non-IA IA's -->
 						<xsl:apply-templates
-								select="$sortedIAs/ukm:ImpactAssessment[not(@Stage = ('Post-Implementation','Enactment','Final','Consultation'))]"
+								select="$sortedIAs/ukm:ImpactAssessment[not(@Stage = ('Post-Implementation', 'Post Implementation','Enactment','Final','Consultation'))]"
 								mode="AssociatedDocuments"/>
 						<!-- then follow the order used in the IA tab -->
 						<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Consultation']"
