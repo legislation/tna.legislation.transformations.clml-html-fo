@@ -2642,7 +2642,7 @@ exclude-result-prefixes="tso atom">
 												<xsl:attribute name="font-weight">bold</xsl:attribute>
 											</xsl:if>
 											<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-								  			<xsl:text>.</xsl:text>
+								  			<xsl:value-of select="if(string-length(normalize-space((ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter))) gt 0) then ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter else '.'"/>
 										</fo:inline>
 										<xsl:text>&#8212;</xsl:text>
 							  		</xsl:if>
@@ -2664,7 +2664,7 @@ exclude-result-prefixes="tso atom">
 											<xsl:attribute name="font-weight">bold</xsl:attribute>
 										</xsl:if>
 										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-                   	<xsl:text>.</xsl:text>
+										<xsl:value-of select="if(string-length(normalize-space((ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter))) gt 0) then ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter else '.'"/>
 									</fo:inline>
 									<!-- Call No: HA051095 -->
 									<!--<xsl:text>&#8212;</xsl:text>-->
