@@ -377,6 +377,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="All Primary">Pob deddfwriaeth sylfaenol</resource>
 		<resource id="All Secondary">Pob is-ddeddfwriaeth</resource>
 		<resource id="Select types">Dewis mathau</resource>
+		<resource id="Search_tooltip_language">This will focus your search in either English or Welsh language text of legislation. Searching the Welsh language text Welsh legislation may produce more appropriate results if you are using a Welsh language searc item</resource>
 		<resource id="Search_tooltip_title">Rhowch deitl llawn neu ran o deitl i chwilio am ganlyniadau yn seiliedig ar y teitl. Bydd y chwiliad yn dangos canlyniadau sy’n cyd-fynd ag unrhyw ran o’r teitl. Er enghraifft, bydd ‘Data’ yn cyd-fynd â ‘Deddf Diogelu Data’ a ‘Y Rheoliadau Dargadw Data’. I eithrio term, defnyddiwch y gweithredwr minws cyn y term yr hoffech ei eithrio. Er enghraifft, byddai chwilio am ‘Data -diogelu’ yn dychwelyd ‘Y Rheoliadau Dargadw Data’ ond nid y ‘Ddeddf Diogelu Data’. Defnyddiwch ddyfynodau dwbl i gael cyfatebiad union ar frawddeg e.e. byddai “Diogelu Data” yn dychwelyd ‘Y Ddeddf Diogelu Data’ ond nid ‘Y Rheoliadau Diogelu Grwpiau Bregus (Trin Data)’. Neu, gallech ei adael yn wag os nad ydych eisiau chwilio gan ddefnyddio teitl.</resource>
 		<resource id="Search_tooltip_year">Dewiswch a hoffech chwilio ar draws deddfwriaeth ar gyfer blwyddyn benodol neu ddetholiad o flynyddoedd. Nid yw hyn yn faes gofynnol a gellir ei adael yn wag os nad ydych eisiau cyfyngu eich chwiliad yn ôl blwyddyn.</resource>
 		<resource id="Search_tooltip_year_pit">Rhowch flwyddyn y ddeddfwriaeth yr hoffech ei gweld. Dyma’r flwyddyn y cafodd ei deddfu/creu.</resource>
@@ -1376,6 +1377,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="this will only search Welsh legislation in the Welsh language">bydd hyn ond yn chwilio deddfwriaeth Cymraeg yn yr iaith Gymraeg</resource>
 		<resource id="including Welsh legislation in Welsh language">gan gynnwys deddfwriaeth Cymraeg yn yr iaith Gymraeg</resource>
 		<resource id="Welshlanguage">Iaith Cymraeg</resource>
+		<resource id="search_title">Language of legislation text</resource>
+		<resource id="search_EN_txt">Search English language text</resource>
+		<resource id="search_EN_description">searchs all English text, including in Welsh legislation</resource>
+		<resource id="search_CY_txt">Search Welsh language text</resource>
+		<resource id="search_CY_description">only searches Welsh language text in Welsh legislation</resource>
 	</resources>
 
 	<resources lang="en">
@@ -1579,6 +1585,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="December_short">Dec</resource>
 
 		<!-- search -->
+		<resource id="Search_tooltip_language">This will focus your search in either English or Welsh language text of legislation. Searching the Welsh language text Welsh legislation may produce more appropriate results if you are using a Welsh language searc item</resource>
 		<resource id="Search_tooltip_title">Enter a full title or part of a title to find results based on title. The search will show results that match on any part of the title. For example ‘Data’ will match ‘Data Protection Act’ and ‘The Data Retention Regulations’. To exclude a term, use the minus operator before the term you wish to exclude. For example searching ‘Data -protection’ would return ‘The Data Retention Regulations’ but not the ‘Data Protection Act’. Use double quotes for an exact match on a phrase e.g “Data Protection” would return ‘The Data Protection Act’ but not ‘The Protection of Vulnerable Groups (Data Handling) Regulations’. Alternatively, leave blank if you do not wish to specify a title match.</resource>
 		<resource id="Search_tooltip_year">Select whether you would like to search across legislation for a particular year or range of years. This is not a required field and can be left empty if you do not wish to narrow your search by year.</resource>
 		<resource id="Search_tooltip_year_pit">Enter the year of the legislation you would like to view. This is the year it was enacted/made.</resource>
@@ -2068,7 +2075,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Choose if you are using a Welsh language search term">Choose if you are using a Welsh language search term</resource>
 		<resource id="this will only search Welsh legislation in the Welsh language">this will only search Welsh legislation in the Welsh language</resource>
 		<resource id="including Welsh legislation in Welsh language">including Welsh legislation in Welsh language</resource>
-		<resource id="Welshlanguage">Welsh language</resource>		
+		<resource id="Welshlanguage">Welsh language</resource>
+		<resource id="search_title">Language of legislation text</resource>
+		<resource id="search_EN_txt">Search English language text</resource>
+		<resource id="search_EN_description">searchs all English text, including in Welsh legislation</resource>
+		<resource id="search_CY_txt">Search Welsh language text</resource>
+		<resource id="search_CY_description">only searches Welsh language text in Welsh legislation</resource>
 	</resources>
 </allResources>
 
