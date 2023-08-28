@@ -458,25 +458,37 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<!-- language -->
 			<xsl:if test="$generalSearch">
 				<fieldset class="searchLang searchFieldCategory">
-					<legend class="searchCol1">
-						<xsl:value-of select="leg:TranslateText('Welshlanguage')"/>						
-					</legend>
-					<div class="searchCol2">						
-						<div class="welshLang formGroup">
-							<input type="checkbox" id="welshRadio" name="lang" value="cy"/>
-							<label for="welshRadio">
-								<span><xsl:value-of select="leg:TranslateText('Choose if you are using a Welsh language search term')"/></span>
-								<br/>
-								<span class="welshLangCol2"><xsl:value-of select="concat('(',leg:TranslateText('this will only search Welsh legislation in the Welsh language'),')')"/></span>
-							</label>
+					<div class="searchLangColumn">
+						<div class="searchLangCol1">
+							<xsl:value-of select="leg:TranslateText('search_title')"/>
+						</div>
+						<div class="searchLangCol2">
+							<a class="helpIcon advancedSearchHelp" href="#langHelp">
+								<img alt=" Help about language searching" src="/images/chrome/helpIcon.gif"/>
+							</a>
 						</div>
 					</div>
-					<div class="searchCol3">
-						<!--
-						<a class="helpIcon advancedSearchHelp" href="#langHelp">
-							<img alt=" Help about language searching" src="/images/chrome/helpIcon.gif"/>
-						</a>
-						-->
+					<div class="searchLangColumn">
+						<div class="searchLangCol3">
+							<div class="welshLang formGroup">
+								<input type="radio" id="englishRadio" name="lang" value="en" checked="true"/>
+								<label for="englishRadio">
+									<span><xsl:value-of select="leg:TranslateText('search_EN_txt')"/></span>
+									<br/>
+									<span class="welshLangCol2"><xsl:value-of select="concat('(',leg:TranslateText('search_EN_description'),')')"/></span>
+								</label>
+							</div>
+						</div>
+						<div class="searchLangCol4">
+							<div class="welshLang formGroup">
+								<input type="radio" id="welshRadio" name="lang" value="cy"/>
+								<label for="welshRadio">
+									<span><xsl:value-of select="leg:TranslateText('search_CY_txt')"/></span>
+									<br/>
+									<span class="welshLangCol2"><xsl:value-of select="concat('(',leg:TranslateText('search_CY_description'),')')"/></span>
+								</label>
+							</div>
+						</div>
 					</div>
 				</fieldset>
 			</xsl:if>
@@ -758,6 +770,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</p>
 			</div>
 		</div>
+
+		<div class="help" id="langHelp">
+			<span class="icon"></span>
+			<div class="content">
+				<a href="#" class="close"><img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
+				<h3><xsl:value-of select="leg:TranslateText('search_title')"/></h3>
+				<p>
+					<xsl:value-of select="leg:TranslateText('Search_tooltip_language')"/>
+				</p>
+			</div>
+		</div>
+
 		<div class="help" id="yearHelp">
 			<span class="icon"></span>
 			<div class="content">
