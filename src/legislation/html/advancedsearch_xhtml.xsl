@@ -463,7 +463,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:value-of select="leg:TranslateText('search_title')"/>
 						</div>
 						<div class="searchLangCol2">
-							<a class="helpIcon advancedSearchHelp" href="#langHelp">
+							<a class="helpIcon helpItem helpItemToMidRight" href="#langHelp">
 								<img alt=" Help about language searching" src="/images/chrome/helpIcon.gif"/>
 							</a>
 						</div>
@@ -777,7 +777,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<a href="#" class="close"><img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
 				<h3><xsl:value-of select="leg:TranslateText('search_title')"/></h3>
 				<p>
-					<xsl:value-of select="leg:TranslateText('Search_tooltip_language')"/>
+					<xsl:value-of select="leg:TranslateText('Search_tooltip1_language')"/>
+				</p>
+				<p>
+					<xsl:value-of select="leg:TranslateText('Search_tooltip2_language')"/>
 				</p>
 			</div>
 		</div>
