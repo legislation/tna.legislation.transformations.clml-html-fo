@@ -1131,7 +1131,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:function name="leg:IsRevisedVersionExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>		
 		<xsl:sequence select="leg:IsEnglishRevisedVersionExists($legislation) or leg:IsWelshRevisedVersionExists($legislation)"/>
-	</xsl:function>	
+	</xsl:function>
+
+	<xsl:function name="leg:IsEnglishEnactedVersionExists" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="$legislation/leg:Legislation[(not(@xml:lang) or @xml:lang='en')]/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final'
+			or (($legislation/leg:Legislation[@xml:lang='cy']/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final') and ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel='alternate' and @hreflang='en']))
+			or ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @hreflang='en' and @title = ('enacted', 'made', 'created', 'adopted')])"/>
+	</xsl:function>
+
+	<xsl:function name="leg:IsWelshEnactedVersionExists" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="$legislation/leg:Legislation[@xml:lang='cy']/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final'
+			or (($legislation/leg:Legislation[(not(@xml:lang) or @xml:lang='en')]/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final') and ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel='alternate' and @hreflang='cy']))
+			or ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @hreflang='cy' and @title = ('enacted', 'made', 'created', 'adopted')])"/>
+	</xsl:function>
 	
 	<!--[to check if current doc is a ENGLISH revised]-->
 	<xsl:function name="leg:IsCurrentEnglishRevised" as="xs:boolean">
@@ -1162,7 +1176,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 	<xsl:function name="leg:IsEnactedExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final' or exists($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted')])"/>
+		<xsl:sequence select="leg:IsEnglishEnactedVersionExists($legislation) or leg:IsWelshEnactedVersionExists($legislation)"/>
 	</xsl:function>
 
 	<xsl:function name="leg:IsWelshExists" as="xs:boolean">
@@ -1207,15 +1221,32 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 	<xsl:function name="leg:IsOutstandingEffectExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="count($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]) > 0"/>
+		<xsl:choose>
+			<xsl:when test="leg:IsCurrentWelsh($legislation)">
+				<xsl:sequence select="count($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresWelshApplied='false')]) > 0"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:sequence select="count($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]) > 0"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:function>
 
 	<xsl:function name="leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="
-			every $t in $legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]/ukm:InForceDates/ukm:InForce
-			satisfies $t[@Prospective='true' or xs:date(@Date) &gt; current-date()]
-			"/>
+		<xsl:choose>
+			<xsl:when test="leg:IsCurrentWelsh($legislation)">
+				<xsl:sequence select="
+					every $t in $legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresWelshApplied='false')]/ukm:InForceDates/ukm:InForce
+					satisfies $t[@Prospective='true' or xs:date(@Date) &gt; current-date()]
+					"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:sequence select="
+					every $t in $legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]/ukm:InForceDates/ukm:InForce
+					satisfies $t[@Prospective='true' or xs:date(@Date) &gt; current-date()]
+					"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:function>
 
 	<xsl:function name="leg:IsEditedByEPP" as="xs:boolean">

@@ -962,7 +962,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<span>Not applicable to Welsh language version</span>
 							<span class="englishEffectStatus">Not yet made to English language version</span>							
 						</xsl:when>
-						<xsl:when test="@RequiresWelshApplied and @RequiresApplied eq 'false'">See note (see note)</xsl:when>
+						<xsl:when test="@RequiresWelshApplied and @RequiresApplied eq 'false'">See note</xsl:when>
 						<xsl:when test="@WelshApplied eq 'false' and @Applied eq 'false'">Not yet</xsl:when>
 						<xsl:when test="@WelshApplied eq 'true' and @Applied eq 'false'">
 							<span class="effectsApplied welshEffectStatus">Applied to Welsh language version</span>
@@ -976,7 +976,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:otherwise></xsl:otherwise>
 					</xsl:choose>
 				</xsl:when>
-				<xsl:when test="@RequiresApplied eq 'false'">See note (see note)</xsl:when>
+				<xsl:when test="@RequiresApplied eq 'false'">See note</xsl:when>
 				<xsl:when test="@Applied eq 'false'">Not yet</xsl:when>
 				<xsl:when test="@Applied eq 'true'"><span class="effectsApplied">Yes</span></xsl:when>
 				<xsl:otherwise></xsl:otherwise>
