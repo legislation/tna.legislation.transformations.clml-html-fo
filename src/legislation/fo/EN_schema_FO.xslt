@@ -2110,7 +2110,7 @@ exclude-result-prefixes="tso atom">
 <xsl:template match="leg:Image">
 	<xsl:variable name="strURL" as="xs:string">
 		<xsl:variable name="strRef" select="@ResourceRef" as="xs:string"/> 
-		<xsl:value-of select="//leg:Resource[@id = $strRef]/leg:ExternalVersion/@URI"/>
+		<xsl:value-of select="replace(//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI,'http:','https:')"/>
 	</xsl:variable>
 	<xsl:variable name="strAltAttributeDesc">
 		<xsl:variable name="ndsFormulaNode" select="//leg:Formula[@AltVersionRefs = current()/ancestor::leg:Version/@id]"/>

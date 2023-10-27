@@ -3542,7 +3542,7 @@ exclude-result-prefixes="tso atom">
 			</xsl:choose>
 		</xsl:variable>
 		<!-- we cant use single quotes as part of the uri the single quote is a valid character in the URL syntax -->
-		<xsl:variable name="strURL" select="//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI" as="xs:string"/>
+		<xsl:variable name="strURL" select="replace(//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI,'http:','https:')" as="xs:string"/>
 		<fo:external-graphic src='url("{leg:graphic-url($strURL)}")' fox:alt-text="{$strAltAttributeDesc}">
 			<xsl:choose>
 				<xsl:when test="@Width = 'scale-to-fit'">
