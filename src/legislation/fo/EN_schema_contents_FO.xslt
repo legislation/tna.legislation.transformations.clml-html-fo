@@ -61,6 +61,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<xsl:template match="leg:ContentsAnnex">
 		<xsl:apply-templates select="leg:ContentsTitle"/>
+		<xsl:apply-templates select="leg:ContentsNumber[not(parent::leg:ContentsAnnex/leg:ContentsTitle)]"/>
 		<xsl:apply-templates select="*[not(self::leg:ContentsNumber or self::leg:ContentsTitle)]"/>
 	</xsl:template>
 
@@ -137,7 +138,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 
-	<xsl:template match="leg:ContentsAnnex/leg:ContentsTitle">
+	<xsl:template match="leg:ContentsAnnex/leg:ContentsTitle|leg:ContentsAnnex[not(leg:ContentsTitle)]/leg:ContentsNumber">
 		<fo:block font-size="{$g_strBodySize}" font-weight="bold" space-before="12pt" text-align="left" text-transform="uppercase"  start-indent="{tso:indent(count(ancestor::*))}">
 			<xsl:call-template name="TSOContentsTitle"/>
 		</fo:block>
