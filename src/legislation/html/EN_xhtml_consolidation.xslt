@@ -204,6 +204,29 @@ exclude-result-prefixes="leg ukm math msxsl dc fo xsl svg xhtml xs tso">
 		</p>		
 	</xsl:template>
 	
+		<xsl:template match="leg:ContentsNumber	[parent::leg:ContentsAnnex][not(following-sibling::leg:ContentsTitle)]">
+		<!-- Generate suffix to be added for CSS classes for amendments -->
+		<xsl:variable name="strAmendmentSuffix">
+			<xsl:call-template name="FuncCalcAmendmentNo"/>
+		</xsl:variable>
+		<p class="{concat('ENContentsTitle', $strAmendmentSuffix)}">
+			<a href="{parent::*/@DocumentURI}">
+				<span class="{concat('LegContentsNo', $strAmendmentSuffix)}">
+					<xsl:choose>
+						<xsl:when test="parent::*/@DocumentURI">
+							<xsl:apply-templates/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</span>
+
+			</a>
+		</p>		
+	</xsl:template>
+	
+
 	<xsl:template match="leg:ContentsTitle 	[parent::leg:ContentsAnnex]
 											[preceding-sibling::leg:ContentsNumber]"/>
 		
