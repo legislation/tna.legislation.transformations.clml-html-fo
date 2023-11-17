@@ -92,6 +92,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="IsPDFOnly" as="xs:boolean">
 		<xsl:sequence select="leg:IsPDFOnly(.)"/>
 	</xsl:variable>
+	
+	<xsl:variable name="isLargeData" as="xs:boolean">
+		<xsl:sequence select="leg:is-large-data(.)"/>
+	</xsl:variable>
 
 	<xsl:variable name="IsRevisedPDFOnly" as="xs:boolean">
 		<xsl:sequence select="leg:IsRevisedPDFOnly(.)"/>
@@ -381,7 +385,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:when test="leg:IsTOC()">
 							<xsl:attribute name="class">legToc</xsl:attribute>
 						</xsl:when>
-						<xsl:when test="$IsPDFOnly">
+						<xsl:when test="$IsPDFOnly or $isLargeData">
 							<xsl:attribute name="class">legToc</xsl:attribute>
 						</xsl:when>
 
@@ -444,7 +448,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<div id="content">
 
 						<!-- outputing the legislation status and timeline-->
-						<xsl:call-template name="TSOOutputLegislationStatusTimeline"/>
+						
+							<xsl:call-template name="TSOOutputLegislationStatusTimeline"/>
+						
 
 						<!-- outputing the legislation content-->
 						<xsl:call-template name="TSOOutputLegislationContent"/>
@@ -478,7 +484,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</h2>
 
 				<!-- adding the view/print options-->
-				<xsl:if test="not($IsPDFOnly)">
+				<xsl:if test="not($IsPDFOnly) or not($isLargeData)">
 					<xsl:call-template name="TSOOutputPrintOptions"/>
 				</xsl:if>
 
@@ -892,7 +898,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 															  select="//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted') and (not(@hreflang) or @hreflang='en')]"/>
 												<!-- this changes the link if we're looking a PDF-only revised version to go to the as-enacted ToC -->
 												<xsl:variable name="enactedLink" as="xs:string?"
-															  select="if ($IsPDFOnly and not(contains($enactedLink/@href,'/contents/'))) then
+															  select="if (not($isLargeData) and $IsPDFOnly and not(contains($enactedLink/@href,'/contents/'))) then
 													          replace($enactedLink/@href, concat('/', $enactedLink/@title), concat('/contents/', $enactedLink/@title))
 													        else
 													        	$enactedLink/@href"/>
@@ -1353,6 +1359,52 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:if>
 
 				<xsl:choose>
+					<xsl:when test="$isLargeData">
+						<!-- If legislation is only available in PDFOnly then display PDF link -->
+						<xsl:variable name="alternatives" as="element(ukm:Alternative)+"
+									  select="/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative"/>
+						<xsl:variable name="versiondate" as="xs:date?"
+									  select="if ($version castable as xs:date) then xs:date($version) else ()"/>
+						<xsl:variable name="alternative" as="element(ukm:Alternative)?"
+									  select="if (exists($versiondate)) then
+												 $alternatives[@Revised = max($alternatives/@Revised/xs:date(.)[. le $versiondate])]
+											else if (leg:IsCurrentRevised(.)) then
+									          $alternatives[@Revised = max($alternatives/@Revised/xs:date(.))]
+									        else if ($language = 'cy') then
+									        	($alternatives[@Language = 'Welsh'])[1]
+									        else
+									        	$alternatives[not(@Language = 'Welsh')][not(@Revised)][1]"/>
+						<!-- make sure we get one -->
+						<xsl:variable name="alternative" as="element(ukm:Alternative)"
+									  select="if ($alternative) then $alternative else $alternatives[1]"/>
+						<p class="downloadPdfVersion">							
+							<xsl:variable name="largeDataPi" select="/leg:Legislation/processing-instruction('largeData')"/>
+							<xsl:choose>
+								<xsl:when test="exists($largeDataPi)">										
+									<xsl:variable name="PDFuri" select='translate(substring-after($largeDataPi, "AltPdf="),"""", "")'/>
+									<xsl:variable name="relativePDFuri" select="substring-after($PDFuri, 'http://www.legislation.gov.uk')"/>
+									<xsl:choose>
+										<xsl:when test="$PDFuri = 'no alternatives'">
+											<xsl:text>No alternative PDFs are available</xsl:text>
+										</xsl:when>
+										<xsl:otherwise>
+											<a class="pdfLink" href="{$relativePDFuri}">
+												<img class="imgIcon" alt="PDF Icon" src="/images/chrome/pdfIconMed.gif"/>
+												<xsl:value-of select="leg:TranslateText('View PDF')"/>
+												<img class="pdfThumb"
+													 src="{replace(replace(substring-after($PDFuri, 'http://www.legislation.gov.uk'), '/pdfs/', '/images/'), '.pdf', '.jpg')}"
+													 title="{$title}"
+													 alt="{$title}"/>
+											</a>
+										</xsl:otherwise>	
+									</xsl:choose>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>No alternative PDFs are available</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</p>
+					</xsl:when>
 					<xsl:when test="$IsPDFOnly ">
 						<!-- If legislation is only available in PDFOnly then display PDF link -->
 						<xsl:variable name="alternatives" as="element(ukm:Alternative)+"
@@ -1524,6 +1576,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:variable name="nstSection" as="element()?"
 									  select="(//*[@DocumentURI = $strCurrentURIs])[1]"/>
 						<xsl:choose>
+							<xsl:when test="$isLargeData">
+								<xsl:apply-templates select="/leg:Legislation"
+													 mode="TSOBreadcrumbItem"/>
+							</xsl:when>
 							<xsl:when test="exists($nstSection)">
 								<xsl:apply-templates select="$nstSection/ancestor-or-self::*[@DocumentURI]"
 													 mode="TSOBreadcrumbItem"/>
@@ -2856,7 +2912,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- ========== Standard code for outputing legislation status/timeline ========= -->
 	<xsl:template name="TSOOutputLegislationStatusTimeline">
 
-		<xsl:if test="leg:IsContent() or $g_strwholeActURI = $dcIdentifier or $g_wholeActWithoutSchedulesURI = $dcIdentifier or $g_schedulesOnlyURI = $dcIdentifier">
+		<xsl:if test="not($isLargeData) and leg:IsContent() or $g_strwholeActURI = $dcIdentifier or $g_wholeActWithoutSchedulesURI = $dcIdentifier or $g_schedulesOnlyURI = $dcIdentifier">
 			<!-- adding the changes over time -->
 			<xsl:call-template name="TSOOutputChangesOverTime"/>
 		</xsl:if>
@@ -2865,6 +2921,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:call-template name="TSOOutputUpdateStatusMessage">
 			<xsl:with-param name="AddAppliedEffects" select="leg:IsContent()"/>
 			<xsl:with-param name="includeTooltip" select="tso:IncludeInlineTooltip()"/>
+			<xsl:with-param name="isLargeData" select="$isLargeData"/>
 		</xsl:call-template>
 
 		<!-- adding search information box -->
