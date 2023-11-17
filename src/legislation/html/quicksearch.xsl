@@ -53,7 +53,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<div class="advSearch">
 				<a href="{$TranslateLangPrefix}/search">
 					<xsl:value-of select="leg:TranslateText('Advanced Search')"/>
-					<xsl:value-of select="concat(' (', leg:TranslateText('including Welsh legislation in Welsh language'), ')')"/>
+					<!--<xsl:value-of select="concat(' (', leg:TranslateText('including Welsh legislation in Welsh language'), ')')"/>-->
 				</a>
 			</div>			
 		</form>	
