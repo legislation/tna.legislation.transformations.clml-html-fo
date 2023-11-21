@@ -2957,17 +2957,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:document>
 			</xsl:if>
 		</xsl:variable>
-		<div id="infoSection">
-			<h2>Information:</h2>
-			<p class="intro">
-				<xsl:text>You searched for provisions that </xsl:text>
-				<xsl:for-each select="$messages">
-					<xsl:sequence select="node()"/>
-					<xsl:if test="position() != last()">and</xsl:if>
-				</xsl:for-each>
-				<xsl:text>. The matching provisions are highlighted below.  Where no highlighting is shown the matching result may be contained within a footnote.</xsl:text>
-			</p>
-		</div>
+		<xsl:if test="not($isLargeData)">
+			<div id="infoSection">
+				<h2>Information:</h2>
+				<p class="intro">
+					<xsl:text>You searched for provisions that </xsl:text>
+					<xsl:for-each select="$messages">
+						<xsl:sequence select="node()"/>
+						<xsl:if test="position() != last()">and</xsl:if>
+					</xsl:for-each>
+					<xsl:text>. The matching provisions are highlighted below.  Where no highlighting is shown the matching result may be contained within a footnote.</xsl:text>
+				</p>
+			</div>
+		</xsl:if>
 	</xsl:template>
 
 
