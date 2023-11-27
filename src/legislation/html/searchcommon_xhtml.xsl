@@ -22,6 +22,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:import href="quicksearch.xsl" />
 	<xsl:import href="../../common/utils.xsl" />
 	
+	<xsl:variable name="WelshLangSearchResults" as="document-node()">
+		<xsl:choose>
+			<xsl:when test="doc-available('input:welshresutls')">
+				<xsl:sequence select="doc('input:welshresutls')" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:document>
+					<feed/>
+				</xsl:document>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
 	<xsl:variable name="paramsDoc" as="document-node()">
 		<xsl:choose>
 			<xsl:when test="doc-available('input:request')">
@@ -1349,6 +1362,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:variable>
 
 		<div class="redirectSearch">
+			<xsl:variable name="totalSearchResutlsWelsh" select="($WelshLangSearchResults/*:feed/openSearch:totalResults[1])"/>			
+			<xsl:choose>
+				<xsl:when test="not($isWelshLanguageSearch) and $totalSearchResutlsWelsh = 0">
+					<xsl:attribute name="style" select="'visibility: hidden'"/>
+				</xsl:when>
+			</xsl:choose>
+
 			<a href="{$url}" class="redirectSearch">
 				<xsl:choose>
 					<xsl:when test="$isWelshLanguageSearch">
