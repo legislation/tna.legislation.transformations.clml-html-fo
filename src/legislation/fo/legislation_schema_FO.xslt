@@ -345,8 +345,8 @@ exclude-result-prefixes="tso atom">
 
 			<!-- Only primary style outputs TOC before any actual content -->
 			<xsl:apply-templates select="/leg:Legislation/leg:Contents" mode="MainContents"/>
-			
-
+			<xsl:apply-templates select="/leg:Legislation/processing-instruction('largeData')" mode="largedata"/>			
+		<xsl:message>||finding  PI</xsl:message>
 			
 			<!-- #HA057536 - MJ: output resources if file contains no main content -->
 			<xsl:if test="(/leg:Legislation/*/leg:Body | /leg:Legislation/*/leg:EUBody | /leg:Legislation/*/leg:PrimaryPrelims  | /leg:Legislation/*/leg:SecondaryPrelims  | /leg:Legislation/*/leg:EUPrelims | /leg:Legislation/leg:Resources[not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary)]) and $g_view != 'contents' and not(/leg:Legislation/leg:Contents)">
@@ -952,6 +952,40 @@ exclude-result-prefixes="tso atom">
 			</xsl:if>
 		</fo:root>	
 	</xsl:template>
+
+	<xsl:template match="processing-instruction('largeData')" mode="largedata">
+		<fo:page-sequence master-reference="main-sequence" initial-page-number="1" letter-value="auto" format="i" xml:lang="{$g_documentLanguage}">
+<xsl:message>||Processing PI</xsl:message>
+			<xsl:call-template name="TSOcreateContentsHeadersFooters"/>
+		
+			<!-- Contents -->
+			<fo:flow flow-name="xsl-region-body" font-family="{$g_strMainFont}" line-height="{$g_strLineHeight}">				
+				<fo:block text-align="center">
+					<fo:inline font-weight="bold">Large Data Warning:</fo:inline> The stored data is too large to process.
+				</fo:block>	
+				<xsl:variable name="PDFuri" select='translate(substring-after(., "AltPdf="),"""", "")'/>				
+				<fo:block>
+					<xsl:attribute name="space-before">24pt</xsl:attribute>
+					<xsl:choose>
+						<xsl:when test="$PDFuri = 'no alternatives'">
+							<xsl:text>There are no alternative PDFs available</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<fo:block text-align="center">An alternative PDF is available at:</fo:block>
+							<fo:block text-align="center" space-before="24pt">
+								<fo:basic-link 
+									external-destination="url('{$PDFuri}')" 
+									color="blue" text-decoration="underline">
+									 <xsl:value-of select="$PDFuri"/>
+							   </fo:basic-link> 
+						   </fo:block>
+						</xsl:otherwise>	
+					</xsl:choose>
+				</fo:block>				
+			</fo:flow>
+		</fo:page-sequence>
+	</xsl:template>
+
 
 	<xsl:template name="TSOdocDateTime">
 		<fo:block font-size="{$g_strStatusSize}" font-family="{$g_strMainFont}" font-style="italic">
