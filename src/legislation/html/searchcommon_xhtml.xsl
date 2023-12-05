@@ -22,6 +22,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:import href="quicksearch.xsl" />
 	<xsl:import href="../../common/utils.xsl" />
 	
+	<xsl:variable name="WelshLangSearchResults" as="document-node()">
+		<xsl:choose>
+			<xsl:when test="doc-available('input:welshresutls')">
+				<xsl:sequence select="doc('input:welshresutls')" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:document>
+					<feed/>
+				</xsl:document>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
 	<xsl:variable name="paramsDoc" as="document-node()">
 		<xsl:choose>
 			<xsl:when test="doc-available('input:request')">
@@ -110,6 +123,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<div class="info">
 							<xsl:call-template name="heading"/>	<!-- h1: Search results -->
 							<xsl:apply-templates select="atom:feed" mode="summary" /> <!-- h2: Search result summary -->
+							<xsl:call-template name="redirectSearch"/>
 						</div>
 
 						<xsl:if test="$id = 'browse'">
@@ -307,8 +321,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:when test="$legislationParams">
 						<span>
 							<xsl:choose>
-								<xsl:when test="$params[self::text or self::title]">in </xsl:when>
+								<xsl:when test="$params[self::text or self::title]">
+									<xsl:text>in the </xsl:text>
+									<xsl:choose>
+										<xsl:when test="$isWelshLanguageSearch">
+											<xsl:text>Welsh</xsl:text>
+										</xsl:when>
+										<xsl:otherwise>English</xsl:otherwise>
+									</xsl:choose>
+									<xsl:text> language of </xsl:text>
+								</xsl:when>
 								<xsl:when test="openSearch:Query/@leg:lang = 'cy'"><strong>Welsh-language</strong><xsl:text> </xsl:text></xsl:when>
+								<xsl:when test="(openSearch:Query/@leg:lang = 'en') or not(openSearch:Query[@leg:lang])"><strong>English language</strong><xsl:text> </xsl:text></xsl:when>
 							</xsl:choose>
 							<xsl:text>legislation</xsl:text>
 						</span>
@@ -583,8 +607,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:choose>
 				<xsl:when test="exists($types) and not($types = ('all', '*'))">
 					<xsl:choose>
-						<xsl:when test="$addIn">in </xsl:when>
+						<xsl:when test="$addIn">
+							<xsl:text>in the </xsl:text>
+							<xsl:choose>
+								<xsl:when test="$isWelshLanguageSearch">
+									<xsl:text>Welsh</xsl:text>
+								</xsl:when>
+								<xsl:otherwise>English</xsl:otherwise>
+							</xsl:choose>
+							<xsl:text> language of </xsl:text>
+						</xsl:when>
 						<xsl:when test="$feed/openSearch:Query/@leg:lang = 'cy'"><strong>Welsh-language</strong><xsl:text> </xsl:text></xsl:when>
+						<xsl:when test="(openSearch:Query/@leg:lang = 'en') or not(openSearch:Query[@leg:lang])"><strong>English language</strong><xsl:text> </xsl:text></xsl:when>
 					</xsl:choose>
 					<xsl:for-each select="$types">
 						<strong>
@@ -610,8 +644,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:when>
 				<xsl:when test="$addAll">
 					<xsl:choose>
-						<xsl:when test="$addIn">in </xsl:when>
+						<xsl:when test="$addIn">
+							<xsl:text>in the </xsl:text>
+							<xsl:choose>
+								<xsl:when test="$isWelshLanguageSearch">
+									<xsl:text>Welsh</xsl:text>
+								</xsl:when>
+								<xsl:otherwise>English</xsl:otherwise>
+							</xsl:choose>
+							<xsl:text> language of </xsl:text>
+						</xsl:when>
 						<xsl:when test="$feed/openSearch:Query/@leg:lang = 'cy'"><strong>Welsh-language</strong><xsl:text> </xsl:text></xsl:when>
+						<xsl:when test="(openSearch:Query/@leg:lang = 'en') or not(openSearch:Query[@leg:lang])"><strong>English language</strong><xsl:text> </xsl:text></xsl:when>
 					</xsl:choose>
 					<xsl:text>legislation</xsl:text>
 				</xsl:when>
@@ -1294,4 +1338,53 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		
 	</xsl:function>
 	
+	<xsl:template name="redirectSearch">
+		<xsl:variable name="url">
+			<xsl:value-of select="'/search/'"/>
+			<xsl:text>?lang=</xsl:text>
+			<xsl:value-of select="if ($isWelshLanguageSearch) then 'en' else 'cy'"/>
+			<xsl:if test="/atom:feed//*:Query/@leg:title">
+				<xsl:text>&amp;title=</xsl:text>
+				<xsl:value-of select="/atom:feed//*:Query/@leg:title"/>
+			</xsl:if>
+			<xsl:if test="/atom:feed//*:Query/@leg:type">
+				<xsl:text>&amp;type=</xsl:text>
+				<xsl:value-of select="/atom:feed//*:Query/@leg:type"/>
+			</xsl:if>
+			<xsl:if test="/atom:feed//*:Query/@leg:year">
+				<xsl:text>&amp;year=</xsl:text>
+				<xsl:value-of select="/atom:feed//*:Query/@leg:year"/>
+			</xsl:if>
+			<xsl:if test="/atom:feed//*:Query/@leg:number">
+				<xsl:text>&amp;number=</xsl:text>
+				<xsl:value-of select="/atom:feed//*:Query/@leg:number"/>
+			</xsl:if>
+		</xsl:variable>
+
+		<div class="redirectSearch">
+			<xsl:variable name="totalSearchResutlsWelsh" select="($WelshLangSearchResults/*:feed/openSearch:totalResults[1])"/>			
+			<xsl:choose>
+				<xsl:when test="not($isWelshLanguageSearch) and $totalSearchResutlsWelsh = 0">
+					<xsl:attribute name="style" select="'visibility: hidden'"/>
+				</xsl:when>
+			</xsl:choose>
+
+			<a href="{$url}" class="redirectSearch">
+				<xsl:choose>
+					<xsl:when test="$isWelshLanguageSearch">
+						<xsl:text>Search English language text</xsl:text>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>Search Welsh language text</xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+				<xsl:if test="/atom:feed//*:Query/@leg:title">
+					<xsl:text> for '</xsl:text>
+					<xsl:value-of select="/atom:feed//*:Query/@leg:title"/>
+					<xsl:text>'</xsl:text>
+				</xsl:if>
+			</a>
+		</div>
+	</xsl:template>
+
 </xsl:stylesheet>
