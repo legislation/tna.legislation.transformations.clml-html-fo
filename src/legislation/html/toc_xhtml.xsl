@@ -870,7 +870,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</span>
 								</xsl:variable>
 								<xsl:choose>
-									<xsl:when test="$enableOriginalVersion = true() and leg:IsEnglishEnactedVersionExists(.)">
+									<xsl:when test="$enableOriginalVersion = true()">
 										<xsl:choose>
 											<xsl:when test="$selectOriginalVersion = true() and not($pointInTimeView) and not($selectRevisedVersion)">
 												<xsl:choose>
@@ -933,7 +933,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</span>
 									</xsl:variable>
 									<xsl:choose>
-										<xsl:when test="$enableOriginalVersion = true() and leg:IsWelshEnactedVersionExists(.)">
+										<xsl:when test="$enableOriginalVersion = true()">
 											<xsl:choose>
 												<xsl:when
 													test="$selectOriginalVersion = true() and not($pointInTimeView) and not($selectRevisedVersion)">

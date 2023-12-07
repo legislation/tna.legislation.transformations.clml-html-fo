@@ -1186,7 +1186,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 	<xsl:function name="leg:IsEnactedExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="leg:IsEnglishEnactedVersionExists($legislation) or leg:IsWelshEnactedVersionExists($legislation)"/>
+		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final' or exists($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted')])"/>
 	</xsl:function>
 
 	<xsl:function name="leg:IsWelshExists" as="xs:boolean">
