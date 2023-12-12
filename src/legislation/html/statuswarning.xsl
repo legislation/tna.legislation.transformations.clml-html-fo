@@ -355,7 +355,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</xsl:call-template>
 							</xsl:if>
 							<!-- adding the unapplied effects if there are oustanding changes and we are in the content tab -->
-							<xsl:if test="($Scenario = '5' and leg:IsContent() and not($pointInTimeView and $version != 'prospective'))">
+							<xsl:if test="($Scenario = '5' and not($pointInTimeView and $version != 'prospective'))">
 								<xsl:call-template name="processEffects">
 									<xsl:with-param name="includeTooltip" select="$includeTooltip" tunnel="yes"/>
 									<xsl:with-param name="IsEURetained" select="leg:IsEURetained(.)" tunnel="yes"/>
