@@ -120,10 +120,9 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 				</xsl:apply-templates>
 			</xsl:otherwise>
 		</xsl:choose>
-		
 		<xsl:if test="ancestor::leg:BlockAmendment and not(leg:Where/descendant::text()[normalize-space() != ''])and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][last()]) = generate-id(descendant::text()[not(normalize-space() = '')][last()])">
-    		<xsl:call-template name="FuncOutputAmendmentEndQuote"/>
-  		</xsl:if>
+    		<xsl:call-template name="FuncCheckForMathAmendmentText"/>
+		</xsl:if>
 	</div>
 
 	<xsl:apply-templates select="leg:Where"/>
