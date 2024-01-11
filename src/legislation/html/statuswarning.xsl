@@ -453,10 +453,10 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 		</div>
 		
 		<xsl:if test="$isLargeData">
-			<div id="statusWarning" class="uptoDate">
+			<div id="infoSection">
 				<div class="title">
-					<h2>Large Data Warning:</h2>
-					<p class="intro">The stored data is too large to process. An alternative PDF option is displayed below </p>
+					<h2>Status:</h2>
+					<p class="intro">This item of legislation is currently only available to download and view as PDF.  This is an interim measure put in place because the document is too large to open on the website in other formats.</p>
 				</div>
 			</div>
 		</xsl:if>
