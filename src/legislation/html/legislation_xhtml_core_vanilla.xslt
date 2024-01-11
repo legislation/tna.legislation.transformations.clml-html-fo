@@ -1987,7 +1987,6 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:attribute name="class">
 						<xsl:text>LegDS LegP1No</xsl:text>
 						<xsl:if test="$strAmendmentSuffix != ''">
-							<xsl:text> </xsl:text>
 							<xsl:if test="$strContext = $g_strSecondary and $g_strDocumentType = $g_strSecondary">
 								<xsl:text>Leg</xsl:text>
 							</xsl:if>
