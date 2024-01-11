@@ -120,6 +120,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:template name="TSOOutputUpdateStatusMessage">
 		<xsl:param name="AddAppliedEffects" as="xs:boolean" select="false()"/>
 		<xsl:param name="includeTooltip" as="xs:boolean" select="false()"/>
+		<xsl:param name="isLargeData" as="xs:boolean" select="false()"/>
 		<xsl:variable name="Scenario">
 			<xsl:call-template name="TSOGetScenarios">
 				<xsl:with-param name="type" select="'updatestatus'"/>
@@ -225,7 +226,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						</p>
 					</div>
 				</xsl:when>
-				<xsl:when test="leg:IsEUPDFOnlyNotRevised(.)">
+				<xsl:when test="leg:IsEUPDFOnlyNotRevised(.) and not($isLargeData)">
 					<xsl:attribute name="id">infoSection</xsl:attribute>
 					<h2>
 						<xsl:value-of select="leg:TranslateMessage('swhead_status')"/>
@@ -428,7 +429,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:value-of select="leg:TranslateMessage('item_available_as_pdf_only')"/>
 								</xsl:if>
 							</xsl:when>
-							<xsl:when test="leg:IsPDFOnly(.)">
+							<xsl:when test="leg:IsPDFOnly(.) and not($isLargeData)">
 								<xsl:value-of select="leg:TranslateMessage('item_available_as_pdf_only')"/>
 							</xsl:when>
 							<xsl:otherwise>
@@ -450,6 +451,15 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
+		
+		<xsl:if test="$isLargeData">
+			<div id="infoSection">
+				<div class="title">
+					<h2>Status:</h2>
+					<p class="intro">This item of legislation is currently only available to download and view as PDF.  This is an interim measure put in place because the document is too large to open on the website in other formats.</p>
+				</div>
+			</div>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="TranslateLongDate">
@@ -1131,8 +1141,23 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:function name="leg:IsRevisedVersionExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>		
 		<xsl:sequence select="leg:IsEnglishRevisedVersionExists($legislation) or leg:IsWelshRevisedVersionExists($legislation)"/>
-	</xsl:function>	
-	
+	</xsl:function>
+
+
+	<xsl:function name="leg:IsEnglishEnactedVersionExists" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="$legislation/leg:Legislation[(not(@xml:lang) or @xml:lang='en')]/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final'
+			or (($legislation/leg:Legislation[@xml:lang='cy']/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final') and ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel='alternate' and @hreflang='en']))
+			or ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and (@hreflang='en' or empty(@hreflang)) and @title = ('enacted', 'made', 'created', 'adopted')])"/>
+	</xsl:function>
+
+	<xsl:function name="leg:IsWelshEnactedVersionExists" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="$legislation/leg:Legislation[@xml:lang='cy']/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final'
+			or (($legislation/leg:Legislation[(not(@xml:lang) or @xml:lang='en')]/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final') and ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel='alternate' and @hreflang='cy']))
+			or ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @hreflang='cy' and @title = ('enacted', 'made', 'created', 'adopted')])"/>
+	</xsl:function>
+
 	<!--[to check if current doc is a ENGLISH revised]-->
 	<xsl:function name="leg:IsCurrentEnglishRevised" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
@@ -1162,7 +1187,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 	<xsl:function name="leg:IsEnactedExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'final' or exists($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted')])"/>
+		<xsl:sequence select="leg:IsEnglishEnactedVersionExists($legislation) or leg:IsWelshEnactedVersionExists($legislation)"/>
 	</xsl:function>
 
 	<xsl:function name="leg:IsWelshExists" as="xs:boolean">
@@ -1246,6 +1271,11 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:function name="leg:IsPDFOnly" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@URI])"/>
+	</xsl:function>
+	
+	<xsl:function name="leg:is-large-data" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and exists($legislation/leg:Legislation/processing-instruction('largeData'))"/>
 	</xsl:function>
 
 	<xsl:function name="leg:IsPDFOnlyNotRevised" as="xs:boolean">
