@@ -825,9 +825,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:value-of select="ukm:AffectedShortTitle[1]"/>
 					</strong>
 				</xsl:when>
-				<xsl:when test="ukm:AffectedTitle[1]">
+				<xsl:when test="ukm:AffectedTitle">
 					<strong>
-						<xsl:value-of select="ukm:AffectedTitle[1]"/>
+						<xsl:value-of select="tso:getTitleFromEffects(ukm:AffectedTitle, @AffectedClass)"/>
 					</strong>
 				</xsl:when>
 				<xsl:otherwise/>
@@ -884,7 +884,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:when>
 				<xsl:otherwise>
 					<strong>
-						<xsl:value-of select="ukm:AffectingTitle[1]"/>
+						<xsl:value-of select="tso:getTitleFromEffects(ukm:AffectingTitle, @AffectingClass)"/>
 					</strong>
 				</xsl:otherwise>
 			</xsl:choose>

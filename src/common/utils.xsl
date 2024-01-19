@@ -262,6 +262,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:choose>
 </xsl:function>
 
+<xsl:function name="tso:getTitleFromEffects" as="xs:string">
+	<xsl:param name="title" />
+	<xsl:param name="type" as="xs:string"/>
+	<xsl:choose>
+		<xsl:when test="$type = $leg:welshType and $TranslateLang='cy'">
+			<xsl:value-of select="($title[@xml:lang='cy'][1], $title)[1]"/>
+		</xsl:when>
+		<xsl:when test="$type = $leg:welshType and $TranslateLang='en'">
+			<xsl:value-of select="$title[not(@xml:lang='cy')][1]"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$title[1]"/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:function>
+
 <xsl:function name="tso:GetTypeFromDraftType">
 	<xsl:param name="legType" as="xs:string" />
 	<xsl:param name="legYear" as="xs:string?" />
