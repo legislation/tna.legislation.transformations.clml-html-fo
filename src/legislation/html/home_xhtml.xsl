@@ -383,8 +383,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</a>
 										</li>
 										<li>
-											<a href="{$TranslateLangPrefix}/help#aboutNewLeg">
-												<xsl:value-of select="leg:TranslateText('aboutNewLeg')"/>
+											<a href="{$TranslateLangPrefix}/help#glossary">
+												<xsl:value-of select="leg:TranslateText('glossary')"/>
 											</a>
 										</li>
 										<li>

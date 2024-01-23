@@ -1070,7 +1070,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:choose>
 										<!--added revised version-->
 										<xsl:when test="@Title/starts-with(., 'Reprint')">
-											<xsl:value-of select="@Title"/>
+											<xsl:value-of select="leg:TranslateText(@Title)"/>
 										</xsl:when>
 										<!--added revised version-->
 										<xsl:when test="exists(@Revised)">
@@ -1084,7 +1084,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</xsl:otherwise>
 									</xsl:choose>
 
-									<xsl:if test="string-length($title) ne 0 and not(@Revised)">
+									<xsl:if test="string-length($title) ne 0 and not(@Revised) and not(@Title/starts-with(., 'Reprint'))">
 										<xsl:choose>
 											<xsl:when test="string-length($strLanguageSuffix) ne 0">
 												<xsl:value-of select="$title"/>
@@ -1244,7 +1244,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<xsl:choose>
 												<!--added revised version-->
 												<xsl:when test="@Title/starts-with(., 'Reprint')">
-													<xsl:value-of select="@Title"/>
+													<xsl:value-of select="leg:TranslateText(@Title)"/>
 												</xsl:when>
 												<!--added revised version-->
 												<xsl:when test="exists(@Revised)">
@@ -1260,7 +1260,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												</xsl:otherwise>
 											</xsl:choose>
 
-											<xsl:if test="string-length($title) ne 0 and not(@Revised)">
+											<xsl:if test="string-length($title) ne 0 and not(@Revised) and not(@Title/starts-with(., 'Reprint'))">
 												<xsl:value-of select="concat(' ', $title)"/>
 											</xsl:if>
 										</a>
