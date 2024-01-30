@@ -320,7 +320,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 						</xsl:if>								
 					</p>
 				</xsl:when>
-				<xsl:when test="($oldNI or $revisedSI) and $groupType = 'F' ">
+				<xsl:when test="$revisedSI and $groupType = 'F' ">
 						<p class="LegAnnotationsGroupHeading">
 							<xsl:choose>
 								<xsl:when test="$groupType = 'F'">
