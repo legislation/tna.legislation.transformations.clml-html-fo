@@ -57,9 +57,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable 	name="g_hasVersionCy"  as="element()*"
 					select="$g_ndsMetadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion'][@hreflang = 'cy']"/>
 	<xsl:variable 	name="g_currentEn"  as="element()*"
-					select="$g_hasVersionEn[title='current']"/>
+					select="$g_hasVersionEn[@title='current']"/>
 	<xsl:variable 	name="g_currentCy"  as="element()*"
-					select="$g_hasVersionCy[title='current']"/>				
+					select="$g_hasVersionCy[@title='current']"/>				
 	
 	<xsl:variable 	name="g_euTypes" select="('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective')"/>
 	<xsl:variable 	name="g_isEUretained" select="$g_strDocumentMainType = $g_euTypes"/>
