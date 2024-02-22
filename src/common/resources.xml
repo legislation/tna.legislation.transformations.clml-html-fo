@@ -1602,7 +1602,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="browse_explanation_uk">The counts below reflect the number of documents on legislation.gov.uk that match the search for items of this legislation type and are not intended to indicate the total legislation made, enacted or adopted in a particular year.</resource>
 		<resource id="browse_explanation_eu">The counts below reflect the number of documents on legislation.gov.uk that were taken from EUR-lex for this legislation type and are not intended to indicate the total legislation made in a particular year.</resource>
 		<resource id="results_grouped_by">Results grouped by <param ref-id="result"/> periods</resource>
-		<resource id="status_warning_original_version">This is the original version (as it was originally <param ref-id="type"/>)</resource>		
+		<resource id="status_warning_original_version">This is the original version (as it was originally <param ref-id="type"/>)</resource>
+		<resource id="EU_status_warning_original_version">This is the original version as it was originally <param ref-id="type"/> in the EU.</resource>
+		<resource id="EU_status_warning_original_version2">This item of legislation is currently only available in its original format</resource>
 		<resource id="status_warning_original_version2">. This item of legislation is currently only available in its original format</resource>
 		<resource id="status_warning_original_version3"> are not carried in their revised form on this site</resource>
 		<resource id="status_warning_outstanding_p1"> is up to date with all changes known to be in force on or before </resource>
