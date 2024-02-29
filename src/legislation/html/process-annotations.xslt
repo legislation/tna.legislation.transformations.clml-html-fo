@@ -288,37 +288,48 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:sort select="@Type = 'F'"/>
 			<xsl:variable name="groupType" select="current-grouping-key()"/>
 
-			<xsl:if test="not(($oldNI or $revisedSI) and $groupType = 'F' )">
-				<p class="LegAnnotationsGroupHeading">
-					<xsl:choose>
-						<xsl:when test="$groupType = 'I'">
-							<xsl:value-of select="leg:TranslateMessage('Commencement Information')"/>
-						</xsl:when>
-						<xsl:when test="$groupType = 'F'">
-							<xsl:value-of select="leg:TranslateMessage('Textual Amendments')"/>
-						</xsl:when>
-						<xsl:when test="$groupType = 'M'">
-							<xsl:value-of select="leg:TranslateMessage('Marginal Citations')"/>
-						</xsl:when>		
-						<xsl:when test="$groupType = 'C'">
-							<xsl:value-of select="leg:TranslateMessage('Modifications etc. (not altering text)')"/>
-						</xsl:when>
-						<xsl:when test="$groupType = 'P'">
-							<xsl:value-of select="leg:TranslateMessage('Subordinate Legislation Made')"/>
-						</xsl:when>
-						<xsl:when test="$groupType = 'E'">
-							<xsl:value-of select="leg:TranslateMessage('Extent Information')"/>
-						</xsl:when>
-						<xsl:when test="$groupType = 'X'">
-							<xsl:value-of select="leg:TranslateMessage('Editorial Information')"/>
-						</xsl:when>
-					</xsl:choose>
-					<xsl:if test="$isHighLevel">
-						<xsl:text> </xsl:text>
-						<xsl:value-of select="leg:TranslateMessage('applied to the whole legislation')"/>
-					</xsl:if>								
-				</p>
-			</xsl:if>  
+			<xsl:choose>				
+				<xsl:when test="not(($oldNI or $revisedSI) and $groupType = 'F' )">
+					<p class="LegAnnotationsGroupHeading">
+						<xsl:choose>
+							<xsl:when test="$groupType = 'I'">
+								<xsl:value-of select="leg:TranslateMessage('Commencement Information')"/>
+							</xsl:when>
+							<xsl:when test="$groupType = 'F'">
+								<xsl:value-of select="leg:TranslateMessage('Textual Amendments')"/>
+							</xsl:when>
+							<xsl:when test="$groupType = 'M'">
+								<xsl:value-of select="leg:TranslateMessage('Marginal Citations')"/>
+							</xsl:when>		
+							<xsl:when test="$groupType = 'C'">
+								<xsl:value-of select="leg:TranslateMessage('Modifications etc. (not altering text)')"/>
+							</xsl:when>
+							<xsl:when test="$groupType = 'P'">
+								<xsl:value-of select="leg:TranslateMessage('Subordinate Legislation Made')"/>
+							</xsl:when>
+							<xsl:when test="$groupType = 'E'">
+								<xsl:value-of select="leg:TranslateMessage('Extent Information')"/>
+							</xsl:when>
+							<xsl:when test="$groupType = 'X'">
+								<xsl:value-of select="leg:TranslateMessage('Editorial Information')"/>
+							</xsl:when>
+						</xsl:choose>
+						<xsl:if test="$isHighLevel">
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="leg:TranslateMessage('applied to the whole legislation')"/>
+						</xsl:if>								
+					</p>
+				</xsl:when>
+				<xsl:when test="$revisedSI and $groupType = 'F' ">
+						<p class="LegAnnotationsGroupHeading">
+							<xsl:choose>
+								<xsl:when test="$groupType = 'F'">
+									<xsl:value-of select="leg:TranslateMessage('Textual Amendments')"/>
+								</xsl:when>
+							</xsl:choose>
+						</p>
+				</xsl:when>
+			</xsl:choose>
 			<xsl:apply-templates select="current-group()" mode="DisplayAnnotations">
 				<xsl:sort select="tso:commentaryNumber(@id)" />
 				<xsl:with-param name="versionRef" select="$versionRef"/>

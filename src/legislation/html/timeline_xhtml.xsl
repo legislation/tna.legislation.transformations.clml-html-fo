@@ -808,7 +808,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												'pointer-eu'
 											else 'pointer'"/>
 
-									<xsl:choose>
+									<xsl:choose>										
 										<xsl:when test="@repealed = true() or ($repealed and position() = last())">
 											<span class="stop">
 												<span class="{$pointer}"/>
@@ -819,6 +819,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 													<em class="accessibleText">- Amendment</em>
 												</span>
 											</span>
+										</xsl:when>
+										<!-- we do not want to link to the currently viewed version -->
+										<xsl:when test="$currentClass = 'currentVersion' and @title = $version">
+											<a name="current">
+												<span class="{$pointer}"/>
+												<span>
+													<xsl:value-of select="leg:TranslateMessage(leg:FormatDate(@title))"/>
+													<em class="accessibleText">- Amendment</em>
+												</span>
+											</a>
 										</xsl:when>
 										<!--  Prevent a link to a prosp doc if none exists but retain the timeline icons  -->
 										<xsl:when test="lower-case(@title) = 'prospective' and empty($prospDoc)">
@@ -1011,7 +1021,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:param name="href"/>
 		<xsl:param name="date"/>
 		<xsl:variable name="noLangHref" select="replace($href, '/welsh', '')"/>
-		<xsl:value-of select="string-join(($noLangHref, xs:string($date), if ($g_strDocumentLang = 'cy') then 'welsh' else ()), '/')"/>
+		<xsl:variable name="dateString" select="xs:string($date[not(contains($href,xs:string($date)))])"/>
+		<xsl:value-of select="string-join(($noLangHref, $dateString, if ($g_strDocumentLang = 'cy') then 'welsh' else ()), '/')"/>
 	</xsl:function>
 
 </xsl:stylesheet>
