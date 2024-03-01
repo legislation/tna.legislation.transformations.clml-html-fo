@@ -285,7 +285,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											<xsl:value-of select="concat(' ', leg:TranslateMessage('EU_no_outstanding_effects_p2'), ' ')"/>
 											<a href='https://eur-lex.europa.eu/homepage.html' target='_blank'>EUR-Lex</a>
 											<xsl:value-of select="concat(' ',leg:TranslateMessage('EU_no_outstanding_effects_p3'), ' ')"/>
-											<a href='/eu-legislation-and-uk-law' target="_blank"><xsl:value-of select="leg:TranslateMessage('EU_no_outstanding_effects_p4')"/></a>										
+											<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank"><xsl:value-of select="leg:TranslateMessage('EU_no_outstanding_effects_p4')"/></a>										
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
