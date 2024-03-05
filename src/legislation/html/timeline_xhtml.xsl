@@ -820,17 +820,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												</span>
 											</span>
 										</xsl:when>
-										<!-- we do not want to link to the currently viewed version -->
-										<xsl:when test="$currentClass = 'currentVersion' and @title = $version">
-											<a name="current">
-												<span class="{$pointer}"/>
-												<span>
-													<xsl:value-of select="leg:TranslateMessage(leg:FormatDate(@title))"/>
-													<em class="accessibleText">- Amendment</em>
-												</span>
-											</a>
-										</xsl:when>
-										<!--  Prevent a link to a prosp doc if none exists but retain the timeline icons  -->
 										<xsl:when test="lower-case(@title) = 'prospective' and empty($prospDoc)">
 											<a href="#">
 												<span class="{$pointer}"/>
@@ -841,7 +830,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</a>
 										</xsl:when>
 										<xsl:when test="@rel = 'http://www.legislation.gov.uk/def/date/euexitday'">
-											<a href="{leg:FormatURL(@href)}" class="{$exitdayclass}">
+											<a>
+												<xsl:sequence select="tso:generate-anchor-atts(@href, $exitdayclass, @title, $version)"/>
 												<span class="{$pointer}"/>
 												<span class="content">
 													<span class="title">
@@ -855,7 +845,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</a>
 										</xsl:when>
 										<xsl:when test="@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd'">
-											<a href="{leg:FormatURL(@href)}" class="{$exitdayclass}">
+											<a>
+												<xsl:sequence select="tso:generate-anchor-atts(@href, $exitdayclass, @title, $version)"/>
 												<span class="{$pointer}"/>
 												<span class="content">
 													<span class="title">
@@ -869,7 +860,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</a>
 										</xsl:when>
 										<xsl:when test="@euexitday = 'true'">
-											<a href="{leg:FormatURL(@href)}" class="{$exitdayclass}">
+											<a>
+												<xsl:sequence select="tso:generate-anchor-atts(@href, $exitdayclass, @title, $version)"/>
 												<span class="{$pointer}"/>
 												<span class="content">
 													<span class="title">
@@ -883,7 +875,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</a>
 										</xsl:when>
 										<xsl:when test="@euendTransitionDay = 'true'">
-											<a href="{leg:FormatURL(@href)}" class="{$exitdayclass}">
+											<a>
+												<xsl:sequence select="tso:generate-anchor-atts(@href, $exitdayclass, @title, $version)"/>
 												<span class="{$pointer}"/>
 												<span class="content">
 													<span class="title">
@@ -896,6 +889,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												</span>
 											</a>
 										</xsl:when>
+										
+										<!--  Prevent a link to a prosp doc if none exists but retain the timeline icons  -->
+										<xsl:when test="$currentClass = 'currentVersion' and @title = $version">
+											<a name="current" class="current">
+												<span class="{$pointer}"/>
+												<span>
+													<xsl:value-of select="leg:TranslateMessage(leg:FormatDate(@title))"/>
+													<em class="accessibleText">- Amendment</em>
+												</span>
+											</a>
+										</xsl:when>
+										
 										<xsl:otherwise>
 											<a href="{leg:FormatURL(@href)}">
 												<xsl:if test="@euexitday = 'true'">
@@ -1024,5 +1029,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:variable name="dateString" select="xs:string($date[not(contains($href,xs:string($date)))])"/>
 		<xsl:value-of select="string-join(($noLangHref, $dateString, if ($g_strDocumentLang = 'cy') then 'welsh' else ()), '/')"/>
 	</xsl:function>
+	
+	<xsl:function name="tso:generate-anchor-atts" as="attribute()+">
+		<xsl:param name="href" as="xs:string"/>
+		<xsl:param name="class" as="xs:string"/>
+		<xsl:param name="title" as="xs:string"/>
+		<xsl:param name="version" as="xs:string"/>
+		<xsl:choose>
+			<xsl:when test="$title = $version"><xsl:attribute name="name">current</xsl:attribute></xsl:when>
+			<xsl:otherwise><xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute></xsl:otherwise>
+		</xsl:choose>
+		<xsl:attribute name="class"><xsl:value-of select="$class, if ($title = $version) then ' current' else ()"/></xsl:attribute>
+	</xsl:function>	
 
 </xsl:stylesheet>
