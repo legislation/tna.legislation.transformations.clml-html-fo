@@ -435,9 +435,16 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							<xsl:otherwise>
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="leg:TranslateText('status_warning_original_version',(concat('type=',leg:GetCodeSchemaStatus(.))))" />
-								<xsl:if test="$Scenario = '2' or $Scenario = '3'">
-									<xsl:value-of select="leg:TranslateMessage(concat('status_warning_original_version',$Scenario))" />
-								</xsl:if>
+								<xsl:choose>
+									<xsl:when test="$Scenario = '2'">
+										<xsl:value-of select="leg:TranslateMessage(concat('status_warning_original_version',$Scenario))" />
+									</xsl:when>
+									<xsl:when test="$Scenario = '3'">
+										<xsl:text>. </xsl:text>
+										<xsl:value-of select="tso:GetTitleFromType($g_strDocumentMainType, ())"/>
+										<xsl:value-of select="leg:TranslateMessage(concat('status_warning_original_version',$Scenario))" />
+									</xsl:when>
+								</xsl:choose>
 								<xsl:text>.</xsl:text>
 							</xsl:otherwise>
 						</xsl:choose>
