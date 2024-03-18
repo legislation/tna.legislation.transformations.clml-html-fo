@@ -237,7 +237,18 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				</xsl:when>
 				<xsl:when test="(not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) )">
 					<xsl:attribute name="id">statusWarning</xsl:attribute>
-					<xsl:attribute name="class"><xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">uptoDate</xsl:if></xsl:attribute>
+					<xsl:attribute name="class">
+						<xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">
+							<xsl:choose>
+								<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision')">
+									<xsl:text>EU-black-border</xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>uptoDate</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:if>
+					</xsl:attribute>
 
 					<xsl:if test="leg:isFromWestlaw(.)">
 						<div class="title">
