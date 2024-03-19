@@ -1292,12 +1292,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- outputting the ukoriginatesfromeu box -->
 	<xsl:template name="TSOOutputEUR">
 		<xsl:if test="$g_isEURetainedOrEUTreaty">
-			<xsl:variable name="titleText" select="concat('eu_uk_', $g_strShortType)"/>
+			<xsl:variable name="titleText" select="'eu_uk_all'"/>
 			<xsl:variable name="celexNumber" select="leg:get-celex-number($g_strShortType, $g_strDocumentYear, $g_strDocumentNumber)"/>
 			<xsl:variable name="eulex-uri" select="concat(leg:eurlex-uri(), $celexNumber, ':en:NOT')"/>
 			<xsl:variable name="webarchive-uri" select="concat(leg:webarchive-uri(), $celexNumber)"/>
+			<xsl:variable name="uk-law-page" select="'https://www.legislation.gov.uk/eu-legislation-and-uk-law'"/>
 
-			<div class="section" id="ukregfromeu">
+			<div class="EUsection section" id="ukregfromeu">
 				<div class="title">
 					<a href="#ukregfromeuHelp" class="helpItem helpItemToMidRight">
 						<img src="/images/chrome/helpIcon.gif" alt=" Help about UK-EU Regulation"/>
@@ -1307,17 +1308,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</h2>
 				</div>
 				<div class="content">
+					<p class="EUSection-para"><xsl:value-of select="leg:TranslateText('eu_body')"/></p>
 					<ul class="toolList">
 						<li>
-							<a href="{$eulex-uri}" target="_blank">
-								<xsl:value-of select="leg:TranslateText('eu_uk_reg_equiv_eu')"/>
+							<a href="{$uk-law-page}" target="_blank">
+								<xsl:value-of select="leg:TranslateText('link_to_uk_law_page')"/>
 								<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"/>
 							</a>
 						</li>
 						<xsl:if test="not($g_strDocumentYear = $g_EUwebArchiveIgnoreYears)">
 							<li>
-								<a href="{$webarchive-uri}" target="_blank">
-								<xsl:value-of select="leg:TranslateText('eu_uk_reg_archive_brexitday')"/>
+								<a href="{$eulex-uri}" target="_blank">
+									<xsl:value-of select="leg:TranslateText('link_to_eur_lex')"/>
 								<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"/>
 								</a>
 							</li>

@@ -1098,6 +1098,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="European Union">Undeb Ewropeaidd</resource>
 		<!--End Browse EU-->
 		<!-- EU-UK-Reg -->
+		<resource id="eu_uk_all">Legislation originating from the EU</resource>
+		<resource id="eu_body">When the UK left the EU, legislation.gov.uk published all available EU Regulations and Decisions, whether or not they applied in the UK at the time of EU exit.</resource>
+		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
+		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 			<resource id="eu_uk_eur">Mae hwn yn Rheoliad sy’n deillio o’r UE</resource>
 			<resource id="eu_uk_eudn">Mae hwn yn Benderfyniad sy’n deillio o’r UE</resource>
 			<resource id="eu_uk_eudr">Mae hon yn Gyfarwyddeb sy’n deillio o’r UE</resource>
@@ -1893,6 +1897,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!--End Browse EU-->
 
 		<!-- EU-UK-Reg -->
+		<resource id="eu_uk_all">Legislation originating from the EU</resource>
+		<resource id="eu_body">When the UK left the EU, legislation.gov.uk published all available EU Regulations and Decisions, whether or not they applied in the UK at the time of EU exit.</resource>
+		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
+		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 		<resource id="eu_uk_eur">This is a Regulation originating from the EU</resource>
 		<resource id="eu_uk_eudn">This is a Decision originating from the EU</resource>
 		<resource id="eu_uk_eudr">This is a Directive originating from the EU</resource>
