@@ -50,6 +50,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:choose>
 	</xsl:variable>
 	
+	<xsl:variable name="request-info" as="document-node()?">
+		<xsl:if test="doc-available('input:request-info')">
+			<xsl:sequence select="doc('input:request-info')" />
+		</xsl:if>
+	</xsl:variable>	
+	
 			<!-- 
 				MS: we need to decide if this is a "search" or a "browse" to set the ID field... the difference is:
 				search might specify a title or a non-specific type
@@ -61,6 +67,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			$paramsDoc/parameters/type = ('', '*', 'all', 'primary', 'secondary', 'draft', 'uk', 'scotland', 'wales', 'ni') or
 			$paramsDoc/parameters/version[. != ''] or
 			$paramsDoc/parameters/number[. != ''] or
+			$request-info/request/parameters/parameter[name='number']/value[1][. != ''] or
 			$paramsDoc/parameters/subject[. != ''] or
 			$paramsDoc/parameters/theme[. != ''] or
 			$paramsDoc/parameters/extent[. != ''] or
