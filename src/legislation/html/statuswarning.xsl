@@ -148,6 +148,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<!-- EU treaty messages -->
 				<xsl:when test="$g_isEUtreaty and not(leg:IsEUPDFOnlyNotRevised(.))">
 					<xsl:attribute name="id">infoSection</xsl:attribute>
+					<xsl:attribute name="class">EU</xsl:attribute>
 					<h2>
             <xsl:value-of select="leg:TranslateMessage('swhead_status')"/>
           </h2>
