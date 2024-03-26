@@ -148,6 +148,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<!-- EU treaty messages -->
 				<xsl:when test="$g_isEUtreaty and not(leg:IsEUPDFOnlyNotRevised(.))">
 					<xsl:attribute name="id">infoSection</xsl:attribute>
+					<xsl:if test="not(leg:IsCurrentRevised(.))">
+						<xsl:attribute name="class">EU</xsl:attribute>
+					</xsl:if>
 					<h2>
             <xsl:value-of select="leg:TranslateMessage('swhead_status')"/>
           </h2>
@@ -211,6 +214,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<!-- EU PDF adopted only data that has unapplied effects should allow these to be shown -->
 				<xsl:when test="leg:IsEUPDFOnlyNotRevised(.) and leg:IsOutstandingEffectExists(.)">
 					<xsl:attribute name="id">infoSection</xsl:attribute>
+					<xsl:if test="not(leg:IsCurrentRevised(.))">
+						<xsl:attribute name="class">EU</xsl:attribute>
+					</xsl:if>
 					<div class="title">
 						<h2><xsl:value-of select="leg:TranslateMessage('infoSection_head')"/> </h2>
 						<p class="intro">
@@ -228,6 +234,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				</xsl:when>
 				<xsl:when test="leg:IsEUPDFOnlyNotRevised(.) and not($isLargeData)">
 					<xsl:attribute name="id">infoSection</xsl:attribute>
+					<xsl:if test="not(leg:IsCurrentRevised(.))">
+						<xsl:attribute name="class">EU</xsl:attribute>
+					</xsl:if>
 					<h2>
 						<xsl:value-of select="leg:TranslateMessage('swhead_status')"/>
 					</h2>
@@ -382,6 +391,12 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 						<xsl:otherwise>
 							<xsl:attribute name="id">infoSection</xsl:attribute>
+							<xsl:choose>
+								<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective', 'EuropeanUnionTreaty') and not(leg:IsCurrentRevised(.))">
+									<xsl:attribute name="class">EU</xsl:attribute>
+								</xsl:when>
+							</xsl:choose>
+
 							<h2>
 								<xsl:value-of select="leg:TranslateMessage('swhead_status')"/>
 							 </h2>
@@ -434,11 +449,35 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:text> </xsl:text>
-								<xsl:value-of select="leg:TranslateText('status_warning_original_version',(concat('type=',leg:GetCodeSchemaStatus(.))))" />
-								<xsl:if test="$Scenario = '2' or $Scenario = '3'">
-									<xsl:value-of select="leg:TranslateMessage(concat('status_warning_original_version',$Scenario))" />
-								</xsl:if>
-								<xsl:text>.</xsl:text>
+								<xsl:choose>
+									<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision')">
+										<span style="font-weight: 500 !important">
+											<xsl:value-of select="leg:TranslateText('EU_status_warning_original_version',(concat('type=',leg:GetCodeSchemaStatus(.))))" /></span>
+										<br/>
+										<xsl:choose>
+											<xsl:when test="leg:IsRevisedVersionExists(.)">
+												<span>This legislation may since have been updated - </span>
+												<span class="active">
+													<a href="{leg:FormatURL(//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title='current']/@href)}">see the latest version available</a>
+												</span>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:if test="$Scenario = '2' or $Scenario = '3'">
+													<xsl:value-of select="leg:TranslateMessage(concat('EU_status_warning_original_version',$Scenario))" />
+												</xsl:if>
+												<xsl:text>.</xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="leg:TranslateText('status_warning_original_version',(concat('type=',leg:GetCodeSchemaStatus(.))))" />
+										<xsl:if test="$Scenario = '2' or $Scenario = '3'">
+											<xsl:value-of select="leg:TranslateMessage(concat('status_warning_original_version',$Scenario))" />
+										</xsl:if>
+										<xsl:text>.</xsl:text>
+									</xsl:otherwise>
+								</xsl:choose>
+
 							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:if test="leg:isFromWestlaw(.)">
@@ -454,6 +493,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 		
 		<xsl:if test="$isLargeData">
 			<div id="infoSection">
+				<xsl:if test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective', 'EuropeanUnionTreaty') and not(leg:IsCurrentRevised(.))">
+					<xsl:attribute name="class">EU</xsl:attribute>
+				</xsl:if>
 				<div class="title">
 					<h2>Status:</h2>
 					<p class="intro">This item of legislation is currently only available to download and view as PDF.  This is an interim measure put in place because the document is too large to open on the website in other formats.</p>
@@ -563,6 +605,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			<xsl:if test="exists($status) or string-length($pointInTimeText) > 0">
 				<!-- displaying the Status message -->
 				<div id="infoSection">
+					<xsl:if test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective', 'EuropeanUnionTreaty') and not(leg:IsCurrentRevised(.))">
+						<xsl:attribute name="class">EU</xsl:attribute>
+					</xsl:if>
 					<h2>
             <xsl:value-of select="leg:TranslateMessage('swhead_status')"/>
           </h2>
