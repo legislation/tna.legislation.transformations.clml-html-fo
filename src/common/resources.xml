@@ -49,8 +49,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="All Primary Legislation">Pob deddfwriaeth sylfaenol</resource>
 		<resource id="All Secondary Legislation">Pob is-ddeddfwriaeth</resource>
 		<resource id="Browse Legislation">Pori trwy Ddeddfwriaeth</resource>
+		<resource id="Explore our Collections">Archwilio ein Casgliadau</resource>
 		<resource id="Browse Legislation: UK">Pori trwy Ddeddfwriaeth: DU</resource>
-		<resource id="Changes To Legislation">Newidiadau i Ddeddfwriaeth</resource>
+		<resource id="Changes to Legislation">Newidiadau i Ddeddfwriaeth</resource>
 		<resource id="Contact Us">Cysylltu â Ni</resource>
 		<resource id="Crown copyright">Hawl y goron a chronfa ddata</resource>
 		<!-- Hawlfraint y Goron  -->
@@ -552,7 +553,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Year Range">Ystod o Flynyddoedd</resource>
 		<resource id="Date Range">Ystod dyddiadau</resource>
 		<!-- Text on page - http://www.legislation.gov.uk/cy/changes-->
-		<resource id="Changes to Legislation">Newidiadau i Ddeddfwriaeth</resource>
 		<resource id="Changes to Legislation Results">Canlyniadau Newidiadau i Ddeddfwriaeth</resource>
 		<resource id="Changes that affect">Newidiadau sy’n effeithio ar</resource>
 		<resource id="Legislation type">Math o ddeddfwriaeth</resource>
@@ -1328,6 +1328,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p53"> yn cynnwys darpariaethau nad ydynt wedi dod i rym eto.</resource>
 		
 		<resource id="Coronavirus Legislation">Deddfwriaeth Coronafeirws</resource>
+		<resource id="Help and Guidance">Cymorth ac Arweiniad</resource>
 		<resource id="coronavirus_legislation_text">Deddfwriaeth coronafeirws allweddol sy’n berthnasol i’r DU, Cymru, Lloegr, yr Alban a Gogledd Iwerddon</resource>				
 		<resource id="understanding_legislation_text">Sut y caiff deddfwriaeth y DU ei chyflwyno, diwygio a dwyn i rym, a beth a gedwir gennym ar legislation.gov.uk</resource>
 		<resource id="eu_legislation_and_uk_law_text">Mae deddfwriaeth yr UE fel yr oedd yn berthnasol i’r DU ar 31 Rhagfyr 2020 yn awr yn rhan o ddeddfwriaeth ddomestig</resource>
@@ -2071,6 +2072,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- contains provisions that have not yet come into effect. -->
 		<resource id="status_warning_revised_p53"> contains provisions that have not yet come into effect.</resource>
 		<resource id="Coronavirus Legislation">Coronavirus Legislation</resource>
+		<resource id="Explore our Collections">Explore our Collections</resource>
+		<resource id="Changes to Legislation">Changes to Legislation</resource>
+		<resource id="Help and Guidance">Help and Guidance</resource>
 		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland</resource>				
 		<resource id="understanding_legislation_text">How UK legislation is introduced, amended and brought into force, and what we hold on legislation.gov.uk</resource>
 		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 December 2020 is now a part of domestic legislation</resource>
