@@ -458,7 +458,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											<xsl:when test="leg:IsRevisedVersionExists(.)">
 												<span>This legislation may since have been updated - </span>
 												<span class="active">
-													<a href="{leg:FormatURL(//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title='current']/@href)}">see the latest version available</a>
+													<a href="{leg:FormatURL(//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title='current']/@href)}">see the latest available (revised) version</a>
 												</span>
 											</xsl:when>
 											<xsl:otherwise>
