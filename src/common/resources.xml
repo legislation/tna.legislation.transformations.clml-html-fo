@@ -1099,7 +1099,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!--End Browse EU-->
 		<!-- EU-UK-Reg -->
 		<resource id="eu_uk_all">Legislation originating from the EU</resource>
-		<resource id="eu_body">When the UK left the EU, The European Union (Withdrawal) Act 2018 (c. 16) required legislation.gov.uk to publish EU legislation as published by the EU up to 11.00 p.m. on 31 December 2020. They are versions for the UK and are kept up to date with any amendments made by the UK Parliaments, Governments and Assemblies.</resource>
+		<resource id="eu_body">When the UK left the EU, the European Union (Withdrawal) Act 2018 (c. 16) required legislation.gov.uk to publish EU legislation as published by the EU up to 11.00 p.m. on 31 December 2020. They are versions for the UK and are kept up to date with any amendments made by the UK Parliaments, Governments and Assemblies.</resource>
 		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
 		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 			<resource id="eu_uk_eur">Mae hwn yn Rheoliad sy’n deillio o’r UE</resource>
@@ -1898,7 +1898,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<!-- EU-UK-Reg -->
 		<resource id="eu_uk_all">Legislation originating from the EU</resource>
-		<resource id="eu_body">When the UK left the EU, The European Union (Withdrawal) Act 2018 (c. 16) required legislation.gov.uk to publish EU legislation as published by the EU up to 11.00 p.m. on 31 December 2020. They are versions for the UK and are kept up to date with any amendments made by the UK Parliaments, Governments and Assemblies.</resource>
+		<resource id="eu_body">When the UK left the EU, the European Union (Withdrawal) Act 2018 (c. 16) required legislation.gov.uk to publish EU legislation as published by the EU up to 11.00 p.m. on 31 December 2020. They are versions for the UK and are kept up to date with any amendments made by the UK Parliaments, Governments and Assemblies.</resource>
 		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
 		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 		<resource id="eu_uk_eur">This is a Regulation originating from the EU</resource>
