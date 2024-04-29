@@ -67,6 +67,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			$paramsDoc/parameters/type = ('', '*', 'all', 'primary', 'secondary', 'draft', 'uk', 'scotland', 'wales', 'ni') or
 			$paramsDoc/parameters/version[. != ''] or
 			$paramsDoc/parameters/number[. != ''] or
+			$paramsDoc/parameters/start-number[. != ''] or
 			$request-info/request/parameters/parameter[name='number']/value[1][. != ''] or
 			$paramsDoc/parameters/subject[. != ''] or
 			$paramsDoc/parameters/theme[. != ''] or
