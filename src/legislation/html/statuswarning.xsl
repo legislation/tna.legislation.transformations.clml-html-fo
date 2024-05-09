@@ -292,10 +292,10 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											<xsl:value-of select="concat(leg:TranslateMessage('EU_no_outstanding_effects_p1'), ' ')"/>
 											<xsl:choose>
 												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation')">
-													<xsl:text>"Regulation"</xsl:text>
+													<xsl:text>Regulation</xsl:text>
 												</xsl:when>
 												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionDecision')">
-													<xsl:text>"Decision"</xsl:text>
+													<xsl:text>Decision</xsl:text>
 												</xsl:when>
 											</xsl:choose>
 											<xsl:value-of select="concat(' ', leg:TranslateMessage('EU_no_outstanding_effects_p2'), ' ')"/>
