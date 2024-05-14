@@ -267,7 +267,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</div>
 						<p>Bound copies of legislation are provided by the official legislation publisher, The Stationery Office Ltd (TSO).</p>
 						<p>
-							<b>How much does a bound copy cost?</b>
+							<b>How much does an official printed copy cost?</b>
 						</p>
 						<p style="margin-top:0%;margin-bottom:2%;">Each copy is printed on request and priced according to page count. TSO will contact you with the price for your copy.</p>
 					</div>
