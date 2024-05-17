@@ -273,11 +273,53 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-
-
+	
+	<!-- we cannot rely upon the selfAtomLink to generate the canoncial uri as this is not honouring the welsh domain - therefore we need to use the dc identifier-->
+	<xsl:variable name="selfAtomLink" as="xs:string*" select="$g_ndsMetadata/atom:link[@rel = 'self']/@href"/>	
+	<xsl:variable name="currentAtomLink" as="xs:string*" select="$g_ndsMetadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion'][not(@hreflang = 'cy')][@title = 'current']/@href"/>
+	<xsl:variable name="currentWelshAtomLink" as="xs:string*" select="$g_ndsMetadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion'][@hreflang = 'cy'][@title = 'current']/@href"/>
+	<xsl:variable name="hasRequestQueryString" as="xs:boolean" select="$requestInfoDoc//query-string != ''"/>
+	<xsl:variable name="hasSelfAtomLink" as="xs:boolean" select="exists($selfAtomLink)"/>
+	<xsl:variable name="hasCurrentAtomLink" as="xs:boolean" select="exists($currentAtomLink)"/>
+	<xsl:variable name="hasCurrentWelshAtomLink" as="xs:boolean" select="exists($currentWelshAtomLink)"/>
+	<xsl:variable name="isWelshLangDoc" as="xs:boolean" select="/leg:Legislation/@xml:lang = 'cy'"/>
+	<xsl:variable name="requestMatchesIdentifier" as="xs:boolean" select="($requestInfoDoc//request-uri = substring-after(leg:adjust-canonical-uri($dcIdentifier), 'legislation.gov.uk'))"/>
+	
+	<xsl:template name="applyCanonicalUri">
+		<xsl:choose>					
+			<xsl:when test="not($isWelshLangDoc) and $hasRequestQueryString and $hasSelfAtomLink and not($currentAtomLink)">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($dcIdentifier)}"/>
+			</xsl:when>
+			<xsl:when test="$isWelshLangDoc and $hasRequestQueryString and $hasSelfAtomLink and not($hasCurrentWelshAtomLink)">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($dcIdentifier)}"/>
+			</xsl:when>
+			<xsl:when test="$isWelshLangDoc and $hasCurrentWelshAtomLink">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($currentWelshAtomLink)}"/>
+			</xsl:when>
+			<xsl:when test="$isWelshLangDoc and not($hasCurrentWelshAtomLink) and not($requestMatchesIdentifier)">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($dcIdentifier)}"/>
+			</xsl:when>
+			<xsl:when test="$isWelshLangDoc and not($hasCurrentWelshAtomLink) and $requestMatchesIdentifier">
+				<!-- This is the current welsh -->
+			</xsl:when>
+			<xsl:when test="$currentAtomLink">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($currentAtomLink)}"/>
+			</xsl:when>
+			<xsl:when test="not($hasCurrentAtomLink) and not($requestMatchesIdentifier)">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($dcIdentifier)}"/>
+			</xsl:when>			
+		</xsl:choose>	
+	</xsl:template>
+	
+	
+	
 	<xsl:template match="/">
 		<html>
+			
 			<head>
+			
+				<xsl:call-template name="applyCanonicalUri"/>			
+			
 				<title>
 					<xsl:choose>
 						<xsl:when test="$language = 'cy'">
@@ -3137,5 +3179,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- Hiding the legislation notifications as requested by TNA Issue 234 -->
 	<xsl:template name="FuncLegNotification"/>
+	
+	<xsl:function name="leg:adjust-canonical-uri">
+		<xsl:param name="uri" as="xs:string"/>
+		<xsl:variable name="removeFormat" select="replace($uri, '/data.[a-z]+', '')"/>
+		<xsl:variable name="removeExtent" select="replace($removeFormat, '/(=)?(scotland|england|wales|ni)(\+(scotland|england|wales|ni))*', '')"/>
+		<xsl:variable name="removeAuthority" select="replace($removeExtent, '/(sld|kqpap|kqps|gpni)', '')"/>
+		<xsl:variable name="makeSecureProtocol" select="replace($removeAuthority, 'http://', 'https://')"/>
+		<xsl:value-of select="$makeSecureProtocol"/>
+	</xsl:function>		
+		
 
 </xsl:stylesheet>

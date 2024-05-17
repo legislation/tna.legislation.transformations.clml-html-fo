@@ -45,6 +45,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:choose>
 	</xsl:variable>
 
+	<xsl:variable name="request-info" as="document-node()?">
+		<xsl:if test="doc-available('input:request-info')">
+			<xsl:sequence select="doc('input:request-info')" />
+		</xsl:if>
+	</xsl:variable>	
+	
 	<xsl:variable name="errorSearchingDoc" as="document-node()?">
 		<xsl:choose>
 			<xsl:when test="doc-available('input:error-searching')">
@@ -64,10 +70,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="pointInTimeSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'point-in-time' or $isVersionSpecified" />
 	<xsl:variable name="draftLegislationSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'draft-legislation' " />
 	<xsl:variable name="impactAssessmentSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'impacts' " />
+	
 
 	<xsl:template match="/">
 		<html>
 			<head>
+				<xsl:if test="$request-info//query-string != ''">
+					<link rel="canonical" href="{string-join(('https://www.legislation.gov.uk/search', $paramsDoc/parameters/search-type[not(. = '')]), '/')}" />
+				</xsl:if>
 				<link rel="stylesheet" href="/styles/advancedsearch/search.css" type="text/css"/>
                 <script type="text/javascript" src="/scripts/formFunctions/common.js"></script>
                 <script type="text/javascript" src="/scripts/advancedsearch/search-eu.js"></script>
