@@ -346,7 +346,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 								<!--[recaptcha]-->
 								<!--<div class="g-recaptcha" data-sitekey="'sitekey'" />-->
-								<div class="g-recaptcha" data-sitekey="6LfWkq0pAAAAADWbq2y3x8krRB-kSrfjNWgykUN1"></div>
+								<div class="g-recaptcha" data-sitekey="'sitekey'"></div>
 
 								<!--[Submit]-->
 								<div class="row">
