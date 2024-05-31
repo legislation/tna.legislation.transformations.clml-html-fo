@@ -66,6 +66,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				else
 					()"/>
 	</xsl:variable>
+
+	<xsl:variable name="buynow-enable">
+		<xsl:sequence select="
+			if (doc-available('input:buynow')) then
+				doc('input:buynow')//*:buynow
+			else
+				('false')"/>
+	</xsl:variable>
+
 	<xsl:variable name="errorSearchingDoc" as="document-node()?">
 		<xsl:sequence select="
 				if (doc-available('input:error-searching')) then
@@ -257,115 +266,126 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							tso:formatISBN($nstMetadata/ukm:ISBN/@Value)
 						else
 							()"/>
-
-				<div class="buynow-page">
-					<div>
+				<xsl:choose>
+					<xsl:when test="$buynow-enable = ('false')">
 						<div class="buynow-border">
 							<p class="buynow-title">
-								<span>Official printed and bound copies of legislation</span>
+								<span>This page is currently disabled</span>
 							</p>
 						</div>
-						<p>Bound copies of legislation are provided by the official legislation publisher, The Stationery Office Ltd (TSO).</p>
-						<p>
-							<b>How much does an official printed copy cost?</b>
-						</p>
-						<p style="margin-top:0%;margin-bottom:2%;">Each copy is printed on request and priced according to page count. TSO will contact you with the price for your copy.</p>
-					</div>
-
-					<form action="{$requestInfoDoc/request/request-uri}" method="post">
-						<div class="formBlock">
-							<input type="hidden" name="title" value="{$title}"/>
-							<input type="hidden" name="isbn" value="{$isbn}"/>
-							<div class="buynow-border">
-								<p style="padding: 0% 0% 2% 0%; font-size: 1.05rem !important;">
-									<span>Please send me a price for </span>
-									<b>
-										<xsl:value-of select="$title"/>
-									</b>
-									<span> as it was when it was enacted on </span>
-									<b>
-										<xsl:sequence select="
-												if ($date castable as xs:date) then
-													format-date($date, '[D1o] [MNn] [Y]', 'en', (), ())
-												else
-													$date"/>
-									</b>
+					</xsl:when>
+					<xsl:otherwise>
+						<div class="buynow-page">
+							<div>
+								<div class="buynow-border">
+									<p class="buynow-title">
+										<span>Official printed and bound copies of legislation</span>
+									</p>
+								</div>
+								<p>Bound copies of legislation are provided by the official legislation publisher, The Stationery Office Ltd (TSO).</p>
+								<p>
+									<b>How much does an official printed copy cost?</b>
 								</p>
+								<p style="margin-top:0%;margin-bottom:2%;">Each copy is printed on request and priced according to page count. TSO will contact you with the price for your copy.</p>
 							</div>
-							<div class="buynow-form">
-								<!-- [Name] -->
-								<div class="row">
-									<div class="searchCol1">
-										<label for="name"><b>Your full name </b>(required):</label>
-									</div>
-									<div class="searchCol2">
-										<input class="buynow-name buynow-textbox" type="text"
-											id="name" name="name"
-											value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'name']/value)}"
-											required="required"/>
-									</div>
-								</div>
-								<!-- [Email] -->
-								<div class="row">
-									<div class="searchCol1">
-										<label for="tel"><b>Email address </b>(required):</label>
-									</div>
-									<div class="searchCol2">
-										<input class="buynow-email buynow-textbox" type="email"
-											id="email" name="email"
-											value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'email']/value)}"
-											required="required"/>
-									</div>
-								</div>
 
-								<!--[Phone]-->
-								<div class="row">
-									<div class="searchCol1">
-										<label for="tel"><b>Telephone </b>(optional):</label>
+							<form action="{$requestInfoDoc/request/request-uri}" method="post">
+								<div class="formBlock">
+									<input type="hidden" name="title" value="{$title}"/>
+									<input type="hidden" name="isbn" value="{$isbn}"/>
+									<div class="buynow-border">
+										<p style="padding: 0% 0% 2% 0%; font-size: 1.05rem !important;">
+											<span>Please send me a price for </span>
+											<b>
+												<xsl:value-of select="$title"/>
+											</b>
+											<span> as it was when it was enacted on </span>
+											<b>
+												<xsl:sequence select="
+													if ($date castable as xs:date) then
+													format-date($date, '[D1o] [MNn] [Y]', 'en', (), ())
+													else
+													$date"/>
+											</b>
+										</p>
 									</div>
-									<div class="searchCol2">
-										<input class="buynow-phone buynow-textbox" type="text"
-											id="tel" name="tel"
-											value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'tel']/value)}"
-										/>
+									<div class="buynow-form">
+										<!-- [Name] -->
+										<div class="row">
+											<div class="searchCol1">
+												<label for="name"><b>Your full name </b>(required):</label>
+											</div>
+											<div class="searchCol2">
+												<input class="buynow-name buynow-textbox" type="text"
+													id="name" name="name"
+													value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'name']/value)}"
+													required="required"/>
+											</div>
+										</div>
+										<!-- [Email] -->
+										<div class="row">
+											<div class="searchCol1">
+												<label for="tel"><b>Email address </b>(required):</label>
+											</div>
+											<div class="searchCol2">
+												<input class="buynow-email buynow-textbox" type="email"
+													id="email" name="email"
+													value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'email']/value)}"
+													required="required"/>
+											</div>
+										</div>
+
+										<!--[Phone]-->
+										<div class="row">
+											<div class="searchCol1">
+												<label for="tel"><b>Telephone </b>(optional):</label>
+											</div>
+											<div class="searchCol2">
+												<input class="buynow-phone buynow-textbox" type="text"
+													id="tel" name="tel"
+													value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'tel']/value)}"
+												/>
+											</div>
+										</div>
+
+										<!--[Additional Message from User]-->
+										<div class="row">
+											<div class="searchCol3">
+												<label for="message">Any other details that may help us:</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="searchCol3">
+												<textarea class="buynow-message buynow-textbox" id="message"
+													name="message" maxlength="200"/>
+											</div>
+										</div>
+
+										<!--[recaptcha]-->
+										<!--<div class="g-recaptcha" data-sitekey="'sitekey'" />-->
+										<div class="g-recaptcha" data-sitekey="6LfWkq0pAAAAADWbq2y3x8krRB-kSrfjNWgykUN1"></div>
+
+										<!--[Submit]-->
+										<div class="row">
+											<div class="submit">
+												<button type="button" id="buyNowSubmit"
+													class="buynow-submit">Please send me a price</button>
+											</div>
+
+											<!--[Cancel]-->
+											<div class="submit searchCol2">
+												<button type="submit" id="buyNowCancel"
+													onclick="window.history.back();" class="buynow-cancel"
+													>Cancel and go back</button>
+											</div>
+										</div>
 									</div>
 								</div>
-
-								<!--[Additional Message from User]-->
-								<div class="row">
-									<div class="searchCol3">
-										<label for="message">Any other details that may help us:</label>
-									</div>
-								</div>
-								<div class="row">
-									<div class="searchCol3">
-										<textarea class="buynow-message buynow-textbox" id="message"
-											name="message" maxlength="200"/>
-									</div>
-								</div>
-
-								<!--[recaptcha]-->
-								<!--<div class="g-recaptcha" data-sitekey="'sitekey'" />-->
-								<div class="g-recaptcha" data-sitekey="6LfWkq0pAAAAADWbq2y3x8krRB-kSrfjNWgykUN1"></div>
-
-								<!--[Submit]-->
-								<div class="row">
-									<div class="submit">
-										<button type="button" id="buyNowSubmit"
-											class="buynow-submit">Please send me a price</button>
-									</div>
-
-									<!--[Cancel]-->
-									<div class="submit searchCol2">
-										<button type="submit" id="buyNowCancel"
-											onclick="window.history.back();" class="buynow-cancel"
-											>Cancel and go back</button>
-									</div>
-								</div>
-							</div>
+							</form>
 						</div>
-					</form>
-				</div>
+					</xsl:otherwise>
+				</xsl:choose>
+
 				<!-- add a break -->
 				<span class="LegClearFix"/>
 			</div>
