@@ -22,8 +22,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:import href="legislation_xhtml_consolidation.xslt"/>
 	<xsl:import href="quicksearch.xsl"/>
 	<xsl:import href="uicommon.xsl"/>
+	<xsl:import href="../../../../../config/theme-opsi-demo.xsl"/>
 
-	<xsl:output indent="yes" method="xhtml"/>
+	<xsl:output method="xhtml" indent="yes" encoding="UTF-8" exclude-result-prefixes="xhtml atom db tso xs"
+		omit-xml-declaration="yes"/>
 
 	<xsl:variable name="language" select="
 			if (/leg:Legislation/@xml:lang) then
@@ -132,8 +134,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- [Converstion starts] -->
 	<xsl:template match="/">
-		<html>
+		<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/"
+			xml:lang="en">
+			<xsl:apply-templates select="/leg:Legislation/@*"/>
+			<xsl:text>&#10;</xsl:text>
 			<head>
+				<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1"/>
+				<meta name="viewport"
+					content="width=device-width, initial-scale=0.1, user-scalable=1"/>
 				<title>
 					<xsl:choose>
 						<xsl:when test="$language = 'cy'">
@@ -144,11 +152,74 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:otherwise>
 					</xsl:choose>
 				</title>
+
 				<xsl:apply-templates select="/leg:Legislation/ukm:Metadata" mode="HTMLmetadata"/>
-				<xsl:call-template name="TSOOutputAddLegislationStyles"/>				
+				<xsl:call-template name="TSOOutputAddLegislationStyles"/>
+
+				<link rel="icon" href="/favicon.ico"/>
+				<link rel="stylesheet" href="/styles/screen.css" type="text/css"/>
+				<link rel="stylesheet" href="/styles/survey/survey.css" type="text/css"/>
+				<link rel="stylesheet" href="/styles/website.css" type="text/css"/>
+				<link rel="stylesheet" href="/styles/print.css" type="text/css" media="print"/>
+				<link rel="stylesheet" href="/styles/buy-now.css" type="text/css"/>
+				<link rel="apple-touch-icon" href="/images/chrome/apple-touch-icons/apple-touch-icon.png"/>
+
+				<xsl:comment><![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
+				<xsl:comment><![CDATA[[if lte IE 7]><link rel="stylesheet" href="/styles/IE/ie7chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
+				<script type="text/javascript" src="/scripts/jquery-1.6.2.js"/>
+				<script type="text/javascript" src="/scripts/CentralConfig.js"/>
+				<!-- <script type="text/javascript" src="/scripts/sitestat.js"></script> -->
+				<script type="text/javascript" src="/scripts/survey/survey.js"/>
+				<script type="text/javascript" src="/scripts/chrome.js"/>
+				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"/>
+				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery-cookie-functions.js"/>
+				<script type="text/javascript" src="/scripts/cookie-directive.js"/>
+				<xsl:call-template name="GoogleTagManager"/>
+				<script src="https://www.google.com/recaptcha/api.js" async="" defer=""/>
+				<script type="text/javascript">
+
+					function validate_form() {
+
+						const recaptcha_box_checked = (grecaptcha.getResponse()) ? true: false;
+
+						if (recaptcha_box_checked) {
+							return true;
+						} else {
+							alert("You must check the 'I am not a robot' box before you submit!");
+							return false;
+						}
+					}
+				</script>
 			</head>
 
 			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}" class="browse">
+				<div id="preloadBg">
+					<script type="text/javascript">
+						$("body").addClass("js");
+					</script>
+				</div>
+				<!-- accessible skip links -->
+				<ul id="top" class="accessibleLinks">
+					<xsl:choose>
+						<!-- issue highlighted by HA050430 where there can be multiple parameter/value elements  -->
+						<xsl:when test="some $value in $paramsDoc/request/parameters/parameter/value satisfies contains($value,'plain')">
+							<li><a href="#content"><xsl:value-of select="leg:TranslateText('Skip to main content')"/></a></li>
+							<li><a href="#plainViewNav"><xsl:value-of select="leg:TranslateText('Skip to navigation')"/></a></li>
+						</xsl:when>
+						<xsl:otherwise>
+							<li><a href="{if (leg:IsHome()) then '#intro' else '#pageTitle'}"><xsl:value-of select="leg:TranslateText('Skip to main content')"/></a></li>
+							<li><a href="#primaryNav"><xsl:value-of select="leg:TranslateText('Skip to navigation')"/></a></li>
+						</xsl:otherwise>
+					</xsl:choose>
+				</ul>
+				<div id="layout1">
+					<!-- header -->
+					<xsl:call-template name="header"/>
+
+					<!-- adding background -->
+					<xsl:call-template name="background"/>
+
+				</div>
 				<div id="layout2" class="legToc">
 					<!-- adding quick search  -->
 					<xsl:call-template name="TSOOutputQuickSearch"/>
@@ -224,6 +295,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:call-template name="TSOOutputOpeningOptionsWarning"/> -->
 				<!-- help tips -->
 				<xsl:call-template name="TSOOutputHelpTips"/>
+				<xsl:call-template name="footer"/>
+				<xsl:call-template name="GoogleTagManagerNoScript"/>
 			</body>
 		</html>
 	</xsl:template>
@@ -319,19 +392,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												<input class="buynow-name buynow-textbox" type="text"
 													id="name" name="name"
 													value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'name']/value)}"
-													required="required"/>
+													required="required" autocomplete="off"/>
 											</div>
 										</div>
 										<!-- [Email] -->
 										<div class="row">
 											<div class="searchCol1">
-												<label for="tel"><b>Email address </b>(required):</label>
+												<label for="email"><b>Email address </b>(required):</label>
 											</div>
 											<div class="searchCol2">
 												<input class="buynow-email buynow-textbox" type="email"
 													id="email" name="email"
 													value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'email']/value)}"
-													required="required"/>
+													required="required" autocomplete="off"/>
 											</div>
 										</div>
 
@@ -341,7 +414,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												<label for="tel"><b>Telephone </b>(optional):</label>
 											</div>
 											<div class="searchCol2">
-												<input class="buynow-phone buynow-textbox" type="text"
+												<input autocomplete="off" class="buynow-phone buynow-textbox" type="text"
 													id="tel" name="tel"
 													value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'tel']/value)}"
 												/>
