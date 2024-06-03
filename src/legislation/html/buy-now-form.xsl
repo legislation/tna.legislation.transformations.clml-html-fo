@@ -289,7 +289,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<p style="margin-top:0%;margin-bottom:2%;">Each copy is printed on request and priced according to page count. TSO will contact you with the price for your copy.</p>
 							</div>
 
-							<form action="{$requestInfoDoc/request/request-uri}" method="post">
+							<form action="{$requestInfoDoc/request/request-uri}" method="post" onsubmit="return validate_form();">
 								<div class="formBlock">
 									<input type="hidden" name="title" value="{$title}"/>
 									<input type="hidden" name="isbn" value="{$isbn}"/>
@@ -368,7 +368,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<!--[Submit]-->
 										<div class="row">
 											<div class="submit">
-												<button type="button" id="buyNowSubmit"
+												<button type="submit" id="buyNowSubmit"
 													class="buynow-submit">Please send me a price</button>
 											</div>
 
