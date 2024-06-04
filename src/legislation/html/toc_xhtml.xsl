@@ -1988,7 +1988,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<h4>Officially printed and bound copies</h4>
 				<ul>
 					<li>
-						<a href="{$docUri}/buynow" target="_blank" class="printedLink">
+						<a href="{$docUri}/buynow" class="printedLink">
 							<xsl:value-of select="leg:TranslateText('Order a copy of this legislation')"/>
 							<span class="accessibleText">buy now</span>
 						</a>

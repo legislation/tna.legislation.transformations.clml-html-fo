@@ -436,8 +436,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 										<!--[recaptcha]-->
 										<!--<div class="g-recaptcha" data-sitekey="'sitekey'" />-->
-										<div class="g-recaptcha" data-sitekey="6LfWkq0pAAAAADWbq2y3x8krRB-kSrfjNWgykUN1"></div>
-
+										<div class="row">
+											<div class="g-recaptcha" data-sitekey="6LfWkq0pAAAAADWbq2y3x8krRB-kSrfjNWgykUN1"></div>
+										</div>
 										<!--[Submit]-->
 										<div class="row">
 											<div class="submit">
@@ -447,7 +448,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 											<!--[Cancel]-->
 											<div class="submit searchCol2">
-												<button type="submit" id="buyNowCancel"
+												<button type="reset" id="buyNowCancel"
 													onclick="window.history.back();" class="buynow-cancel"
 													>Cancel and go back</button>
 											</div>
