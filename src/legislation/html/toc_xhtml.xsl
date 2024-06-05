@@ -1982,7 +1982,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- for print options -->
 	<xsl:template match="leg:Legislation" mode="TSOPrintOptions" priority="1000">
-		<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value)">
+		<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final'])">
 			<xsl:variable name="docUri" select="substring-after(@IdURI, 'http://www.legislation.gov.uk/id')"/>
 			<li class="printOfficialCopy">
 				<h4>Officially printed and bound copies</h4>
