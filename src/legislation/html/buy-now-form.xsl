@@ -130,7 +130,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	<xsl:variable name="date" select="/leg:Legislation/ukm:Metadata/dc:modified"/>
+	<xsl:variable name="legdate" select="/leg:Legislation/ukm:Metadata/dc:modified"/>
+	<xsl:variable name="date">
+		<xsl:sequence select="
+			if ($legdate castable as xs:date) then
+			format-date($legdate, '[D1o] [MNn] [Y]', 'en', (), ())
+			else
+			$legdate"/>
+	</xsl:variable>
 
 	<!-- [Converstion starts] -->
 	<xsl:template match="/">
@@ -366,6 +373,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<div class="formBlock">
 									<input type="hidden" name="title" value="{$title}"/>
 									<input type="hidden" name="isbn" value="{$isbn}"/>
+									<input type="hidden" name="isbn" value="{$date}"/>
 									<div class="buynow-border">
 										<p style="padding: 0% 0% 2% 0%; font-size: 1.05rem !important;">
 											<span>Please send me a price for </span>
@@ -374,11 +382,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</b>
 											<span> as it was when it was enacted on </span>
 											<b>
-												<xsl:sequence select="
-													if ($date castable as xs:date) then
-													format-date($date, '[D1o] [MNn] [Y]', 'en', (), ())
-													else
-													$date"/>
+												<xsl:value-of select="$date"/>
 											</b>
 										</p>
 									</div>
