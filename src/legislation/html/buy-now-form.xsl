@@ -77,6 +77,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				('false')"/>
 	</xsl:variable>
 
+	<xsl:variable name="buynow-sitekey">
+		<xsl:sequence select="
+			if (doc-available('input:buynow')) then
+				doc('input:buynow')//*:sitekey
+			else
+				('false')"/>
+	</xsl:variable>
+
 	<xsl:variable name="errorSearchingDoc" as="document-node()?">
 		<xsl:sequence select="
 				if (doc-available('input:error-searching')) then
@@ -441,7 +449,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<!--[recaptcha]-->
 										<!--<div class="g-recaptcha" data-sitekey="'sitekey'" />-->
 										<div class="row">
-											<div class="g-recaptcha" data-sitekey="6LfWkq0pAAAAADWbq2y3x8krRB-kSrfjNWgykUN1"></div>
+											<div class="g-recaptcha" data-sitekey="{$buynow-sitekey}"></div>
 										</div>
 										<!--[Submit]-->
 										<div class="row">
