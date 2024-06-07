@@ -246,7 +246,18 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				</xsl:when>
 				<xsl:when test="(not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) )">
 					<xsl:attribute name="id">statusWarning</xsl:attribute>
-					<xsl:attribute name="class"><xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">uptoDate</xsl:if></xsl:attribute>
+					<xsl:attribute name="class">
+						<xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">
+							<xsl:choose>
+								<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision')">
+									<xsl:text>EU-black-border</xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>uptoDate</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:if>
+					</xsl:attribute>
 
 					<xsl:if test="leg:isFromWestlaw(.)">
 						<div class="title">
@@ -285,11 +296,30 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 										<xsl:text>.</xsl:text>
 								</xsl:when>
 								<xsl:when test="$Scenario = '1'">
-									<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
-									<xsl:value-of select="$status-legtitle"/>
-									<xsl:if test="string-length($sectionTitle) ne 0">
-										<xsl:value-of select="concat(', ', $sectionTitle)"/>
-									</xsl:if>
+									<xsl:choose>
+										<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView)">
+											<xsl:value-of select="concat(leg:TranslateMessage('EU_no_outstanding_effects_p1'), ' ')"/>
+											<xsl:choose>
+												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation')">
+													<xsl:text>Regulation</xsl:text>
+												</xsl:when>
+												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionDecision')">
+													<xsl:text>Decision</xsl:text>
+												</xsl:when>
+											</xsl:choose>
+											<xsl:value-of select="concat(' ', leg:TranslateMessage('EU_no_outstanding_effects_p2'), ' ')"/>
+											<a href='https://eur-lex.europa.eu/homepage.html' target='_blank'>EUR-Lex</a>
+											<xsl:value-of select="concat(' ',leg:TranslateMessage('EU_no_outstanding_effects_p3'), ' ')"/>
+											<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank"><xsl:value-of select="leg:TranslateMessage('EU_no_outstanding_effects_p4')"/></a>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
+											<xsl:value-of select="$status-legtitle"/>
+											<xsl:if test="string-length($sectionTitle) ne 0">
+												<xsl:value-of select="concat(', ', $sectionTitle)"/>
+											</xsl:if>
+										</xsl:otherwise>
+									</xsl:choose>
 									<xsl:text>.</xsl:text>
 								</xsl:when>
 								<xsl:when test="$Scenario = '5'">
