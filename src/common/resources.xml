@@ -1099,7 +1099,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!--End Browse EU-->
 		<!-- EU-UK-Reg -->
 		<resource id="eu_uk_all">Legislation originating from the EU</resource>
-		<resource id="eu_body">When the UK left the EU, the European Union (Withdrawal) Act 2018 (c. 16) required legislation.gov.uk to publish EU legislation as published by the EU up to 11.00 p.m. on 31 December 2020. They are versions for the UK and are kept up to date with any amendments made by the UK Parliaments, Governments and Assemblies.</resource>
+		<resource id="eu_body">When the UK left the EU, legislation.gov.uk published EU legislation that had been published by the EU up to IP completion day (31 December 2020 11.00 p.m.). On legislation.gov.uk, these items of legislation are kept up-to-date with any amendments made by the UK since then.</resource>
 		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
 		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 			<resource id="eu_uk_eur">Mae hwn yn Rheoliad sy’n deillio o’r UE</resource>
@@ -1905,7 +1905,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<!-- EU-UK-Reg -->
 		<resource id="eu_uk_all">Legislation originating from the EU</resource>
-		<resource id="eu_body">When the UK left the EU, the European Union (Withdrawal) Act 2018 (c. 16) required legislation.gov.uk to publish EU legislation as published by the EU up to 11.00 p.m. on 31 December 2020. They are versions for the UK and are kept up to date with any amendments made by the UK Parliaments, Governments and Assemblies.</resource>
+		<resource id="eu_body">When the UK left the EU, legislation.gov.uk published EU legislation that had been published by the EU up to IP completion day (31 December 2020 11.00 p.m.). On legislation.gov.uk, these items of legislation are kept up-to-date with any amendments made by the UK since then.</resource>
 		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
 		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 		<resource id="eu_uk_eur">This is a Regulation originating from the EU</resource>
@@ -1916,9 +1916,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="eu_uk_reg_archive_brexitday">See an archived version from EUR-Lex in the web archive</resource>
 		<!-- End EU-UK-Reg -->
 
-		<resource id="legislation_originated_from_EU_1">This is a legislation item that originated from the EU</resource>
-		<resource id="legislation_originated_from_EU_p1">After exit day there will be three versions of this legislation to consult for different purposes. The legislation.gov.uk version is the version that applies in the UK. The EU Version currently on EUR-lex is the version that currently applies in the EU i.e you may need this if you operate a business in the EU.</resource>
-		<resource id="legislation_originated_from_EU_p2">The web archive version is the official version of this legislation item as it stood on exit day before being published to legislation.gov.uk and any subsequent UK changes and effects applied. The web archive also captured associated case law and other language formats from EUR-Lex.</resource>
+		<resource id="legislation_originated_from_EU_1">This item of legislation originated from the EU</resource>
+		<resource id="legislation_originated_from_EU_p1">Legislation.gov.uk publishes the UK version.</resource>
+		<resource id="legislation_originated_from_EU_p2">publishes the EU version.</resource>
+		<resource id="legislation_originated_from_EU_p3">holds a snapshot of EUR-Lex’s version from IP completion day (31 December 2020 11.00 p.m.).</resource>
 
 		<!-- PDF Version -->
 		<resource id="PDF_Versions">PDF Versions</resource>
