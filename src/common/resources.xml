@@ -1632,8 +1632,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="no_outstanding_effects">There are currently no known outstanding effects for the</resource>
 		<resource id="EU_no_outstanding_effects_p1">This version of this</resource>
 		<resource id="EU_no_outstanding_effects_p2">was derived from</resource>
-		<resource id="EU_no_outstanding_effects_p3">on 31 December 2020. It has not been amended by the UK since EU exit.</resource>
-		<resource id="EU_no_outstanding_effects_p4">Find out more about legislation originating from the EU as published on Legislation.gov.uk</resource>
+		<resource id="EU_no_outstanding_effects_p3">on IP completion day (31 December 2020 11:00 p.m.). It has not been amended by the UK since then.</resource>
+		<resource id="EU_no_outstanding_effects_p4">Find out more about legislation originating from the EU as published on legislation.gov.uk</resource>
 		<!-- changes -->
 		<resource id="Changes_affect_tooltip_p">Use this facility to search for changes that affect one or more items of legislation based on the criteria below. Alternatively you can leave this side of the form blank to find the changes and effects on any revised legislation.</resource>
 		<resource id="Changes_affect_tooltip_li_1">Legislation type: This optional field allows you to narrow down your search to changes affecting the legislation type you are interested in. The drop down list only includes those legislation types for which we hold revised versions for on legislation.gov.uk.</resource>
@@ -1776,7 +1776,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="treaty_eea">There are no timeline of changes available for treaties, instead, previous dated versions from EUR-Lex (as pdf) can be accessed via the More Resources menu.</resource>
 
 	<resource id="statuswarning_revised_eudirective_head">Status:</resource>
-    <resource id="statuswarning_revised_eudirective_body">EU Directives are being published on this site to aid cross referencing from UK legislation. After IP completion day (31 December 2020 11pm) no further amendments will be applied to this version.</resource>
+		<resource id="statuswarning_revised_eudirective_body">EU Directives are published on this site to aid cross referencing from UK legislation. Since IP completion day (31 December 2020 11.00 p.m.) no amendments have been applied to this version.</resource>
 
     <resource id="statuswarning_euretained_p1">There are outstanding changes not yet made to</resource>
     <resource id="statuswarning_euretained_p2">Any changes that have already been made to the legislation appear in the content and are referenced with annotations.</resource>
