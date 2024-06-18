@@ -298,7 +298,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</xsl:when>
 								<xsl:when test="$Scenario = '1'">
 									<xsl:choose>
-										<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView)">
+										<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView) and $IsAmendedbyUK = ('false')">
 											<xsl:value-of select="concat(leg:TranslateMessage('EU_no_outstanding_effects_p1'), ' ')"/>
 											<xsl:choose>
 												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation')">
