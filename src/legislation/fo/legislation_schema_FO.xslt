@@ -2717,7 +2717,7 @@ exclude-result-prefixes="tso atom">
 							<xsl:apply-templates/>
 						</fo:block>
 					</xsl:when>
-					<!--<xsl:when test="preceding-sibling::*[1][self::leg:BlockAmendment] and not(following-sibling::*[1][self::leg:BlockAmendment])"/>-->
+					<xsl:when test="preceding-sibling::*[1][self::leg:BlockAmendment] and not(following-sibling::*[1][self::leg:BlockAmendment])"/>
 					<xsl:when test="parent::leg:P or parent::leg:P3para or parent::leg:P4para or parent::leg:P5para or preceding-sibling::* or parent::*/parent::*[self::xhtml:td or self::xhtml:th or self::leg:ListItem or self::leg:GroupItem or self::leg:Where or self::leg:EnactingText or self::leg:ExplanatoryNotes or self::leg:RoyalPresence or self::leg:TableText] or parent::*/preceding-sibling::*[self::leg:P2para]">
 
 						<xsl:variable name="strAlignment" as="xs:string">
