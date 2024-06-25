@@ -35,7 +35,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="/">
 		<html>
 			<head>
-				<title><xsl:value-of select="leg:TranslateText('Browse Legislation')"/></title>
+				<title><xsl:value-of select="leg:TranslateText('Explore our Collections')"/></title>
 				<link type="text/css" href="/styles/legBrowseCards.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -48,7 +48,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
 						<h1 id="pageTitle">
-							<xsl:value-of select="leg:TranslateText('Browse')"/>
+							<xsl:value-of select="leg:TranslateText('Explore our Collections')"/>
 						</h1>
 					</div>
 					<div id="content">
