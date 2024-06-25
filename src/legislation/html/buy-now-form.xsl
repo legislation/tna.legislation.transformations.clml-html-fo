@@ -381,7 +381,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<div class="formBlock">
 									<input type="hidden" name="title" value="{$title}"/>
 									<input type="hidden" name="isbn" value="{$isbn}"/>
-									<input type="hidden" name="isbn" value="{$date}"/>
+									<input type="hidden" name="date" value="{$date}"/>
 									<div class="buynow-border">
 										<p style="padding: 0% 0% 2% 0%; font-size: 1.05rem !important;">
 											<span>Please send me a price for </span>
