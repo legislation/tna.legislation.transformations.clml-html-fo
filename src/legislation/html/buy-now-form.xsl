@@ -267,10 +267,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:when>
 									<xsl:when
 										test="$errorSearchingDoc/errorsearching/status-code = '200'">
-										<xsl:attribute name="class" select="'success errorMessage'"/>
-										<xsl:value-of
-											select="leg:TranslateText(string-join($errorSearchingDoc/errorsearching/message, ''))"
-										/>
+										<div class="buynow-border">
+											<h1 style="margin-top: 8%;">Thank you</h1>
+										</div>
+										<p>TSO are preparing your price for <b><xsl:value-of select="$title"/></b> as it was when it was enacted on <b><xsl:sequence select="if ($date castable as xs:date) then format-date($date, '[D1o] [MNn] [Y]', 'en', (), ()) else $date"/></b></p>
+										<p>Someone will contact you with your price within the next 3 days.</p>
+										<p>We have sent confirmation of your request to <b><xsl:value-of select="leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'email']/value)"/></b></p>
+										<div class="thankyou">
+											<div class="submit">
+												<button type="reset" id="goBacktoLeg"
+													class="buynow-submit" onclick="window.history.go(-2); return false;">Go back to the legislation</button>
+											</div>
+
+											<!--[Cancel]-->
+											<div class="submit">
+												<button type="reset" id="goBacktoBuynow"
+													onclick="window.history.back();"
+													class="buynow-cancel cancel-thankyou">Change my contact details</button>
+											</div>
+										</div>
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:attribute name="class" select="'error errorMessage'"/>
