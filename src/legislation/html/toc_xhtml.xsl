@@ -1983,35 +1983,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- for print options -->
 	<xsl:template match="leg:Legislation" mode="TSOPrintOptions" priority="1000">
 
-		<xsl:variable name="setLanguage">
-			<xsl:choose>
-				<xsl:when test="$language = ('cy') or leg:IsCurrentWelsh(/)">
-					<xsl:value-of select="'/welsh'"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="''"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-
-		<xsl:variable name="setVersion">
-			<xsl:choose>
-				<xsl:when test="leg:IsCurrentOriginal(/)">
-					<xsl:value-of select="'/enacted'"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="''"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-
 		<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final'])">
-			<xsl:variable name="docUri" select="substring-after(@IdURI, 'http://www.legislation.gov.uk/id')"/>
+			<xsl:variable name="docUri" select="substring-after(//atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act']/@href, 'http://www.legislation.gov.uk')"/>
 			<li class="printOfficialCopy">
 				<h4>Officially printed and bound copies</h4>
 				<ul>
 					<li>
-						<a href="{concat($docUri, $setVersion, $setLanguage, '/buynow')}" class="printedLink">
+						<a href="{$docUri}/buynow" class="printedLink">
 							<xsl:value-of select="leg:TranslateText('Order a copy of this legislation')"/>
 							<span class="accessibleText">buy now</span>
 						</a>
