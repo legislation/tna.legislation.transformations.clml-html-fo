@@ -325,7 +325,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:call-template name="TSOOutputOpeningOptionsWarning"/> -->
 				<!-- help tips -->
 				<xsl:call-template name="TSOOutputHelpTips"/>
-				<xsl:call-template name="footer"/>
+				<xsl:choose>
+					<xsl:when test="$paramsDoc/request/method = 'POST'"/>
+					<xsl:otherwise>
+						<xsl:call-template name="footer"/>
+					</xsl:otherwise>
+				</xsl:choose>
 				<xsl:call-template name="GoogleTagManagerNoScript"/>
 			</body>
 		</html>
