@@ -49,8 +49,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="All Primary Legislation">Pob deddfwriaeth sylfaenol</resource>
 		<resource id="All Secondary Legislation">Pob is-ddeddfwriaeth</resource>
 		<resource id="Browse Legislation">Pori trwy Ddeddfwriaeth</resource>
+		<resource id="Explore our Collections">Archwilio ein Casgliadau</resource>
 		<resource id="Browse Legislation: UK">Pori trwy Ddeddfwriaeth: DU</resource>
-		<resource id="Changes To Legislation">Newidiadau i Ddeddfwriaeth</resource>
+		<resource id="Changes to Legislation">Newidiadau i Ddeddfwriaeth</resource>
 		<resource id="Contact Us">Cysylltu â Ni</resource>
 		<resource id="Crown copyright">Hawl y goron a chronfa ddata</resource>
 		<!-- Hawlfraint y Goron  -->
@@ -488,7 +489,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Applicable to">Yn berthnasol i</resource>
 		<resource id="Exclusively extends to">Yn ymestyn yn unig hyd</resource>
 		<resource id="United Kingdom">Y Deyrnas Unedig</resource>
-		<resource id="UK">Y Deyrnas Unedig</resource>
+		<resource id="UK">DU</resource>
 		<resource id="Great Britain">Prydain Fawr</resource>
 		<resource id="England &amp; Wales">Cymru a Lloegr</resource>
 		<resource id="England">Lloegr</resource>
@@ -552,7 +553,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Year Range">Ystod o Flynyddoedd</resource>
 		<resource id="Date Range">Ystod dyddiadau</resource>
 		<!-- Text on page - http://www.legislation.gov.uk/cy/changes-->
-		<resource id="Changes to Legislation">Newidiadau i Ddeddfwriaeth</resource>
 		<resource id="Changes to Legislation Results">Canlyniadau Newidiadau i Ddeddfwriaeth</resource>
 		<resource id="Changes that affect">Newidiadau sy’n effeithio ar</resource>
 		<resource id="Legislation type">Math o ddeddfwriaeth</resource>
@@ -1098,6 +1098,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="European Union">Undeb Ewropeaidd</resource>
 		<!--End Browse EU-->
 		<!-- EU-UK-Reg -->
+		<resource id="eu_uk_all">Legislation originating from the EU</resource>
+		<resource id="eu_body">When the UK left the EU, legislation.gov.uk published EU legislation that had been published by the EU up to IP completion day (31 December 2020 11.00 p.m.). On legislation.gov.uk, these items of legislation are kept up-to-date with any amendments made by the UK since then.</resource>
+		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
+		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 			<resource id="eu_uk_eur">Mae hwn yn Rheoliad sy’n deillio o’r UE</resource>
 			<resource id="eu_uk_eudn">Mae hwn yn Benderfyniad sy’n deillio o’r UE</resource>
 			<resource id="eu_uk_eudr">Mae hon yn Gyfarwyddeb sy’n deillio o’r UE</resource>
@@ -1328,6 +1332,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p53"> yn cynnwys darpariaethau nad ydynt wedi dod i rym eto.</resource>
 		
 		<resource id="Coronavirus Legislation">Deddfwriaeth Coronafeirws</resource>
+		<resource id="Help and Guidance">Cymorth ac Arweiniad</resource>
 		<resource id="coronavirus_legislation_text">Deddfwriaeth coronafeirws allweddol sy’n berthnasol i’r DU, Cymru, Lloegr, yr Alban a Gogledd Iwerddon</resource>				
 		<resource id="understanding_legislation_text">Sut y caiff deddfwriaeth y DU ei chyflwyno, diwygio a dwyn i rym, a beth a gedwir gennym ar legislation.gov.uk</resource>
 		<resource id="eu_legislation_and_uk_law_text">Mae deddfwriaeth yr UE fel yr oedd yn berthnasol i’r DU ar 31 Rhagfyr 2020 yn awr yn rhan o ddeddfwriaeth ddomestig</resource>
@@ -1602,7 +1607,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="browse_explanation_uk">The counts below reflect the number of documents on legislation.gov.uk that match the search for items of this legislation type and are not intended to indicate the total legislation made, enacted or adopted in a particular year.</resource>
 		<resource id="browse_explanation_eu">The counts below reflect the number of documents on legislation.gov.uk that were taken from EUR-lex for this legislation type and are not intended to indicate the total legislation made in a particular year.</resource>
 		<resource id="results_grouped_by">Results grouped by <param ref-id="result"/> periods</resource>
-		<resource id="status_warning_original_version">This is the original version (as it was originally <param ref-id="type"/>)</resource>		
+		<resource id="status_warning_original_version">This is the original version (as it was originally <param ref-id="type"/>)</resource>
+		<resource id="EU_status_warning_original_version">This is the original version as it was originally <param ref-id="type"/> in the EU.</resource>
+		<resource id="EU_status_warning_original_version2">This item of legislation is currently only available in its original format</resource>
 		<resource id="status_warning_original_version2">. This item of legislation is currently only available in its original format</resource>
 		<resource id="status_warning_original_version3"> are not carried in their revised form on this site</resource>
 		<resource id="status_warning_outstanding_p1"> is up to date with all changes known to be in force on or before </resource>
@@ -1630,6 +1637,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
      <span xmlns="http://www.w3.org/1999/xhtml">Note: Where changes and effects have yet to be applied to revised legislation you are viewing on this site, then any ‘Changes to Legislation’ are also displayed alongside the content of the legislation at provision level.</span>
     </resource>
 		<resource id="no_outstanding_effects">There are currently no known outstanding effects for the</resource>
+		<resource id="EU_no_outstanding_effects_p1">This version of this</resource>
+		<resource id="EU_no_outstanding_effects_p2">was derived from</resource>
+		<resource id="EU_no_outstanding_effects_p3">on IP completion day (31 December 2020 11:00 p.m.). It has not been amended by the UK since then.</resource>
+		<resource id="EU_no_outstanding_effects_p4">Find out more about legislation originating from the EU as published on legislation.gov.uk</resource>
 		<!-- changes -->
 		<resource id="Changes_affect_tooltip_p">Use this facility to search for changes that affect one or more items of legislation based on the criteria below. Alternatively you can leave this side of the form blank to find the changes and effects on any revised legislation.</resource>
 		<resource id="Changes_affect_tooltip_li_1">Legislation type: This optional field allows you to narrow down your search to changes affecting the legislation type you are interested in. The drop down list only includes those legislation types for which we hold revised versions for on legislation.gov.uk.</resource>
@@ -1772,7 +1783,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="treaty_eea">There are no timeline of changes available for treaties, instead, previous dated versions from EUR-Lex (as pdf) can be accessed via the More Resources menu.</resource>
 
 	<resource id="statuswarning_revised_eudirective_head">Status:</resource>
-    <resource id="statuswarning_revised_eudirective_body">EU Directives are being published on this site to aid cross referencing from UK legislation. After IP completion day (31 December 2020 11pm) no further amendments will be applied to this version.</resource>
+		<resource id="statuswarning_revised_eudirective_body">EU Directives are published on this site to aid cross referencing from UK legislation. Since IP completion day (31 December 2020 11.00 p.m.) no amendments have been applied to this version.</resource>
 
     <resource id="statuswarning_euretained_p1">There are outstanding changes not yet made to</resource>
     <resource id="statuswarning_euretained_p2">Any changes that have already been made to the legislation appear in the content and are referenced with annotations.</resource>
@@ -1893,6 +1904,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!--End Browse EU-->
 
 		<!-- EU-UK-Reg -->
+		<resource id="eu_uk_all">Legislation originating from the EU</resource>
+		<resource id="eu_body">When the UK left the EU, legislation.gov.uk published EU legislation that had been published by the EU up to IP completion day (31 December 2020 11.00 p.m.). On legislation.gov.uk, these items of legislation are kept up-to-date with any amendments made by the UK since then.</resource>
+		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
+		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 		<resource id="eu_uk_eur">This is a Regulation originating from the EU</resource>
 		<resource id="eu_uk_eudn">This is a Decision originating from the EU</resource>
 		<resource id="eu_uk_eudr">This is a Directive originating from the EU</resource>
@@ -1901,9 +1916,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="eu_uk_reg_archive_brexitday">See an archived version from EUR-Lex in the web archive</resource>
 		<!-- End EU-UK-Reg -->
 
-		<resource id="legislation_originated_from_EU_1">This is a legislation item that originated from the EU</resource>
-		<resource id="legislation_originated_from_EU_p1">After exit day there will be three versions of this legislation to consult for different purposes. The legislation.gov.uk version is the version that applies in the UK. The EU Version currently on EUR-lex is the version that currently applies in the EU i.e you may need this if you operate a business in the EU.</resource>
-		<resource id="legislation_originated_from_EU_p2">The web archive version is the official version of this legislation item as it stood on exit day before being published to legislation.gov.uk and any subsequent UK changes and effects applied. The web archive also captured associated case law and other language formats from EUR-Lex.</resource>
+		<resource id="legislation_originated_from_EU_1">This item of legislation originated from the EU</resource>
+		<resource id="legislation_originated_from_EU_p1">Legislation.gov.uk publishes the UK version.</resource>
+		<resource id="legislation_originated_from_EU_p2">publishes the EU version.</resource>
+		<resource id="legislation_originated_from_EU_p3">holds a snapshot of EUR-Lex’s version from IP completion day (31 December 2020 11.00 p.m.).</resource>
 
 		<!-- PDF Version -->
 		<resource id="PDF_Versions">PDF Versions</resource>
@@ -2069,6 +2085,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- contains provisions that have not yet come into effect. -->
 		<resource id="status_warning_revised_p53"> contains provisions that have not yet come into effect.</resource>
 		<resource id="Coronavirus Legislation">Coronavirus Legislation</resource>
+		<resource id="Explore our Collections">Explore our Collections</resource>
+		<resource id="Changes to Legislation">Changes to Legislation</resource>
+		<resource id="Help and Guidance">Help and Guidance</resource>
 		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland</resource>				
 		<resource id="understanding_legislation_text">How UK legislation is introduced, amended and brought into force, and what we hold on legislation.gov.uk</resource>
 		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 December 2020 is now a part of domestic legislation</resource>

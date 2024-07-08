@@ -52,6 +52,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 		</xsl:choose>
 	</xsl:variable>
+	
+	<xsl:variable name="request-info" as="document-node()?">
+		<xsl:if test="doc-available('input:request-info')">
+			<xsl:sequence select="doc('input:request-info')" />
+		</xsl:if>
+	</xsl:variable>
 
 	<xsl:variable name="isVersionSpecified" as="xs:boolean"
 		select="exists($paramsDoc/parameters/version[. != ''])"/>
@@ -64,10 +70,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="pointInTimeSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'point-in-time' or $isVersionSpecified" />
 	<xsl:variable name="draftLegislationSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'draft-legislation' " />
 	<xsl:variable name="impactAssessmentSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'impacts' " />
+	<xsl:variable name="hasRequestQueryString" as="xs:boolean" select="$request-info//query-string != ''"/>
+	<xsl:variable name="canonicalUri" as="xs:string" select="concat('/search', if (not($generalSearch)) then (concat('/', $paramsDoc/parameters/search-type)) else ())" />
 
 	<xsl:template match="/">
 		<html>
 			<head>
+				
+				<xsl:if test="$hasRequestQueryString or not($request-info//request-uri = $canonicalUri)">
+					<link rel="canonical" href="{concat('https://www.legislation.gov.uk', $canonicalUri)}" />
+				</xsl:if>
 				<link rel="stylesheet" href="/styles/advancedsearch/search.css" type="text/css"/>
                 <script type="text/javascript" src="/scripts/formFunctions/common.js"></script>
                 <script type="text/javascript" src="/scripts/advancedsearch/search-eu.js"></script>

@@ -273,11 +273,53 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-
-
+	
+	<!-- we cannot rely upon the selfAtomLink to generate the canoncial uri as this is not honouring the welsh domain - therefore we need to use the dc identifier-->
+	<xsl:variable name="selfAtomLink" as="xs:string*" select="$g_ndsMetadata/atom:link[@rel = 'self']/@href"/>	
+	<xsl:variable name="currentAtomLink" as="xs:string*" select="$g_ndsMetadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion'][not(@hreflang = 'cy')][@title = 'current']/@href"/>
+	<xsl:variable name="currentWelshAtomLink" as="xs:string*" select="$g_ndsMetadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion'][@hreflang = 'cy'][@title = 'current']/@href"/>
+	<xsl:variable name="hasRequestQueryString" as="xs:boolean" select="$requestInfoDoc//query-string != ''"/>
+	<xsl:variable name="hasSelfAtomLink" as="xs:boolean" select="exists($selfAtomLink)"/>
+	<xsl:variable name="hasCurrentAtomLink" as="xs:boolean" select="exists($currentAtomLink)"/>
+	<xsl:variable name="hasCurrentWelshAtomLink" as="xs:boolean" select="exists($currentWelshAtomLink)"/>
+	<xsl:variable name="isWelshLangDoc" as="xs:boolean" select="/leg:Legislation/@xml:lang = 'cy'"/>
+	<xsl:variable name="requestMatchesIdentifier" as="xs:boolean" select="($requestInfoDoc//request-uri = substring-after(leg:adjust-canonical-uri($dcIdentifier), 'legislation.gov.uk'))"/>
+	
+	<xsl:template name="applyCanonicalUri">
+		<xsl:choose>					
+			<xsl:when test="not($isWelshLangDoc) and $hasRequestQueryString and $hasSelfAtomLink and not($currentAtomLink)">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($dcIdentifier)}"/>
+			</xsl:when>
+			<xsl:when test="$isWelshLangDoc and $hasRequestQueryString and $hasSelfAtomLink and not($hasCurrentWelshAtomLink)">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($dcIdentifier)}"/>
+			</xsl:when>
+			<xsl:when test="$isWelshLangDoc and $hasCurrentWelshAtomLink">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($currentWelshAtomLink)}"/>
+			</xsl:when>
+			<xsl:when test="$isWelshLangDoc and not($hasCurrentWelshAtomLink) and not($requestMatchesIdentifier)">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($dcIdentifier)}"/>
+			</xsl:when>
+			<xsl:when test="$isWelshLangDoc and not($hasCurrentWelshAtomLink) and $requestMatchesIdentifier">
+				<!-- This is the current welsh -->
+			</xsl:when>
+			<xsl:when test="$currentAtomLink">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($currentAtomLink)}"/>
+			</xsl:when>
+			<xsl:when test="not($hasCurrentAtomLink) and not($requestMatchesIdentifier)">
+				<link rel="canonical" href="{leg:adjust-canonical-uri($dcIdentifier)}"/>
+			</xsl:when>			
+		</xsl:choose>	
+	</xsl:template>
+	
+	
+	
 	<xsl:template match="/">
 		<html>
+			
 			<head>
+			
+				<xsl:call-template name="applyCanonicalUri"/>			
+			
 				<title>
 					<xsl:choose>
 						<xsl:when test="$language = 'cy'">
@@ -1292,12 +1334,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- outputting the ukoriginatesfromeu box -->
 	<xsl:template name="TSOOutputEUR">
 		<xsl:if test="$g_isEURetainedOrEUTreaty">
-			<xsl:variable name="titleText" select="concat('eu_uk_', $g_strShortType)"/>
+			<xsl:variable name="titleText" select="'eu_uk_all'"/>
 			<xsl:variable name="celexNumber" select="leg:get-celex-number($g_strShortType, $g_strDocumentYear, $g_strDocumentNumber)"/>
 			<xsl:variable name="eulex-uri" select="concat(leg:eurlex-uri(), $celexNumber, ':en:NOT')"/>
 			<xsl:variable name="webarchive-uri" select="concat(leg:webarchive-uri(), $celexNumber)"/>
+			<xsl:variable name="uk-law-page" select="'https://www.legislation.gov.uk/eu-legislation-and-uk-law'"/>
 
-			<div class="section" id="ukregfromeu">
+			<div class="EUsection section" id="ukregfromeu">
 				<div class="title">
 					<a href="#ukregfromeuHelp" class="helpItem helpItemToMidRight">
 						<img src="/images/chrome/helpIcon.gif" alt=" Help about UK-EU Regulation"/>
@@ -1307,17 +1350,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</h2>
 				</div>
 				<div class="content">
+					<p class="EUSection-para"><xsl:value-of select="leg:TranslateText('eu_body')"/></p>
 					<ul class="toolList">
 						<li>
-							<a href="{$eulex-uri}" target="_blank">
-								<xsl:value-of select="leg:TranslateText('eu_uk_reg_equiv_eu')"/>
+							<a href="{$uk-law-page}" target="_blank">
+								<xsl:value-of select="leg:TranslateText('link_to_uk_law_page')"/>
 								<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"/>
 							</a>
 						</li>
 						<xsl:if test="not($g_strDocumentYear = $g_EUwebArchiveIgnoreYears)">
 							<li>
-								<a href="{$webarchive-uri}" target="_blank">
-								<xsl:value-of select="leg:TranslateText('eu_uk_reg_archive_brexitday')"/>
+								<a href="{$eulex-uri}" target="_blank">
+									<xsl:value-of select="leg:TranslateText('link_to_eur_lex')"/>
 								<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"/>
 								</a>
 							</li>
@@ -1337,9 +1381,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</h3>
 					<p>
 						<xsl:value-of select="leg:TranslateText('legislation_originated_from_EU_p1')"/>
-					</p>
-					<p>
+						<a href='https://eur-lex.europa.eu/homepage.html' target='_blank'> EUR-Lex </a>
 						<xsl:value-of select="leg:TranslateText('legislation_originated_from_EU_p2')"/>
+						<a href='https://webarchive.nationalarchives.gov.uk/eu-exit' target='_blank'> The EU Exit Web Archive </a>
+						<xsl:value-of select="leg:TranslateText('legislation_originated_from_EU_p3')"/>
 					</p>
 				</div>
 
@@ -3137,5 +3182,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- Hiding the legislation notifications as requested by TNA Issue 234 -->
 	<xsl:template name="FuncLegNotification"/>
+	
+	<xsl:function name="leg:adjust-canonical-uri">
+		<xsl:param name="uri" as="xs:string"/>
+		<xsl:variable name="removeFormat" select="replace($uri, '/data.[a-z]+', '')"/>
+		<xsl:variable name="removeExtent" select="replace($removeFormat, '/(=)?(scotland|england|wales|ni)(\+(scotland|england|wales|ni))*', '')"/>
+		<xsl:variable name="removeAuthority" select="replace($removeExtent, '/(sld|kqpap|kqps|gpni)', '')"/>
+		<xsl:variable name="makeSecureProtocol" select="replace($removeAuthority, 'http://', 'https://')"/>
+		<xsl:value-of select="$makeSecureProtocol"/>
+	</xsl:function>		
+		
 
 </xsl:stylesheet>

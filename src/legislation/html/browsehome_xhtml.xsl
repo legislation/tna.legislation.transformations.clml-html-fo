@@ -60,6 +60,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseHome">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Browse')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -117,7 +118,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<area title="{upper-case(leg:TranslateText('Wales'))}" id="walesarea"
 											  shape="poly" coords="167,209,187,227,187,279,151,288,120,271,121,194"
 											  href="{$TranslateLangPrefix}/browse/wales"/>
-										<area title="{upper-case(leg:TranslateText('UK'))}" id="englandarea"
+										<area title="{upper-case(leg:TranslateText('United Kingdom'))}" id="englandarea"
 											  shape="poly"
 											  coords="127,156,131,181,187,226,188,278,152,289,112,294,101,339,283,316,283,226,212,141,192,156"
 											  href="{$TranslateLangPrefix}/browse/uk"/>
@@ -365,6 +366,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseUK">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('United Kingdom')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -375,9 +377,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<xsl:variable name="TranslateBrowse" select="leg:TranslateText('Browse Legislation: UK')"/>
-						<h1 id="pageTitle"><xsl:value-of select="substring-before($TranslateBrowse,':')"/>:
-							<abbr title="{leg:TranslateText('United Kingdom')}"><xsl:value-of select="substring-after($TranslateBrowse,':')"/></abbr>
+						<h1 id="pageTitle">
+							<abbr title="{leg:TranslateText('United Kingdom')}"><xsl:value-of select="leg:TranslateText('UK')"/></abbr>
 						</h1>
 					</div>
 					<div id="content">
@@ -658,6 +659,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseWales">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Wales')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -668,7 +670,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>:
+						<h1 id="pageTitle">
 							<xsl:value-of select="leg:TranslateText('Wales')"/>
 						</h1>
 					</div>
@@ -842,6 +844,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseScotland">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Scotland')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -852,7 +855,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>:
+						<h1 id="pageTitle">
 							<xsl:value-of select="leg:TranslateText('Scotland')"/>
 						</h1>
 					</div>
@@ -1012,6 +1015,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseNI">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Northern Ireland')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -1022,7 +1026,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>:
+						<h1 id="pageTitle">
 							<xsl:value-of select="leg:TranslateText('Northern Ireland')"/>
 						</h1>
 					</div>

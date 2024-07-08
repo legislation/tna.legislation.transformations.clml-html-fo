@@ -92,6 +92,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="/">
 		<html>
 			<head>
+				
+				<xsl:choose>
+					<xsl:when test="leg:is-text-search-uri($request-info//request-path)">
+						<meta name="robots" content="noindex"/>
+					</xsl:when>
+					<xsl:when test="$request-info//query-string != ''">
+						<link rel="canonical" href="{leg:make-canonical-uri($request-info//request-path)}" />
+					</xsl:when>									
+				</xsl:choose>
+				
+				
 				<xsl:call-template name="AddBrowseStylesScripts"/>
 				<xsl:variable name="lastModified" as="xs:dateTime?">
 					<xsl:choose>
@@ -105,7 +116,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:variable name="lastModified" as="xs:dateTime" select="if (exists($lastModified)) then $lastModified else current-dateTime()" />
  				<meta name="DC.Date.Modified" content="{adjust-date-to-timezone(xs:date($lastModified), ())}" />
 				<meta http-equiv="Last-Modified" content="{tso:httpDateTime($lastModified)}" />
+				
 				<xsl:apply-templates select="/atom:feed/atom:link" mode="HTMLmetadata" />
+				
 			</head>		
 		
 			<xsl:variable name="class" as="xs:string"
@@ -1394,5 +1407,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</a>
 		</div>
 	</xsl:template>
-
+	
+	
+	<xsl:function name="leg:is-text-search-uri" as="xs:boolean">		
+		<xsl:param name="uri" as="xs:string?"/>
+		<xsl:variable name="hasSubject" as="xs:boolean" select="exists(($paramsDoc/parameters/subject[. != ''], $request-info//parameters/parameter[name = 'text']/value[. != ''])[1])"/>
+		<xsl:variable name="hasTitle" as="xs:boolean" select="exists(($paramsDoc/parameters/title[. != ''], $request-info//parameters/parameter[name = 'title']/value[. != ''])[1])"/>		
+		<xsl:variable name="hasText" as="xs:boolean" select="exists(($paramsDoc/parameters/text[. != ''], $request-info//parameters/parameter[name = 'text']/value[. != ''])[1])"/>	
+		<xsl:sequence select="$hasSubject or $hasTitle or $hasText"/>
+	</xsl:function>	
+	
+	<xsl:function name="leg:make-canonical-uri">
+		<xsl:param name="uri" as="xs:string?"/>
+		<xsl:variable name="subject" select="$paramsDoc/parameters/subject[. != '']"/>
+		<xsl:variable name="tokens" select="string-join((tokenize($uri, '/')[not(. = $subject)]), '/')"/>
+		<xsl:sequence select="concat('https://www.legislation.gov.uk', $tokens)"/>
+	</xsl:function>
+	
 </xsl:stylesheet>
