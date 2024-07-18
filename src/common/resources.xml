@@ -656,7 +656,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="All Legislation (excluding drafts)">Pob Deddfwriaeth (ac eithrio drafftiau)</resource>
 		<resource id="UK Legislation (excluding originating from the EU)">Deddfwriaeth y Deyrnas Unedig (ac eithrio yn deillio o’r UE)</resource><!-- PT 172481089: needs checking -->
 		<resource id="UK Legislation (including originating from the EU)">Deddfwriaeth y Deyrnas Unedig (gan gynnwys tarddu o’r UE)</resource><!-- PT 172481089: needs checking -->
-		<resource id="Free of charge draft legislation feeds">Porthiant deddfwriaeth ddrafft am ddim</resource>
+		<resource id="Draft legislation feeds">Porthiant deddfwriaeth ddrafft am ddim</resource>
 		<resource id="Tracking UK Legislation">Olrhain Deddfwriaeth y Deyrnas Unedig</resource>
 		<resource id="All New Legislation">Pob Deddfwriaeth Newydd</resource>
 		<resource id="Nothing published">Dim wedi ei gyhoeddi</resource>
@@ -1401,7 +1401,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Extent_search_desc">These advanced features are only available on searches for revised legislation e.g. Acts. Secondary legislation will not be included in search results.</resource>
 		<resource id="Changes_chnoTable_desc">The Chronological Tables list changes to Local, Private and Personal Acts dating from 1797 – 2008. They are updated each year and as the title suggests, the tables list Local, Private and Personal Acts in their chronological sequence along with details about repeals of, and changes (including amendments and substitutions) made to those Acts. They have been published in parts to make navigation easier.</resource>
 		<resource id="Common_word_text_message">Common words were ignored for this search. Use double quotes around common words to include them.</resource>
-		<resource id="Free_of_charge">Free of charge legislation feeds</resource>
+		<resource id="Free_of_charge">Legislation feeds</resource>
 		<resource id="Language_Switch_EN">Switch to English Version</resource>
 		<resource id="Language_Switch_CY">Switch to Welsh Version</resource>
 		<resource id="Crown copyright">Crown and database right</resource>
