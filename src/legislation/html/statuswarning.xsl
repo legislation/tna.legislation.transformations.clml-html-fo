@@ -49,7 +49,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 	<!-- input parameter doc -->
 	<xsl:variable name="paramsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
-	<xsl:variable name="IsAmendedbyUK" select="if (doc-available('input:IsAmendedbyUK')) then doc('input:IsAmendedbyUK') else ('false')"/>
+	<xsl:variable name="IsAmendedbyUK" select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/amendedByUK']/@title"/>
 	<!--  let $version be the value of the version parameter coming through Orbeon  -->
 	<xsl:variable name="version" as="xs:string" select="($paramsDoc/parameters/version, '')[1]"/>
 	<!--  let $pointInTimeView be true if $version is either castable to a date or the value 'prospective' -->
