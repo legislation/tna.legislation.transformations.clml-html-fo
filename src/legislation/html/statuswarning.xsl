@@ -49,7 +49,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 	<!-- input parameter doc -->
 	<xsl:variable name="paramsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
-	<xsl:variable name="IsAmendedbyUK" select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/amendedByUK']/@title"/>
+	<xsl:variable name="IsAmendedbyUK" as="xs:boolean" select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/legislation/EffectsApplied']"/>
 	<!--  let $version be the value of the version parameter coming through Orbeon  -->
 	<xsl:variable name="version" as="xs:string" select="($paramsDoc/parameters/version, '')[1]"/>
 	<!--  let $pointInTimeView be true if $version is either castable to a date or the value 'prospective' -->
@@ -250,7 +250,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 					<xsl:attribute name="class">
 						<xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">
 							<xsl:choose>
-								<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and $IsAmendedbyUK = ('false')">
+								<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($IsAmendedbyUK)">
 									<xsl:text>EU-black-border</xsl:text>
 								</xsl:when>
 								<xsl:otherwise>
@@ -298,7 +298,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</xsl:when>
 								<xsl:when test="$Scenario = '1'">
 									<xsl:choose>
-										<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView) and $IsAmendedbyUK = ('false')">
+										<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView) and not($IsAmendedbyUK)">
 											<xsl:value-of select="concat(leg:TranslateMessage('EU_no_outstanding_effects_p1'), ' ')"/>
 											<xsl:choose>
 												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation')">
