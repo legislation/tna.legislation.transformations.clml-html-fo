@@ -250,7 +250,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 					<xsl:attribute name="class">
 						<xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">
 							<xsl:choose>
-								<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($IsAmendedbyUK)">
+								<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($IsAmendedbyUK) and not($pointInTimeView)">
 									<xsl:text>EU-black-border</xsl:text>
 								</xsl:when>
 								<xsl:otherwise>
