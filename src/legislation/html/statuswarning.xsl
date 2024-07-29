@@ -327,6 +327,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:choose>
 										<xsl:when test="$IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.)">
 											<xsl:choose>
+												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView) and not($IsAmendedbyUK)">
+													<xsl:value-of select="concat(leg:TranslateMessage('EU_no_outstanding_effects_p1'), ' ')"/>
+													<xsl:choose>
+														<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation')">
+															<xsl:text>Regulation</xsl:text>
+														</xsl:when>
+														<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionDecision')">
+															<xsl:text>Decision</xsl:text>
+														</xsl:when>
+													</xsl:choose>
+													<xsl:value-of select="concat(' ', leg:TranslateMessage('EU_no_outstanding_effects_p2'), ' ')"/>
+													<a href='https://eur-lex.europa.eu/homepage.html' target='_blank'>EUR-Lex</a>
+													<xsl:value-of select="concat(' ',leg:TranslateMessage('EU_no_outstanding_effects_p3'), ' ')"/>
+													<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank"><xsl:value-of select="leg:TranslateMessage('EU_no_outstanding_effects_p4')"/></a>
+												</xsl:when>
 												<!-- status_warning_effects_pt1 -->
 												<xsl:when test="leg:IsTOC()">
 													<xsl:value-of select="$status-legtitle"/>
