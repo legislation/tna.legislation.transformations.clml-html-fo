@@ -1172,7 +1172,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 <!--Every child that's repealed has @Match = 'false' and @RestrictEndDate not @Status = 'Prospective': -->
 <!--Chunyu HA049670 Changed priority from 50 to 51 since it conflicts with the template of line 955 see nisi/2007/1351 part -->
-<xsl:template match="leg:Division | leg:Part | leg:Chapter | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock | leg:ExplanatoryNotes | leg:SignedSection | leg:EUChapter | leg:EUPart | leg:EUTitle | leg:EUSection | leg:EUSubsection" priority="51">
+<xsl:template match="leg:Division | leg:Part | leg:Chapter | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock | leg:ExplanatoryNotes | leg:SignedSection | leg:EUChapter | leg:EUPart | leg:EUTitle | leg:EUSection | leg:EUSubsection | leg:EarlierOrders" priority="51">
 	<xsl:variable name="isWholeActView" select="./root()/leg:Legislation/@DocumentURI = $dcIdentifier"/>
 	<xsl:variable name="isBodyView" select="matches($dcIdentifier, '/body')"/>
 	<xsl:variable name="isSchedulesView" select="matches($dcIdentifier, '/schedules|/annexes')"/>
@@ -1207,7 +1207,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 					)
 				) or 
 				(	(:  the explanatory notes do not appear to always have an enddate or status attribute so we must infer the repeal  :)
-					self::leg:ExplanatoryNotes and (
+					(self::leg:ExplanatoryNotes or self::leg:EarlierOrders) and (
 					every $child in (leg:* except (leg:Number, leg:Title)) satisfies
 					(exists($child//leg:Text) or exists($child//xhtml:td)) and 
 					(every $text in ($child//leg:Text | $child//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = ''))
@@ -1243,7 +1243,12 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		</xsl:when>
 		<xsl:when test="($documentURI = ($dcIdentifier) or $isSchedulesView or $isBodyView) and $isRepealed">
 			<xsl:call-template name="FuncProcessRepealedMajorHeading" />
-			<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
+			<p>
+				<xsl:if test="self::leg:EarlierOrders or self::leg:ExplanatoryNotes">
+					<xsl:apply-templates select=".//leg:CommentaryRef"/>
+				</xsl:if>
+				<xsl:text>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</xsl:text>
+			</p>
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 		</xsl:when>
 		
