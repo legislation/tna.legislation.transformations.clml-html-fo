@@ -387,10 +387,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<div>
 								<div class="buynow-border">
 									<p class="buynow-title">
-										<span>Official printed and bound copies of legislation</span>
+										<span>Official printed copies of legislation</span>
 									</p>
 								</div>
-								<p>Bound copies of legislation are provided by the official legislation publisher, The Stationery Office Ltd (TSO).</p>
+								<p>Copies of legislation are provided by the official legislation publisher, The Stationery Office Ltd (TSO).</p>
 								<p>
 									<b>How much does an official printed copy cost?</b>
 								</p>
