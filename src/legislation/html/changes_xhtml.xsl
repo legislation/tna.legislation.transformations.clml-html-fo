@@ -146,7 +146,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</ul>
 							</div>
 							<div class="s_12">
-								<h2><xsl:value-of select="leg:TranslateText('Changes to Statutory Rules(Northern Ireland)')"/></h2>
+								<h2><xsl:value-of select="leg:TranslateText('Changes to Statutory Rules (Northern Ireland)')"/></h2>
 								<p><xsl:value-of select="leg:TranslateText('Changes_chnoTable_ni_desc')"/></p>
 								<ul class="linkList">
 									<li>
