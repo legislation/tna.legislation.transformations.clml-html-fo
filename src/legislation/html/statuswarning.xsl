@@ -1014,8 +1014,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p42a')"/>
 						<xsl:value-of select="string(' ')"/>
 						<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p43')"/>
+						<xsl:value-of select="string(' ')"/>
 					</xsl:if>
-					<xsl:value-of select="string(' ')"/>
 					<xsl:value-of select="leg:TranslateMessage('status_warning_revised_p49')"/> <xsl:value-of select="leg:TranslateMessage('status_warning_revised_p50')"/>
 				</tso:status>
 			</xsl:when>
