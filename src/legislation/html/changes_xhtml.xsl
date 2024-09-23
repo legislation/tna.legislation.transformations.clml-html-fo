@@ -145,6 +145,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</li>
 								</ul>
 							</div>
+							<div class="s_12">
+								<h2><xsl:value-of select="leg:TranslateText('Changes to Statutory Rules (Northern Ireland)')"/></h2>
+								<p><xsl:value-of select="leg:TranslateText('Changes_chnoTable_ni_desc')"/></p>
+								<ul class="linkList">
+									<li>
+										<a href="{concat($langPrefix,'/changes/chron-tables/ni')}"><xsl:value-of select="leg:TranslateText('Chronological Table of Statutory Rules (Northern Ireland)')"/> <span class="pageLinkIcon"></span></a>
+									</li>
+								</ul>
+							</div>
 						</xsl:if>
 
 						<!-- displaying the search results-->
