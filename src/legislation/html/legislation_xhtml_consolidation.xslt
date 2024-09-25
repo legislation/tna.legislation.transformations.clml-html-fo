@@ -2647,7 +2647,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 	<!-- wrapping the image around model window html -->
-	<xsl:template match="leg:ExternalVersion[not(@format = 'xml')]">
+	<xsl:template match="leg:ExternalVersion[not(@Format = 'xml')][not(@format = 'xml')]">
 		<xsl:param name="strContext"/>
 		<xsl:param name="strDisplayFormat"/>
 		<xsl:param name="strAltAttributeDesc"/>
@@ -2670,7 +2670,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	
 	
 	
-	<xsl:template match="leg:ExternalVersion[@format='xml']" priority="25">
+	<xsl:template match="leg:ExternalVersion[@Format='xml' or @format = 'xml']" priority="25">
 		<xsl:param name="strContext"/>
 		<xsl:param name="strDisplayFormat"/>
 		<xsl:param name="strAltAttributeDesc"/>
