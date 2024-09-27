@@ -2217,14 +2217,35 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 				<xsl:value-of select="concat('LegClearFix Leg', $element, if (not(preceding-sibling::*) and (parent::leg:ScheduleBody or parent::leg:AppendixBody)) then 'First' else (),$strAmendmentSuffix, $extentcontainer)"/>
 			</xsl:attribute>
 			<xsl:apply-templates select="leg:Number"/>
-			<xsl:if test="leg:Number/following-sibling::*[1][self::leg:P[leg:Text]] or leg:Number/following-sibling::*[1][self::leg:Para[leg:Text]]">
+			<xsl:if test="leg:Number/following-sibling::*[1][self::leg:P/child::*[1][self::leg:Text]] or 
+				leg:Number/following-sibling::*[1][self::leg:Para/child::*[1][self::leg:Text]]">
 				<xsl:apply-templates select="leg:Number/following-sibling::*[1][self::leg:P] | leg:Number/following-sibling::*[1][self::leg:Para]" mode="numberedpara"/>
 			</xsl:if>
 		</xsl:element>
-		<xsl:apply-templates select="*[not(self::leg:Number)][not(self::leg:P[preceding-sibling::*[1][self::leg:Number]]/leg:Text)][not(self::leg:Para[preceding-sibling::*[1][self::leg:Number]]/leg:Text)]"/>
+	
+		<xsl:variable name="thsNd" as="item()*">
+			<xsl:for-each select="*">
+				<xsl:choose>
+					<xsl:when test="self::leg:Number"/>
+					<xsl:when test="self::leg:P[not(preceding-sibling::leg:P)] | self::leg:Para[not(preceding-sibling::leg:Para)]">
+						<xsl:apply-templates select="self::*" mode="EUdivPara"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="self::*"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:for-each>
+		</xsl:variable>
+		<xsl:copy-of select="$thsNd"/>
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
+<xsl:template match="leg:P | leg:Para" mode="EUdivPara">
+	<xsl:call-template name="FuncCheckForIDnoElement"/>
+	<xsl:apply-templates select="* except child::*[1][self::leg:Text] | processing-instruction()"/>
+	<xsl:call-template name="FuncApplyVersions"/>
+</xsl:template>
+	
 <xsl:template match="leg:AttachmentGroup/leg:Number | leg:EUPart/leg:Number | leg:EUChapter/leg:Number | leg:EUSection/leg:Number | leg:EUSubsection/leg:Number  | leg:EUTitle/leg:Number">
 	<xsl:variable name="element" select="parent::*/local-name()"/>
 	<xsl:call-template name="FuncGenerateMajorHeadingNumber">
@@ -2331,7 +2352,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
 	<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">
-		<xsl:apply-templates select="leg:Text/node()"/>
+		<xsl:apply-templates select="leg:Text[1]/node()"/>
 	</span>
 	<!-- Issue LEGDEV-2742 numbered paras with annotations see eur-2011-1169-annex-IX-division-2 -->
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
