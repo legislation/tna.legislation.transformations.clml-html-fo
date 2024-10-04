@@ -1041,7 +1041,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<a href="/cy/understanding-legislation#revisedlegislation">pa ddeddfwriaeth yr ydym yn ei diweddaru</a>,
 				<a href="/cy/help#aboutLegNotOnWebsite">ble y gallwch gael copïau o ddeddfwriaeth nad ydym yn ei dal</a> a
 				<a href="/cy/understanding-legislation#Howlegislationworks">sut mae deddfwriaeth yn gweithio</a>. Er mwyn dod o hyd i ddarn o ddeddfwriaeth gallwch
-				<a href="/cy/browse">bori yn ôl math a chategori’r ddeddfwriaeth</a> neu ddefnyddio
+				<a href="/cy/explore">bori yn ôl math a chategori’r ddeddfwriaeth</a> neu ddefnyddio
 				<a href="/cy/search">ein chwiliad uwch</a> i chwilio yn ôl teitl neu allweddair yn y testun.
 			</resource>
 			<resource id="Legislation_published">Ddeddfwriaeth a gyhoeddwyd yn ddiweddar</resource>
@@ -1842,7 +1842,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<a href="/understanding-legislation#revisedlegislation">what legislation we update</a>,
 		<a href="/help#aboutLegNotOnWebsite">where you can obtain copies of legislation we don’t hold</a> and
 		<a href="/understanding-legislation#Howlegislationworks">how legislation works</a>. To find an item of legislation you can
-		<a href="/browse">browse by legislation type and category</a> or use
+		<a href="/explore">browse by legislation type and category</a> or use
 		<a href="/search">our advanced search</a> to explore by title or keyword in text.</resource>
 		<resource id="Invalid search characters">Invalid search characters.</resource>
 		<resource id="Legislation_published">Legislation published recently</resource>
