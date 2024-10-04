@@ -54,7 +54,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Whats new">What's new</resource>
 		<resource id="Browse Legislation: UK">Pori trwy Ddeddfwriaeth: DU</resource>
 		<resource id="Changes to Legislation">Newidiadau i Ddeddfwriaeth</resource>
-		<resource id="Contact Us">Cysylltu â Ni</resource>
+		<resource id="Contact us">Cysylltu â Ni</resource>
 		<resource id="Crown copyright">Hawl y goron a chronfa ddata</resource>
 		<!-- Hawlfraint y Goron  -->
 		<resource id="excluding draft">ac eithrio drafftiau</resource>
@@ -68,9 +68,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Number">Rhif</resource>
 		<resource id="Open Government Licence">Drwydded Llywodraeth Agored v3.0</resource>
 		<resource id="OGL Link">http://www.nationalarchives.gov.uk/doc/open-government-licence-cymraeg/version/3</resource>
-		<resource id="Privacy Notice">Rhybudd Preifatrwydd</resource>
+		<resource id="Privacy notice">Rhybudd Preifatrwydd</resource>
 		<resource id="Revised">ddiwygiedig</resource>
-		<resource id="Site Map">Map o’r safle</resource>
+		<resource id="Site map">Map o’r safle</resource>
 		<resource id="Search">Chwilio</resource>
 		<resource id="Invalid search characters">Nodweddion chwilio annilys.</resource>
 		<resource id="Search Legislation">Chwilio Deddfwriaeth</resource>
