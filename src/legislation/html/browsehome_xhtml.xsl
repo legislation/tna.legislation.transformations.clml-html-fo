@@ -70,7 +70,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/browse/map.js"></script>
 			</head>
 			<!-- TSOBrowseHome has a different body@class -->
-			<body xml:lang="{$TranslateLang}" dir="ltr" id="explore" class="intro">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -373,7 +373,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body xml:lang="{$TranslateLang}" dir="ltr" id="explore" class="intro region">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -666,7 +666,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body xml:lang="{$TranslateLang}" dir="ltr" id="explore" class="intro region">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -851,7 +851,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body xml:lang="{$TranslateLang}" dir="ltr" id="explore" class="intro region">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -1022,7 +1022,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body xml:lang="{$TranslateLang}" dir="ltr" id="explore" class="intro region">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -1222,7 +1222,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body xml:lang="{$TranslateLang}" dir="ltr" id="explore"
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse"
 				  class="intro region euregion">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
