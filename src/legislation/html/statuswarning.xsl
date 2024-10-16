@@ -598,7 +598,12 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<xsl:with-param name="IsRevisedEUPDFOnly" tunnel="yes" select="$IsRevisedEUPDFOnly"/>
 			</xsl:apply-templates>
 		</xsl:variable>
-		<xsl:if test="exists($ndsFilterUnappliedEffects/*)">
+
+		<xsl:variable name="showOutstanding" as="xs:boolean">
+			<xsl:sequence select="leg:IsOutstandingEffectExists(.) and not(leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.)) and empty($g_powerToAmend)"/>
+		</xsl:variable>
+
+		<xsl:if test="exists($ndsFilterUnappliedEffects/*) and $showOutstanding">
 			<a href="#statusWarningSubSections">
         <xsl:attribute name="class">
 				  <xsl:value-of select="if ($IsRevisedEUPDFOnly) then 'expandCollapseLink js-IsRevisedEUPDFOnly' else 'expandCollapseLink'"/>
