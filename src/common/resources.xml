@@ -1874,11 +1874,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!--<resource id="explore_uk_parliament">Made by the UK Parliament and UK Government</resource>-->
 		<resource id="explore_from_eu">Adopted as UK legislation on EU exit day - you can browse this by topic</resource>
 
-		<resource id="explore_uk_summary">Made by the UK Parliament and UK Government and Historic Parliaments</resource>
+		<resource id="explore_uk_summary">Legislation made by the UK Parliament and UK Government, and Historic Parliaments</resource>
 		<resource id="explore_eu_summary">As originally adopted by the European Union up to 11.00 p.m. on 31 December 2020</resource>
-		<resource id="explore_scotland_summary">Legislation that either exclusively relates to, or may extend to, Scotland</resource>
-		<resource id="explore_wales_summary">Legislation that either exclusively relates to, or may extend to, Wales</resource>
-		<resource id="explore_ni_summary">Legislation that either exclusively relates to, or may extend to, Northern Ireland</resource>
+		<resource id="explore_scotland_summary">Including legislation made by the Scottish Parliament and Scottish Government</resource>
+		<resource id="explore_wales_summary">Including legislation made by the Welsh Parliament, Welsh Assembly and Welsh Government</resource>
+		<resource id="explore_ni_summary">Including legislation made by the Northern Ireland Assembly</resource>
 
 		<resource id="new_legislation">New UK, Scottish, Welsh and Northern Ireland legislation listed by publication date with free subscription feeds.</resource>
 		<resource id="changes_to_legislation">Search and explore changes made to an item or selection of legislation.</resource>
