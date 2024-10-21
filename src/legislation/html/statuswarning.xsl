@@ -600,7 +600,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 		</xsl:variable>
 
 		<xsl:variable name="showOutstanding" as="xs:boolean">
-			<xsl:sequence select="leg:IsOutstandingEffectExists(.) and not(leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))"/>
+			<xsl:sequence select="not(leg:ShowOutstanding(.))"/>
 		</xsl:variable>
 
 		<xsl:if test="exists($ndsFilterUnappliedEffects/*) and $showOutstanding">
@@ -1379,6 +1379,18 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 					every $t in $legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]/ukm:InForceDates/ukm:InForce
 					satisfies $t[@Prospective='true' or xs:date(@Date) &gt; current-date()]
 					"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
+
+	<xsl:function name="leg:ShowOutstanding" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:choose>
+			<xsl:when test="leg:IsCurrentWelsh($legislation)">
+				<xsl:sequence select="exists($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[(@RequiresWelshApplied='false')])"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:sequence select="exists($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[@RequiresApplied='false'])"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:function>
