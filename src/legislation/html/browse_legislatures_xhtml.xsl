@@ -59,7 +59,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:apply-templates select="doc($file)" mode="cards"/>
 							</xsl:if>
 						</xsl:for-each>
-						<!--</div>-->
 					</div>
 					<div class="also-interested">
 						<h2>You might also be interested in finding out about...</h2>
