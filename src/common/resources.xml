@@ -1873,7 +1873,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<!--<resource id="explore_uk_parliament">Made by the UK Parliament and UK Government</resource>-->
 		<resource id="explore_from_eu">Adopted as UK legislation on EU exit day - you can browse this by topic</resource>
-
+		<resource id="explore_legislatures_summary">Legislation made by the current and historic Parliaments, Assemblies and Governments of the UK.</resource>
+		<resource id="ukia_summary">Procedures that assess prospective economic, social, and environmental effects of public UK policy proposals.</resource>
 		<resource id="explore_uk_summary">Legislation made by the UK Parliament and UK Government, and Historic Parliaments</resource>
 		<resource id="explore_eu_summary">As originally adopted by the European Union up to 11.00 p.m. on 31 December 2020</resource>
 		<resource id="explore_scotland_summary">Including legislation made by the Scottish Parliament and Scottish Government</resource>

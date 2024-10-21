@@ -46,18 +46,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
-					<div class="title">
-						<h1 id="pageTitle">
+					<div class="info-content">
+						<ul class="breadcrumb">
+							<li><a href="/">Home</a></li>
+							<li>Explore our collections</li>
+						</ul>
+						<h1>
 							<xsl:value-of select="leg:TranslateText('Explore our collections')"/>
 						</h1>
-					</div>
-					<div id="content">
-						<xsl:for-each select="('browsecards_explore', 'browsecards_parliaments','browsecards_new','browsecards_types','browsecards_ia','browsecards_defra')">
-							<xsl:variable name="file" select="concat('../../../www/browse/',.,'.atom.xml')"/>
-							<xsl:if test="doc-available($file)">
-								<xsl:apply-templates select="doc($file)" mode="cards"/>
-							</xsl:if>
-						</xsl:for-each>
+						<p>Browse legislation by specific current and historic Parliaments, Assemblies and Governments of the UK. Alternatively, explore our curated collections of Draft Statutory Instruments awaiting Parliamentary procedure; legislation relating to specific events such as coronavirus, and find out what happened with EU legislation when the UK left the EU.</p>
+						<ul class="content-cards">
+							<xsl:for-each select="('browsecards_explore_new')">
+								<xsl:variable name="file" select="concat('../../../www/browse/',.,'.atom.xml')"/>
+								<xsl:if test="doc-available($file)">
+									<xsl:apply-templates select="doc($file)" mode="cards"/>
+								</xsl:if>
+							</xsl:for-each>
+						</ul>
 					</div>
 				</div>
 			</body>
@@ -65,19 +70,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 	<xsl:template match="atom:feed" mode="cards">
-		<div class="card_list">
-			<xsl:apply-templates select="node() except atom:entry" mode="cards"/>
-			<ul class="cards">
-				<xsl:apply-templates select="atom:entry" mode="cards"/>
-			</ul>
-		</div>
+		<xsl:apply-templates select="node() except atom:entry" mode="cards"/>
+		<xsl:apply-templates select="atom:entry" mode="cards"/>
 	</xsl:template>
 
-	<xsl:template match="atom:title" mode="cards">
-		<h2>
-			<xsl:apply-templates mode="cards"/>
-		</h2>
-	</xsl:template>
+	<xsl:template match="atom:title" mode="cards"/>
+
 	<xsl:template match="atom:entry/atom:title" mode="cards">
 		<h3>
 			<xsl:apply-templates mode="cards"/>
@@ -86,30 +84,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<xsl:template match="atom:entry" mode="cards">
 		<xsl:variable name="id" select="tokenize(./atom:id,'#')[2]"/>
-		<li class="card" id="{$id}">
+		<li id="{$id}">
 			<a>
+				<xsl:attribute name="class" select="atom:img"/>
 				<xsl:attribute name="href">
 					<xsl:if test="not(./atom:category/@term = 'en-only')">
 						<xsl:value-of select="$TranslateLangPrefix"/>
 					</xsl:if>
 					<xsl:value-of select="./atom:link/@href"/>
 				</xsl:attribute>
-				<div>
-					<xsl:attribute name="class">
-						<xsl:text>header</xsl:text>
-						<xsl:if test="exists(atom:content)">
-							<xsl:text> rule</xsl:text>
-						</xsl:if>
-					</xsl:attribute>
-					<xsl:apply-templates select="* except atom:content" mode="cards"/>
-				</div>
+				<xsl:apply-templates select="atom:title" mode="cards"/>
 				<xsl:apply-templates select="atom:content" mode="cards"/>
 			</a>
 		</li>
 	</xsl:template>
 	<!--paragraph with the class of element name-->
 	<xsl:template match="atom:summary|atom:content" mode="cards">
-		<p class="{local-name()}">
+		<p>
 			<xsl:apply-templates mode="cards"/>
 		</p>
 	</xsl:template>
