@@ -1172,7 +1172,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 <!--Every child that's repealed has @Match = 'false' and @RestrictEndDate not @Status = 'Prospective': -->
 <!--Chunyu HA049670 Changed priority from 50 to 51 since it conflicts with the template of line 955 see nisi/2007/1351 part -->
-<xsl:template match="leg:Division | leg:Part | leg:Chapter | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock | leg:ExplanatoryNotes | leg:SignedSection | leg:EUChapter | leg:EUPart | leg:EUTitle | leg:EUSection | leg:EUSubsection" priority="51">
+<xsl:template match="leg:Division | leg:Part | leg:Chapter | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock | leg:ExplanatoryNotes | leg:SignedSection | leg:EUChapter | leg:EUPart | leg:EUTitle | leg:EUSection | leg:EUSubsection | leg:EarlierOrders" priority="51">
 	<xsl:variable name="isWholeActView" select="./root()/leg:Legislation/@DocumentURI = $dcIdentifier"/>
 	<xsl:variable name="isBodyView" select="matches($dcIdentifier, '/body')"/>
 	<xsl:variable name="isSchedulesView" select="matches($dcIdentifier, '/schedules|/annexes')"/>
@@ -1207,7 +1207,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 					)
 				) or 
 				(	(:  the explanatory notes do not appear to always have an enddate or status attribute so we must infer the repeal  :)
-					self::leg:ExplanatoryNotes and (
+					(self::leg:ExplanatoryNotes or self::leg:EarlierOrders) and (
 					every $child in (leg:* except (leg:Number, leg:Title)) satisfies
 					(exists($child//leg:Text) or exists($child//xhtml:td)) and 
 					(every $text in ($child//leg:Text | $child//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = ''))
@@ -1243,7 +1243,12 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		</xsl:when>
 		<xsl:when test="($documentURI = ($dcIdentifier) or $isSchedulesView or $isBodyView) and $isRepealed">
 			<xsl:call-template name="FuncProcessRepealedMajorHeading" />
-			<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
+			<p>
+				<xsl:if test="self::leg:EarlierOrders or self::leg:ExplanatoryNotes">
+					<xsl:apply-templates select=".//leg:CommentaryRef"/>
+				</xsl:if>
+				<xsl:text>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</xsl:text>
+			</p>
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 		</xsl:when>
 		
@@ -2212,14 +2217,35 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 				<xsl:value-of select="concat('LegClearFix Leg', $element, if (not(preceding-sibling::*) and (parent::leg:ScheduleBody or parent::leg:AppendixBody)) then 'First' else (),$strAmendmentSuffix, $extentcontainer)"/>
 			</xsl:attribute>
 			<xsl:apply-templates select="leg:Number"/>
-			<xsl:if test="leg:Number/following-sibling::*[1][self::leg:P[leg:Text]] or leg:Number/following-sibling::*[1][self::leg:Para[leg:Text]]">
+			<xsl:if test="leg:Number/following-sibling::*[1][self::leg:P/child::*[1][self::leg:Text]] or 
+				leg:Number/following-sibling::*[1][self::leg:Para/child::*[1][self::leg:Text]]">
 				<xsl:apply-templates select="leg:Number/following-sibling::*[1][self::leg:P] | leg:Number/following-sibling::*[1][self::leg:Para]" mode="numberedpara"/>
 			</xsl:if>
 		</xsl:element>
-		<xsl:apply-templates select="*[not(self::leg:Number)][not(self::leg:P[preceding-sibling::*[1][self::leg:Number]]/leg:Text)][not(self::leg:Para[preceding-sibling::*[1][self::leg:Number]]/leg:Text)]"/>
+	
+		<xsl:variable name="thsNd" as="item()*">
+			<xsl:for-each select="*">
+				<xsl:choose>
+					<xsl:when test="self::leg:Number"/>
+					<xsl:when test="self::leg:P[not(preceding-sibling::leg:P)] | self::leg:Para[not(preceding-sibling::leg:Para)]">
+						<xsl:apply-templates select="self::*" mode="EUdivPara"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="self::*"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:for-each>
+		</xsl:variable>
+		<xsl:copy-of select="$thsNd"/>
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
+<xsl:template match="leg:P | leg:Para" mode="EUdivPara">
+	<xsl:call-template name="FuncCheckForIDnoElement"/>
+	<xsl:apply-templates select="* except child::*[1][self::leg:Text] | processing-instruction()"/>
+	<xsl:call-template name="FuncApplyVersions"/>
+</xsl:template>
+	
 <xsl:template match="leg:AttachmentGroup/leg:Number | leg:EUPart/leg:Number | leg:EUChapter/leg:Number | leg:EUSection/leg:Number | leg:EUSubsection/leg:Number  | leg:EUTitle/leg:Number">
 	<xsl:variable name="element" select="parent::*/local-name()"/>
 	<xsl:call-template name="FuncGenerateMajorHeadingNumber">
@@ -2326,7 +2352,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
 	<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">
-		<xsl:apply-templates select="leg:Text/node()"/>
+		<xsl:apply-templates select="leg:Text[1]/node()"/>
 	</span>
 	<!-- Issue LEGDEV-2742 numbered paras with annotations see eur-2011-1169-annex-IX-division-2 -->
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
@@ -2642,7 +2668,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 	<!-- wrapping the image around model window html -->
-	<xsl:template match="leg:ExternalVersion[not(@format = 'xml')]">
+	<xsl:template match="leg:ExternalVersion[not(@Format = 'xml')][not(@format = 'xml')]">
 		<xsl:param name="strContext"/>
 		<xsl:param name="strDisplayFormat"/>
 		<xsl:param name="strAltAttributeDesc"/>
@@ -2665,7 +2691,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	
 	
 	
-	<xsl:template match="leg:ExternalVersion[@format='xml']" priority="25">
+	<xsl:template match="leg:ExternalVersion[@Format='xml' or @format = 'xml']" priority="25">
 		<xsl:param name="strContext"/>
 		<xsl:param name="strDisplayFormat"/>
 		<xsl:param name="strAltAttributeDesc"/>

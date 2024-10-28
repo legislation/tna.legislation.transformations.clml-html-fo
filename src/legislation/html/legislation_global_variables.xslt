@@ -100,7 +100,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable 	name="g_strsignatureURI" as="xs:string?" 
 					select="$g_ndsMetadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/signature' and @title='signature']/@href"/>
 	<xsl:variable 	name="g_strENURI" as="xs:string?" 
-					select="$g_ndsMetadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/note' and @title='note']/@href"/>				
+					select="$g_ndsMetadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/note' and @title='note']/@href"/>
+	<xsl:variable 	name="g_strEOURI" as="xs:string?" 
+					select="$g_ndsMetadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/earlier-orders' and @title='earlier orders']/@href"/>
 	<xsl:variable 	name="g_attachmentsOnlyURI" as="xs:string?"
 					select="$g_ndsMetadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/attachments' and @title='attachments']/@href"/>
 	<xsl:variable 	name="g_schedulesOnlyURI" as="xs:string?"
