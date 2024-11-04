@@ -52,7 +52,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<li><a href="/explore"><xsl:value-of select="leg:TranslateText('Explore our collections')"/></a></li>	
 							<li><a href="#" style="font-weight:500;"><xsl:value-of select="leg:TranslateText('Different legislatures of the UK')"/></a></li>
 						</ul>
-						<h1 style="padding-top: 0.2em;"><xsl:value-of select="leg:TranslateText('Different legislatures of the UK')"/></h1>
+						<h1><xsl:value-of select="leg:TranslateText('Different legislatures of the UK')"/></h1>
 						<xsl:for-each select="('browsecards_parliaments')">
 							<xsl:variable name="file" select="concat('../../../www/browse/',.,'.atom.xml')"/>
 							<xsl:if test="doc-available($file)">
@@ -60,48 +60,48 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</xsl:if>
 						</xsl:for-each>
 					</div>
-					<div class="also-interested">
-						<h2>You might also be interested in finding out about...</h2>
-						<ul>
-							<li>
-								<a href="#">
-									<h3>Legislation originating from the EU</h3>
-									<p>EU legislation as it applied to the UK on 31 Dec 2020, with any changes since made by the UK applied.</p>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<h3>UK Parliaments and jurisdictions</h3>
-									<p>The different legislatures of the UK, their history and how the UK Parliaments have changed over time.</p>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<h3>What legislation we hold</h3>
-									<p>We hold most, but not all, types of legislation and their accompanying explanatory documents. See a complete list of what we hold.</p>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<h3>How legislation works</h3>
-									<p>Find out how laws get made, what various terms mean, how legislation can change other legislation and what revised legislation is.</p>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<h3>Our editorial process</h3>
-									<p>Find out what legislation we revise, our timescales for revision, the conventions we follow and the principles that we abide by.</p>
-								</a>
-							</li>
-						</ul>
-					</div>
+				</div>
+				<div class="also-interested">
+					<h2>You might also be interested in finding out about...</h2>
+					<ul>
+						<li>
+							<a href="#">
+								<h3>Legislation originating from the EU</h3>
+								<p>EU legislation as it applied to the UK on 31 Dec 2020, with any changes since made by the UK applied.</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>UK Parliaments and jurisdictions</h3>
+								<p>The different legislatures of the UK, their history and how the UK Parliaments have changed over time.</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>What legislation we hold</h3>
+								<p>We hold most, but not all, types of legislation and their accompanying explanatory documents. See a complete list of what we hold.</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>How legislation works</h3>
+								<p>Find out how laws get made, what various terms mean, how legislation can change other legislation and what revised legislation is.</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>Our editorial process</h3>
+								<p>Find out what legislation we revise, our timescales for revision, the conventions we follow and the principles that we abide by.</p>
+							</a>
+						</li>
+					</ul>
 				</div>
 			</body>
 		</html>
 	</xsl:template>
 
 	<xsl:template match="atom:feed" mode="cards">
-			<ul class="cards">
+			<ul class="content-cards">
 				<xsl:apply-templates select="atom:entry" mode="cards"/>
 			</ul>
 	</xsl:template>
