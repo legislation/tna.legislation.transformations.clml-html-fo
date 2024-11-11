@@ -1283,6 +1283,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:variable>
 									<li>
 										<a class="pdfLink" href="{@URI}">
+										   <xsl:attribute name="rel">alternate no-follow</xsl:attribute>
 											<xsl:choose>
 												<!--added revised version-->
 												<xsl:when test="@Title/starts-with(., 'Reprint')">
@@ -2122,6 +2123,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:attribute name="target">_blank</xsl:attribute>
 							</xsl:otherwise>
 						</xsl:choose>
+						<xsl:attribute name="rel">alternate no-follow</xsl:attribute>
 						<xsl:text>PDF</xsl:text>
 						<span class="accessibleText">
 							<xsl:text> </xsl:text>
