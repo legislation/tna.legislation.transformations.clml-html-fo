@@ -1144,9 +1144,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="EUR-Lex differing terminology">Cymerwyd y data hwn o’r dudalen Gwybodaeth am Ddogfennau ar EUR-Lex. Gall peth o’r derminoleg yma fod yn wahanol i’r hyn a ddefnyddir yn neddfwriaeth y Deyrnas Unedig.</resource>
 
 		<resource id="legislation_originated_from_EU_1">Mae'r eitem hon o ddeddfwriaeth yn tarddu o'r UE</resource>
-		<resource id="legislation_originated_from_EU_p1">Mae legislation.gov.uk yn cyhoeddi fersiwn y DU.</resource>
-		<resource id="legislation_originated_from_EU_p2">publishes the EU version.</resource>
-		<resource id="legislation_originated_from_EU_p3">holds a snapshot of EUR-Lex’s version from IP completion day (31 December 2020 11.00 p.m.).</resource>
+		<resource id="legislation_originated_from_EU_p1">Mae legislation.gov.uk yn cyhoeddi fersiwn y DU. Mae</resource>
+		<resource id="legislation_originated_from_EU_p2">yn cyhoeddi fersiwn yr UE. Mae </resource>
+		<resource id="legislation_originated_from_EU_p3"> yn rhoi cipolwg ar fersiwn EUR-Lex o ddiwrnod cwblhau’r cyfnod gweithredu (31 Rhagfyr 2020 11.00 p.m.).</resource>
+		<resource id="EU_Exit_Web_Archive">Archif Gwe Ymadael â’r UE </resource>
 
 		<resource id="status_warning_changes_eu_revised_pdf_only">Efallai na fydd deddfwriaeth ddiwygiedig sydd ar y safle hwn yn gwbl gyfoes. Cofnodir newidiadau ac effeithiau gan ein tîm golygyddol mewn rhestrau sydd i'w gweld yn yr adran 'Newidiadau i Ddeddfwriaeth'. Os nad yw'r effeithiau hynny wedi'u cymhwyso eto i destun y ddeddfwriaeth gan y tîm golygyddol maent hefyd wedi'u rhestru ochr yn ochr â'r ddeddfwriaeth yn y darpariaethau yr effeithir arnynt. Defnyddiwch y ddolen 'mwy' i agor y newidiadau a'r effeithiau sy'n berthnasol i'r ddarpariaeth rydych yn edrych arni.</resource>
 		<resource id="status_warning_changes_revised_pdf_only">Efallai na fydd deddfwriaeth ddiwygiedig sydd ar y safle hwn yn gwbl gyfoes. Cofnodir newidiadau ac effeithiau gan ein tîm golygyddol mewn rhestrau sydd i'w gweld yn yr adran 'Newidiadau i Ddeddfwriaeth'.</resource>
@@ -1933,6 +1934,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="legislation_originated_from_EU_p1">Legislation.gov.uk publishes the UK version.</resource>
 		<resource id="legislation_originated_from_EU_p2">publishes the EU version.</resource>
 		<resource id="legislation_originated_from_EU_p3">holds a snapshot of EUR-Lex’s version from IP completion day (31 December 2020 11.00 p.m.).</resource>
+		<resource id="EU_Exit_Web_Archive"> The EU Exit Web Archive </resource>
 
 		<!-- PDF Version -->
 		<resource id="PDF_Versions">PDF Versions</resource>
