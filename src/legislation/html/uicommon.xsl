@@ -55,7 +55,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:if test="$messageType = 'pdfWarning' or  $messageType = 'webWarning' ">
 									<xsl:attribute name="target">_blank</xsl:attribute>
 								</xsl:if>
-							<xsl:attribute name="rel">alternate no-follow</xsl:attribute>
+								<xsl:if test="$messageType = 'pdfWarning'">
+									<xsl:attribute name="rel">alternate no-follow</xsl:attribute>
+								</xsl:if>
 							<span class="btl"></span><span class="btr"></span><xsl:value-of select="leg:TranslateText('Continue to open')"/><span class="bbl"></span><span class="bbr"></span></a></li>
 					</ul>
 				</div>
