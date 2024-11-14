@@ -85,6 +85,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				('false')"/>
 	</xsl:variable>
 
+	<xsl:variable name="internal_team_email">
+		<xsl:sequence select="
+			if (doc-available('input:buynow')) then
+				doc('input:buynow')//*:email
+			else
+				('email')"/>
+	</xsl:variable>
+
 	<xsl:variable name="errorSearchingDoc" as="document-node()?">
 		<xsl:sequence select="
 				if (doc-available('input:error-searching')) then
@@ -402,6 +410,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<input type="hidden" name="title" value="{$title}"/>
 									<input type="hidden" name="isbn" value="{$isbn}"/>
 									<input type="hidden" name="date" value="{$date}"/>
+									<input type="hidden" name="internalEmail" value="{$internal_team_email}"/>
 									<div class="buynow-border">
 										<p style="padding: 0% 0% 2% 0%; font-size: 1.05rem !important;">
 											<span>Please send me a price for </span>
