@@ -45,7 +45,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 													 )]" />
 	<xsl:variable name="sectionEffects"
 								as="element(ukm:UnappliedEffect)*"
-								select="$effects except ($commencementOrders, $largerEffects)" />
+								select="$effects[@RequiresWelshApplied='true' or @RequiresApplied='true'] except ($commencementOrders, $largerEffects)" />
 
 
 	<!-- FM Issue 261: Changes to Legislation for the introductory text - we don't really want to show all the outstanding effects for the whole Act in here -  as there won't ever be any effects listed that are for just for the introductory text - please can you just remove the category which lists effects for the specific provision you are - so there should only be ones for the whole Act and the commencement orders listed at this level -->
