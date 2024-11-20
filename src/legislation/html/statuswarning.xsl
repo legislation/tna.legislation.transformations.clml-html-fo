@@ -173,7 +173,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
             			<xsl:value-of select="leg:TranslateMessage('statuswarning_revised_eudirective_head')"/>
           			</h2>
 					<p class="intro">
-						<xsl:value-of select="leg:TranslateMessage('statuswarning_revised_eudirective_body')"/>
+						<xsl:value-of select="leg:TranslateText('statuswarning_revised_eudirective_body')"/>
 					</p>
 				</xsl:when>
 				<!-- EU PDF only data that has unapplied effects should allow these to be shown -->
@@ -213,19 +213,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<p class="intro">
 							<xsl:choose>
 								<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView) and not($IsAmendedbyUK)">
-									<xsl:value-of select="concat(leg:TranslateMessage('EU_no_outstanding_effects_p1'), ' ')"/>
+									<xsl:value-of select="concat(leg:TranslateText('EU_no_outstanding_effects_p1'), ' ')"/>
 									<xsl:choose>
 										<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation')">
-											<xsl:text>Regulation</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Regulation')"/>
 										</xsl:when>
 										<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionDecision')">
-											<xsl:text>Decision</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Decision')"/>
 										</xsl:when>
 									</xsl:choose>
-									<xsl:value-of select="concat(' ', leg:TranslateMessage('EU_no_outstanding_effects_p2'), ' ')"/>
+									<xsl:value-of select="concat(' ', leg:TranslateText('EU_no_outstanding_effects_p2'), ' ')"/>
 									<a href='https://eur-lex.europa.eu/homepage.html' target='_blank'>EUR-Lex</a>
-									<xsl:value-of select="concat(' ',leg:TranslateMessage('EU_no_outstanding_effects_p3'), ' ')"/>
-									<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank"><xsl:value-of select="leg:TranslateMessage('EU_no_outstanding_effects_p4')"/></a>
+									<xsl:value-of select="concat(' ', leg:TranslateText('EU_no_outstanding_effects_p3'), ' ')"/>
+									<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank">
+										<xsl:value-of select="leg:TranslateText('EU_no_outstanding_effects_p4')"/>
+									</a>
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="leg:TranslateMessage('swcontent_tocmsg_eupdf_p1')"/>
@@ -325,19 +327,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								<xsl:when test="$Scenario = '1'">
 									<xsl:choose>
 										<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView) and not($IsAmendedbyUK)">
-											<xsl:value-of select="concat(leg:TranslateMessage('EU_no_outstanding_effects_p1'), ' ')"/>
+											<xsl:value-of select="concat(leg:TranslateText('EU_no_outstanding_effects_p1'), ' ')"/>
 											<xsl:choose>
 												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation')">
-													<xsl:text>Regulation</xsl:text>
+													<xsl:value-of select="leg:TranslateText('Regulation')"/>
 												</xsl:when>
 												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionDecision')">
-													<xsl:text>Decision</xsl:text>
+													<xsl:value-of select="leg:TranslateText('Decision')"/>
 												</xsl:when>
 											</xsl:choose>
-											<xsl:value-of select="concat(' ', leg:TranslateMessage('EU_no_outstanding_effects_p2'), ' ')"/>
+											<xsl:value-of select="concat(' ', leg:TranslateText('EU_no_outstanding_effects_p2'), ' ')"/>
 											<a href='https://eur-lex.europa.eu/homepage.html' target='_blank'>EUR-Lex</a>
-											<xsl:value-of select="concat(' ',leg:TranslateMessage('EU_no_outstanding_effects_p3'), ' ')"/>
-											<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank"><xsl:value-of select="leg:TranslateMessage('EU_no_outstanding_effects_p4')"/></a>
+											<xsl:value-of select="concat(' ', leg:TranslateText('EU_no_outstanding_effects_p3'), ' ')"/>
+											<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank">
+												<xsl:value-of select="leg:TranslateText('EU_no_outstanding_effects_p4')"/>
+											</a>
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
@@ -354,19 +358,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 										<xsl:when test="$IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.)">
 											<xsl:choose>
 												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision') and not($pointInTimeView) and not($IsAmendedbyUK)">
-													<xsl:value-of select="concat(leg:TranslateMessage('EU_no_outstanding_effects_p1'), ' ')"/>
+													<xsl:value-of select="concat(leg:TranslateText('EU_no_outstanding_effects_p1'), ' ')"/>
 													<xsl:choose>
 														<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation')">
-															<xsl:text>Regulation</xsl:text>
+															<xsl:value-of select="leg:TranslateText('Regulation')"/>
 														</xsl:when>
 														<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionDecision')">
-															<xsl:text>Decision</xsl:text>
+															<xsl:value-of select="leg:TranslateText('Decision')"/>
 														</xsl:when>
 													</xsl:choose>
-													<xsl:value-of select="concat(' ', leg:TranslateMessage('EU_no_outstanding_effects_p2'), ' ')"/>
+													<xsl:value-of select="concat(' ', leg:TranslateText('EU_no_outstanding_effects_p2'), ' ')"/>
 													<a href='https://eur-lex.europa.eu/homepage.html' target='_blank'>EUR-Lex</a>
-													<xsl:value-of select="concat(' ',leg:TranslateMessage('EU_no_outstanding_effects_p3'), ' ')"/>
-													<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank"><xsl:value-of select="leg:TranslateMessage('EU_no_outstanding_effects_p4')"/></a>
+													<xsl:value-of select="concat(' ', leg:TranslateText('EU_no_outstanding_effects_p3'), ' ')"/>
+													<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/eu-legislation-and-uk-law" target="_blank">
+														<xsl:value-of select="leg:TranslateText('EU_no_outstanding_effects_p4')"/>
+													</a>
 												</xsl:when>
 												<!-- status_warning_effects_pt1 -->
 												<xsl:when test="leg:IsTOC()">

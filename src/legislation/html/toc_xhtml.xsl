@@ -1383,7 +1383,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:value-of select="leg:TranslateText('legislation_originated_from_EU_p1')"/>
 						<a href='https://eur-lex.europa.eu/homepage.html' target='_blank'> EUR-Lex </a>
 						<xsl:value-of select="leg:TranslateText('legislation_originated_from_EU_p2')"/>
-						<a href='https://webarchive.nationalarchives.gov.uk/eu-exit' target='_blank'> The EU Exit Web Archive </a>
+						<a href='https://webarchive.nationalarchives.gov.uk/eu-exit' target='_blank'>
+							<xsl:value-of select="leg:TranslateText('EU_Exit_Web_Archive')"/>
+						</a>
 						<xsl:value-of select="leg:TranslateText('legislation_originated_from_EU_p3')"/>
 					</p>
 				</div>
