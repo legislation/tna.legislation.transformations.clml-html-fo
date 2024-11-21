@@ -344,7 +344,14 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											</a>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
+											<xsl:choose>
+												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation','EuropeanUnionDecision')">
+													<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects_eudn_eudr'), ' ')"/>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
+												</xsl:otherwise>
+											</xsl:choose>
 											<xsl:value-of select="$status-legtitle"/>
 											<xsl:if test="string-length($sectionTitle) ne 0">
 												<xsl:value-of select="concat(', ', $sectionTitle)"/>
@@ -398,7 +405,14 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											</xsl:choose>
 										</xsl:when>
 										<xsl:when test="leg:IsEURetained(.)">
-											<xsl:value-of select="concat(leg:TranslateMessage('statuswarning_euretained_p1'), ' ')"/>
+											<xsl:choose>
+												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation', 'EuropeanUnionDecision')">
+													<xsl:value-of select="concat(leg:TranslateMessage('statuswarning_euretained_p1_eudr_eudn'), ' ')"/>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:value-of select="concat(leg:TranslateMessage('statuswarning_euretained_p1'), ' ')"/>
+												</xsl:otherwise>
+											</xsl:choose>
 											<xsl:value-of select="$status-legtitle"/>
 											<xsl:text>.</xsl:text>
 											<xsl:if test="leg:IsTOC()">

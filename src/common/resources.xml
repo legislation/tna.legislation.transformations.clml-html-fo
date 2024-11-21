@@ -1651,6 +1651,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="no_outstanding_effects">There are currently no known outstanding effects for the</resource>
 		<resource id="Regulation">Regulation</resource>
 		<resource id="Decision">Decision</resource>
+		<resource id="no_outstanding_effects_eudn_eudr">There are currently no known outstanding effects by UK legislation for</resource>
 		<resource id="EU_no_outstanding_effects_p1">This version of this</resource>
 		<resource id="EU_no_outstanding_effects_p2">was derived from</resource>
 		<resource id="EU_no_outstanding_effects_p3">on IP completion day (31 December 2020 11:00 p.m.). It has not been amended by the UK since then.</resource>
@@ -1800,6 +1801,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<resource id="statuswarning_revised_eudirective_body">EU Directives are published on this site to aid cross referencing from UK legislation. Since IP completion day (31 December 2020 11.00 p.m.) no amendments have been applied to this version.</resource>
 
     <resource id="statuswarning_euretained_p1">There are outstanding changes not yet made to</resource>
+	<resource id="statuswarning_euretained_p1_eudr_eudn">There are outstanding changes by UK legislation not yet made to</resource>
     <resource id="statuswarning_euretained_p2">Any changes that have already been made to the legislation appear in the content and are referenced with annotations.</resource>
 
     <resource id="swcontent_tocmsg_p1">There are outstanding changes not yet made by the legislation.gov.uk editorial team to</resource>
