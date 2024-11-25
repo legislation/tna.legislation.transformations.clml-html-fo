@@ -85,14 +85,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				('false')"/>
 	</xsl:variable>
 
-	<xsl:variable name="internal_team_email">
-		<xsl:sequence select="
-			if (doc-available('input:buynow')) then
-				doc('input:buynow')//*:email
-			else
-				('email')"/>
-	</xsl:variable>
-
 	<xsl:variable name="errorSearchingDoc" as="document-node()?">
 		<xsl:sequence select="
 				if (doc-available('input:error-searching')) then
@@ -154,7 +146,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			else
 			$legdate"/>
 	</xsl:variable>
-
+	<xsl:variable name="isbn" select="
+		if (exists($nstMetadata/ukm:ISBN/@Value)) then
+		tso:formatISBN($nstMetadata/ukm:ISBN/@Value)
+		else
+		()"/>
 	<!-- [Converstion starts] -->
 	<xsl:template match="/">
 		<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/"
@@ -199,20 +195,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/cookie-directive.js"/>
 				<xsl:call-template name="GoogleTagManager"/>
 				<script src="https://www.google.com/recaptcha/api.js" async="" defer=""/>
-				<script type="text/javascript">
-
-					function validate_form() {
-
-						const recaptcha_box_checked = (grecaptcha.getResponse()) ? true: false;
-
-						if (recaptcha_box_checked) {
-							return true;
-						} else {
-							alert("You must check the 'I am not a robot' box before you submit!");
-							return false;
-						}
-					}
-				</script>
+				<script type="text/javascript" src="/scripts/buynow/buynow.js"/>
 			</head>
 
 			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}" class="browse">
@@ -284,13 +267,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<div class="thankyou">
 											<div class="submit">
 												<button type="reset" id="goBacktoLeg"
-													class="buynow-submit" onclick="window.history.go(-2); return false;">Go back to the legislation</button>
+													class="buynow-submit">Go back to the legislation</button>
 											</div>
 
 											<!--[Cancel]-->
 											<div class="submit">
 												<button type="reset" id="goBacktoBuynow"
-													onclick="window.history.back();"
 													class="buynow-cancel cancel-thankyou">Change my contact details</button>
 											</div>
 										</div>
@@ -377,11 +359,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:variable name="hasBlockAmends"
 				select="exists(/leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)//leg:BlockAmendment)"/>
 			<div class="LegSnippet" id="viewLegSnippet">
-				<xsl:variable name="isbn" select="
-						if (exists($nstMetadata/ukm:ISBN/@Value)) then
-							tso:formatISBN($nstMetadata/ukm:ISBN/@Value)
-						else
-							()"/>
 				<xsl:choose>
 					<xsl:when test="$buynow-enable = ('false')">
 						<div class="buynow-border">
@@ -405,12 +382,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<p style="margin-top:0%;margin-bottom:2%;">Each copy is printed on request and priced according to page count. TSO will contact you with the price for your copy.</p>
 							</div>
 
-							<form action="{$requestInfoDoc/request/request-uri}" method="post" onsubmit="return validate_form();">
+							<form action="{$requestInfoDoc/request/request-uri}" method="post" id="buyNowForm" autocomplete="off">
 								<div class="formBlock">
-									<input type="hidden" name="title" value="{$title}"/>
-									<input type="hidden" name="isbn" value="{$isbn}"/>
-									<input type="hidden" name="date" value="{$date}"/>
-									<input type="hidden" name="internalEmail" value="{$internal_team_email}"/>
 									<div class="buynow-border">
 										<p style="padding: 0% 0% 2% 0%; font-size: 1.05rem !important;">
 											<span>Please send me a price for </span>
@@ -490,7 +463,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<!--[Cancel]-->
 											<div class="submit searchCol2">
 												<button type="reset" id="buyNowCancel"
-													onclick="window.history.back();" class="buynow-cancel"
+													class="buynow-cancel"
 													>Cancel and go back</button>
 											</div>
 										</div>
