@@ -150,7 +150,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		if (exists($nstMetadata/ukm:ISBN/@Value)) then
 		tso:formatISBN($nstMetadata/ukm:ISBN/@Value)
 		else
-		()"/>
+		('')"/>
+	<xsl:variable name="legislation" as="document-node()">
+		<xsl:document>
+			<xsl:copy-of select="/leg:Legislation"/>
+		</xsl:document>
+	</xsl:variable>
 	<!-- [Converstion starts] -->
 	<xsl:template match="/">
 		<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/"
@@ -360,7 +365,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				select="exists(/leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)//leg:BlockAmendment)"/>
 			<div class="LegSnippet" id="viewLegSnippet">
 				<xsl:choose>
-					<xsl:when test="$buynow-enable = ('false')">
+					<xsl:when test="$buynow-enable = ('false') or $isbn = '' leg:IsCurrentRevised($legislation)">
 						<div class="buynow-border">
 							<p class="buynow-title">
 								<span>This page is currently disabled</span>
