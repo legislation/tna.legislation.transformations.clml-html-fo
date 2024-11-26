@@ -2035,7 +2035,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</h4>
 				<ul>
 					<li>
-						<a href="{leg:FormatPDFDataURL($dcIdentifier)}" target="_blank" class="pdfLink">PDF
+						<a href="{leg:FormatPDFDataURL($dcIdentifier)}" target="_blank" class="pdfLink">
+							<xsl:attribute name="rel">alternate no-follow</xsl:attribute>PDF
 							<span class="accessibleText">table of contents</span>
 						</a>
 					</li>
@@ -2124,6 +2125,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:attribute name="target">_blank</xsl:attribute>
 							</xsl:otherwise>
 						</xsl:choose>
+						<xsl:attribute name="rel">alternate no-follow</xsl:attribute>
 						<xsl:text>PDF</xsl:text>
 						<span class="accessibleText">
 							<xsl:text> </xsl:text>
