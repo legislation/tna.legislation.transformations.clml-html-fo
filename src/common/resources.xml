@@ -1887,11 +1887,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="explore_wales_summary">Including legislation made by the Welsh Parliament, Welsh Assembly and Welsh Government</resource>
 		<resource id="explore_ni_summary">Including legislation made by the Northern Ireland Assembly</resource>
 		<resource id="advanced_search_summary">Search for keywords in content, Welsh language legislation, legislation with specific geographical extent, and more.</resource>
-		<resource id="changes_to_legislation_summary">A search tool to find all changes made to or by specific pieces or types of legislation</resource>
+		<resource id="changes_to_legislation_summary">A search tool to find all changes made to or by specific pieces or types of legislation.</resource>
 		<resource id="changes_to_local_and_private_and_personal_acts_summary">Chronological lists detailing changes to Local, and Private and Personal Acts, between 1539 and 2008.</resource>
-		<resource id="find_case_law_summary">Public access to court judgments and tribunal decisions is an essential part of interpreting legislation. Explore The National Archives’ Find Case Law service</resource>
+		<resource id="find_case_law_summary">Public access to court judgments and tribunal decisions is an essential part of interpreting legislation. Explore The National Archives’ Find Case Law service.</resource>
 
-		<resource id="new_legislation">New UK, Scottish, Welsh and Northern Ireland legislation listed by publication date with free subscription feeds.</resource>
+		<resource id="new_legislation">New UK, Scottish, Welsh and Northern Ireland legislation listed by publication date.</resource>
 		<resource id="changes_to_legislation">Search and explore changes made to an item or selection of legislation.</resource>
 
 		<resource id="Primary Legislation"/>
@@ -1902,7 +1902,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="explore_primary_summary">Public General Acts, Local Acts and more</resource>
 		<resource id="explore_secondary_summary">Statutory Instruments, Ministerial Orders, Church Measures and more</resource>
 		<resource id="explore_ukmd_summary">Created by ministers to detail legislation originating from the EU that is exempt from the duty to publish on legislation.gov.uk. These exemptions are in addition to those stated in the EU (Withdrawal) Act 2018 (c. 16).</resource>
-		<resource id="explore_draft_summary">Draft Statutory Instruments that are awaiting approval. Draft legislation can either become law, be withdrawn or replaced by another draft.</resource>
+		<resource id="explore_draft_summary">Draft Statutory Instruments that are awaiting approval.</resource>
 		<resource id="explore_defra_summary">In force legislation managed and organised by Defra</resource>
 		<!--End Browse (Cards) -->
 
@@ -2107,9 +2107,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Whats new">What's new</resource>
 		<resource id="Changes to Legislation">Changes to Legislation</resource>
 		<resource id="Help and guidance">Help and guidance</resource>
-		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland</resource>				
+		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland.</resource>
 		<resource id="understanding_legislation_text">How UK legislation is introduced, amended and brought into force, and what we hold on legislation.gov.uk</resource>
-		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 December 2020 is now a part of domestic legislation</resource>
+		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 Dec 2020, with any subsequent changes made by the UK applied.</resource>
 		
 		<!-- [Advanced Search] -->
 		<resource id="Choose if you are using a Welsh language search term">Choose if you are using a Welsh language search term</resource>
