@@ -398,6 +398,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Not a valid series" translated="false" stage2="true">Not a valid series</resource>
 		<resource id="Not a valid number" translated="true" stage2="true">Ddim yn rif dilys</resource>
 		<resource id="no_outstanding_effects">Ar hyn o bryd nid oes unrhyw effeithiau heb eu gweithredu yn hysbys ar gyfer y </resource>
+		<resource id="Regulation">Rheoliad</resource>
+		<resource id="Decision">Penderfyniad</resource>
+		<resource id="EU_no_outstanding_effects_p1">Roedd y fersiwn hon o'r</resource>
+		<resource id="EU_no_outstanding_effects_p2">hwn yn deillio o</resource>
+		<resource id="EU_no_outstanding_effects_p3">ar ddiwrnod cwblhau’r cyfnod gweithredu (31 Rhagfyr 2020 11: 00 p.m.). Nid yw wedi cael ei diwygio gan y DU ers hynny.</resource>
+		<resource id="EU_no_outstanding_effects_p4">Darganfyddwch fwy am ddeddfwriaeth sy'n deillio o'r UE fel y'i cyhoeddwyd ar legislation.gov.uk</resource>
 		<!-- facet filters -->
 		<resource id="By Type" translated="false" stage2="true">By Type</resource>
 		<resource id="by Type" translated="false" stage2="true">by Type</resource>
@@ -988,7 +994,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="treaty_eea">yw hon. Nid oes amserlen o newidiadau ar gael ar gyfer cytuniadau, yn hytrach gellir mynd i fersiynau blaenorol dyddiedig o EUR-Lex (fel pdf) trwy’r ddewislen Rhagor o Adnoddau.</resource>
 
 	<resource id="statuswarning_revised_eudirective_head">Statws:</resource>
-    <resource id="statuswarning_revised_eudirective_body">Mae Cyfarwyddebau’r Undeb Ewropeaidd yn cael eu cyhoeddi ar y safle hwn i gynorthwyo croes gyfeirio o ddeddfwriaeth y Deyrnas Unedig. Ar ôl diwrnod cwblhau cyfnod gweithredu (31 Rhagfyr 2020 11pm) ni fydd unrhyw ddiwygiadau pellach yn cael eu gweithredu o ran y fersiwn hon.</resource>
+	<resource id="statuswarning_revised_eudirective_body">Cyhoeddir Cyfarwyddebau’r UE ar y wefan hon i gynorthwyo croesgyfeirio o ddeddfwriaeth y DU. Ers diwrnod cwblhau’r cyfnod gweithredu (31 Rhagfyr 2020 11.00 p.m.) nid oes unrhyw ddiwygiadau wedi'u cymhwyso i'r fersiwn hon.</resource>
 
     <resource id="statuswarning_euretained_p1">Mae newidiadau heb eu gwneud eto i</resource>
     <resource id="statuswarning_euretained_p2">y Senedd Ewropeaidd a’r Cyngor. Mae unrhyw newidiadau sydd wedi cael eu gwneud yn barod i’r ddeddfwriaeth yn ymddangos yn y cynnwys a chyfeirir atynt gydag anodiadau.</resource>
@@ -1011,8 +1017,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
       <resource id="howlegislationextends">Sut y gall deddfwriaeth rychwantu a bod yn berthnasol mewn rhannau gwahanol o’r Deyrnas Unedig</resource>
       <resource id="Howlegislationcomesintoforceandisamended">Sut y daw deddfwriaeth i rym</resource>
       <resource id="editorialpractice">Ein harferion golygyddol ac amserlenni ar gyfer ymgorffori newidiadau</resource>
-	  <resource id="Legislation originating from the EU">Deddfwriaeth yn deillio o’r UE</resource>
-	  <resource id="LegislationoriginatingfromtheEU">Deddfwriaeth yn deillio o’r UE</resource>
 
       <resource id="morehelp">Rhagor o help</resource>
       <resource id="faqs">Cwestiynau Cyffredin</resource>
@@ -1101,8 +1105,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="European Union">Undeb Ewropeaidd</resource>
 		<!--End Browse EU-->
 		<!-- EU-UK-Reg -->
-		<resource id="eu_uk_all">Legislation originating from the EU</resource>
-		<resource id="eu_body">When the UK left the EU, legislation.gov.uk published EU legislation that had been published by the EU up to IP completion day (31 December 2020 11.00 p.m.). On legislation.gov.uk, these items of legislation are kept up-to-date with any amendments made by the UK since then.</resource>
+		<resource id="eu_uk_all">Deddfwriaeth yn deillio o’r UE</resource>
+		<resource id="Legislation originating from the EU">Deddfwriaeth yn deillio o’r UE</resource>
+		<resource id="LegislationoriginatingfromtheEU">Deddfwriaeth yn deillio o’r UE</resource>
+		<resource id="eu_body">Pan adawodd y DU yr UE, cyhoeddodd legislation.gov.uk ddeddfwriaeth yr UE a gyhoeddwyd gan yr UE hyd at ddiwrnod cwblhau’r cyfnod gweithredu (31 Rhagfyr 2020 11.00 p.m.). Ar legislation.gov.uk, mae'r eitemau hyn o ddeddfwriaeth yn cael eu diweddaru'n gyson ag unrhyw ddiwygiadau a wnaed gan y DU ers hynny.</resource>
 		<resource id="link_to_uk_law_page">Find out more about legislation originating from the EU</resource>
 		<resource id="link_to_eur_lex">See the current EU version of this legislation on EUR-Lex</resource>
 			<resource id="eu_uk_eur">Mae hwn yn Rheoliad sy’n deillio o’r UE</resource>
@@ -1137,9 +1143,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="N/A">Amherthnasol</resource>
 		<resource id="EUR-Lex differing terminology">Cymerwyd y data hwn o’r dudalen Gwybodaeth am Ddogfennau ar EUR-Lex. Gall peth o’r derminoleg yma fod yn wahanol i’r hyn a ddefnyddir yn neddfwriaeth y Deyrnas Unedig.</resource>
 
-		<resource id="legislation_originated_from_EU_1">Mae hon yn eitem o ddeddfwriaeth sy’n deillio o’r UE</resource>
-		<resource id="legislation_originated_from_EU_p1">Mae unrhyw newidiadau sydd wedi cael eu gwneud yn barod gan y tîm yn ymddangos yn y cynnwys a chyfeirir atynt gydag anodiadau.Ar ôl y diwrnod ymadael bydd tair fersiwn o’r ddeddfwriaeth yma i’w gwirio at ddibenion gwahanol. Y fersiwn legislation.gov.uk yw’r fersiwn sy’n weithredol yn y Deyrnas Unedig. Y Fersiwn UE sydd ar EUR-lex ar hyn o bryd yw’r fersiwn sy’n weithredol yn yr UE h.y. efallai y bydd arnoch angen y fersiwn hon os byddwch yn gweithredu busnes yn yr UE.</resource>
-		<resource id="legislation_originated_from_EU_p2">Y fersiwn yn yr archif ar y we yw’r fersiwn swyddogol o’r ddeddfwriaeth fel yr oedd ar y diwrnod ymadael cyn cael ei chyhoeddi ar legislation.gov.uk ac unrhyw newidiadau ac effeithiau a weithredwyd yn y Deyrnas Unedig wedyn. Mae’r archif ar y we hefyd yn cynnwys cyfraith achos a ffurfiau mewn ieithoedd eraill o EUR-Lex.</resource>
+		<resource id="legislation_originated_from_EU_1">Mae'r eitem hon o ddeddfwriaeth yn tarddu o'r UE</resource>
+		<resource id="legislation_originated_from_EU_p1">Mae legislation.gov.uk yn cyhoeddi fersiwn y DU. Mae</resource>
+		<resource id="legislation_originated_from_EU_p2">yn cyhoeddi fersiwn yr UE. Mae </resource>
+		<resource id="legislation_originated_from_EU_p3"> yn rhoi cipolwg ar fersiwn EUR-Lex o ddiwrnod cwblhau’r cyfnod gweithredu (31 Rhagfyr 2020 11.00 p.m.).</resource>
+		<resource id="EU_Exit_Web_Archive">Archif Gwe Ymadael â’r UE </resource>
 
 		<resource id="status_warning_changes_eu_revised_pdf_only">Efallai na fydd deddfwriaeth ddiwygiedig sydd ar y safle hwn yn gwbl gyfoes. Cofnodir newidiadau ac effeithiau gan ein tîm golygyddol mewn rhestrau sydd i'w gweld yn yr adran 'Newidiadau i Ddeddfwriaeth'. Os nad yw'r effeithiau hynny wedi'u cymhwyso eto i destun y ddeddfwriaeth gan y tîm golygyddol maent hefyd wedi'u rhestru ochr yn ochr â'r ddeddfwriaeth yn y darpariaethau yr effeithir arnynt. Defnyddiwch y ddolen 'mwy' i agor y newidiadau a'r effeithiau sy'n berthnasol i'r ddarpariaeth rydych yn edrych arni.</resource>
 		<resource id="status_warning_changes_revised_pdf_only">Efallai na fydd deddfwriaeth ddiwygiedig sydd ar y safle hwn yn gwbl gyfoes. Cofnodir newidiadau ac effeithiau gan ein tîm golygyddol mewn rhestrau sydd i'w gweld yn yr adran 'Newidiadau i Ddeddfwriaeth'.</resource>
@@ -1641,6 +1649,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
      <span xmlns="http://www.w3.org/1999/xhtml">Note: Where changes and effects have yet to be applied to revised legislation you are viewing on this site, then any ‘Changes to Legislation’ are also displayed alongside the content of the legislation at provision level.</span>
     </resource>
 		<resource id="no_outstanding_effects">There are currently no known outstanding effects for the</resource>
+		<resource id="Regulation">Regulation</resource>
+		<resource id="Decision">Decision</resource>
+		<resource id="no_outstanding_effects_eudn_eudr">There are currently no known outstanding effects by UK legislation for</resource>
 		<resource id="EU_no_outstanding_effects_p1">This version of this</resource>
 		<resource id="EU_no_outstanding_effects_p2">was derived from</resource>
 		<resource id="EU_no_outstanding_effects_p3">on IP completion day (31 December 2020 11:00 p.m.). It has not been amended by the UK since then.</resource>
@@ -1787,9 +1798,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="treaty_eea">There are no timeline of changes available for treaties, instead, previous dated versions from EUR-Lex (as pdf) can be accessed via the More Resources menu.</resource>
 
 	<resource id="statuswarning_revised_eudirective_head">Status:</resource>
-		<resource id="statuswarning_revised_eudirective_body">EU Directives are published on this site to aid cross referencing from UK legislation. Since IP completion day (31 December 2020 11.00 p.m.) no amendments have been applied to this version.</resource>
+	<resource id="statuswarning_revised_eudirective_body">EU Directives are published on this site to aid cross referencing from UK legislation. Since IP completion day (31 December 2020 11.00 p.m.) no amendments have been applied to this version.</resource>
 
     <resource id="statuswarning_euretained_p1">There are outstanding changes not yet made to</resource>
+	<resource id="statuswarning_euretained_p1_eudr_eudn">There are outstanding changes by UK legislation not yet made to</resource>
     <resource id="statuswarning_euretained_p2">Any changes that have already been made to the legislation appear in the content and are referenced with annotations.</resource>
 
     <resource id="swcontent_tocmsg_p1">There are outstanding changes not yet made by the legislation.gov.uk editorial team to</resource>
@@ -1924,6 +1936,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="legislation_originated_from_EU_p1">Legislation.gov.uk publishes the UK version.</resource>
 		<resource id="legislation_originated_from_EU_p2">publishes the EU version.</resource>
 		<resource id="legislation_originated_from_EU_p3">holds a snapshot of EUR-Lex’s version from IP completion day (31 December 2020 11.00 p.m.).</resource>
+		<resource id="EU_Exit_Web_Archive"> The EU Exit Web Archive </resource>
 
 		<!-- PDF Version -->
 		<resource id="PDF_Versions">PDF Versions</resource>
