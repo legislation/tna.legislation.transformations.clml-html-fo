@@ -48,13 +48,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="info-content">
 						<ul class="breadcrumb">
-							<li><a href="/">Home</a></li>
-							<li>Explore our collections</li>
+							<li><a href="/"><xsl:value-of select="leg:TranslateText('Home')"/></a></li>
+							<li><xsl:value-of select="leg:TranslateText('Explore our collections')"/></li>
 						</ul>
 						<h1>
 							<xsl:value-of select="leg:TranslateText('Explore our collections')"/>
 						</h1>
-						<p>Browse legislation by specific current and historic Parliaments, Assemblies and Governments of the UK. Alternatively, explore our curated collections of Draft Statutory Instruments awaiting Parliamentary procedure; legislation relating to specific events such as coronavirus, and find out what happened with EU legislation when the UK left the EU.</p>
+						<p><xsl:value-of select="leg:TranslateText('explore_summary')"/></p>
 						<ul class="content-cards">
 							<xsl:for-each select="('browsecards_explore_new')">
 								<xsl:variable name="file" select="concat('../../../www/browse/',.,'.atom.xml')"/>

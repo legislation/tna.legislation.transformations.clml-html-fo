@@ -65,6 +65,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Homepage Footer End"> ac eithrio pan nodir yn wahanol</resource>
 		<resource id="Legislation">Deddfwriaeth</resource>
 		<resource id="New Legislation">Deddfwriaeth Newydd</resource>
+		<resource id="New legislation">Deddfwriaeth newydd</resource>
 		<resource id="Number">Rhif</resource>
 		<resource id="Open Government Licence">Drwydded Llywodraeth Agored v3.0</resource>
 		<resource id="OGL Link">http://www.nationalarchives.gov.uk/doc/open-government-licence-cymraeg/version/3</resource>
@@ -165,7 +166,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Content">Cynnwys</resource>
 		<resource id="Impact Assessments">Asesiadau Effaith</resource>
 		<resource id="Draft Impact Assessments">Asesiadau Effaith Ddrafft</resource>
-		<resource id="Draft legislation">Deddfwriaeth Ddrafft</resource>
+		<resource id="Draft legislation">Deddfwriaeth ddrafft</resource>
+		<resource id="Draft Legislation">Deddfwriaeth Ddrafft</resource>
 		<resource id="More Resources">Rhagor o Adnoddau</resource>
 		<resource id="Explanatory Notes">Nodiadau Esboniadol</resource>
 		<resource id="Explanatory Memorandum">Memorandwm Esboniadol</resource>
@@ -362,7 +364,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="General">Cyffredinol</resource>
 		<resource id="Geographical Extent">Rhychwant ddaearyddol</resource>
 		<resource id="Point in Time">Pwynt Penodol mewn Amser</resource>
-		<resource id="Draft Legislation">Deddfwriaeth Ddrafft</resource>
 		<resource id="General search">Chwiliad cyffredinol</resource>
 		<resource id="Keywords in content">Keywords in content</resource>
 		<resource id="Key_title_text">(neu eiriau allweddol yn y teitl)</resource>
@@ -1070,8 +1071,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_ni_range">o 1495 - presennol</resource>
 		<!--<resource id="explore_uk_parliament">Made by the UK Parliament and UK Government</resource>-->
 			<resource id="explore_from_eu">Wedi ei fabwysiadu fel deddfwriaeth y Deyrnas Unedig ar ddiwrnod ymadael â’r UE - gallwch bori trwy hwn yn ôl pwnc</resource>
-			<resource id="explore_legislatures_summary">Legislation made by the current and historic Parliaments, Assemblies and Governments of the UK.</resource>
-			<resource id="ukia_summary">Procedures that assess prospective economic, social, and environmental effects of public UK policy proposals.</resource>
+			<resource id="explore_legislatures_summary">Deddfwriaeth a wnaed gan Seneddau, Cynulliadau a Llywodraethau presennol a hanesyddol yn y DU.</resource>
+			<resource id="ukia_summary">Gweithdrefnau sy'n asesu effeithiau economaidd, cymdeithasol ac amgylcheddol arfaethedig cynigion polisi cyhoeddus y DU.</resource>
 			<resource id="explore_uk_summary">A wnaed gan Senedd y Deyrnas Unedig a Llywodraeth y Deyrnas Unedig</resource>
 			<resource id="explore_eu_summary"><span xmlns="http://www.w3.org/1999/xhtml">Fel y mabwysiadwyd yn wreiddiol gan y Sefydliadau Ewropeaidd a’i gymryd o EUR-Lex hyd at 31 Hydref 2019</span></resource>
 			<resource id="explore_scotland_summary">A wnaed gan Senedd yr Alban, Llywodraeth yr Alban a Seneddau Hanesyddol</resource>
@@ -1343,10 +1344,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p53"> yn cynnwys darpariaethau nad ydynt wedi dod i rym eto.</resource>
 		
 		<resource id="Coronavirus Legislation">Deddfwriaeth Coronafeirws</resource>
+		<resource id="Coronavirus legislation">Deddfwriaeth coronafeirws</resource>
 		<resource id="Help and guidance">Cymorth ac arweiniad</resource>
-		<resource id="coronavirus_legislation_text">Deddfwriaeth coronafeirws allweddol sy’n berthnasol i’r DU, Cymru, Lloegr, yr Alban a Gogledd Iwerddon</resource>				
+		<resource id="coronavirus_legislation_text">Deddfwriaeth coronafeirws allweddol sy’n berthnasol i’r DU, Cymru, Lloegr, yr Alban a Gogledd Iwerddon.</resource>
 		<resource id="understanding_legislation_text">Sut y caiff deddfwriaeth y DU ei chyflwyno, diwygio a dwyn i rym, a beth a gedwir gennym ar legislation.gov.uk</resource>
-		<resource id="eu_legislation_and_uk_law_text">Mae deddfwriaeth yr UE fel yr oedd yn berthnasol i’r DU ar 31 Rhagfyr 2020 yn awr yn rhan o ddeddfwriaeth ddomestig</resource>
+		<resource id="eu_legislation_and_uk_law_text">Deddfwriaeth yr UE fel yr oedd yn berthnasol i'r DU ar 31 Rhagfyr 2020, gan gynnwys unrhyw newidiadau dilynol sydd wedi'u gwneud gan y DU.</resource>
 		<!-- [Status Message] -->
 		<resource id="Cross Heading">Croes Bennawd</resource>
 		<resource id="cross heading">croes bennawd</resource>
@@ -1399,6 +1401,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="search_EN_description">searches all English text, including in Welsh legislation</resource>
 		<resource id="search_CY_txt">Search Welsh language text</resource>
 		<resource id="search_CY_description">only searches Welsh language text in Welsh legislation</resource>
+		<resource id="explore_summary">Porwch ddeddfwriaeth gan Seneddau, Cynulliadau a Llywodraethau penodol presennol a hanesyddol yn y DU. Neu archwiliwch ein casgliadau wedi'u curadu o Offerynnau Statudol Drafft sy'n aros am weithdrefn Seneddol; deddfwriaeth mewn perthynas â digwyddiadau penodol megis coronafeirws, a darganfyddwch beth ddigwyddodd o ran deddfwriaeth yr UE pan adawodd y DU yr UE.</resource>
+		<resource id="new_legislation">Deddfwriaeth newydd yn y DU, yr Alban, Cymru a Gogledd Iwerddon wedi'i rhestru yn ôl dyddiad cyhoeddi.</resource>
+		<resource id="Different legislatures of the UK">Deddfwrfeydd gwahanol y DU</resource>
 	</resources>
 
 	<resources lang="en">
@@ -2102,6 +2107,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- contains provisions that have not yet come into effect. -->
 		<resource id="status_warning_revised_p53"> contains provisions that have not yet come into effect.</resource>
 		<resource id="Coronavirus Legislation">Coronavirus Legislation</resource>
+		<resource id="Coronavirus legislation">Coronavirus legislation</resource>
 		<resource id="Explore our collections">Explore our collections</resource>
 		<resource id="About us">About us</resource>
 		<resource id="Whats new">What's new</resource>
@@ -2121,6 +2127,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="search_EN_description">searches all English text, including in Welsh legislation</resource>
 		<resource id="search_CY_txt">Search Welsh language text</resource>
 		<resource id="search_CY_description">only searches Welsh language text in Welsh legislation</resource>
+		<resource id="explore_summary">Browse legislation by specific current and historic Parliaments, Assemblies and Governments of the UK. Alternatively, explore our curated collections of Draft Statutory Instruments awaiting Parliamentary procedure; legislation relating to specific events such as coronavirus, and find out what happened with EU legislation when the UK left the EU.</resource>
+		<resource id="new_legislation">New UK, Scottish, Welsh and Northern Ireland legislation listed by publication date.</resource>
+		<resource id="Different legislatures of the UK">Different legislatures of the UK</resource>
 	</resources>
 </allResources>
 
