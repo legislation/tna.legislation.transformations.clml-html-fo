@@ -1082,7 +1082,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="changes_to_legislation_summary">A search tool to find all changes made to or by specific pieces or types of legislation</resource>
 			<resource id="changes_to_local_and_private_and_personal_acts_summary">Chronological lists detailing changes to Local, and Private and Personal Acts, between 1539 and 2008.</resource>
 			<resource id="find_case_law_summary">Public access to court judgments and tribunal decisions is an essential part of interpreting legislation. Explore The National Archives’ Find Case Law service</resource>
-			<resource id="new_legislation">Deddfwriaeth Newydd y Deyrnas Unedig, yr Alban, Cymru a Gogledd Iwerddon wedi eu rhestru yn ôl dyddiad cyhoeddi gyda phorthiant tanysgrifio am ddim.</resource>
 			<resource id="changes_to_legislation">Chwiliwch ac archwiliwch newidiadau a wnaed i eitem neu ddetholiad o ddeddfwriaeth.</resource>
 			<resource id="Primary Legislation">Deddfwriaeth Sylfaenol</resource>
 			<resource id="Secondary Legislation">Deddfwriaeth Eilaidd</resource>
@@ -1896,7 +1895,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="changes_to_local_and_private_and_personal_acts_summary">Chronological lists detailing changes to Local, and Private and Personal Acts, between 1539 and 2008.</resource>
 		<resource id="find_case_law_summary">Public access to court judgments and tribunal decisions is an essential part of interpreting legislation. Explore The National Archives’ Find Case Law service.</resource>
 
-		<resource id="new_legislation">New UK, Scottish, Welsh and Northern Ireland legislation listed by publication date.</resource>
 		<resource id="changes_to_legislation">Search and explore changes made to an item or selection of legislation.</resource>
 
 		<resource id="Primary Legislation"/>
