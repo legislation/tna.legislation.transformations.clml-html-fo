@@ -61,6 +61,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Whats New">Beth sy'n newydd</resource>
 		<resource id="Browse Legislation: UK">Pori trwy Ddeddfwriaeth: DU</resource>
 		<resource id="Changes to Legislation">Newidiadau i Ddeddfwriaeth</resource>
+		<resource id="Changes to legislation">Newidiadau i ddeddfwriaeth</resource>
 		<resource id="Contact us">Cysylltu â Ni</resource>
         <resource id="Contact Us">Cysylltu â Ni</resource>
 		<resource id="Crown copyright">Hawl y goron a chronfa ddata</resource>
@@ -2143,6 +2144,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Whats new">What's new</resource>
 		<resource id="Whats New">What's new</resource>
 		<resource id="Changes to Legislation">Changes to Legislation</resource>
+		<resource id="Changes to legislation">Changes to legislation</resource>
 		<resource id="Help and guidance">Help and guidance</resource>
 		<resource id="Help and Guidance">Help and guidance</resource>
 		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland.</resource>
