@@ -365,7 +365,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				select="exists(/leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)//leg:BlockAmendment)"/>
 			<div class="LegSnippet" id="viewLegSnippet">
 				<xsl:choose>
-					<xsl:when test="$buynow-enable = ('false') or $isbn = '' leg:IsCurrentRevised($legislation)">
+					<xsl:when test="$buynow-enable = ('false') or $isbn = '' or leg:IsCurrentRevised($legislation)">
 						<div class="buynow-border">
 							<p class="buynow-title">
 								<span>This page is currently disabled</span>
