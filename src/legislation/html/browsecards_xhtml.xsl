@@ -48,7 +48,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="info-content">
 						<ul class="breadcrumb">
-							<li><a href="/"><xsl:value-of select="leg:TranslateText('Home')"/></a></li>
+							<li><a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/"><xsl:value-of select="leg:TranslateText('Home')"/></a></li>
 							<li><xsl:value-of select="leg:TranslateText('Explore our collections')"/></li>
 						</ul>
 						<h1>
