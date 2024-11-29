@@ -1090,7 +1090,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_primary_summary">Deddfau Cyhoeddus Cyffredinol, Deddfau Lleol a mwy</resource>
 			<resource id="explore_secondary_summary">Offerynnau Statudol, Gorchmynion Gweinidogol, Mesurau Eglwysig a mwy</resource>
 			<resource id="explore_ukmd_summary">Crëwyd gan weinidogion i roi manylion am ddeddfwriaeth sy’n deillio o’r UE sy’n cael ei eithrio rhag y ddyletswydd i gyhoeddi ar legislation.gov.uk. Mae’r eithriadau hyn yn ychwanegol at y rhai a nodir yn Neddf yr UE (Ymadael) 2018(c.16).</resource>
-			<resource id="explore_draft_summary">Offerynnau Statudol drafft sy’n aros am gael eu cymeradwyo. Gall deddfwriaeth ddrafft naill ai ddod yn gyfraith, cael eu tynnu yn ôl neu gael eu disodli gan ddrafft arall.</resource>
+			<resource id="explore_draft_summary">Offerynnau Statudol drafft sy’n aros am gael eu cymeradwyo.</resource>
 			<resource id="explore_defra_summary">Deddfwriaeth mewn grym a reolir ac a drefnir gan Defra</resource>
 		<!--End Browse (Cards) -->
 		<!--Browse EU-->
