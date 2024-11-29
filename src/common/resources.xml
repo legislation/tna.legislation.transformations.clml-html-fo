@@ -38,9 +38,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="www.wales.gov.uk">Lyyw.Cymru</resource>
 		<resource id="http://www.assemblywales.org">http://www.assemblywales.org/cy</resource>
 		<resource id="Home_description">The official home of UK legislation, revised and as enacted 1267-present. This website is managed by The National Archives on behalf of HM Government. Publishing all UK legislation is a core part of the remit of His Majesty’s Stationery Office (HMSO), part of The National Archives, and the Office of the King's Printer for Scotland.</resource>
+		<resource id="About us">Amdanom ni</resource>
 		<resource id="About Us">Amdanom ni</resource>
 		<resource id="Accessibility">Hygyrchedd</resource>
 		<resource id="Advanced Search">Chwiliad Uwch</resource>
+		<resource id="Advanced search">Chwiliad uwch</resource>
 		<resource id="All">Pob</resource>
 		<resource id="Show full title">Dangos y teitl llawn</resource>
 		<resource id="Hide full title">Cuddio’r teitl llawn</resource>
@@ -49,26 +51,38 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="All Primary Legislation">Pob deddfwriaeth sylfaenol</resource>
 		<resource id="All Secondary Legislation">Pob is-ddeddfwriaeth</resource>
 		<resource id="Browse Legislation">Pori trwy Ddeddfwriaeth</resource>
-		<resource id="Explore our Collections">Archwilio ein Casgliadau</resource>
+		<resource id="Explore our collections">Archwiliwch ein casgliadau</resource>
+		<resource id="Explore Our Collections">Archwiliwch ein casgliadau</resource>
+		<resource id="Explore our Collections">Archwiliwch ein casgliadau</resource>
+		<resource id="Explore our Collections">Archwiliwch ein casgliadau</resource>
+		<resource id="Research tools">Offerynnau ymchwilio</resource>
+		<resource id="Research Tools">Offerynnau ymchwilio</resource>
+		<resource id="Whats new">Beth sy'n newydd</resource>
+		<resource id="Whats New">Beth sy'n newydd</resource>
 		<resource id="Browse Legislation: UK">Pori trwy Ddeddfwriaeth: DU</resource>
 		<resource id="Changes to Legislation">Newidiadau i Ddeddfwriaeth</resource>
-		<resource id="Contact Us">Cysylltu â Ni</resource>
+		<resource id="Changes to legislation">Newidiadau i ddeddfwriaeth</resource>
+		<resource id="Contact us">Cysylltu â Ni</resource>
+        <resource id="Contact Us">Cysylltu â Ni</resource>
 		<resource id="Crown copyright">Hawl y goron a chronfa ddata</resource>
 		<!-- Hawlfraint y Goron  -->
 		<resource id="excluding draft">ac eithrio drafftiau</resource>
-		<resource id="Help">Help</resource>
-		<resource id="Home">Hafan</resource>
+		<resource id="Help">Cymorth</resource>
+		<resource id="Home">Cartref</resource>
 		<resource id="EU Legislation and UK Law">Deddfwriaeth yr UE a Chyfraith y DU</resource>
 		<resource id="Homepage Footer">Mae’r holl gynnwys ar gael dan </resource>
 		<resource id="Homepage Footer End"> ac eithrio pan nodir yn wahanol</resource>
 		<resource id="Legislation">Deddfwriaeth</resource>
-		<resource id="New Legislation">Deddfwriaeth Newydd</resource>
+		<resource id="New Legislation">Deddfwriaeth newydd</resource>
+		<resource id="New legislation">Deddfwriaeth newydd</resource>
 		<resource id="Number">Rhif</resource>
 		<resource id="Open Government Licence">Drwydded Llywodraeth Agored v3.0</resource>
 		<resource id="OGL Link">http://www.nationalarchives.gov.uk/doc/open-government-licence-cymraeg/version/3</resource>
-		<resource id="Privacy Notice">Rhybudd Preifatrwydd</resource>
+        <resource id="Privacy Notice">Rhybudd preifatrwydd</resource>
+		<resource id="Privacy notice">Rhybudd preifatrwydd</resource>
 		<resource id="Revised">ddiwygiedig</resource>
-		<resource id="Site Map">Map o’r safle</resource>
+		<resource id="Site map">Map o’r safle</resource>
+        <resource id="Site Map">Map o’r safle</resource>
 		<resource id="Search">Chwilio</resource>
 		<resource id="Invalid search characters">Nodweddion chwilio annilys.</resource>
 		<resource id="Search Legislation">Chwilio Deddfwriaeth</resource>
@@ -163,7 +177,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Content">Cynnwys</resource>
 		<resource id="Impact Assessments">Asesiadau Effaith</resource>
 		<resource id="Draft Impact Assessments">Asesiadau Effaith Ddrafft</resource>
-		<resource id="Draft legislation">Deddfwriaeth Ddrafft</resource>
+		<resource id="Draft legislation">Deddfwriaeth ddrafft</resource>
+		<resource id="Draft Legislation">Deddfwriaeth Ddrafft</resource>
 		<resource id="More Resources">Rhagor o Adnoddau</resource>
 		<resource id="Explanatory Notes">Nodiadau Esboniadol</resource>
 		<resource id="Explanatory Memorandum">Memorandwm Esboniadol</resource>
@@ -360,7 +375,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="General">Cyffredinol</resource>
 		<resource id="Geographical Extent">Rhychwant ddaearyddol</resource>
 		<resource id="Point in Time">Pwynt Penodol mewn Amser</resource>
-		<resource id="Draft Legislation">Deddfwriaeth Ddrafft</resource>
 		<resource id="General search">Chwiliad cyffredinol</resource>
 		<resource id="Keywords in content">Keywords in content</resource>
 		<resource id="Key_title_text">(neu eiriau allweddol yn y teitl)</resource>
@@ -1043,7 +1057,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<a href="/cy/understanding-legislation#revisedlegislation">pa ddeddfwriaeth yr ydym yn ei diweddaru</a>,
 				<a href="/cy/help#aboutLegNotOnWebsite">ble y gallwch gael copïau o ddeddfwriaeth nad ydym yn ei dal</a> a
 				<a href="/cy/understanding-legislation#Howlegislationworks">sut mae deddfwriaeth yn gweithio</a>. Er mwyn dod o hyd i ddarn o ddeddfwriaeth gallwch
-				<a href="/cy/browse">bori yn ôl math a chategori’r ddeddfwriaeth</a> neu ddefnyddio
+				<a href="/cy/explore">bori yn ôl math a chategori’r ddeddfwriaeth</a> neu ddefnyddio
 				<a href="/cy/search">ein chwiliad uwch</a> i chwilio yn ôl teitl neu allweddair yn y testun.
 			</resource>
 			<resource id="Legislation_published">Ddeddfwriaeth a gyhoeddwyd yn ddiweddar</resource>
@@ -1072,12 +1086,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_ni_range">o 1495 - presennol</resource>
 		<!--<resource id="explore_uk_parliament">Made by the UK Parliament and UK Government</resource>-->
 			<resource id="explore_from_eu">Wedi ei fabwysiadu fel deddfwriaeth y Deyrnas Unedig ar ddiwrnod ymadael â’r UE - gallwch bori trwy hwn yn ôl pwnc</resource>
-			<resource id="explore_uk_summary">A wnaed gan Senedd y Deyrnas Unedig a Llywodraeth y Deyrnas Unedig</resource>
+			<resource id="explore_legislatures_summary">Deddfwriaeth a wnaed gan Seneddau, Cynulliadau a Llywodraethau presennol a hanesyddol yn y DU.</resource>
+			<resource id="ukia_summary">Gweithdrefnau sy'n asesu effeithiau economaidd, cymdeithasol ac amgylcheddol arfaethedig cynigion polisi cyhoeddus y DU.</resource>
+			<resource id="explore_uk_summary">Deddfwriaeth a wnaed gan Senedd y DU a Llywodraeth y DU, a Seneddau Hanesyddol</resource>
 			<resource id="explore_eu_summary"><span xmlns="http://www.w3.org/1999/xhtml">Fel y mabwysiadwyd yn wreiddiol gan y Sefydliadau Ewropeaidd a’i gymryd o EUR-Lex hyd at 31 Hydref 2019</span></resource>
-			<resource id="explore_scotland_summary">A wnaed gan Senedd yr Alban, Llywodraeth yr Alban a Seneddau Hanesyddol</resource>
-			<resource id="explore_wales_summary">A wnaed gan Lywodraeth Cymru a Chynulliad Cymru</resource>
-			<resource id="explore_ni_summary">A wnaed gan Lywodraeth Gogledd Iwerddon, Cynulliad Gogledd Iwerddon a Seneddau Hanesyddol</resource>
-			<resource id="new_legislation">Deddfwriaeth Newydd y Deyrnas Unedig, yr Alban, Cymru a Gogledd Iwerddon wedi eu rhestru yn ôl dyddiad cyhoeddi gyda phorthiant tanysgrifio am ddim.</resource>
+			<resource id="explore_scotland_summary">Gan gynnwys deddfwriaeth a wnaed gan Senedd yr Alban a Llywodraeth yr Alban</resource>
+			<resource id="explore_wales_summary">Gan gynnwys deddfwriaeth a wnaed gan Senedd Cymru, Cynulliad Cymru a Llywodraeth Cymru</resource>
+			<resource id="explore_ni_summary">Gan gynnwys deddfwriaeth a wnaed gan Gynulliad Gogledd Iwerddon</resource>
+			<resource id="advanced_search_summary">Chwiliwch am allweddeiriau mewn cyd-destun, deddfwriaeth Gymraeg, deddfwriaeth â chwmpas daearyddol penodol, a mwy.</resource>
+			<resource id="changes_to_legislation_summary">Offeryn chwilio i ganfod yr holl newidiadau a wnaed i/gan ddarnau neu fathau penodol o ddeddfwriaeth.</resource>
+			<resource id="changes_to_local_and_private_and_personal_acts_summary">Rhestrau cronolegol sy'n manylu ar newidiadau i Ddeddfau Lleol a rhai Preifat a Phersonol rhwng 1539 a 2008.</resource>
+			<resource id="find_case_law_summary">Mae caniatáu i'r cyhoedd weld dyfarniadau llysoedd a phenderfyniadau tribiwnlysoedd yn rhan hanfodol o ddehongli deddfwriaeth. Archwiliwch wasanaeth Canfod Cyfraith Achosion yr Archifau Cenedlaethol.</resource>
 			<resource id="changes_to_legislation">Chwiliwch ac archwiliwch newidiadau a wnaed i eitem neu ddetholiad o ddeddfwriaeth.</resource>
 			<resource id="Primary Legislation">Deddfwriaeth Sylfaenol</resource>
 			<resource id="Secondary Legislation">Deddfwriaeth Eilaidd</resource>
@@ -1086,7 +1105,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_primary_summary">Deddfau Cyhoeddus Cyffredinol, Deddfau Lleol a mwy</resource>
 			<resource id="explore_secondary_summary">Offerynnau Statudol, Gorchmynion Gweinidogol, Mesurau Eglwysig a mwy</resource>
 			<resource id="explore_ukmd_summary">Crëwyd gan weinidogion i roi manylion am ddeddfwriaeth sy’n deillio o’r UE sy’n cael ei eithrio rhag y ddyletswydd i gyhoeddi ar legislation.gov.uk. Mae’r eithriadau hyn yn ychwanegol at y rhai a nodir yn Neddf yr UE (Ymadael) 2018(c.16).</resource>
-			<resource id="explore_draft_summary">Offerynnau Statudol drafft sy’n aros am gael eu cymeradwyo. Gall deddfwriaeth ddrafft naill ai ddod yn gyfraith, cael eu tynnu yn ôl neu gael eu disodli gan ddrafft arall.</resource>
+			<resource id="explore_draft_summary">Offerynnau Statudol drafft sy’n aros am gael eu cymeradwyo.</resource>
 			<resource id="explore_defra_summary">Deddfwriaeth mewn grym a reolir ac a drefnir gan Defra</resource>
 		<!--End Browse (Cards) -->
 		<!--Browse EU-->
@@ -1343,10 +1362,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p53"> yn cynnwys darpariaethau nad ydynt wedi dod i rym eto.</resource>
 		
 		<resource id="Coronavirus Legislation">Deddfwriaeth Coronafeirws</resource>
-		<resource id="Help and Guidance">Cymorth ac Arweiniad</resource>
-		<resource id="coronavirus_legislation_text">Deddfwriaeth coronafeirws allweddol sy’n berthnasol i’r DU, Cymru, Lloegr, yr Alban a Gogledd Iwerddon</resource>				
+		<resource id="Coronavirus legislation">Deddfwriaeth coronafeirws</resource>
+		<resource id="Help and guidance">Cymorth a chanllawiau</resource>
+		<resource id="Help and Guidance">Cymorth a chanllawiau</resource>
+		<resource id="coronavirus_legislation_text">Deddfwriaeth coronafeirws allweddol sy’n berthnasol i’r DU, Cymru, Lloegr, yr Alban a Gogledd Iwerddon.</resource>
 		<resource id="understanding_legislation_text">Sut y caiff deddfwriaeth y DU ei chyflwyno, diwygio a dwyn i rym, a beth a gedwir gennym ar legislation.gov.uk</resource>
-		<resource id="eu_legislation_and_uk_law_text">Mae deddfwriaeth yr UE fel yr oedd yn berthnasol i’r DU ar 31 Rhagfyr 2020 yn awr yn rhan o ddeddfwriaeth ddomestig</resource>
+		<resource id="eu_legislation_and_uk_law_text">Deddfwriaeth yr UE fel yr oedd yn berthnasol i'r DU ar 31 Rhagfyr 2020, gan gynnwys unrhyw newidiadau dilynol sydd wedi'u gwneud gan y DU.</resource>
 		<!-- [Status Message] -->
 		<resource id="Cross Heading">Croes Bennawd</resource>
 		<resource id="cross heading">croes bennawd</resource>
@@ -1399,6 +1420,26 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="search_EN_description">searches all English text, including in Welsh legislation</resource>
 		<resource id="search_CY_txt">Search Welsh language text</resource>
 		<resource id="search_CY_description">only searches Welsh language text in Welsh legislation</resource>
+		<resource id="explore_summary">Porwch ddeddfwriaeth gan Seneddau, Cynulliadau a Llywodraethau penodol presennol a hanesyddol yn y DU. Neu archwiliwch ein casgliadau wedi'u curadu o Offerynnau Statudol Drafft sy'n aros am weithdrefn Seneddol; deddfwriaeth mewn perthynas â digwyddiadau penodol megis coronafeirws, a darganfyddwch beth ddigwyddodd o ran deddfwriaeth yr UE pan adawodd y DU yr UE.</resource>
+		<resource id="new_legislation">Deddfwriaeth newydd yn y DU, yr Alban, Cymru a Gogledd Iwerddon wedi'i rhestru yn ôl dyddiad cyhoeddi.</resource>
+		<resource id="Different legislatures of the UK">Deddfwrfeydd gwahanol y DU</resource>
+		<resource id="New Site Design">Dylunio safle newydd</resource>
+		<resource id="New site design">Dylunio safle newydd</resource>
+        <resource id="also-interested">Efallai y bydd gennych ddiddordeb hefyd mewn dysgu am...</resource>
+		<resource id="eu-legislation-and-uk-law">Deddfwriaeth yr UE fel yr oedd yn berthnasol i'r DU ar 31 Rhagfyr 2020, gan gynnwys unrhyw newidiadau sydd wedi'u gwneud gan y DU ers hynny.</resource>
+		<resource id="UK Parliaments and jurisdictions">Seneddau ac awdurdodaethau'r DU</resource>
+		<resource id="parliamentsandjurisdictions">Y deddfwrfeydd gwahanol yn y DU, eu hanes a sut y mae Seneddau'r DU wedi newid dros dreigl amser.</resource>
+		<resource id="What legislation we hold">Pa ddeddfwriaeth yr ydym yn ei chadw</resource>
+		<resource id="aboutLeg">Rydym yn cadw'r rhan fwyaf o fathau o ddeddfwriaeth (ond nid pob un ohonynt) a'u dogfennau esboniadol ategol. Gweler rhestr lawn o'r hyn yr ydym yn ei gadw.</resource>
+		<resource id="understanding-legislation">Darganfyddwch sut y mae deddfau'n cael eu creu, beth yw ystyr termau amrywiol, sut y gall deddfwriaeth newid deddfwriaeth arall a beth yw deddfwriaeth ddiwygiedig.</resource>
+		<resource id="Our editorial process">Ein proses olygu</resource>
+		<resource id="editorialpractice_summary">Darganfyddwch pa ddeddfwriaeth yr ydym yn eu hadolygu, ein hamserlenni ar gyfer adolygu, y confensiynau yr ydym yn eu dilyn a'r egwyddorion yr ydym yn cadw atynt.</resource>
+		<resource id="Research_tools_summary">Mae ein hofferyn chwilio Newidiadau i ddeddfwriaeth yn ffordd wych o ddarganfod sut y mae darn o ddeddfwriaeth wedi newid, a sut y mae wedi'i newid gan ddeddfwriaeth arall. Os oes gennych ddiddordeb mewn tueddiadau a phatrymau mewn deddfwriaeth, neu sut y mae iaith wedi newid dros dreigl amser, gallwch ganfod yr holl offerynnau sydd eu hangen arnoch ar ein gwefan Ymchwil. Gallwch bellach weld dyfarniadau a phenderfyniadau i ganfod sut y mae deddfwriaeth wedi'i chymhwyso a'i dehongli mewn llysoedd a thribiwnlysoedd drwy ymweld â'r wefan Canfod cyfraith achosion. Os ydych yn creu'ch gwasanaeth deddfwriaeth eich hun neu'n ailddefnyddio data deddfwriaeth yn eich prosiectau eich hun, gallwch ddefnyddio ein API deddfwriaeth - ceir rhagor o wybodaeth isod.</resource>
+		<resource id="Find case law">Canfod cyfraith achosion</resource>
+		<resource id="Changes to Local, and Private and Personal Acts">Newidiadau i Ddeddfau Lleol a rhai Preifat a Phersonol</resource>
+		<resource id="altFormats-1">Mae'r data ar y dudalen hon ar gael yn y </resource>
+		<resource id="altFormats-2">fformatau data amgen</resource>
+		<resource id="altFormats-3"> a restrir</resource>
 	</resources>
 
 	<resources lang="en">
@@ -1852,7 +1893,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<a href="/understanding-legislation#revisedlegislation">what legislation we update</a>,
 		<a href="/help#aboutLegNotOnWebsite">where you can obtain copies of legislation we don’t hold</a> and
 		<a href="/understanding-legislation#Howlegislationworks">how legislation works</a>. To find an item of legislation you can
-		<a href="/browse">browse by legislation type and category</a> or use
+		<a href="/explore">browse by legislation type and category</a> or use
 		<a href="/search">our advanced search</a> to explore by title or keyword in text.</resource>
 		<resource id="Invalid search characters">Invalid search characters.</resource>
 		<resource id="Legislation_published">Legislation published recently</resource>
@@ -1883,14 +1924,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<!--<resource id="explore_uk_parliament">Made by the UK Parliament and UK Government</resource>-->
 		<resource id="explore_from_eu">Adopted as UK legislation on EU exit day - you can browse this by topic</resource>
-
-		<resource id="explore_uk_summary">Made by the UK Parliament and UK Government and Historic Parliaments</resource>
+		<resource id="explore_legislatures_summary">Legislation made by the current and historic Parliaments, Assemblies and Governments of the UK.</resource>
+		<resource id="ukia_summary">Procedures that assess prospective economic, social, and environmental effects of public UK policy proposals.</resource>
+		<resource id="explore_uk_summary">Legislation made by the UK Parliament and UK Government, and Historic Parliaments</resource>
 		<resource id="explore_eu_summary">As originally adopted by the European Union up to 11.00 p.m. on 31 December 2020</resource>
-		<resource id="explore_scotland_summary">Legislation that either exclusively relates to, or may extend to, Scotland</resource>
-		<resource id="explore_wales_summary">Legislation that either exclusively relates to, or may extend to, Wales</resource>
-		<resource id="explore_ni_summary">Legislation that either exclusively relates to, or may extend to, Northern Ireland</resource>
+		<resource id="explore_scotland_summary">Including legislation made by the Scottish Parliament and Scottish Government</resource>
+		<resource id="explore_wales_summary">Including legislation made by the Welsh Parliament, Welsh Assembly and Welsh Government</resource>
+		<resource id="explore_ni_summary">Including legislation made by the Northern Ireland Assembly</resource>
+		<resource id="advanced_search_summary">Search for keywords in content, Welsh language legislation, legislation with specific geographical extent, and more.</resource>
+		<resource id="changes_to_legislation_summary">A search tool to find all changes made to or by specific pieces or types of legislation.</resource>
+		<resource id="changes_to_local_and_private_and_personal_acts_summary">Chronological lists detailing changes to Local, and Private and Personal Acts, between 1539 and 2008.</resource>
+		<resource id="find_case_law_summary">Public access to court judgments and tribunal decisions is an essential part of interpreting legislation. Explore The National Archives’ Find Case Law service.</resource>
 
-		<resource id="new_legislation">New UK, Scottish, Welsh and Northern Ireland legislation listed by publication date with free subscription feeds.</resource>
 		<resource id="changes_to_legislation">Search and explore changes made to an item or selection of legislation.</resource>
 
 		<resource id="Primary Legislation"/>
@@ -1901,7 +1946,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="explore_primary_summary">Public General Acts, Local Acts and more</resource>
 		<resource id="explore_secondary_summary">Statutory Instruments, Ministerial Orders, Church Measures and more</resource>
 		<resource id="explore_ukmd_summary">Created by ministers to detail legislation originating from the EU that is exempt from the duty to publish on legislation.gov.uk. These exemptions are in addition to those stated in the EU (Withdrawal) Act 2018 (c. 16).</resource>
-		<resource id="explore_draft_summary">Draft Statutory Instruments that are awaiting approval. Draft legislation can either become law, be withdrawn or replaced by another draft.</resource>
+		<resource id="explore_draft_summary">Draft Statutory Instruments that are awaiting approval.</resource>
 		<resource id="explore_defra_summary">In force legislation managed and organised by Defra</resource>
 		<!--End Browse (Cards) -->
 
@@ -2102,12 +2147,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- contains provisions that have not yet come into effect. -->
 		<resource id="status_warning_revised_p53"> contains provisions that have not yet come into effect.</resource>
 		<resource id="Coronavirus Legislation">Coronavirus Legislation</resource>
-		<resource id="Explore our Collections">Explore our Collections</resource>
+		<resource id="Coronavirus legislation">Coronavirus legislation</resource>
+		<resource id="Explore our collections">Explore our collections</resource>
+		<resource id="Explore Our Collections">Explore our collections</resource>
+		<resource id="Explore our Collections">Explore our collections</resource>
+		<resource id="Explore Our collections">Explore our collections</resource>
+		<resource id="About us">About us</resource>
+		<resource id="About Us">About us</resource>
+		<resource id="Whats new">What's new</resource>
+		<resource id="Whats New">What's new</resource>
 		<resource id="Changes to Legislation">Changes to Legislation</resource>
-		<resource id="Help and Guidance">Help and Guidance</resource>
-		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland</resource>				
+		<resource id="Changes to legislation">Changes to legislation</resource>
+		<resource id="Help and guidance">Help and guidance</resource>
+		<resource id="Help and Guidance">Help and guidance</resource>
+		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland.</resource>
 		<resource id="understanding_legislation_text">How UK legislation is introduced, amended and brought into force, and what we hold on legislation.gov.uk</resource>
-		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 December 2020 is now a part of domestic legislation</resource>
+		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 Dec 2020, with any subsequent changes made by the UK applied.</resource>
 		
 		<!-- [Advanced Search] -->
 		<resource id="Choose if you are using a Welsh language search term">Choose if you are using a Welsh language search term</resource>
@@ -2119,6 +2174,28 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="search_EN_description">searches all English text, including in Welsh legislation</resource>
 		<resource id="search_CY_txt">Search Welsh language text</resource>
 		<resource id="search_CY_description">only searches Welsh language text in Welsh legislation</resource>
+		<resource id="explore_summary">Browse legislation by specific current and historic Parliaments, Assemblies and Governments of the UK. Alternatively, explore our curated collections of Draft Statutory Instruments awaiting Parliamentary procedure; legislation relating to specific events such as coronavirus, and find out what happened with EU legislation when the UK left the EU.</resource>
+		<resource id="new_legislation">New UK, Scottish, Welsh and Northern Ireland legislation listed by publication date.</resource>
+		<resource id="Different legislatures of the UK">Different legislatures of the UK</resource>
+		<resource id="Research tools">Research tools</resource>
+		<resource id="Research Tools">Research tools</resource>
+		<resource id="New Site Design">New site design</resource>
+		<resource id="New site design">New site design</resource>
+		<resource id="also-interested">You might also be interested in finding out about...</resource>
+		<resource id="eu-legislation-and-uk-law">EU legislation as it applied to the UK on 31 Dec 2020, with any changes since made by the UK applied.</resource>
+		<resource id="UK Parliaments and jurisdictions">UK Parliaments and jurisdictions</resource>
+		<resource id="parliamentsandjurisdictions">The different legislatures of the UK, their history and how the UK Parliaments have changed over time.</resource>
+		<resource id="What legislation we hold">What legislation we hold</resource>
+		<resource id="aboutLeg">We hold most, but not all, types of legislation and their accompanying explanatory documents. See a complete list of what we hold.</resource>
+		<resource id="understanding-legislation">Find out how laws get made, what various terms mean, how legislation can change other legislation and what revised legislation is.</resource>
+		<resource id="Our editorial process">Our editorial process</resource>
+		<resource id="editorialpractice_summary">Find out what legislation we revise, our timescales for revision, the conventions we follow and the principles that we abide by.</resource>
+		<resource id="Research_tools_summary">Our Changes to legislation search tool is a great way to discover how a piece of legislation has changed, and has been changed by, other legislation. If you are interested in trends and patterns in legislation, or how language has changed over time, you will find all the tools you need on our Research website. You can now access judgments and decisions to see how legislation has been applied and interpreted in courts and tribunals by visiting the Find case law website. If you are creating your own legislation service or reusing legislation data in your own projects, you can make use of our legislation API - find out more below.</resource>
+		<resource id="Find case law">Find case law</resource>
+		<resource id="Changes to Local, and Private and Personal Acts">Changes to Local, and Private and Personal Acts</resource>
+		<resource id="altFormats-1">The data on this page is available in the </resource>
+		<resource id="altFormats-2">alternative data formats</resource>
+		<resource id="altFormats-3"> listed</resource>
+		<resource id="Help">Help</resource>
 	</resources>
 </allResources>
-
