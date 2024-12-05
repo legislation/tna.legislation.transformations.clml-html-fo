@@ -60,6 +60,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseHome">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Browse')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -110,17 +111,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<map name="imgmap" id="imgmap">
 										<area title="{upper-case(leg:TranslateText('Northern Ireland'))}" id="niarea"
 											  shape="poly" coords="87,133,79,142,79,171,102,171,103,177,124,178,112,133"
-											  href="{$TranslateLangPrefix}/browse/ni"/>
+											  href="{$TranslateLangPrefix}/explore/ni"/>
 										<area title="{upper-case(leg:TranslateText('Scotland'))}" id="scotlandarea"
 											  shape="poly" coords="127,155,114,133,80,107,80,1,210,0,210,140,193,155"
-											  href="{$TranslateLangPrefix}/browse/scotland"/>
+											  href="{$TranslateLangPrefix}/explore/scotland"/>
 										<area title="{upper-case(leg:TranslateText('Wales'))}" id="walesarea"
 											  shape="poly" coords="167,209,187,227,187,279,151,288,120,271,121,194"
-											  href="{$TranslateLangPrefix}/browse/wales"/>
-										<area title="{upper-case(leg:TranslateText('UK'))}" id="englandarea"
+											  href="{$TranslateLangPrefix}/explore/wales"/>
+										<area title="{upper-case(leg:TranslateText('United Kingdom'))}" id="englandarea"
 											  shape="poly"
 											  coords="127,156,131,181,187,226,188,278,152,289,112,294,101,339,283,316,283,226,212,141,192,156"
-											  href="{$TranslateLangPrefix}/browse/uk"/>
+											  href="{$TranslateLangPrefix}/explore/uk"/>
 									</map>
 								</div>
 							</div>
@@ -365,6 +366,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseUK">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('United Kingdom')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -375,9 +377,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<xsl:variable name="TranslateBrowse" select="leg:TranslateText('Browse Legislation: UK')"/>
-						<h1 id="pageTitle"><xsl:value-of select="substring-before($TranslateBrowse,':')"/>:
-							<abbr title="{leg:TranslateText('United Kingdom')}"><xsl:value-of select="substring-after($TranslateBrowse,':')"/></abbr>
+						<h1 id="pageTitle">
+							<abbr title="{leg:TranslateText('United Kingdom')}"><xsl:value-of select="leg:TranslateText('UK')"/></abbr>
 						</h1>
 					</div>
 					<div id="content">
@@ -397,7 +398,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<img id="blank" src="/images/maps/activeUk.gif"
 										 alt="{leg:TranslateText('United Kingdom')} ({leg:TranslateText('UK')})"/>
 									<div class="returnLink ukRegion">
-										<a href="{$TranslateLangPrefix}/browse">
+										<a href="{$TranslateLangPrefix}/explore">
 											<xsl:value-of select="leg:TranslateText('Browse_Back')"/>
 										</a>
 									</div>
@@ -630,17 +631,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/scotland">
+										<a href="{$TranslateLangPrefix}/explore/scotland">
 											<xsl:value-of select="leg:TranslateText('Browse_ScotlandLegislation')"/>
 										</a>
 									</li>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/wales">
+										<a href="{$TranslateLangPrefix}/explore/wales">
 											<xsl:value-of select="leg:TranslateText('Browse_WalesLegislation')"/>
 										</a>
 									</li>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/ni">
+										<a href="{$TranslateLangPrefix}/explore/ni">
 											<xsl:value-of select="leg:TranslateText('Browse_NILegislation')"/>
 										</a>
 									</li>
@@ -658,6 +659,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseWales">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Wales')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -668,7 +670,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>:
+						<h1 id="pageTitle">
 							<xsl:value-of select="leg:TranslateText('Wales')"/>
 						</h1>
 					</div>
@@ -688,7 +690,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<div id="map">
 									<img alt="Wales Map, active" id="blank" src="/images/maps/activeWales.gif"/>
 									<div class="returnLink walesRegion">
-										<a href="{$TranslateLangPrefix}/browse">
+										<a href="{$TranslateLangPrefix}/explore">
 											<xsl:value-of select="leg:TranslateText('Browse_Back')"/>
 										</a>
 									</div>
@@ -815,17 +817,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/uk">
+										<a href="{$TranslateLangPrefix}/explore/uk">
 											<xsl:value-of select="leg:TranslateText('Browse_UKLegislation')"/>
 										</a>
 									</li>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/scotland">
+										<a href="{$TranslateLangPrefix}/explore/scotland">
 											<xsl:value-of select="leg:TranslateText('Browse_ScotlandLegislation')"/>
 										</a>
 									</li>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/ni">
+										<a href="{$TranslateLangPrefix}/explore/ni">
 											<xsl:value-of select="leg:TranslateText('Browse_NILegislation')"/>
 										</a>
 									</li>
@@ -842,6 +844,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseScotland">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Scotland')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -852,7 +855,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>:
+						<h1 id="pageTitle">
 							<xsl:value-of select="leg:TranslateText('Scotland')"/>
 						</h1>
 					</div>
@@ -873,7 +876,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<img id="blank" src="/images/maps/activeScotland.gif"
 										 alt="{leg:TranslateText('Scotland')}"/>
 									<div class="returnLink scotlandRegion">
-										<a href="{$TranslateLangPrefix}/browse">
+										<a href="{$TranslateLangPrefix}/explore">
 											<xsl:value-of select="leg:TranslateText('Browse_Back')"/>
 										</a>
 									</div>
@@ -985,17 +988,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/uk">
+										<a href="{$TranslateLangPrefix}/explore/uk">
 											<xsl:value-of select="leg:TranslateText('Browse_UKLegislation')"/>
 										</a>
 									</li>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/wales">
+										<a href="{$TranslateLangPrefix}/explore/wales">
 											<xsl:value-of select="leg:TranslateText('Browse_WalesLegislation')"/>
 										</a>
 									</li>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/ni">
+										<a href="{$TranslateLangPrefix}/explore/ni">
 											<xsl:value-of select="leg:TranslateText('Browse_NILegislation')"/>
 										</a>
 									</li>
@@ -1012,6 +1015,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOBrowseNI">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Northern Ireland')"/></title>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				<xsl:comment>
 					<![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
@@ -1022,7 +1026,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>:
+						<h1 id="pageTitle">
 							<xsl:value-of select="leg:TranslateText('Northern Ireland')"/>
 						</h1>
 					</div>
@@ -1042,7 +1046,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<div id="map">
 									<img id="blank" src="/images/maps/activeNi.gif" alt="Northern Ireland"/>
 									<div class="returnLink niRegion">
-										<a href="{$TranslateLangPrefix}/browse">
+										<a href="{$TranslateLangPrefix}/explore">
 											<xsl:value-of select="leg:TranslateText('Browse_Back')"/>
 										</a>
 									</div>
@@ -1186,17 +1190,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/uk">
+										<a href="{$TranslateLangPrefix}/explore/uk">
 											<xsl:value-of select="leg:TranslateText('Browse_UKLegislation')"/>
 										</a>
 									</li>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/scotland">
+										<a href="{$TranslateLangPrefix}/explore/scotland">
 											<xsl:value-of select="leg:TranslateText('Browse_ScotlandLegislation')"/>
 										</a>
 									</li>
 									<li>
-										<a href="{$TranslateLangPrefix}/browse/wales">
+										<a href="{$TranslateLangPrefix}/explore/wales">
 											<xsl:value-of select="leg:TranslateText('Browse_WalesLegislation')"/>
 										</a>
 									</li>
@@ -1239,7 +1243,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<img id="blank" src="/images/maps/activeUk.gif"
 										 alt="{leg:TranslateText('United Kingdom')} ({leg:TranslateText('UK')})"/>
 									<div class="returnLink">
-										<a href="{$TranslateLangPrefix}/browse">
+										<a href="{$TranslateLangPrefix}/explore">
 											<xsl:value-of select="leg:TranslateText('Browse_Back')"/>
 										</a>
 									</div>

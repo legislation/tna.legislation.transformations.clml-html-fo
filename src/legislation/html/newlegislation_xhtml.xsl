@@ -209,6 +209,18 @@ Added in welsh language support for UI.
 							</div>
 							</div>
 							
+							<div class="s_6 p_two sub tracking">
+								<div class="content">
+									<h3 class="feedTitle" id="trackingLeg"><xsl:value-of select="leg:TranslateText('Tracking UK Legislation')"/></h3>
+									<ul>
+										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_1')"/></li>
+										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_2')"/></li>
+										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_3')"/></li>
+										<li><xsl:value-of select="leg:TranslateText('New_tracking_4_1')"/></li>
+									</ul>
+								</div>
+							</div>
+
 							<div class="s_6 p_one sub">
 								<div class="content">
 									<h3 class="feedTitle" id="subsFeeds"><xsl:value-of select="leg:TranslateText('Free_of_charge')"/></h3>
@@ -227,7 +239,7 @@ Added in welsh language support for UI.
 										<!--<li><a href="/new/mwa/data.feed">Measures of the National Assembly for Wales</a></li>-->
 										<li><a href="{$TranslateLangPrefix}/new/wsi/data.feed"><xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/></a></li>
 									</ul>
-									<h3 class="feedTitle p_one" id="subsFeeds-draft"><xsl:value-of select="leg:TranslateText('Free of charge draft legislation feeds')"/></h3>
+									<h3 class="feedTitle p_one" id="subsFeeds-draft"><xsl:value-of select="leg:TranslateText('Draft legislation feeds')"/></h3>
 									<ul class="p_one">
 										<li><a href="{$TranslateLangPrefix}/new/draft/data.feed"><xsl:value-of select="leg:TranslateText('All Draft Legislation')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/ukdsi/data.feed"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instrument')"/></a></li>
@@ -235,20 +247,8 @@ Added in welsh language support for UI.
 										<li><a href="{$TranslateLangPrefix}/new/nidsr/data.feed"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Statutory Rules')"/></a></li>
 									</ul>
 								</div>
-							</div>	
-								
-							<div class="s_6 p_two sub tracking">
-								<div class="content">
-									<h3 class="feedTitle" id="trackingLeg"><xsl:value-of select="leg:TranslateText('Tracking UK Legislation')"/></h3>
-									<ul>
-										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_1')"/></li>
-										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_2')"/></li>
-										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_3')"/></li>
-										<li><xsl:value-of select="leg:TranslateText('New_tracking_4_1')"/></li>
-									</ul>
-								</div>
-							</div>									
-
+							</div>
+						
 						</div>
 						<h2 class="interfaceOptionsHeader"><xsl:value-of select="leg:TranslateText('Options')"/>/<xsl:value-of select="leg:TranslateText('Help')"/></h2>
 						<div class="help" id="feedHelp">

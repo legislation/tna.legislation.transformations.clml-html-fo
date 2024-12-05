@@ -453,6 +453,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="leg:TranslateMessage('Explanatory Notes')"/>
 						</xsl:when>
+						<xsl:when test="$g_strEOURI = $dcIdentifier">
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="leg:TranslateText('Earlier Orders')"/>
+						</xsl:when>
 						<xsl:when test="$g_strIntroductionUri = $dcIdentifier">
 							<xsl:value-of select="$introductoryText"/>
 						</xsl:when>

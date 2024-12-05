@@ -31,22 +31,52 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:variable name="strDocType" select="ancestor::ukm:Metadata//ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string"/>
 	<xsl:variable name="strTitle" select="ancestor::ukm:Metadata/dc:title" as="xs:string"/>
 	<xsl:variable name="strAlternativeTitle" select="ancestor::ukm:Metadata/dct:alternative" as="xs:string?"/>
-	<xsl:variable name="commencementOrders" as="element(ukm:UnappliedEffect)*" select="*[ukm:Commenced or @Type = 'Commencement Order']" />
 	<xsl:variable name="effects" as="element(ukm:UnappliedEffect)*" select="*[not(ukm:Commenced)]" />
-	
-	<!--Chunyu HA050183 changed the condition for section as there are more than one section. See http://www.legislation.gov.uk/ukpga/2005/5/section/2	-->
-	<xsl:variable name="largerEffects"
-								as="element(ukm:UnappliedEffect)*"
-								select="($effects except $commencementOrders)
-													[ukm:AffectedProvisions//*[name() = 'ukm:Section'][@FoundRef or @Missing = 'true'] or
-													     ukm:AffectedProvisions//ukm:SectionRange[@FoundStart or @FoundEnd or @MissingStart = 'true' or @MissingEnd = 'true'] or
-													 @AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions] or (
-													 @AffectedProvisions = '' and empty(ukm:AffectedProvisions//*[name() = 'ukm:Section']) and empty(ukm:AffectedProvisions//ukm:SectionRange)
-													 )]" />
-	<xsl:variable name="sectionEffects"
-								as="element(ukm:UnappliedEffect)*"
-								select="$effects except ($commencementOrders, $largerEffects)" />
+	<xsl:variable name="isWelsh" as="xs:boolean" select="ancestor::leg:Legislation/ukm:Metadata/dc:language = 'cy' or string(ancestor::leg:Legislation/@xml:lang) = 'cy'" />
 
+	<xsl:variable name="commencementOrders" as="element(ukm:UnappliedEffect)*">
+		<xsl:choose>
+			<xsl:when test="$isWelsh">
+				<xsl:copy-of select="*[(ukm:Commenced or @Type = 'Commencement Order') and @RequiresWelshApplied='true']"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:copy-of select="*[(ukm:Commenced or @Type = 'Commencement Order') and @RequiresApplied='true']"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
+	<!--Chunyu HA050183 changed the condition for section as there are more than one section. See http://www.legislation.gov.uk/ukpga/2005/5/section/2	-->
+	<xsl:variable name="largerEffects" as="element(ukm:UnappliedEffect)*">
+		<xsl:choose>
+			<xsl:when test="$isWelsh">
+				<xsl:copy-of select="($effects[@RequiresWelshApplied='true'] except $commencementOrders)
+					[ukm:AffectedProvisions//*[name() = 'ukm:Section'][@FoundRef or @Missing = 'true'] or
+					ukm:AffectedProvisions//ukm:SectionRange[@FoundStart or @FoundEnd or @MissingStart = 'true' or @MissingEnd = 'true'] or
+					@AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions] or (
+					@AffectedProvisions = '' and empty(ukm:AffectedProvisions//*[name() = 'ukm:Section']) and empty(ukm:AffectedProvisions//ukm:SectionRange)
+					)]"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:copy-of select="($effects[@RequiresApplied='true'] except $commencementOrders)
+					[ukm:AffectedProvisions//*[name() = 'ukm:Section'][@FoundRef or @Missing = 'true'] or
+					ukm:AffectedProvisions//ukm:SectionRange[@FoundStart or @FoundEnd or @MissingStart = 'true' or @MissingEnd = 'true'] or
+					@AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions] or (
+					@AffectedProvisions = '' and empty(ukm:AffectedProvisions//*[name() = 'ukm:Section']) and empty(ukm:AffectedProvisions//ukm:SectionRange)
+					)]"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
+	<xsl:variable name="sectionEffects" as="element(ukm:UnappliedEffect)*">
+		<xsl:choose>
+			<xsl:when test="$isWelsh">
+				<xsl:copy-of select="$effects[@RequiresWelshApplied='true'] except ($commencementOrders, $largerEffects)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:copy-of select="$effects[@RequiresApplied='true'] except ($commencementOrders, $largerEffects)"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 
 	<!-- FM Issue 261: Changes to Legislation for the introductory text - we don't really want to show all the outstanding effects for the whole Act in here -  as there won't ever be any effects listed that are for just for the introductory text - please can you just remove the category which lists effects for the specific provision you are - so there should only be ones for the whole Act and the commencement orders listed at this level -->
 	<xsl:variable name="introURI" select="ancestor::ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href"/>

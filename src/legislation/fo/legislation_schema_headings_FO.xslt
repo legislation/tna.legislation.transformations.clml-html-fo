@@ -233,7 +233,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     </fo:block>
   </xsl:template>  
 
-<xsl:template match="leg:Pblock">
+	<xsl:template match="leg:Pblock | leg:PsubBlock">
 	<fo:block font-size="{$g_strBodySize}">
 		<xsl:call-template name="TSOgetID"/>
 		<xsl:apply-templates/>
@@ -242,14 +242,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:template>
 
 <!--Chunyu:HA050365 see http://www.legislation.gov.uk/nia/2012/3/part/3   I checked some docs online and found pblock/title should be italic centre-->
-<xsl:template match="leg:Pblock/leg:Number">
+	<xsl:template match="leg:Pblock/leg:Number | leg:PsubBlock/leg:Number">
 	<fo:block font-size="{$g_strBodySize}" space-before="18pt" keep-with-next="always" font-style="italic">
 		<xsl:attribute name="text-align">center</xsl:attribute>
 		<xsl:call-template name="TSOgetID"/>
 		<xsl:apply-templates/>
 	</fo:block>
 </xsl:template>
-<xsl:template match="leg:Pblock/leg:Title">
+	<xsl:template match="leg:Pblock/leg:Title | leg:PsubBlock/leg:Title">
 	<fo:block font-size="{$g_strBodySize}" space-before="18pt" keep-with-next="always" font-style="italic">
 		<xsl:attribute name="text-align">center</xsl:attribute>
 		<xsl:if test="preceding-sibling::leg:Number">
