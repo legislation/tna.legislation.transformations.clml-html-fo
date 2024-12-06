@@ -69,6 +69,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:attribute name="width" select="if (@width) then @width else '100%'"/>
 	
 		<xsl:choose>
+				<xsl:when test="contains(@class, 'allBorders')">
+					<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+				</xsl:when>
 				<xsl:when test="not(descendant::*/@*[not(. = 'inherit') and contains(name(), 'border')])">
 					<xsl:attribute name="border-top">solid 0.5pt black</xsl:attribute>
 					<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
@@ -304,6 +307,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template match="xhtml:thead">
 	<fo:table-header>
 		<xsl:choose>
+			<xsl:when test="exists(ancestor::xhtml:table[1]/@class) and contains(ancestor::xhtml:table[1]/@class, 'allBorders')">
+				<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+			</xsl:when>
 			<xsl:when test="not(ancestor::xhtml:table[1]/descendant::*/@*[not(. = 'inherit') and contains(name(), 'border')])">
 				<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
 			</xsl:when>
@@ -319,6 +325,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template match="xhtml:tbody">
 	<fo:table-body>
 		<xsl:choose>
+			<xsl:when test="exists(ancestor::xhtml:table[1]/@class) and contains(ancestor::xhtml:table[1]/@class, 'allBorders')">
+				<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+			</xsl:when>
 			<xsl:when test="not(ancestor::xhtml:table[1]/descendant::*/@*[not(. = 'inherit') and contains(name(), 'border')])">
 				<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
 			</xsl:when>
@@ -367,6 +376,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:if test="count(parent::xhtml:tr/following-sibling::*) ge number(@rowspan) - 1"><xsl:attribute name="number-rows-spanned" select="@rowspan"/></xsl:if>
 		</xsl:if>		
 		<xsl:choose>
+			<xsl:when test="exists(ancestor::xhtml:table[1]/@class) and contains(ancestor::xhtml:table[1]/@class, 'allBorders')">
+				<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+			</xsl:when>
 			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
 				<xsl:call-template name="EU-table-borders"/>					
 			</xsl:when>
@@ -460,6 +472,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:if test="count(parent::xhtml:tr/following-sibling::*) ge number(@rowspan) - 1"><xsl:attribute name="number-rows-spanned" select="@rowspan"/></xsl:if>
 		</xsl:if>				
 		<xsl:choose>
+			<xsl:when test="exists(ancestor::xhtml:table[1]/@class) and contains(ancestor::xhtml:table[1]/@class, 'allBorders')">
+				<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+			</xsl:when>
 			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
 				<xsl:call-template name="EU-table-borders"/>					
 			</xsl:when>
