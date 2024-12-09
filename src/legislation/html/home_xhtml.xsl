@@ -73,7 +73,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/explore/uk">
+										<a href="{$TranslateLangPrefix}/explore/legislatures/uk">
 											<xsl:value-of select="leg:TranslateText('Browse UK Legislation')"/>
 											<span class="pageLinkIcon"></span>
 										</a>
@@ -97,7 +97,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/explore/scotland">
+										<a href="{$TranslateLangPrefix}/explore/legislatures/scotland">
 											<xsl:value-of select="leg:TranslateText('Browse Scotland Legislation')"/>
 											<span class="pageLinkIcon"></span>
 										</a>
@@ -121,7 +121,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/explore/wales">
+										<a href="{$TranslateLangPrefix}/explore/legislatures/wales">
 											<xsl:value-of select="leg:TranslateText('Browse Wales Legislation')"/>
 											<span class="pageLinkIcon"></span>
 										</a>
@@ -145,7 +145,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/explore/ni">
+										<a href="{$TranslateLangPrefix}/explore/legislatures/ni">
 											<xsl:value-of select="leg:TranslateText('Browse Northern Ireland Legislation')"/>
 											<span class="pageLinkIcon"></span>
 										</a>
@@ -169,7 +169,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</h2>
 								<ul>
 									<li>
-										<a href="{$TranslateLangPrefix}/explore/eu">
+										<a href="{$TranslateLangPrefix}/explore/legislatures/eu">
 											<xsl:value-of select="leg:TranslateText('Browse legislation originating from the EU')"/>
 											<span class="pageLinkIcon"></span>
 										</a>
