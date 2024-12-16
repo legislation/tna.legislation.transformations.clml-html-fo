@@ -564,7 +564,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:otherwise>
 										<xsl:value-of select="leg:TranslateText('status_warning_original_version',(concat('type=',leg:GetCodeSchemaStatus(.))))" />
 										<xsl:if test="$Scenario = '2' or $Scenario = '3'">
-											<xsl:value-of select="leg:TranslateMessage(concat('status_warning_original_version',$Scenario))" />
+											<xsl:value-of select="leg:TranslateText(concat('status_warning_original_version',$Scenario))" />
 										</xsl:if>
 										<xsl:text>.</xsl:text>
 									</xsl:otherwise>
@@ -580,12 +580,12 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						</xsl:if>
 						<xsl:if test="leg:isFromBritishHistoryOnline(.)">
 							<xsl:text> </xsl:text>
-							<xsl:value-of select="leg:TranslateMessage('BritishHistoryOnline')" />
+							<xsl:value-of select="leg:TranslateText('BritishHistoryOnline')" />
 							<br/>
 							<a href="/contributors#BritishHistoryOnline" class="more">
 								<xsl:text> </xsl:text>
 								<strong>
-									<xsl:value-of select="leg:TranslateMessage('Read more')"/>
+									<xsl:value-of select="leg:TranslateText('Read more')"/>
 								</strong>
 							</a>
 						</xsl:if>
