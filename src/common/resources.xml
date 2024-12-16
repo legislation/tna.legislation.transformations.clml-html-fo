@@ -1440,6 +1440,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="altFormats-1">Mae'r data ar y dudalen hon ar gael yn y </resource>
 		<resource id="altFormats-2">fformatau data amgen</resource>
 		<resource id="altFormats-3"> a restrir</resource>
+		<resource id="BritishHistoryOnline">The electronic version of this Act has been contributed by British History Online and is taken from the printed publication.</resource>
 	</resources>
 
 	<resources lang="en">
@@ -2197,5 +2198,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="altFormats-2">alternative data formats</resource>
 		<resource id="altFormats-3"> listed</resource>
 		<resource id="Help">Help</resource>
+		<resource id="BritishHistoryOnline">The electronic version of this Act has been contributed by British History Online and is taken from the printed publication.</resource>
 	</resources>
 </allResources>

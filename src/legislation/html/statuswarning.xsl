@@ -578,6 +578,17 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							<xsl:value-of select="concat(leg:TranslateMessage('status_warning_is_from_westlaw_pt2'),'. ')"/>
 							<a href="/contributors#westlaw" class="more"><strong><xsl:value-of select="leg:TranslateMessage('Read more')"/></strong></a>
 						</xsl:if>
+						<xsl:if test="leg:isFromBritishHistoryOnline(.)">
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="leg:TranslateMessage('BritishHistoryOnline')" />
+							<br/>
+							<a href="/contributors#BritishHistoryOnline" class="more">
+								<xsl:text> </xsl:text>
+								<strong>
+									<xsl:value-of select="leg:TranslateMessage('Read more')"/>
+								</strong>
+							</a>
+						</xsl:if>
 					</p>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -1358,6 +1369,11 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:function name="leg:isFromWestlaw" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()" />
 		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/dc:publisher = 'Westlaw'" />
+	</xsl:function>
+
+	<xsl:function name="leg:isFromBritishHistoryOnline" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()" />
+		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/dc:publisher = 'British History Online'" />
 	</xsl:function>
 
 	<xsl:function name="leg:IsLegislationWeRevise" as="xs:boolean">
