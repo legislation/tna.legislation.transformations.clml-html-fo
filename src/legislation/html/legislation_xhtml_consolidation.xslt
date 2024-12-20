@@ -2272,7 +2272,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		</xsl:when>
 		<!-- LEGDEV-4098 suppress span when EU content inside table to allow single block element rendering -->
 		<xsl:when test="ancestor::xhtml:td or ancestor::xhtml:th">
-			<xsl:apply-templates/>
+			<xsl:apply-templates/><xsl:text> </xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
 			<span class="Leg{$element}No{$strAmendmentSuffix}">
