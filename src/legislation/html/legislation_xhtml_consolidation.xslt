@@ -2361,7 +2361,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 			<xsl:apply-templates select="leg:Text[1]/node()"/>
 		</xsl:when>
 	<xsl:otherwise>
-			<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">cat
+			<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">
 				<xsl:apply-templates select="leg:Text[1]/node()"/>
 			</span>
 		</xsl:otherwise>
