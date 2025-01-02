@@ -2270,6 +2270,10 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 				<xsl:with-param name="strHeading" select="$element"/>
 			</xsl:call-template>
 		</xsl:when>
+		<!-- LEGDEV-4098 suppress span when EU content inside table to allow single block element rendering -->
+		<xsl:when test="ancestor::xhtml:td or ancestor::xhtml:th">
+			<xsl:apply-templates/><xsl:text> </xsl:text>
+		</xsl:when>
 		<xsl:otherwise>
 			<span class="Leg{$element}No{$strAmendmentSuffix}">
 				<xsl:apply-templates/>
@@ -2351,9 +2355,17 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
-	<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">
-		<xsl:apply-templates select="leg:Text[1]/node()"/>
-	</span>
+	<!-- LEGDEV-4098 suppress span when EU content inside table to allow single block element rendering -->
+	<xsl:choose>
+		<xsl:when test="ancestor::leg:Division[ancestor::xhtml:td or ancestor::xhtml:th]">
+			<xsl:apply-templates select="leg:Text[1]/node()"/>
+		</xsl:when>
+	<xsl:otherwise>
+			<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">
+				<xsl:apply-templates select="leg:Text[1]/node()"/>
+			</span>
+		</xsl:otherwise>
+	</xsl:choose>
 	<!-- Issue LEGDEV-2742 numbered paras with annotations see eur-2011-1169-annex-IX-division-2 -->
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
