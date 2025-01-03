@@ -337,8 +337,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 				<xsl:if test="$showTimeline">
 					<link rel="stylesheet" href="/styles/view/changesOverTime.css" type="text/css"/>
-					<script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"></script>
-					<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"></script>
+					<!-- Legacy jQuery UI 1.8 -->
+					<!-- <script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"></script>
+					<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"></script> -->
+
+					<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
 					<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
 				</xsl:if>
 
