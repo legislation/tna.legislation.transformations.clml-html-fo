@@ -266,7 +266,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<div class="buynow-border">
 											<h1 style="margin-top: 8%;">Thank you</h1>
 										</div>
-										<p>TSO are preparing your price for <b><xsl:value-of select="$title"/></b> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/> on </p>
+										<p>TSO are preparing your price for <b><xsl:value-of select="$title"/></b> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/></p>
 										<p>Someone will contact you with your price within the next 3 days.</p>
 										<p>We have sent confirmation of your request to <b><xsl:value-of select="leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'email']/value)"/></b></p>
 										<div class="thankyou">
@@ -395,7 +395,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<b>
 												<xsl:value-of select="$title"/>
 											</b>
-											<span> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/> on </span>
+											<span> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/></span>
 										</p>
 									</div>
 									<div class="buynow-form">
