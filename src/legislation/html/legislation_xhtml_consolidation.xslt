@@ -2742,6 +2742,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 	<xsl:template match="xhtml:table[@class]/xhtml:tbody" priority="25">
 		<tbody>
+			<xsl:copy-of select="@class"/>
 			<xsl:attribute name="id">
 				<xsl:call-template name="FuncGenerateAnchorID"/>
 			</xsl:attribute>			
@@ -2752,6 +2753,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 	<xsl:template match="xhtml:table[@class]/xhtml:thead" priority="25">
 		<thead>
+			<xsl:copy-of select="@class"/>
 			<xsl:call-template name="FuncCheckForID"/>			
 			<xsl:apply-templates select="* | processing-instruction()"/>
 		</thead>
@@ -2759,6 +2761,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 	<xsl:template match="xhtml:table[@class]/xhtml:tfoot">
 		<tfoot>
+			<xsl:copy-of select="@class"/>
 			<xsl:call-template name="FuncCheckForID"/>
 			<xsl:apply-templates select="* | processing-instruction()"/>
 		</tfoot>
