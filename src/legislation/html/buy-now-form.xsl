@@ -395,7 +395,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<b>
 												<xsl:value-of select="$title"/>
 											</b>
-											<span> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/></span>
+											<span> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/>.</span>
 										</p>
 									</div>
 									<div class="buynow-form">
