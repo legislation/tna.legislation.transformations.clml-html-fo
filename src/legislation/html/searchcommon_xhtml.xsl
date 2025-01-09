@@ -1217,14 +1217,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</style>
         
         <!-- Required for the headingFacet autocomplete -->
-        <link rel="stylesheet" href="/styles/advancedsearch/jquery-ui.css" type="text/css"/>
-        
+		<!-- Legacy jQuery UI 1.8 -->
+        <!-- <link rel="stylesheet" href="/styles/advancedsearch/jquery-ui.css" type="text/css"/>
 		<script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"/>
-		<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"/>
+		<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"/> -->
+
+		<link rel="stylesheet" href="/styles/advancedsearch/jquery-ui-1.14.1.min.css" type="text/css" />
+		<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
 		<script type="text/javascript" src="/scripts/view/scrollbar.js"/>
         <script type="text/javascript" src="/scripts/formFunctions/common.js"></script>
 		<script type="text/javascript" src="/scripts/advancedsearch/search-eu.js"></script>
-        <script type="text/javascript" src="/scripts/search/jquery.ui.autocomplete.min.js"></script>
+        <!-- <script type="text/javascript" src="/scripts/search/jquery.ui.autocomplete.min.js"></script> --> 
         <script type="text/javascript" src="/scripts/search/jquery.ui.comboboxFromLinks.js"></script>
         <script type="text/javascript" src="/scripts/search/headingFacet.js"></script>
 	</xsl:template>
