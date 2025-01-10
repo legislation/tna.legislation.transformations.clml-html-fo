@@ -7,7 +7,7 @@ You may use and re-use this code free of charge under the terms of the Open Gove
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
-<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata" xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata" xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:legfn="http://www.legislation.gov.uk/namespaces/xslt/function">
 
 <xsl:template match="leg:Tabular">
 	<!-- count the ancestor depth as we do not want the table to stick out of the page margins -->
@@ -22,10 +22,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- give the table more horiozontal space when in higher list levels-->
 		<xsl:attribute name="margin-left">
 			<xsl:choose>
-				<xsl:when test="ancestor::leg:P3 and $intAncestorDepth &gt; 10">
+				<xsl:when test="ancestor::leg:P3 and $intAncestorDepth &gt; 14">
 					<xsl:text>-36pt</xsl:text>
 				</xsl:when>
-				<xsl:when test="ancestor::leg:P2 and $intAncestorDepth &gt; 10">
+				<xsl:when test="ancestor::leg:P2 and $intAncestorDepth &gt; 14">
 					<xsl:text>-48pt</xsl:text>
 				</xsl:when>
 				<xsl:otherwise>
@@ -62,24 +62,92 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</fo:block>
 </xsl:template>
 
+<xsl:function name="legfn:table.width">
+	<xsl:param name="table" as="element()"/>
+	<xsl:choose>
+		<xsl:when test="$table/@width">
+			<xsl:value-of select="$table/@width"/>
+		</xsl:when>
+		<xsl:when test="$table/@class and matches($table/@class, 'width')">
+			<xsl:analyze-string select="$table/@class" regex="width([0-9]+)">
+			<xsl:matching-substring>
+				<xsl:value-of select="concat(regex-group(1), '%')"/>
+			</xsl:matching-substring>			
+		</xsl:analyze-string>
+		</xsl:when>
+		<xsl:otherwise>100%</xsl:otherwise>
+	</xsl:choose>
+</xsl:function>
+
+<!-- As FOP does not support floats or fo:table-and-caption then we have to use a tabular formatting -->
+<xsl:template match="xhtml:table[@class[matches(., 'tablecentre|tableright')]]" priority="10">	
+	<xsl:variable name="width" select="(xs:integer(replace(legfn:table.width(.), '%', '')), 100)[1]"/>
+	<xsl:choose>
+		<xsl:when test="$width lt 100 and contains(@class, 'tablecentre')">
+			<fo:table width="100%">
+				<fo:table-column column-number="1" column-width="{(100 - $width) div 2}%"/>
+				<fo:table-column column-number="2" column-width="{$width}%"/>
+				<fo:table-column column-number="3" column-width="{(100 - $width) div 2}%"/>
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell>
+							<fo:block>&#160;</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<xsl:next-match/>
+						</fo:table-cell>
+						<fo:table-cell>
+							<fo:block>&#160;</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>			
+		</xsl:when>
+		<xsl:when test="$width lt 100 and contains(@class, 'tableright')">
+			<fo:table width="100%">
+				<fo:table-column column-number="1" column-width="{(100 - $width)}%"/>
+				<fo:table-column column-number="2" column-width="{$width}%"/>
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell>
+							<fo:block>&#160;</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<xsl:next-match/>
+						</fo:table-cell>						
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>	
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:next-match/>
+		</xsl:otherwise>
+	</xsl:choose>
+	
+</xsl:template>
+
 <xsl:template match="xhtml:table">
 	<xsl:apply-templates select="xhtml:caption"/>
 	<xsl:variable name="charCount" as="xs:integer" select="string-length(xhtml:tfoot)"/>
 	<fo:table table-layout="fixed">
-		<xsl:attribute name="width" select="if (@width) then @width else '100%'"/>
-	
+		<xsl:if test="@class and contains(@class, 'noPersist')">
+			<xsl:attribute name="table-omit-header-at-break" select="'true'"/>
+		</xsl:if>
+		<xsl:if test="not(@class[matches(., 'tablecentre|tableright')])">
+			<xsl:attribute name="width" select="legfn:table.width(.)"/>
+		</xsl:if>
 		<xsl:choose>
-				<xsl:when test="contains(@class, 'allBorders')">
-					<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
-				</xsl:when>
-				<xsl:when test="not(descendant::*/@*[not(. = 'inherit') and contains(name(), 'border')])">
-					<xsl:attribute name="border-top">solid 0.5pt black</xsl:attribute>
-					<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:call-template name="TSOprocessTableBorders"/>	
-				</xsl:otherwise>
-			</xsl:choose>	
+			<xsl:when test="exists(@class)">
+				<xsl:call-template name="TSOprocessLawMakerTableBorders"/>
+			</xsl:when>
+			<xsl:when test="not(descendant::*/@*[not(. = 'inherit') and contains(name(), 'border')])">
+				<xsl:attribute name="border-top">solid 0.5pt black</xsl:attribute>
+				<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="TSOprocessTableBorders"/>	
+			</xsl:otherwise>
+		</xsl:choose>	
 	
 		
 		<xsl:apply-templates select="xhtml:col | xhtml:colgroup"/>
@@ -180,8 +248,51 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:if test="@height">
 			<xsl:attribute name="height"><xsl:value-of select="@height"/></xsl:attribute>
 		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="exists(ancestor::xhtml:table/@class)">
+				<xsl:call-template name="TSOprocessLawMakerTableBorders"/>
+			</xsl:when>
+			<xsl:when test="contains(ancestor::xhtml:table/@class, 'middleVertical') and not(following-sibling::xhtml:tr)">
+				<xsl:attribute name="border-right">solid 0.5pt black</xsl:attribute>
+			</xsl:when>			
+		</xsl:choose>
 		<xsl:apply-templates/>		
 	</fo:table-row>
+</xsl:template>
+
+<xsl:template name="TSOprocessLawMakerTableBorders">
+	<xsl:variable name="class" select="ancestor-or-self::xhtml:table/@class"/>
+	<xsl:variable name="borderType">
+		<xsl:choose>
+			<xsl:when test="contains($class, 'topAndBottom')">topAndBottom</xsl:when>
+			<xsl:when test="contains($class, 'bottomAndMiddleVertical')">bottomAndMiddleVertical</xsl:when>
+			<xsl:when test="contains($class, 'allBorders')">allBorders</xsl:when>		
+			<xsl:when test="contains($class, 'noBorders')">noBorders</xsl:when>		
+			<xsl:when test="contains($class, 'middleVertical')">middleVertical</xsl:when>
+		</xsl:choose>	
+	</xsl:variable>
+	<xsl:choose>
+		<xsl:when test="$borderType = 'noBorders'">			
+		</xsl:when>
+		<xsl:when test="$borderType = 'allBorders'">
+			<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+		</xsl:when>
+		<xsl:when test="$borderType = 'topAndBottom' and local-name() = ('thead', 'tbody', 'table')">
+			<xsl:attribute name="border-top">solid 0.5pt black</xsl:attribute>
+			<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
+		</xsl:when>	
+		<xsl:when test="$borderType = 'bottomAndMiddleVertical'">
+			<xsl:if test="local-name() = ('thead', 'tbody', 'table')">
+				<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
+			</xsl:if>			
+			<xsl:if test="local-name() = ('td', 'th') and (following-sibling::xhtml:td or following-sibling::xhtml:th)">
+				<xsl:attribute name="border-right">solid 0.5pt black</xsl:attribute>
+			</xsl:if>
+		</xsl:when>	
+		<xsl:when test="$borderType = 'middleVertical' and local-name() = ('td', 'th') and (following-sibling::xhtml:td or following-sibling::xhtml:th)">
+			<xsl:attribute name="border-right">solid 0.5pt black</xsl:attribute>
+		</xsl:when>			
+	</xsl:choose>
 </xsl:template>
 
 <!-- Maybe add some border properties to the fo:table. -->
@@ -307,8 +418,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template match="xhtml:thead">
 	<fo:table-header>
 		<xsl:choose>
-			<xsl:when test="exists(ancestor::xhtml:table[1]/@class) and contains(ancestor::xhtml:table[1]/@class, 'allBorders')">
-				<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+			<xsl:when test="exists(ancestor::xhtml:table/@class)">
+				<xsl:call-template name="TSOprocessLawMakerTableBorders"/>
 			</xsl:when>
 			<xsl:when test="not(ancestor::xhtml:table[1]/descendant::*/@*[not(. = 'inherit') and contains(name(), 'border')])">
 				<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
@@ -325,8 +436,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template match="xhtml:tbody">
 	<fo:table-body>
 		<xsl:choose>
-			<xsl:when test="exists(ancestor::xhtml:table[1]/@class) and contains(ancestor::xhtml:table[1]/@class, 'allBorders')">
-				<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+			<xsl:when test="exists(ancestor::xhtml:table/@class)">
+				<xsl:call-template name="TSOprocessLawMakerTableBorders"/>
 			</xsl:when>
 			<xsl:when test="not(ancestor::xhtml:table[1]/descendant::*/@*[not(. = 'inherit') and contains(name(), 'border')])">
 				<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
@@ -363,6 +474,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template match="xhtml:td">
 	<fo:table-cell padding-left="3pt" padding-right="3pt" padding-top="1pt" text-indent="0pt">
 		<xsl:choose>
+			<xsl:when test="exists(ancestor::xhtml:table/@class) and contains(ancestor::xhtml:table/@class, 'compact')">
+				<xsl:attribute name="padding-top">0pt</xsl:attribute>
+				<xsl:attribute name="padding-bottom">0pt</xsl:attribute>
+			</xsl:when>
 			<xsl:when test="$g_strDocClass = $g_strConstantPrimary or $g_flSuppressTableLineSpace">
 				<xsl:attribute name="padding-top">3pt</xsl:attribute>
 				<xsl:attribute name="padding-bottom">3pt</xsl:attribute>
@@ -376,8 +491,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:if test="count(parent::xhtml:tr/following-sibling::*) ge number(@rowspan) - 1"><xsl:attribute name="number-rows-spanned" select="@rowspan"/></xsl:if>
 		</xsl:if>		
 		<xsl:choose>
-			<xsl:when test="exists(ancestor::xhtml:table[1]/@class) and contains(ancestor::xhtml:table[1]/@class, 'allBorders')">
-				<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+			<xsl:when test="exists(ancestor::xhtml:table/@class)">
+				<xsl:call-template name="TSOprocessLawMakerTableBorders"/>
 			</xsl:when>
 			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
 				<xsl:call-template name="EU-table-borders"/>					
@@ -398,6 +513,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:attribute name="font-size">8pt</xsl:attribute>
 			<xsl:attribute name="line-height">9pt</xsl:attribute>
 		</xsl:if>
+		<xsl:variable name="headBodyClasses" as="xs:string*" select="tokenize(ancestor::*[self::xhtml:tbody or self::xhtml:thead]/@class, ' ')"/>
+
+		<xsl:if test="'bold' = $headBodyClasses">
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+		</xsl:if>
+		<xsl:if test="'underline' = $headBodyClasses">
+			<xsl:attribute name="text-decoration">underline</xsl:attribute>
+		</xsl:if>
+		<xsl:if test="'italic' = $headBodyClasses">
+			<xsl:attribute name="font-style">italic</xsl:attribute>
+		</xsl:if>			
+		
 		<xsl:choose>
 			<xsl:when test="@valign = 'middle'">
 				<xsl:attribute name="display-align">center</xsl:attribute>
@@ -407,19 +534,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 		</xsl:choose>
 		<xsl:choose>
-			<xsl:when test="@align = 'left'">
+			<xsl:when test="(@align = 'left') or ('left' = $headBodyClasses)">
 				<xsl:attribute name="text-align">left</xsl:attribute>
 			</xsl:when>
-			<xsl:when test="@align = 'right'">
+			<xsl:when test="(@align = 'right') or ('right' = $headBodyClasses)">
 				<xsl:attribute name="text-align">right</xsl:attribute>
 			</xsl:when>
-			<xsl:when test="@align = 'center'">
+			<xsl:when test="(@align = 'center') or ('centre' = $headBodyClasses)">
 				<xsl:attribute name="text-align">center</xsl:attribute>
+			</xsl:when>
+			<xsl:when test="(@align = 'justify') or ('justify' = $headBodyClasses)">
+				<xsl:attribute name="text-align">justify</xsl:attribute>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:attribute name="text-align">from-table-column(text-align)</xsl:attribute>
 			</xsl:otherwise>
-		</xsl:choose>
+		</xsl:choose>		
 		<xsl:choose>
 			<xsl:when test="@fo:reference-orientation">
 				<fo:block-container>
@@ -459,6 +589,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template match="xhtml:th">
 	<fo:table-cell padding-left="3pt" padding-right="3pt" padding-top="1pt" text-indent="0pt" margin="0pt">
 		<xsl:choose>
+			<xsl:when test="exists(ancestor::xhtml:table/@class) and contains(ancestor::xhtml:table/@class, 'compact')">
+				<xsl:attribute name="padding-top">0pt</xsl:attribute>
+				<xsl:attribute name="padding-bottom">0pt</xsl:attribute>
+			</xsl:when>
 			<xsl:when test="$g_strDocClass = $g_strConstantPrimary">
 				<xsl:attribute name="padding-top">3pt</xsl:attribute>
 				<xsl:attribute name="padding-bottom">3pt</xsl:attribute>
@@ -472,8 +606,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:if test="count(parent::xhtml:tr/following-sibling::*) ge number(@rowspan) - 1"><xsl:attribute name="number-rows-spanned" select="@rowspan"/></xsl:if>
 		</xsl:if>				
 		<xsl:choose>
-			<xsl:when test="exists(ancestor::xhtml:table[1]/@class) and contains(ancestor::xhtml:table[1]/@class, 'allBorders')">
-				<xsl:attribute name="border">solid 0.5pt black</xsl:attribute>
+			<xsl:when test="exists(ancestor::xhtml:table/@class)">
+				<xsl:call-template name="TSOprocessLawMakerTableBorders"/>
 			</xsl:when>
 			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
 				<xsl:call-template name="EU-table-borders"/>					
@@ -482,6 +616,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:call-template name="TSOprocessTableBorders"/>
 			</xsl:otherwise>		
 		</xsl:choose>
+		<xsl:variable name="headBodyClasses" as="xs:string*" select="tokenize(ancestor::*[self::xhtml:tbody or self::xhtml:thead]/@class, ' ')"/>
+		<xsl:if test="'bold' = $headBodyClasses">
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+		</xsl:if>
+		<xsl:if test="'underline' = $headBodyClasses">
+			<xsl:attribute name="text-decoration">underline</xsl:attribute>
+		</xsl:if>
+		<xsl:if test="'italic' = $headBodyClasses">
+			<xsl:attribute name="font-style">italic</xsl:attribute>
+		</xsl:if>			
+
 		<xsl:choose>
 			<xsl:when test="@valign = 'middle'">
 				<xsl:attribute name="display-align">center</xsl:attribute>
@@ -491,14 +636,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 		</xsl:choose>
 		<xsl:choose>
-			<xsl:when test="@align = 'left'">
+			<xsl:when test="(@align = 'left') or ('left' = $headBodyClasses)">
 				<xsl:attribute name="text-align">left</xsl:attribute>
-			</xsl:when>		
-			<xsl:when test="@align = 'right'">
+			</xsl:when>
+			<xsl:when test="(@align = 'right') or ('right' = $headBodyClasses)">
 				<xsl:attribute name="text-align">right</xsl:attribute>
 			</xsl:when>
-			<xsl:when test="@align = 'center'">
+			<xsl:when test="(@align = 'center') or ('centre' = $headBodyClasses)">
 				<xsl:attribute name="text-align">center</xsl:attribute>
+			</xsl:when>
+			<xsl:when test="(@align = 'justify') or ('justify' = $headBodyClasses)">
+				<xsl:attribute name="text-align">justify</xsl:attribute>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:choose>
@@ -510,12 +658,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:otherwise>
-		</xsl:choose>
+		</xsl:choose>		
 		<fo:block text-indent="0pt">
-			<xsl:if test="ancestor::xhtml:thead and not(leg:Para)">
+			<xsl:if test="not(ancestor::xhtml:thead/@class) and ancestor::xhtml:thead and not(leg:Para)">
 				<xsl:attribute name="font-style">italic</xsl:attribute>
 			</xsl:if>
-			<xsl:if test="ancestor::xhtml:tbody and not(leg:Para)">
+			<xsl:if test="not(ancestor::xhtml:tbody/@class) and ancestor::xhtml:tbody and not(leg:Para)">
 				<xsl:attribute name="font-weight">bold</xsl:attribute>
 			</xsl:if>
 			<xsl:apply-templates/>
