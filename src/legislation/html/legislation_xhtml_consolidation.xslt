@@ -2151,6 +2151,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 <!-- this is an empty division heading so just process everything within it -->
 <xsl:template match="leg:Division[not(leg:Title)][not(leg:Number)]"  priority="5">
 	<xsl:apply-templates/>
+	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
 <xsl:template match="leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:EUSubsection | leg:Division[@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNEX')] | leg:Division[leg:Title]"  priority="15">
