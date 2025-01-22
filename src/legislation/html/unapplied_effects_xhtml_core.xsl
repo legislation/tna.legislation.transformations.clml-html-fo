@@ -264,7 +264,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 
 <xsl:template match="ukm:UnappliedEffect[@Type != 'Commencement Order'][not(ukm:Commenced)]" mode="filterUnappliedEffects">
 	<xsl:param name="IsEURetained" as="xs:boolean" tunnel="yes" select="false()"/>
-	<xsl:variable name="documentMainType" as="xs:string" select="string(ancestor::ukm:Metadata//ukm:DocumentClassification/ukm:DocumentMainType[1]/@Value)"/>
+	<xsl:variable name="documentMainType" select="$g_strDocumentMainType"/>
 	<xsl:variable name="IdURI" select="ancestor::leg:Legislation/@IdURI"/>
 	<!-- debug ordering-->
 	<xsl:if test="false()">
