@@ -372,6 +372,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</p>
 						</div>
 					</xsl:when>
+					<xsl:when
+						test="$errorSearchingDoc/errorsearching/status-code = '400'">
+						<xsl:attribute name="class" select="'error errorMessage'"/>
+						<xsl:value-of
+							select="leg:TranslateText(string-join($errorSearchingDoc/errorsearching/message, ''))"
+						/>
+					</xsl:when>
 					<xsl:otherwise>
 						<div class="buynow-page">
 							<div>
