@@ -1739,7 +1739,7 @@ exclude-result-prefixes="tso atom">
 				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
-				<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="36pt" space-before="6pt">		
+				<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="39pt" space-before="6pt">		
 					<xsl:call-template name="TSOgetID"/>
 					<xsl:choose>
 						<xsl:when test="$g_strDocClass = $g_strConstantPrimary"/>
