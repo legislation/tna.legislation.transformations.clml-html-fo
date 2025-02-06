@@ -38,7 +38,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- ========== Standard code for outputting legislation ========= -->
 
 	
-	<xsl:template match="leg:Appendix | leg:Attachment | leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:Division | leg:Footnotes | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:Subtable | leg:EarlierOrders" mode="ProcessAnnotations">
+	<xsl:template match="leg:Appendix | leg:Attachment | leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:Appendix/leg:AppendixBody/leg:Tabular | leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:EUSubsection | leg:Division | leg:Footnotes | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment | *[self::leg:Part or self::leg:Chapter or self::leg:Appendix or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:Subtable | leg:EarlierOrders" mode="ProcessAnnotations">
 		<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
 		<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
 		<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
@@ -76,9 +76,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="ancestor::leg:BlockAmendment">
 					<!--Block amendment annotations handled at end of provision-->
 				</xsl:when>
+				<!-- deal with unsupported structures that are children of the Division element -->
+				<xsl:when test="self::leg:Division[not(ancestor::leg:BlockAmendment)]">
+					<xsl:sequence select="(leg:Number | leg:Title | leg:Subtitle | leg:OrderedList | leg:UnorderedList | leg:DecoratedGroup | leg:KeyList | leg:Figure | leg:Tabular | leg:Form | leg:Formula | leg:Para)/descendant::leg:CommentaryRef"/>
+				</xsl:when>
 				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)] | self::leg:EUTitle[not(ancestor::leg:BlockAmendment)] | self::leg:EUPart[not(ancestor::leg:BlockAmendment)] | self::leg:EUChapter[not(ancestor::leg:BlockAmendment)] | self::leg:EUSection[not(ancestor::leg:BlockAmendment)] |
-				self::leg:EUSubsection[not(ancestor::leg:BlockAmendment)] |
-				self::leg:Division[not(ancestor::leg:BlockAmendment)]">
+				self::leg:EUSubsection[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/descendant::leg:CommentaryRef" />
 				</xsl:when>
 				<xsl:when test="self::leg:Attachment[not(ancestor::leg:BlockAmendment)] | self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:EUPrelims |self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] | self::leg:SignedSection[not(ancestor::leg:BlockAmendment)] |
@@ -91,7 +94,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="self::leg:BlockAmendment and (parent::leg:ScheduleBody or parent::leg:Part)">			
 					<xsl:sequence select="descendant::leg:CommentaryRef"/>
 				</xsl:when>
-				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:EUBody )">
+				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:EUBody  or parent::leg:AppendixBody)">
 					<xsl:sequence select="descendant::leg:CommentaryRef" />
 				</xsl:when>
 				<xsl:when test="self::leg:Subtable[xhtml:table]">
@@ -115,10 +118,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<!--  retained some conditions for fringe cases  -->
 				<xsl:when test="ancestor::leg:BlockAmendment">
 					<!--Block amendment annotations handled at end of provision-->
-				</xsl:when>				
+				</xsl:when>		
+				<!-- deal with unsupported structures that are children of the Division element -->
+				<xsl:when test="self::leg:Division[not(ancestor::leg:BlockAmendment)]">
+					<xsl:sequence select="(leg:Number | leg:Title | leg:Subtitle | leg:OrderedList | leg:UnorderedList | leg:DecoratedGroup | leg:KeyList | leg:Figure | leg:Tabular | leg:Form | leg:Formula | leg:Para)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)"/>
+				</xsl:when>	
 				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)] | self::leg:EUTitle[not(ancestor::leg:BlockAmendment)] | self::leg:EUPart[not(ancestor::leg:BlockAmendment)] | self::leg:EUChapter[not(ancestor::leg:BlockAmendment)] | self::leg:EUSection[not(ancestor::leg:BlockAmendment)] | 
-				self::leg:EUSubsection[not(ancestor::leg:BlockAmendment)] | 
-				self::leg:Division[not(ancestor::leg:BlockAmendment)]">
+				self::leg:EUSubsection[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)" />
 				</xsl:when>
 				<!-- for prelims we need to take all descendent amendments -->
@@ -141,7 +147,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="self::leg:BlockAmendment and (parent::leg:ScheduleBody or parent::leg:Part)">			
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 				</xsl:when>
-				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody)">
+				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody or parent::leg:AppendixBody)">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution" />
 				</xsl:when>
 				<xsl:when test="self::leg:Subtable">
