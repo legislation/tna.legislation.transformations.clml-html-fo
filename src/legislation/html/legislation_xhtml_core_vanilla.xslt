@@ -1098,6 +1098,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:template match="leg:Text" name="leg:Text">
 	<xsl:param name="context" as="element(leg:Tabular)?"/>
+	<xsl:param name="Pnumber" as="element(leg:Pnumber)?"/>
 	<!-- Generate suffix to be added for CSS classes for amendments -->
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
@@ -2430,7 +2431,23 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:when test="@Type = 'arabic'">LegArabicList</xsl:when>					
 				</xsl:choose>
 			</xsl:attribute>
-			<xsl:apply-templates select="* | processing-instruction()"/>
+			<xsl:choose>
+				<xsl:when test="not(preceding-sibling::*) and (
+					parent::leg:P1para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P2para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P3para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P4para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P5para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P6para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P7para/preceding-sibling::*[1]/self::leg:Pnumber)">
+					<xsl:call-template name="leg:Text">
+						<xsl:with-param name="Pnumber" select="parent::*/preceding-sibling::*[1]/self::leg:Pnumber"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="* | processing-instruction()"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</div>
 	<xsl:call-template name="FuncApplyVersions"/>
