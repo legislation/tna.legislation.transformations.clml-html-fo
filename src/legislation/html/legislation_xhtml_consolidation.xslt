@@ -663,7 +663,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
 	<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
 	<xsl:variable name="showCommentary" as="xs:boolean" select="tso:showCommentary(.)" />
-	<xsl:variable name="changeId" as="xs:string" select="@ChangeId" />
+	<xsl:variable name="changeId" as="xs:string?" select="@ChangeId" />
 	<xsl:variable name="showSection" as="node()" select="leg:showSection(., $showSection)" />
 	<xsl:variable name="allChanges" as="element()*" select="key('additionRepealChanges', $changeId, root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary))" />
 	<xsl:variable name="sameChanges" as="element()*" select="key('additionRepealChanges', $changeId, $showSection)" />
@@ -1337,7 +1337,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		  satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
 				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))
 				   or (
-				   (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal|omitted|revoked', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
+				   (some $text in $commentary satisfies matches(string((/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text])[1]), 'repeal|omitted|revoked', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
 				   ))
 				   ">
 			<xsl:call-template name="FuncProcessRepealedMajorHeading"/>
