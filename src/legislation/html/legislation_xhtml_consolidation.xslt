@@ -1380,7 +1380,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:choose>
 </xsl:template>
 
-<xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="60">
+<xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="61">
 	<xsl:param name="showingProspective" tunnel="yes" as="xs:boolean" select="false()" />
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
 	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
