@@ -2739,10 +2739,10 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:function>
 
 <xsl:function name="tso:showCommentary" as="xs:boolean">
-	<xsl:param name="commentary" as="element(leg:Commentary)?" />
+	<xsl:param name="commentary" as="element(leg:Commentary)*" />
 	<xsl:param name="isRepealed" as="xs:boolean" />
 	<xsl:param name="isDead" as="xs:boolean" />
-	<xsl:sequence select="not($isRepealed) or ($isRepealed and contains($commentary, 'temp.')) or $isDead" />
+	<xsl:sequence select="not($isRepealed) or ($isRepealed and contains(string-join($commentary, ' '), 'temp.')) or $isDead" />
 </xsl:function>
 
 <xsl:function name="tso:commentaryNumber" as="xs:integer">
