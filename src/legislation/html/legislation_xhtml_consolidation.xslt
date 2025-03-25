@@ -2733,7 +2733,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<!-- the EU preamble will have the commetnary ref if it is repealed - we need to allow this trhough so do not count this as repealed -->
 	<xsl:variable name="isRepealed" as="xs:boolean" select="$fragment/@Match = 'false' and (not($fragment/@Status) or $fragment/@Status != 'Prospective') and not($isValidFrom) and not($commentaryRef/ancestor::leg:EUPreamble)"/>
 	
-	<xsl:variable name="commentary" as="element(leg:Commentary)?" select="key('commentary', $commentaryRef/(@Ref | @CommentaryRef), $commentaryRef/root())" />
+	<xsl:variable name="commentary" as="element(leg:Commentary)*" select="key('commentary', $commentaryRef/(@Ref | @CommentaryRef), $commentaryRef/root())" />
 	<xsl:variable name="viewingProv" select="$commentaryRef/ancestor-or-self::*[@DocumentURI]/@DocumentURI" />
 	<xsl:sequence select="tso:showCommentary($commentary, $isRepealed, $isDead) or ($isRepealed and $viewingProv = $dcIdentifier)" />
 </xsl:function>
