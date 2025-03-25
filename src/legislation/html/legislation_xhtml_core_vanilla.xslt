@@ -3521,7 +3521,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 	<xsl:variable name="strResource" select="@id"/>
 	<!-- We need to do it this way because we may be looking for an include in a version copy of the content -->
-	<xsl:variable name="ndsIncludeDocument" select="//leg:IncludedDocument[@ResourceRef = $strResource]"/>
+	<xsl:variable name="ndsIncludeDocument" select="(//leg:IncludedDocument[@ResourceRef = $strResource])[1]"/>
 	<xsl:variable name="intIDofItemToReplace" select="generate-id($ndsIncludeDocument)"/>
 
 	<!-- Generate a document that is the correct context -->
