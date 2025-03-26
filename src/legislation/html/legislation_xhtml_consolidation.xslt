@@ -2530,7 +2530,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 <!-- the title elemnent in the preamble appears to just be a first paragraph so treat as such-->
-<xsl:template match="leg:EUPreamble/leg:Division/leg:Title">
+<xsl:template match="leg:EUPreamble/leg:Division/leg:Title" priority="5">
 	<span class="LegDS LegRHS LegPreambleP1Text">
 		<xsl:apply-templates/>
 	</span>
