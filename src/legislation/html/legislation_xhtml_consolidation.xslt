@@ -663,7 +663,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
 	<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
 	<xsl:variable name="showCommentary" as="xs:boolean" select="tso:showCommentary(.)" />
-	<xsl:variable name="changeId" as="xs:string" select="@ChangeId" />
+	<xsl:variable name="changeId" as="xs:string?" select="@ChangeId" />
 	<xsl:variable name="showSection" as="node()" select="leg:showSection(., $showSection)" />
 	<xsl:variable name="allChanges" as="element()*" select="key('additionRepealChanges', $changeId, root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary))" />
 	<xsl:variable name="sameChanges" as="element()*" select="key('additionRepealChanges', $changeId, $showSection)" />
@@ -1337,7 +1337,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		  satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
 				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))
 				   or (
-				   (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal|omitted|revoked', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
+				   (some $text in $commentary satisfies matches(string((/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text])[1]), 'repeal|omitted|revoked', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
 				   ))
 				   ">
 			<xsl:call-template name="FuncProcessRepealedMajorHeading"/>
@@ -1380,7 +1380,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:choose>
 </xsl:template>
 
-<xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="60">
+<xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="61">
 	<xsl:param name="showingProspective" tunnel="yes" as="xs:boolean" select="false()" />
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
 	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
@@ -1480,7 +1480,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group[not(count(leg:P1) gt 1)]  | leg:P1[not(parent::leg:P1group)] | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:Appendix/leg:AppendixBody/leg:Tabular | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment" priority="60">
+	<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group[not(count(leg:P1) gt 1)]  | leg:P1[not(parent::leg:P1group)][not($g_strDocumentType = ($g_strEUretained))] | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:Appendix/leg:AppendixBody/leg:Tabular | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment" priority="60">
 	<xsl:next-match/>
 	<!-- If there are alternate versions outputting ot annotations will happen there -->
 	<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
@@ -2733,16 +2733,16 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<!-- the EU preamble will have the commetnary ref if it is repealed - we need to allow this trhough so do not count this as repealed -->
 	<xsl:variable name="isRepealed" as="xs:boolean" select="$fragment/@Match = 'false' and (not($fragment/@Status) or $fragment/@Status != 'Prospective') and not($isValidFrom) and not($commentaryRef/ancestor::leg:EUPreamble)"/>
 	
-	<xsl:variable name="commentary" as="element(leg:Commentary)?" select="key('commentary', $commentaryRef/(@Ref | @CommentaryRef), $commentaryRef/root())" />
+	<xsl:variable name="commentary" as="element(leg:Commentary)*" select="key('commentary', $commentaryRef/(@Ref | @CommentaryRef), $commentaryRef/root())" />
 	<xsl:variable name="viewingProv" select="$commentaryRef/ancestor-or-self::*[@DocumentURI]/@DocumentURI" />
 	<xsl:sequence select="tso:showCommentary($commentary, $isRepealed, $isDead) or ($isRepealed and $viewingProv = $dcIdentifier)" />
 </xsl:function>
 
 <xsl:function name="tso:showCommentary" as="xs:boolean">
-	<xsl:param name="commentary" as="element(leg:Commentary)?" />
+	<xsl:param name="commentary" as="element(leg:Commentary)*" />
 	<xsl:param name="isRepealed" as="xs:boolean" />
 	<xsl:param name="isDead" as="xs:boolean" />
-	<xsl:sequence select="not($isRepealed) or ($isRepealed and contains($commentary, 'temp.')) or $isDead" />
+	<xsl:sequence select="not($isRepealed) or ($isRepealed and contains(string-join($commentary, ' '), 'temp.')) or $isDead" />
 </xsl:function>
 
 <xsl:function name="tso:commentaryNumber" as="xs:integer">
