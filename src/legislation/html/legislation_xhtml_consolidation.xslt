@@ -1327,7 +1327,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 <!--For schedules you have to look inside the ScheduleBody: -->
-<xsl:template match="leg:Schedule | leg:Appendix" priority="50">
+<xsl:template match="leg:Schedule | leg:Appendix" priority="51">
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
 	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
 	<xsl:choose>
