@@ -7,16 +7,14 @@ You may use and re-use this code free of charge under the terms of the Open Gove
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+<xsl:stylesheet version="2.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions"
-	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:db="http://docbook.org/ns/docbook"
-	xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
-	xmlns:dct="http://purl.org/dc/terms/" xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
-	xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events"
-	version="2.0">
+	xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions"
+	exclude-result-prefixes="#all">
 
 	<xsl:import href="statuswarning.xsl"/>
 	<xsl:import href="legislation_xhtml_consolidation.xslt"/>
@@ -191,8 +189,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment><![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 				<xsl:comment><![CDATA[[if lte IE 7]><link rel="stylesheet" href="/styles/IE/ie7chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 				<script type="text/javascript" src="/scripts/jquery-3.7.1.min.js"/>
-				<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
-				<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
 				<script type="text/javascript" src="/scripts/CentralConfig.js"/>
 				<!-- <script type="text/javascript" src="/scripts/sitestat.js"></script> -->
 				<script type="text/javascript" src="/scripts/survey/survey.js"/>
@@ -200,9 +196,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"/>
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery-cookie-functions.js"/>
 				<script type="text/javascript" src="/scripts/cookie-directive.js"/>
-				<xsl:call-template name="GoogleTagManager"/>
 				<script src="https://www.google.com/recaptcha/api.js" async="" defer=""/>
 				<script type="text/javascript" src="/scripts/buynow/buynow.js"/>
+				<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
+				<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
+				<xsl:call-template name="GoogleTagManager"/>
 			</head>
 
 			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}" class="browse">
@@ -329,9 +327,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:call-template name="GoogleTagManagerNoScript"/>
-				<script type="text/javascript" src="/scripts/libs/scrollmagic/ScrollMagic.min.js"></script>
-				<script type="text/javascript" src="/scripts/SidebarScroll.js"></script>
-				<script type="text/javascript" src="/scripts/StickyElements.js"></script>
+				<div id="modalBg" style="width: 1264px; height: 1731px; opacity: 0.8; display: none;"/>
+
+				<script type="text/javascript">
+					$("#statusWarningSubSections").css("display", "none");
+					$(".help").css("display", "none");
+					$("#searchChanges", "#existingSearch").css({"display": "none"});
+				</script>
+				<xsl:if test="not(leg:IsHome())">
+					<script type="text/javascript" src="/scripts/libs/scrollmagic/ScrollMagic.min.js"></script>
+					<!-- <script type="text/javascript" src="/scripts/libs/scrollmagic/debug.addIndicators.min.js"></script> -->
+					<script type="text/javascript" src="/scripts/SidebarScroll.js"></script>
+					<script type="text/javascript" src="/scripts/StickyElements.js"></script>
+				</xsl:if>
 			</body>
 		</html>
 	</xsl:template>
