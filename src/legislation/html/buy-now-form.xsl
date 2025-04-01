@@ -329,6 +329,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:call-template name="GoogleTagManagerNoScript"/>
+				<script type="text/javascript" src="/scripts/libs/scrollmagic/ScrollMagic.min.js"></script>
+				<script type="text/javascript" src="/scripts/SidebarScroll.js"></script>
+				<script type="text/javascript" src="/scripts/StickyElements.js"></script>
 			</body>
 		</html>
 	</xsl:template>
