@@ -16,7 +16,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	xmlns:dct="http://purl.org/dc/terms/" xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events"
-	version="2.0" exclude-result-prefixes="#all">
+	version="2.0">
 
 	<xsl:import href="statuswarning.xsl"/>
 	<xsl:import href="legislation_xhtml_consolidation.xslt"/>
