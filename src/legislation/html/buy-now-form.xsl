@@ -202,7 +202,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/buynow/buynow.js"/>
 				<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
 				<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
-				<xsl:call-template name="GoogleTagManager"/>
+				<!--<xsl:call-template name="GoogleTagManager"/>-->
 			</head>
 
 			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}" class="browse">
