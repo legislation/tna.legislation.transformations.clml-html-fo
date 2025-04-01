@@ -7,14 +7,16 @@ You may use and re-use this code free of charge under the terms of the Open Gove
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
-<xsl:stylesheet version="2.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:xhtml="http://www.w3.org/1999/xhtml"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions"
-	exclude-result-prefixes="#all">
+	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:db="http://docbook.org/ns/docbook"
+	xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
+	xmlns:dct="http://purl.org/dc/terms/" xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
+	xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events"
+	version="2.0" exclude-result-prefixes="#all">
 
 	<xsl:import href="statuswarning.xsl"/>
 	<xsl:import href="legislation_xhtml_consolidation.xslt"/>
