@@ -1433,7 +1433,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<!-- this needs the highest priority so that the annotations get processed  -->
-	<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:P1[not(parent::leg:P1group)] | leg:ScheduleBody//*[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment" priority="400">
+	<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:Appendix/leg:AppendixBody/leg:Tabular |leg:P1[not(parent::leg:P1group)] | leg:ScheduleBody//*[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment" priority="400">
 		<xsl:next-match>
 			<xsl:with-param name="showRepeals" select="$showRepeals" tunnel="yes"/>
 		</xsl:next-match>
@@ -1739,7 +1739,7 @@ exclude-result-prefixes="tso atom">
 				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
-				<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="36pt" space-before="6pt">		
+				<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="39pt" space-before="6pt">		
 					<xsl:call-template name="TSOgetID"/>
 					<xsl:choose>
 						<xsl:when test="$g_strDocClass = $g_strConstantPrimary"/>

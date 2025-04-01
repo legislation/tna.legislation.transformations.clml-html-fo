@@ -1434,12 +1434,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="understanding-legislation">Darganfyddwch sut y mae deddfau'n cael eu creu, beth yw ystyr termau amrywiol, sut y gall deddfwriaeth newid deddfwriaeth arall a beth yw deddfwriaeth ddiwygiedig.</resource>
 		<resource id="Our editorial process">Ein proses olygu</resource>
 		<resource id="editorialpractice_summary">Darganfyddwch pa ddeddfwriaeth yr ydym yn eu hadolygu, ein hamserlenni ar gyfer adolygu, y confensiynau yr ydym yn eu dilyn a'r egwyddorion yr ydym yn cadw atynt.</resource>
-		<resource id="Research_tools_summary">Mae ein hofferyn chwilio Newidiadau i ddeddfwriaeth yn ffordd wych o ddarganfod sut y mae darn o ddeddfwriaeth wedi newid, a sut y mae wedi'i newid gan ddeddfwriaeth arall. Os oes gennych ddiddordeb mewn tueddiadau a phatrymau mewn deddfwriaeth, neu sut y mae iaith wedi newid dros dreigl amser, gallwch ganfod yr holl offerynnau sydd eu hangen arnoch ar ein gwefan Ymchwil. Gallwch bellach weld dyfarniadau a phenderfyniadau i ganfod sut y mae deddfwriaeth wedi'i chymhwyso a'i dehongli mewn llysoedd a thribiwnlysoedd drwy ymweld â'r wefan Canfod cyfraith achosion. Os ydych yn creu'ch gwasanaeth deddfwriaeth eich hun neu'n ailddefnyddio data deddfwriaeth yn eich prosiectau eich hun, gallwch ddefnyddio ein API deddfwriaeth - ceir rhagor o wybodaeth isod.</resource>
+		<resource id="Research_tools_summary">Mae'r offeryn chwilio Newidiadau i Ddeddfwriaeth yn ffordd wych o ddarganfod sut mae darn o ddeddfwriaeth wedi newid, ac wedi cael ei newid gan, ddeddfwriaeth arall, ac mae’r Chwiliad Manwl yn cynnig ffyrdd ychwanegol o ganfod deddfwriaeth yn ôl math, neu yn ôl ystod o flynyddoedd. Nawr gallwch gyrchu dyfarniadau a phenderfyniadau i weld sut mae deddfwriaeth wedi’i chymhwyso a’i dehongli mewn llysoedd a thribiwnlysoedd drwy droi at y wefan Find Case Law.</resource>
 		<resource id="Find case law">Canfod cyfraith achosion</resource>
 		<resource id="Changes to Local, and Private and Personal Acts">Newidiadau i Ddeddfau Lleol a rhai Preifat a Phersonol</resource>
 		<resource id="altFormats-1">Mae'r data ar y dudalen hon ar gael yn y </resource>
 		<resource id="altFormats-2">fformatau data amgen</resource>
 		<resource id="altFormats-3"> a restrir</resource>
+		<resource id="BritishHistoryOnline">The electronic version of this Act has been contributed by British History Online and is taken from the printed publication.</resource>
 	</resources>
 
 	<resources lang="en">
@@ -2190,12 +2191,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="understanding-legislation">Find out how laws get made, what various terms mean, how legislation can change other legislation and what revised legislation is.</resource>
 		<resource id="Our editorial process">Our editorial process</resource>
 		<resource id="editorialpractice_summary">Find out what legislation we revise, our timescales for revision, the conventions we follow and the principles that we abide by.</resource>
-		<resource id="Research_tools_summary">Our Changes to legislation search tool is a great way to discover how a piece of legislation has changed, and has been changed by, other legislation. If you are interested in trends and patterns in legislation, or how language has changed over time, you will find all the tools you need on our Research website. You can now access judgments and decisions to see how legislation has been applied and interpreted in courts and tribunals by visiting the Find case law website. If you are creating your own legislation service or reusing legislation data in your own projects, you can make use of our legislation API - find out more below.</resource>
+		<resource id="Research_tools_summary">The Changes To Legislation search tool is a great way to discover how a piece of legislation has changed, and has been changed by, other legislation and the Advanced Search provides extra ways to find legislation by type, or by a range of years. You can now access judgments and decisions to see how legislation has been applied and interpreted in courts and tribunals by visiting the Find Case Law website.</resource>
 		<resource id="Find case law">Find case law</resource>
 		<resource id="Changes to Local, and Private and Personal Acts">Changes to Local, and Private and Personal Acts</resource>
 		<resource id="altFormats-1">The data on this page is available in the </resource>
 		<resource id="altFormats-2">alternative data formats</resource>
 		<resource id="altFormats-3"> listed</resource>
 		<resource id="Help">Help</resource>
+		<resource id="BritishHistoryOnline">The electronic version of this Act has been contributed by British History Online and is taken from the printed publication.</resource>
 	</resources>
 </allResources>

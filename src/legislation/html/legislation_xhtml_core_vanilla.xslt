@@ -2430,7 +2430,21 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:when test="@Type = 'arabic'">LegArabicList</xsl:when>					
 				</xsl:choose>
 			</xsl:attribute>
-			<xsl:apply-templates select="* | processing-instruction()"/>
+			<xsl:choose>
+				<xsl:when test="not(preceding-sibling::*) and (
+					parent::leg:P1para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P2para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P3para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P4para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P5para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P6para/preceding-sibling::*[1]/self::leg:Pnumber or
+					parent::leg:P7para/preceding-sibling::*[1]/self::leg:Pnumber)">
+					<xsl:call-template name="leg:Text"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="* | processing-instruction()"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</div>
 	<xsl:call-template name="FuncApplyVersions"/>
@@ -3507,7 +3521,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 	<xsl:variable name="strResource" select="@id"/>
 	<!-- We need to do it this way because we may be looking for an include in a version copy of the content -->
-	<xsl:variable name="ndsIncludeDocument" select="//leg:IncludedDocument[@ResourceRef = $strResource]"/>
+	<xsl:variable name="ndsIncludeDocument" select="(//leg:IncludedDocument[@ResourceRef = $strResource])[1]"/>
 	<xsl:variable name="intIDofItemToReplace" select="generate-id($ndsIncludeDocument)"/>
 
 	<!-- Generate a document that is the correct context -->
