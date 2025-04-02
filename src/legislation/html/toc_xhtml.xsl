@@ -2034,7 +2034,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final'])">
 			<xsl:variable name="docUri" select="substring-after(//atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act']/@href, 'http://www.legislation.gov.uk')"/>
 			<li class="printOfficialCopy">
-				<h4>Officially printed copies</h4>
+				<h4>Official printed copies</h4>
 				<ul>
 					<li>
 						<a href="{$docUri}/buynow" class="printedLink">
