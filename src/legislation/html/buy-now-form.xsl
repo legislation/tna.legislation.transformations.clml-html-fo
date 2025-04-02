@@ -198,11 +198,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"/>
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery-cookie-functions.js"/>
 				<script type="text/javascript" src="/scripts/cookie-directive.js"/>
+                <xsl:call-template name="GoogleTagManager1"/>
 				<script src="https://www.google.com/recaptcha/api.js" async="" defer=""/>
 				<script type="text/javascript" src="/scripts/buynow/buynow.js"/>
 				<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
 				<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
-				<!--<xsl:call-template name="GoogleTagManager"/>-->
 			</head>
 
 			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}" class="browse">
@@ -328,7 +328,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:call-template name="footer"/>
 					</xsl:otherwise>
 				</xsl:choose>
-				<xsl:call-template name="GoogleTagManagerNoScript"/>
+				<xsl:call-template name="GoogleTagManagerNoScript1"/>
 				<div id="modalBg" style="width: 1264px; height: 1731px; opacity: 0.8; display: none;"/>
 
 				<script type="text/javascript">
@@ -614,5 +614,65 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:value-of select="$removedoublequotes"/>
 		</xsl:if>
 	</xsl:function>
+	<xsl:template name="GoogleTagManager1">
+		<!--
+			GTM code should be managed by a front-end developer.
+			Due to XHTML being presented with the correct MIME-type of application/xhtml+xml a <noscript>
+			element is ignored by the browser. To provide the correct functionality of an iFrame/Object being
+			used when JS is disabled we use the method below that deletes the noscript alternative if
+			JS is disabled.
+
+			In addition - a check on the cookie preferences saved by the user should be made before allowing
+			GTM JS to run as it relies on cookies. The noscript alternative does not set a cookie.
+		-->
+		<xsl:comment>Google Tag Manager</xsl:comment>
+		<script type="text/javascript">
+			function addGtm(w, d, s, l, i) {
+			// Legislation.gov.uk: Check cookie preferences before running the Google analytics code.
+			if (window.legGlobals.cookiePolicy.userSet) {
+			if (window.legGlobals.cookiePolicy.analytics) {
+			w[l] = w[l] || [];
+			w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+			var and = '&amp;';
+			and = and.charAt(0);
+			var f = d.getElementsByTagName(s)[0], j = d.createElement(s),
+			dl = l != 'dataLayer' ? (and + 'l=' + l) : '';
+			j.async = true;
+			j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+			}}else {
+			$.removeCookie('_ga', {path: '/'});
+			$.removeCookie('_gid', {path: '/'});
+			$.removeCookie('_gat_UA-2827241-23', {path: '/'});
+			$.removeCookie('_ga', {path: '/', domain: '.legislation.gov.uk'});
+			$.removeCookie('_gid', {path: '/', domain: '.legislation.gov.uk'});
+			$.removeCookie('_gat_UA-2827241-23', {path: '/', domain: '.legislation.gov.uk'});
+			}
+			}
+			addGtm(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
+
+			$('body').on('cookie.preferences.saved.banner', function () {
+			addGtm(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
+			});
+		</script>
+		<xsl:comment>End Google Tag Manager</xsl:comment>
+	</xsl:template>
+
+	<xsl:template name="GoogleTagManagerNoScript1">
+		<xsl:comment>Google Tag Manager NoScript</xsl:comment>
+		<div id="google-tag-manager">
+			<script type="text/javascript">
+				if (window.legGlobals.cookiePolicy.userSet) {
+				if (window.legGlobals.cookiePolicy.analytics) {
+				var toRemove = document.getElementById('google-tag-manager');
+				document.getElementById('google-tag-manager').parentNode.removeChild(toRemove);
+				}}
+			</script>
+			<div style="visibility: hidden; height: 0; width: 0; overflow: hidden; position: absolute">
+				<object data="https://www.googletagmanager.com/ns.html?id=GTM-TWB7339" height="0" width="0" type="text/html"></object>
+			</div>
+		</div>
+		<xsl:comment>End Google Tag Manager NoScript</xsl:comment>
+	</xsl:template>
 
 </xsl:stylesheet>
