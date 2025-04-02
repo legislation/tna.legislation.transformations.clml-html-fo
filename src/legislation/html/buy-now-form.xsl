@@ -225,14 +225,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:otherwise>
 					</xsl:choose>
 				</ul>
-				<div id="layout1">
-					<!-- header -->
-					<xsl:call-template name="header"/>
+				<xsl:choose>
+					<xsl:when test="$errorSearchingDoc/errorsearching/status-code = '400'"/>
+					<xsl:otherwise>
+						<div id="layout1">
+							<xsl:call-template name="header"/>
+							<xsl:call-template name="background"/>
+						</div>
+					</xsl:otherwise>
+				</xsl:choose>
 
-					<!-- adding background -->
-					<xsl:call-template name="background"/>
-
-				</div>
 				<div id="layout2" class="legToc">
 					<!-- adding quick search  -->
 					<xsl:call-template name="TSOOutputQuickSearch"/>
@@ -324,6 +326,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:call-template name="TSOOutputHelpTips"/>
 				<xsl:choose>
 					<xsl:when test="$paramsDoc/request/method = 'POST'"/>
+					<xsl:when test="$errorSearchingDoc/errorsearching/status-code = '400'"/>
 					<xsl:otherwise>
 						<xsl:call-template name="footer"/>
 					</xsl:otherwise>
