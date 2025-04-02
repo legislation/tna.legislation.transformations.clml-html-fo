@@ -201,8 +201,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
                 <xsl:call-template name="GoogleTagManager1"/>
 				<script src="https://www.google.com/recaptcha/api.js" async="" defer=""/>
 				<script type="text/javascript" src="/scripts/buynow/buynow.js"/>
-				<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
-				<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
+				<!--<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>-->
+				<!--<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>-->
 			</head>
 
 			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}" class="browse">
@@ -337,10 +337,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					$("#searchChanges", "#existingSearch").css({"display": "none"});
 				</script>
 				<xsl:if test="not(leg:IsHome())">
-					<script type="text/javascript" src="/scripts/libs/scrollmagic/ScrollMagic.min.js"></script>
+					<!--<script type="text/javascript" src="/scripts/libs/scrollmagic/ScrollMagic.min.js"></script>-->
 					<!-- <script type="text/javascript" src="/scripts/libs/scrollmagic/debug.addIndicators.min.js"></script> -->
-					<script type="text/javascript" src="/scripts/SidebarScroll.js"></script>
-					<script type="text/javascript" src="/scripts/StickyElements.js"></script>
+					<!--<script type="text/javascript" src="/scripts/SidebarScroll.js"></script>-->
+					<!--<script type="text/javascript" src="/scripts/StickyElements.js"></script>-->
 				</xsl:if>
 			</body>
 		</html>
