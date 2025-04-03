@@ -422,6 +422,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<b>
 												<xsl:value-of select="$title"/>
 											</b>
+											<span>.</span>
 										</p>
 									</div>
 									<div class="buynow-form">
