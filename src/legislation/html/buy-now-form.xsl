@@ -416,11 +416,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<div class="formBlock">
 									<div class="buynow-border">
 										<p style="padding: 0% 0% 2% 0%; font-size: 1.05rem !important;">
-											<span>Please send me a price for </span>
+											<span>Please send me the price for a printed copy of the </span>
+											<xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/>
+											<span> version of </span>
 											<b>
 												<xsl:value-of select="$title"/>
 											</b>
-											<span> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/>.</span>
 										</p>
 									</div>
 									<div class="buynow-form">
