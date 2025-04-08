@@ -4022,7 +4022,7 @@ exclude-result-prefixes="tso atom">
 			<!--<xsl:call-template name="FuncCheckForIDelement"/>-->
 		</xsl:if>
 		<xsl:if test="leg:Reference and not(contains($g_strDocType, 'ScottishAct'))">
-			<fo:block space-before="18pt" text-align="right">>
+			<fo:block space-before="18pt" text-align="right">
 				<xsl:for-each select="leg:Reference">
 					<!--<xsl:call-template name="FuncCheckForID"/>-->
 					<xsl:apply-templates/>
