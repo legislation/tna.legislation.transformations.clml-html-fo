@@ -4022,7 +4022,7 @@ exclude-result-prefixes="tso atom">
 			<!--<xsl:call-template name="FuncCheckForIDelement"/>-->
 		</xsl:if>
 		<xsl:if test="leg:Reference and not(contains($g_strDocType, 'ScottishAct'))">
-			<fo:block>
+			<fo:block space-before="18pt" text-align="right">>
 				<xsl:for-each select="leg:Reference">
 					<!--<xsl:call-template name="FuncCheckForID"/>-->
 					<xsl:apply-templates/>
@@ -5060,11 +5060,11 @@ exclude-result-prefixes="tso atom">
 		<xsl:when test="parent::leg:P1para">3</xsl:when>
 		<xsl:when test="parent::leg:P2">3</xsl:when>
 		<xsl:when test="parent::leg:P2para">3</xsl:when>
-		<xsl:when test="parent::leg:P3">3</xsl:when>			
+		<xsl:when test="parent::leg:P3">3</xsl:when>
 		<xsl:when test="parent::leg:P3para">4</xsl:when>
-		<xsl:when test="parent::leg:P4">4</xsl:when>			
+		<xsl:when test="parent::leg:P4">4</xsl:when>
 		<xsl:when test="parent::leg:P4para">5</xsl:when>
-		<xsl:when test="parent::leg:P5">5</xsl:when>			
+		<xsl:when test="parent::leg:P5">5</xsl:when>
 		<xsl:when test="parent::leg:P5para">6</xsl:when>
 		<xsl:when test="parent::leg:P6">6</xsl:when>
 		<xsl:when test="parent::leg:P6para">7</xsl:when>
