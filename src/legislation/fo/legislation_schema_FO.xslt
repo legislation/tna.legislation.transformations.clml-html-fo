@@ -2543,7 +2543,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:Reference">
-		<fo:block font-size="8pt" keep-with-next="always">
+		<fo:block keep-with-next="always">
 			<xsl:choose>
 				<xsl:when test="$g_strDocType = 'ScottishAct'">
 					<xsl:attribute name="text-align">center</xsl:attribute>
@@ -4021,14 +4021,14 @@ exclude-result-prefixes="tso atom">
 		<xsl:if test="self::leg:Group | self::leg:Part | self::leg:Chapter | self::leg:Schedule">
 			<!--<xsl:call-template name="FuncCheckForIDelement"/>-->
 		</xsl:if>
-		<xsl:if test="leg:Reference and not(contains($g_strDocType, 'ScottishAct'))">
-			<fo:block>
+		<!--<xsl:if test="leg:Reference and not(contains($g_strDocType, 'ScottishAct'))">
+			<fo:block space-before="18pt" text-align="right">
 				<xsl:for-each select="leg:Reference">
-					<!--<xsl:call-template name="FuncCheckForID"/>-->
+					<!-\-<xsl:call-template name="FuncCheckForID"/>-\->
 					<xsl:apply-templates/>
 				</xsl:for-each>
 			</fo:block>
-		</xsl:if>
+		</xsl:if>-->
 		<!--<xsl:variable name="intHeadingLevel">
 		<xsl:call-template name="FuncCalcHeadingLevel"/>
 	</xsl:variable>-->
@@ -4039,14 +4039,12 @@ exclude-result-prefixes="tso atom">
 			</xsl:attribute>-->
 			<xsl:apply-templates select="leg:Number | leg:Title | leg:TitleBlock | processing-instruction()[following-sibling::leg:Number or following-sibling::leg:Title or following-sibling::leg:TitleBlock or following-sibling::leg:Reference]"/>
 		</fo:block>
-		<xsl:if test="leg:Reference and contains($g_strDocType, 'ScottishAct')">
+		<xsl:if test="leg:Reference">
 			<fo:block>
-				<xsl:for-each select="leg:Reference">
-					<!--<xsl:call-template name="FuncCheckForID"/>-->
-					<xsl:apply-templates/>
-				</xsl:for-each>
+				<xsl:apply-templates select="leg:Reference"/>
 			</fo:block>
 		</xsl:if>
+		
 		<xsl:apply-templates select="." mode="Structure"/>
 	</xsl:template>
 
@@ -5060,11 +5058,11 @@ exclude-result-prefixes="tso atom">
 		<xsl:when test="parent::leg:P1para">3</xsl:when>
 		<xsl:when test="parent::leg:P2">3</xsl:when>
 		<xsl:when test="parent::leg:P2para">3</xsl:when>
-		<xsl:when test="parent::leg:P3">3</xsl:when>			
+		<xsl:when test="parent::leg:P3">3</xsl:when>
 		<xsl:when test="parent::leg:P3para">4</xsl:when>
-		<xsl:when test="parent::leg:P4">4</xsl:when>			
+		<xsl:when test="parent::leg:P4">4</xsl:when>
 		<xsl:when test="parent::leg:P4para">5</xsl:when>
-		<xsl:when test="parent::leg:P5">5</xsl:when>			
+		<xsl:when test="parent::leg:P5">5</xsl:when>
 		<xsl:when test="parent::leg:P5para">6</xsl:when>
 		<xsl:when test="parent::leg:P6">6</xsl:when>
 		<xsl:when test="parent::leg:P6para">7</xsl:when>
