@@ -2041,7 +2041,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	
 </xsl:template>
 
-<xsl:template match="*[@xml:lang != 'en']" priority="1000">
+<xsl:template match="*[@xml:lang != 'en']" priority="1001">
 	<xsl:next-match>
 		<xsl:with-param name="strLanguage" tunnel="yes" select="@xml:lang" />
 	</xsl:next-match>
