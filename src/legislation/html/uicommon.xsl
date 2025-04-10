@@ -165,7 +165,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<xsl:template name="TSOOutputSubNavTabs">
 		<ul id="legSubNav">
-				<li id="legTocLink">
+				<li id="{if (matches($requestInfoDoc/request/request-path, '/buynow$')) then 'buyNowTocLink' else 'legTocLink'}">
 					<span class="presentation"></span>
 					<a href="{leg:FormatURL($tocURI, false())}"><xsl:value-of select="leg:TranslateText('Table of Contents')"/></a>					
 				</li>

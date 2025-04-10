@@ -2030,6 +2030,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- for print options -->
 	<xsl:template match="leg:Legislation" mode="TSOPrintOptions" priority="1000">
+
+		<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final'])">
+			<xsl:variable name="docUri" select="substring-after(//atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act']/@href, 'http://www.legislation.gov.uk')"/>
+			<li class="printOfficialCopy">
+				<h4>Official printed copies</h4>
+				<ul>
+					<li>
+						<a href="{$docUri}/buynow" class="printedLink">
+							<xsl:value-of select="leg:TranslateText('Order a copy of this legislation')"/>
+							<span class="accessibleText">buy now</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</xsl:if>
 		<xsl:if test="leg:IsTOC()">
 			<li class="printToc">
 				<h4>
