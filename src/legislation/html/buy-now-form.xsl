@@ -464,6 +464,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</div>
 										</div>
 
+										<!-- [Address] -->
+										<div class="row">
+											<div class="searchCol1">
+												<label for="address"><b>Address</b> (required):</label>
+											</div>
+
+											<div class="searchCol2">
+												<textarea required="required" class="buynow-address buynow-textbox" id="address"
+													name="address" maxlength="600" value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'address']/value)}"></textarea>
+											</div>
+										</div>
+
 										<!--[Additional Message from User]-->
 										<div class="row">
 											<div class="searchCol3">
