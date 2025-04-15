@@ -454,7 +454,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<!--[Phone]-->
 										<div class="row">
 											<div class="searchCol1">
-												<label for="tel"><b>Telephone </b>(optional):</label>
+												<label for="tel"><b>Telephone </b>(required):</label>
 											</div>
 											<div class="searchCol2">
 												<input autocomplete="off" class="buynow-phone buynow-textbox" type="text"
