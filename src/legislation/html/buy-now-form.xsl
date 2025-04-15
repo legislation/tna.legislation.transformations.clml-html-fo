@@ -479,7 +479,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<!--[Additional Message from User]-->
 										<div class="row">
 											<div class="searchCol3">
-												<label for="message">Any other details that may help us:</label>
+												<label for="message">Any other details you feel may be relevant to your request:</label>
 											</div>
 										</div>
 										<div class="row">
