@@ -344,18 +344,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											</a>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:choose>
-												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation','EuropeanUnionDecision')">
-													<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects_eudn_eudr'), ' ')"/>
-												</xsl:when>
-												<xsl:otherwise>
-													<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
-												</xsl:otherwise>
-											</xsl:choose>
-											<xsl:value-of select="$status-legtitle"/>
-											<xsl:if test="string-length($sectionTitle) ne 0">
-												<xsl:value-of select="concat(', ', $sectionTitle)"/>
-											</xsl:if>
+											<xsl:variable name="title">
+												<xsl:choose>
+													<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation','EuropeanUnionDecision')">
+														<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects_eudn_eudr'), ' ')"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
+													</xsl:otherwise>
+												</xsl:choose>
+												<xsl:value-of select="$status-legtitle"/>
+												<xsl:if test="string-length($sectionTitle) ne 0">
+													<xsl:value-of select="concat(', ', $sectionTitle)"/>
+												</xsl:if>
+											</xsl:variable>
+											<xsl:value-of select="replace($title, 'the The', 'The')"/>
 										</xsl:otherwise>
 									</xsl:choose>
 									<xsl:text>.</xsl:text>

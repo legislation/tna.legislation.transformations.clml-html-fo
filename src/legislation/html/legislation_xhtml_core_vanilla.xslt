@@ -2072,6 +2072,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:call-template name="FuncCheckForID"/>		
 		</xsl:for-each>
 		<xsl:if test="$g_strDocumentType = $g_strSecondary and ((ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']]) or parent::leg:P1group/@Layout = 'side')">
+			<span class="LegAmendQuote">
+				<xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
+			</span>
 			<xsl:apply-templates select="parent::*/leg:P1[1]/leg:Pnumber/node()"/>
 			<xsl:text>&#160;&#160;&#160;&#160;</xsl:text>
 		</xsl:if>
@@ -4549,6 +4552,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					</p>
 					
 				</xsl:when>
+				<xsl:when test="ancestor::leg:Title/following-sibling::*[1]/leg:Pnumber"/>
 				<xsl:otherwise>
 					<span class="LegAmendQuote">
 						<xsl:call-template name="FuncOutputAmendmentOpenQuote"/>

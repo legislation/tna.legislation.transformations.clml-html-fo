@@ -1327,7 +1327,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 <!--For schedules you have to look inside the ScheduleBody: -->
-<xsl:template match="leg:Schedule | leg:Appendix" priority="50">
+<xsl:template match="leg:Schedule | leg:Appendix" priority="51">
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
 	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
 	<xsl:choose>
@@ -2041,7 +2041,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	
 </xsl:template>
 
-<xsl:template match="*[@xml:lang != 'en']" priority="1000">
+<xsl:template match="*[@xml:lang != 'en']" priority="1001">
 	<xsl:next-match>
 		<xsl:with-param name="strLanguage" tunnel="yes" select="@xml:lang" />
 	</xsl:next-match>
@@ -2433,7 +2433,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 <xsl:template match="leg:P1group/leg:P1[1]/leg:Pnumber/node()[last()][not(ancestor::leg:BlockAmendment)][$g_strDocumentType = ($g_strEUretained)]" priority="10">
 	<xsl:variable name="nstContent" as="node()*">
-		<xsl:copy-of select="tso:generateExtentInfo(ancestor::leg:P1group)"/>
+		<xsl:copy-of select="tso:generateExtentInfo(ancestor::leg:P1group[1])"/>
 	</xsl:variable>
 	<xsl:next-match/>
 	<xsl:if test="ancestor-or-self::*/@RestrictExtent">
@@ -2530,7 +2530,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 <!-- the title elemnent in the preamble appears to just be a first paragraph so treat as such-->
-<xsl:template match="leg:EUPreamble/leg:Division/leg:Title">
+<xsl:template match="leg:EUPreamble/leg:Division/leg:Title" priority="5">
 	<span class="LegDS LegRHS LegPreambleP1Text">
 		<xsl:apply-templates/>
 	</span>
