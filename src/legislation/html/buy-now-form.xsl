@@ -485,7 +485,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<div class="row">
 											<div class="searchCol3">
 												<textarea class="buynow-message buynow-textbox" id="message"
-													name="message" maxlength="200"/>
+													name="message" maxlength="200"></textarea>
 											</div>
 										</div>
 
