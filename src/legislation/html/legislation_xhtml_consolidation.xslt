@@ -807,7 +807,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:variable name="allChanges" as="element()*" select="key('commentaryRefInChange', concat(@CommentaryRef, '+', @ChangeId), root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary))" />
 			<xsl:variable name="firstChange" as="element()?" select="$sameChanges[1]" />
 			
-			<xsl:variable name="isFirstChange" as="xs:boolean*" select="leg:isFirstChange(., $allChanges, $firstChange, $changeId)"/>
+			<xsl:variable name="isFirstChange" as="xs:boolean" select="leg:isFirstChange(., $allChanges, $firstChange, $changeId)"/>
 			
 			<xsl:if test="$isFirstChange">
 				<xsl:variable name="versionRef" select="ancestor-or-self::*[@VersionReference][1]/@VersionReference"/>
