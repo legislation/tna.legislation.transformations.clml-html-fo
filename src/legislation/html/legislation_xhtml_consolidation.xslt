@@ -669,7 +669,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="sameChanges" as="element()*" select="key('additionRepealChanges', $changeId, $showSection)" />
 	<xsl:variable name="firstChange" as="element()?" select="$sameChanges[1]" />
 	<xsl:variable name="lastChange" as="element()?" select="$sameChanges[last()]" />
-	<xsl:variable name="isFirstChange" as="xs:boolean" select="if (exists($firstChange) and exists(.)) then leg:isFirstChange(., $allChanges, $firstChange, $changeId) else false()" />
+	<xsl:variable name="isFirstChange" as="xs:boolean?" select="leg:isFirstChange(., $allChanges, $firstChange, $changeId)"/>
 	<xsl:variable name="changeType" as="xs:string">	
 		<xsl:choose>
 			<xsl:when test="key('substituted', $changeId)">Substitution</xsl:when>
@@ -705,7 +705,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:function name="leg:isFirstChange" as="xs:boolean">
-	<xsl:param name="node"  as="node()"/>
+	<xsl:param name="node" as="node()?"/>
 	<xsl:param name="allChanges" />
 	<xsl:param name="firstChange" />
 	<xsl:param name="changeId" />
