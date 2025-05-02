@@ -705,7 +705,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:function name="leg:isFirstChange" as="xs:boolean">
-	<xsl:param name="node"  as="node()"/>
+	<xsl:param name="node" as="node()"/>
 	<xsl:param name="allChanges" />
 	<xsl:param name="firstChange" />
 	<xsl:param name="changeId" />
@@ -731,7 +731,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				empty($node/ancestor::leg:Title/parent::leg:P1group/leg:P1[1]/leg:Pnumber//(leg:Addition|leg:Repeal|leg:Substitution)[@ChangeId = $changeId])" />
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:sequence select="$firstChange is $node" />
+			<xsl:sequence select="if ($firstChange is $node) then true() else false()" />
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:function>
