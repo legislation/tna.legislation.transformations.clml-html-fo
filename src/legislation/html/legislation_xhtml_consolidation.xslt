@@ -705,7 +705,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:function name="leg:isFirstChange" as="xs:boolean">
-	<xsl:param name="node" as="node()?"/>
+	<xsl:param name="node" as="node()"/>
 	<xsl:param name="allChanges" />
 	<xsl:param name="firstChange" />
 	<xsl:param name="changeId" />
