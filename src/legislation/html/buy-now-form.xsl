@@ -454,26 +454,38 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<!--[Phone]-->
 										<div class="row">
 											<div class="searchCol1">
-												<label for="tel"><b>Telephone </b>(optional):</label>
+												<label for="tel"><b>Telephone </b>(required):</label>
 											</div>
 											<div class="searchCol2">
-												<input autocomplete="off" class="buynow-phone buynow-textbox" type="text"
+												<input required="required" autocomplete="off" class="buynow-phone buynow-textbox" type="text"
 													id="tel" name="tel"
 													value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'tel']/value)}"
 												/>
 											</div>
 										</div>
 
+										<!-- [Address] -->
+										<div class="row">
+											<div class="searchCol1">
+												<label for="address"><b>Address</b> (required):</label>
+											</div>
+
+											<div class="searchCol2">
+												<textarea required="required" class="buynow-address buynow-textbox" id="address"
+													name="address" maxlength="600" value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'address']/value)}"></textarea>
+											</div>
+										</div>
+
 										<!--[Additional Message from User]-->
 										<div class="row">
 											<div class="searchCol3">
-												<label for="message">Any other details that may help us:</label>
+												<label for="message">Any other details you feel may be relevant to your request:</label>
 											</div>
 										</div>
 										<div class="row">
 											<div class="searchCol3">
 												<textarea class="buynow-message buynow-textbox" id="message"
-													name="message" maxlength="200"/>
+													name="message" maxlength="200"></textarea>
 											</div>
 										</div>
 
