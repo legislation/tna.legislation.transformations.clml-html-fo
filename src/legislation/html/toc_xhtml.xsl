@@ -418,7 +418,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:if>-->
 			</head>
 			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}"
-				  class="{concat('browse', if ($showExtent) then ' geoExtShowing' else '', if ($pointInTimeView and $version != 'prospective') then ' pointInTimeView' else '', if ($repealed) then ' hideChangestoLegislation' else '', if ($isLarge) then ' removeScripting' else '')}">
+				  class="{concat('browse', if ($showExtent) then ' geoExtShowing' else '', if ($pointInTimeView and $version != 'prospective') then ' pointInTimeView' else '', if ($repealed) then ' hideChangestoLegislation' else '')}">
 				<!-- commenting out the highlighting
 					<xsl:if test="leg:IsContentTabDisplaying()">
 						<xsl:attribute name="onload">RunHighlight();</xsl:attribute>
