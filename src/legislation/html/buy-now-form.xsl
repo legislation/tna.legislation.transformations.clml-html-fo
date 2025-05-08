@@ -457,7 +457,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												<label for="tel"><b>Telephone </b>(optional):</label>
 											</div>
 											<div class="searchCol2">
-												<input required="required" autocomplete="off" class="buynow-phone buynow-textbox" type="text"
+												<input autocomplete="off" class="buynow-phone buynow-textbox" type="text"
 													id="tel" name="tel"
 													value="{leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'tel']/value)}"
 												/>
