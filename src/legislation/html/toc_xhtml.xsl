@@ -2032,7 +2032,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="leg:Legislation" mode="TSOPrintOptions" priority="1000">
 
 <!--buynow menu option is disabled -->
-		<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final'])">
+		<!--<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final'])">
 			<xsl:variable name="docUri" select="substring-after(//atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act']/@href, 'http://www.legislation.gov.uk')"/>
 			<li class="printOfficialCopy">
 				<h4>Official printed copies</h4>
@@ -2045,7 +2045,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</li>
 				</ul>
 			</li>
-		</xsl:if>
+		</xsl:if> -->
 		<xsl:if test="leg:IsTOC()">
 			<li class="printToc">
 				<h4>
