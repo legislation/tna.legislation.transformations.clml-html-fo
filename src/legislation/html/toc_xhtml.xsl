@@ -284,7 +284,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="hasCurrentWelshAtomLink" as="xs:boolean" select="exists($currentWelshAtomLink)"/>
 	<xsl:variable name="isWelshLangDoc" as="xs:boolean" select="/leg:Legislation/@xml:lang = 'cy'"/>
 	<xsl:variable name="requestMatchesIdentifier" as="xs:boolean" select="($requestInfoDoc//request-uri = substring-after(leg:adjust-canonical-uri($dcIdentifier), 'legislation.gov.uk'))"/>
-	
+
+	<xsl:variable name="buynow-enable">
+		<xsl:sequence select="
+			if (doc-available('input:buynow')) then
+			doc('input:buynow')//*:buynow
+			else
+			('false')"/>
+	</xsl:variable>
+
 	<xsl:template name="applyCanonicalUri">
 		<xsl:choose>					
 			<xsl:when test="not($isWelshLangDoc) and $hasRequestQueryString and $hasSelfAtomLink and not($currentAtomLink)">
@@ -2032,7 +2040,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="leg:Legislation" mode="TSOPrintOptions" priority="1000">
 
 <!--buynow menu option is disabled -->
-		<!--<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final'])">
+		<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final']) and $buynow-enable = ('true')">
 			<xsl:variable name="docUri" select="substring-after(//atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act']/@href, 'http://www.legislation.gov.uk')"/>
 			<li class="printOfficialCopy">
 				<h4>Official printed copies</h4>
@@ -2045,7 +2053,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</li>
 				</ul>
 			</li>
-		</xsl:if> -->
+		</xsl:if>
 		<xsl:if test="leg:IsTOC()">
 			<li class="printToc">
 				<h4>
