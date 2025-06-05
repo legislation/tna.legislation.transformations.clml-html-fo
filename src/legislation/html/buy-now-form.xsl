@@ -278,12 +278,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												<button type="reset" id="goBacktoLeg"
 													class="buynow-submit">Go back to the legislation</button>
 											</div>
-
-											<!--[Cancel]-->
-											<div class="submit">
-												<button type="reset" id="goBacktoBuynow"
-													class="buynow-cancel cancel-thankyou">Change my contact details</button>
-											</div>
 										</div>
 									</xsl:when>
 									<xsl:otherwise>
