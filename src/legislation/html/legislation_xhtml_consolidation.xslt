@@ -1594,9 +1594,11 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 <xsl:template match="text()" priority="0.25">
 	<xsl:choose>
 		<xsl:when test="ancestor::leg:BlockAmendment">
-			<span class="LegAmendQuote">
+			<!-- Hotfix TNALEGPLATSD23-1559 to remove code from Release 189:
+				causes additional double quotes in some circumstances so needs fixing -->
+			<!--			<span class="LegAmendQuote">
 				<xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
-			</span>
+			</span>-->
 			<span class="LegAmendingText">
 				<xsl:next-match/>
 			</span>
