@@ -226,7 +226,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:choose>
 				</ul>
 				<xsl:choose>
-					<xsl:when test="$errorSearchingDoc/errorsearching/status-code = '400'"/>
+					<xsl:when test="$errorSearchingDoc/errorsearching/status-code = ('400', '200')"/>
 					<xsl:otherwise>
 						<div id="layout1">
 							<xsl:call-template name="header"/>
