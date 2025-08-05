@@ -198,7 +198,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"/>
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery-cookie-functions.js"/>
 				<script type="text/javascript" src="/scripts/cookie-directive.js"/>
-                <xsl:call-template name="GoogleTagManager1"/>
+                <xsl:choose>
+					<xsl:when test="$errorSearchingDoc/errorsearching/status-code = ('400', '200')"/>
+					<xsl:otherwise>
+						<xsl:call-template name="GoogleTagManager1"/>
+					</xsl:otherwise>
+				</xsl:choose>
 				<script src="https://www.google.com/recaptcha/api.js" async="" defer=""/>
 				<script type="text/javascript" src="/scripts/buynow/buynow.js"/>
 				<!--<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>-->
