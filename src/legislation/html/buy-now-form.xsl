@@ -198,7 +198,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"/>
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery-cookie-functions.js"/>
 				<script type="text/javascript" src="/scripts/cookie-directive.js"/>
-                <xsl:call-template name="GoogleTagManager1"/>
+                <xsl:choose>
+					<xsl:when test="$errorSearchingDoc/errorsearching/status-code = ('400', '200')"/>
+					<xsl:otherwise>
+						<xsl:call-template name="GoogleTagManager1"/>
+					</xsl:otherwise>
+				</xsl:choose>
 				<script src="https://www.google.com/recaptcha/api.js" async="" defer=""/>
 				<script type="text/javascript" src="/scripts/buynow/buynow.js"/>
 				<!--<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>-->
@@ -226,7 +231,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:choose>
 				</ul>
 				<xsl:choose>
-					<xsl:when test="$errorSearchingDoc/errorsearching/status-code = '400'"/>
+					<xsl:when test="$errorSearchingDoc/errorsearching/status-code = ('400', '200')"/>
 					<xsl:otherwise>
 						<div id="layout1">
 							<xsl:call-template name="header"/>
@@ -270,9 +275,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<div class="buynow-border">
 											<h1 style="margin-top: 8%;">Thank you</h1>
 										</div>
-										<p>TSO are preparing your price for <b><xsl:value-of select="$title"/></b> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/>.</p>
-										<p>Someone will contact you with your price within the next 3 days.</p>
-										<p>We have sent confirmation of your request to <b><xsl:value-of select="leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'email']/value)"/></b></p>
+										<p>The Stationery Office (TSO) is preparing the price for <b><xsl:value-of select="$title"/></b> as it was when it was <xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/>.</p>
+										<p>TSO will contact you with the price within the next 3 business days.</p>
+										<p>A confirmation of your request has been sent to <b><xsl:value-of select="leg:resolve-request-data($paramsDoc//parameters/parameter[name = 'email']/value)"/></b></p>
 										<div class="thankyou">
 											<div class="submit">
 												<button type="reset" id="goBacktoLeg"
