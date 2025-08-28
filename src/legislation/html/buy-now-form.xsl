@@ -415,7 +415,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<div class="formBlock">
 									<div class="buynow-border">
 										<p style="padding: 0% 0% 2% 0%; font-size: 1.05rem !important;">
-											<span>Please send me the price for a printed copy of the </span>
+											<span>Please send me the price for a printed copy of the originally </span>
 											<xsl:sequence select="leg:GetCodeSchemaStatus($legislation)"/>
 											<span> version of </span>
 											<b>
@@ -497,7 +497,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<div class="row">
 											<div class="submit">
 												<button type="submit" id="buyNowSubmit"
-													class="buynow-submit">Please send me a price</button>
+													class="buynow-submit">Please send me the price</button>
 											</div>
 
 											<!--[Cancel]-->
