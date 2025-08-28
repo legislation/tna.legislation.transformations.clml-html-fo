@@ -497,7 +497,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<div class="row">
 											<div class="submit">
 												<button type="submit" id="buyNowSubmit"
-													class="buynow-submit">Please send me a price</button>
+													class="buynow-submit">Please send me the price</button>
 											</div>
 
 											<!--[Cancel]-->
