@@ -1838,8 +1838,12 @@ exclude-result-prefixes="tso atom">
 	<!-- P1 as part of an amendment in a schedule context or an unknown context but in a schedule (so the context is implied) -->
 	<xsl:template match="leg:P1[ancestor::leg:BlockAmendment[1][@Context = 'schedule']] | leg:P1[ancestor::leg:BlockAmendment[1][@Context = 'unknown' and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule]]]" priority="3">
 		<xsl:choose>
-			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
+			<xsl:when test="$g_strDocClass = $g_strConstantSecondary and self::leg:P1[not(descendant::leg:P2[child::leg:Pnumber])]">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
+				<xsl:apply-templates mode="BlockPnum" select="leg:Pnumber"/>
+				<xsl:apply-templates select="* except leg:Pnumber"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="48pt" space-before="6pt">		
@@ -4793,7 +4797,17 @@ exclude-result-prefixes="tso atom">
 			<xsl:apply-templates select="*[not(self::leg:Title or self::leg:Pnumber)]"/>
 		</fo:block>
 	</xsl:template>
-
+	
+	<!-- LEGDEV-8941 fix: Numbering of provisions within block amendment incorrect in generated PDF -->
+	<xsl:template match="leg:P1/leg:Pnumber" mode="BlockPnum">
+		<fo:block text-align="justify" space-before="6pt" text-indent="12pt">
+			<fo:inline>
+				<xsl:attribute name="font-weight">bold</xsl:attribute>
+				<xsl:apply-templates mode="#default"/>
+			</fo:inline>
+		</fo:block>
+	</xsl:template>
+	
 	<!-- EU special case numbered P2group elements -->
 	<xsl:template match="leg:P2group[leg:Pnumber][leg:Title]" priority="50">
 		<fo:block>
