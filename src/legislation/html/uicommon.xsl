@@ -304,6 +304,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:when test="$uriPrefix = 'ukdsi'">
 						<xsl:value-of select="leg:TranslateText('EN_Help_11')"/>					
 					</xsl:when>
+					<xsl:when test="$uriPrefix = 'wdsi'">
+						<xsl:value-of select="leg:TranslateText('EN_Help_11')"/>					
+					</xsl:when>
 					<xsl:when test="$uriPrefix = 'nidsr'">
 						<xsl:value-of select="leg:TranslateText('EN_Help_12')"/>
 					</xsl:when>					
