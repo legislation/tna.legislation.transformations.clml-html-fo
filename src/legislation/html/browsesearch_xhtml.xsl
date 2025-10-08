@@ -230,7 +230,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<div class="group">
 							<label for="type"><xsl:value-of select="leg:TranslateText('Type')"/>:</label>
 
-							<xsl:variable name="isDraftSearched" select="tokenize($paramsDoc/parameters/type, '\+') = ('draft', 'ukdsi', 'sdsi', 'nidsr')" />
+							<xsl:variable name="isDraftSearched" select="tokenize($paramsDoc/parameters/type, '\+') = ('draft', 'ukdsi', 'wdsi', 'sdsi', 'nidsr')" />
 							<xsl:call-template name="tso:TypeSelect">
 								<xsl:with-param name="selected" select="$paramsDoc/parameters/type"/>
 								<xsl:with-param name="showPrimary" select="not($isDraftSearched)" />
