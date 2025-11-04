@@ -20,7 +20,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	version="2.0">
 
 
-
+<xsl:variable name="hideLimitedEUdata" as="xs:boolean" select="true()" />
+<xsl:variable name="isUKAmended" as="xs:boolean" select="exists(/leg:Legislation/ukm:Metadata//ukm:DocumentCurrentStatus/ukm:UKAmended)" />
 
 <xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier,
 	/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href" />
