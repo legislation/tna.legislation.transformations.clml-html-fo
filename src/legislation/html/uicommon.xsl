@@ -83,7 +83,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="ukm:Metadata" mode="HTMLmetadata">
 		<xsl:apply-templates mode="HTMLmetadata" />
 		<meta name="Legislation.year" content="{*/ukm:Year/@Value}" />
-		<xsl:if test="$IsEURetained and $hideLimitedEUdata and $isUKAmended">
+		<xsl:if test="$IsEURetained and $hideLimitedEUdata and $isDeIndexedEUDocument">
 			<meta name="robots" content="noindex, nofollow" />
 		</xsl:if>
 	</xsl:template>
