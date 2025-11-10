@@ -21,7 +21,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 <xsl:variable name="hideLimitedEUdata" as="xs:boolean" select="true()" />
-<xsl:variable name="isDeIndexedEUDocument" as="xs:boolean" select="exists(/leg:Legislation/ukm:Metadata/ukm:DocumentCurrentStatus/ukm:UKAmended[@Value='true']) or 
+<xsl:variable name="isDeIndexedEUDocument" as="xs:boolean" select="exists(/leg:Legislation/ukm:Metadata/ukm:DocumentCurrentStatus/ukm:UKAmended[@Value='false']) or 
 	exists(/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/legislation/DeIndexedEUDocument']/@title) or 
 	(/leg:Legislation/ukm:Metadata/ukm:EUMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value = 'EuropeanUnionDirective')"/>
 
