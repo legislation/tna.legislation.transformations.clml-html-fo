@@ -687,6 +687,126 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</span>
 							</li>
 						</xsl:when>
+						<xsl:when test="leg:IsDraft(.) and leg:IsWelshLegType(.)">
+							<li>
+								<xsl:variable name="ndsDraft">
+									<span class="background">
+										<span class="btl"/>
+										<span class="btr"/>
+										<xsl:variable name="textoiginal">
+											<xsl:text>Draft </xsl:text>
+											<xsl:if test="leg:IsWelshLegType(.)">
+												<xsl:text> - English</xsl:text>
+											</xsl:if>
+										</xsl:variable>
+										<xsl:value-of select="leg:TranslateText($textoiginal)"/>
+										<span class="bbl"/>
+										<span class="bbr"/>
+									</span>
+								</xsl:variable>
+								<xsl:choose>
+									<xsl:when test="$enableOriginalVersion = true() and leg:IsEnglishDraftVersionExists(.)">
+										<xsl:choose>
+											<xsl:when test="$selectOriginalVersion = true() and not($pointInTimeView) and not($selectRevisedVersion)">
+												<xsl:choose>
+													<xsl:when test="not(leg:IsCurrentWelsh(.))">
+														<span class="userFunctionalElement active">
+															<xsl:copy-of select="$ndsDraft"/>
+														</span>
+													</xsl:when>
+													<xsl:when
+														test="empty(//atom:link[@rel='alternate' and @hreflang='en'])">
+														<span class="userFunctionalElement disabled">
+															<xsl:copy-of select="$ndsDraft"/>
+														</span>														
+													</xsl:when>
+													<xsl:otherwise>
+														<a href="{leg:FormatURL(//atom:link[@rel='alternate' and @hreflang='en']/@href)}"
+															class="userFunctionalElement">
+															<xsl:copy-of select="$ndsDraft"/>
+														</a>
+													</xsl:otherwise>
+												</xsl:choose>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:variable name="enactedLink" as="element(atom:link)?"
+													select="//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted') and (not(@hreflang) or @hreflang='en')]"/>
+												<!-- this changes the link if we're looking a PDF-only revised version to go to the as-enacted ToC -->
+												<xsl:variable name="enactedLink" as="xs:string?"
+													select="if (not($isLargeData) and $IsPDFOnly and not(contains($enactedLink/@href,'/contents/'))) then
+													replace($enactedLink/@href, concat('/', $enactedLink/@title), concat('/contents/', $enactedLink/@title))
+													else
+													$enactedLink/@href"/>
+												<a href="{leg:FormatURL($enactedLink)}" class="userFunctionalElement">
+													<xsl:copy-of select="$ndsDraft"/>
+												</a>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:when>
+									<xsl:otherwise>
+										<span class="userFunctionalElement disabled">
+											<xsl:copy-of select="$ndsDraft"/>
+										</span>
+									</xsl:otherwise>
+								</xsl:choose>
+							</li>
+							
+							<xsl:if test="leg:IsWelshLegType(.)">
+								<li>
+									<xsl:variable name="ndsOriginal">
+										<span class="background">
+											<span class="btl"/>
+											<span class="btr"/>
+											<xsl:variable name="textoriginal">
+												<xsl:text>Draft - Welsh</xsl:text>
+											</xsl:variable>
+											<xsl:value-of select="leg:TranslateText($textoriginal)"/>
+											<span class="bbl"/>
+											<span class="bbr"/>
+										</span>
+									</xsl:variable>
+									<xsl:choose>
+										<xsl:when test="$enableOriginalVersion = true() and leg:IsWelshDraftVersionExists(.)">
+											<xsl:choose>
+												<xsl:when
+													test="$selectOriginalVersion = true() and not($pointInTimeView) and not($selectRevisedVersion)">
+													<xsl:choose>
+														<xsl:when test="leg:IsCurrentWelsh(.)">
+															<span class="userFunctionalElement active">
+																<xsl:copy-of select="$ndsOriginal"/>
+															</span>
+														</xsl:when>
+														<xsl:when
+															test="empty(//atom:link[@rel='alternate' and @hreflang='cy'])">
+															<span class="userFunctionalElement disabled">
+																<xsl:copy-of select="$ndsOriginal"/>
+															</span>
+														</xsl:when>
+														<xsl:otherwise>
+															<a href="{leg:FormatURL(//atom:link[@rel='alternate' and @hreflang='cy']/@href)}"
+																class="userFunctionalElement">
+																<xsl:copy-of select="$ndsOriginal"/>
+															</a>
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:when>
+												<xsl:otherwise>
+													<a href="{leg:FormatURL(//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted') and @hreflang='cy']/@href)}"
+														class="userFunctionalElement">
+														<xsl:copy-of select="$ndsOriginal"/>
+													</a>
+												</xsl:otherwise>
+											</xsl:choose>
+										</xsl:when>
+										<xsl:otherwise>
+											<span class="userFunctionalElement disabled">
+												<xsl:copy-of select="$ndsOriginal"/>
+											</span>
+										</xsl:otherwise>
+									</xsl:choose>
+								</li>
+							</xsl:if>
+						</xsl:when>
 						<xsl:when test="leg:IsDraft(.)">
 							<li>
 								<span class="userFunctionalElement active">

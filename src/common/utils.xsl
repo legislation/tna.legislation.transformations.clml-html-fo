@@ -139,7 +139,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
   <tso:legType schemaType="WelshDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="wdsi"
 		em="Explanatory Memorandum" singular="Wales Draft Statutory Instrument" plural="Wales Draft Statutory Instruments"
-  	start="2025" complete="2025" legType="WelshStatutoryInstrument" />
+  	start="2026" complete="2026" legType="WelshStatutoryInstrument" />
   
   <tso:legType schemaType="ScottishDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="sdsi"
   	en="Draft Executive Notes"  pn="Draft Policy Note" singular="Scottish Draft Statutory Instrument" plural="{leg:TranslateText('Scottish Draft Statutory Instruments')}"
@@ -178,7 +178,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:variable>
 
 <xsl:variable name="leg:welshType" as="xs:string+">
-	<xsl:sequence select="('WelshStatutoryInstrument', 'WelshAssemblyMeasure','WelshNationalAssemblyAct','WelshParliamentAct')"/>
+	<xsl:sequence select="('WelshStatutoryInstrument', 'WelshDraftStatutoryInstrument', 'WelshAssemblyMeasure','WelshNationalAssemblyAct','WelshParliamentAct')"/>
 </xsl:variable>
 
 <xsl:function name="leg:abridgeContent">
