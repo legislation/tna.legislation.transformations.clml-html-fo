@@ -25,7 +25,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	exists(/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/legislation/DeIndexedEUDocument']/@title) or 
 	(/leg:Legislation/ukm:Metadata/ukm:EUMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value = 'EuropeanUnionDirective')"/>
 
-
 <xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier,
 	/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href" />
 <xsl:variable name="nstSelectedSection" as="element()?"

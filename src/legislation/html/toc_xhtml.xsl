@@ -2062,13 +2062,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</h4>
 				<ul>
 					<li>
-						<a href="{leg:FormatPDFDataURL($dcIdentifier)}" target="_blank" class="pdfLink">
+						<a href="{replace(leg:FormatPDFDataURL($dcIdentifier),'(/en/|/cy/)','/')}" target="_blank" class="pdfLink">
 							<xsl:attribute name="rel">alternate no-follow</xsl:attribute>PDF
 							<span class="accessibleText">table of contents</span>
 						</a>
 					</li>
 					<li>
-						<a href="{leg:FormatHTMLDataURL($dcIdentifier)}" target="_blank" class="htmLink">
+						<a href="{replace(leg:FormatHTMLDataURL($dcIdentifier), '(/en/|/cy/)','/')}" target="_blank" class="htmLink">
 							<xsl:value-of select="leg:TranslateText('Web page')"/>
 							<span class="accessibleText">table of contents</span>
 						</a>
@@ -2148,7 +2148,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:attribute name="class" select="'pdfLink warning'"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:attribute name="href" select="leg:FormatPDFDataURL($documentURI)"/>
+								<xsl:attribute name="href" select="replace(leg:FormatPDFDataURL($documentURI), '(/en/|/cy/)', '/')"/>
 								<xsl:attribute name="target">_blank</xsl:attribute>
 							</xsl:otherwise>
 						</xsl:choose>
@@ -2168,7 +2168,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:attribute name="class" select="'htmLink warning'"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:attribute name="href" select="leg:FormatHTMLDataURL($documentURI)"/>
+								<xsl:attribute name="href" select="replace(leg:FormatHTMLDataURL($documentURI), '(/en/|/cy/)', '/')"/>
 								<xsl:attribute name="target">_blank</xsl:attribute>
 							</xsl:otherwise>
 						</xsl:choose>
