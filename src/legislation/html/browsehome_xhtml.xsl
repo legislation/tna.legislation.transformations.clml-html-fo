@@ -617,6 +617,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</a>
 									</li>
 									<li>
+										<a id="wdsi" href="{$TranslateLangPrefix}/wdsi">
+											<xsl:value-of
+												select="leg:TranslateText('Welsh Draft Statutory Instruments')"/>
+											<span></span>
+										</a>
+									</li>
+									<li>
 										<a id="sdsi" href="{$TranslateLangPrefix}/sdsi">
 											<xsl:value-of
 													select="leg:TranslateText('Scottish Draft Statutory Instruments')"/>
@@ -716,6 +723,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<span></span>
 										</a>
 									</li>
+									<!-- <li>
+										<a id="wsi" href="{$TranslateLangPrefix}/wdsi">
+											<xsl:value-of select="leg:TranslateText('Wales Draft Statutory Instruments')"/>
+											<span></span>
+										</a>
+									</li>-->
 									<li>
 										<a id="anaw" href="{$TranslateLangPrefix}/anaw">
 											<xsl:value-of

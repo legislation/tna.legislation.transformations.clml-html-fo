@@ -136,11 +136,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<tso:legType schemaType="UnitedKingdomDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="ukdsi"
 		pn="Draft Policy Note" en="Draft Executive Notes" em="Draft Explanatory Memorandum" singular="UK Draft Statutory Instrument" plural="{leg:TranslateText('UK Draft Statutory Instruments')}"
 		start="1998" complete="1998" legType="UnitedKingdomStatutoryInstrument" revised="false" />
-	<!--
+	
+  <!-- 
   <tso:legType schemaType="WelshDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="wdsi"
 		em="Explanatory Memorandum" singular="Wales Draft Statutory Instrument" plural="Wales Draft Statutory Instruments"
-  	start="1999" complete="1999" legType="WelshStatutoryInstrument" />
-  -->
+  	start="2026" complete="2026" legType="WelshStatutoryInstrument" />
+-->	
+  
   <tso:legType schemaType="ScottishDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="sdsi"
   	en="Draft Executive Notes"  pn="Draft Policy Note" singular="Scottish Draft Statutory Instrument" plural="{leg:TranslateText('Scottish Draft Statutory Instruments')}"
   	start="2001" complete="2001" legType="ScottishStatutoryInstrument" revised="false" />
@@ -178,7 +180,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:variable>
 
 <xsl:variable name="leg:welshType" as="xs:string+">
-	<xsl:sequence select="('WelshStatutoryInstrument', 'WelshAssemblyMeasure','WelshNationalAssemblyAct','WelshParliamentAct')"/>
+	<xsl:sequence select="('WelshStatutoryInstrument', 'WelshDraftStatutoryInstrument', 'WelshAssemblyMeasure','WelshNationalAssemblyAct','WelshParliamentAct')"/>
 </xsl:variable>
 
 <xsl:function name="leg:abridgeContent">

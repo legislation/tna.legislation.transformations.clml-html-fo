@@ -243,6 +243,7 @@ Added in welsh language support for UI.
 									<ul class="p_one">
 										<li><a href="{$TranslateLangPrefix}/new/draft/data.feed"><xsl:value-of select="leg:TranslateText('All Draft Legislation')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/ukdsi/data.feed"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instrument')"/></a></li>
+										<li><a href="{$TranslateLangPrefix}/new/wdsi/data.feed"><xsl:value-of select="leg:TranslateText('Welsh Draft Statutory Instruments')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/sdsi/data.feed"><xsl:value-of select="leg:TranslateText('Scottish Draft Statutory Instruments')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/nidsr/data.feed"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Statutory Rules')"/></a></li>
 									</ul>
