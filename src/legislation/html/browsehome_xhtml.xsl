@@ -723,12 +723,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<span></span>
 										</a>
 									</li>
-									<li>
+									<!-- <li>
 										<a id="wsi" href="{$TranslateLangPrefix}/wdsi">
 											<xsl:value-of select="leg:TranslateText('Wales Draft Statutory Instruments')"/>
 											<span></span>
 										</a>
-									</li>
+									</li>-->
 									<li>
 										<a id="anaw" href="{$TranslateLangPrefix}/anaw">
 											<xsl:value-of
