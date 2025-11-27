@@ -137,9 +137,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		pn="Draft Policy Note" en="Draft Executive Notes" em="Draft Explanatory Memorandum" singular="UK Draft Statutory Instrument" plural="{leg:TranslateText('UK Draft Statutory Instruments')}"
 		start="1998" complete="1998" legType="UnitedKingdomStatutoryInstrument" revised="false" />
 	
+  <!-- 
   <tso:legType schemaType="WelshDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="wdsi"
 		em="Explanatory Memorandum" singular="Wales Draft Statutory Instrument" plural="Wales Draft Statutory Instruments"
   	start="2026" complete="2026" legType="WelshStatutoryInstrument" />
+-->	
   
   <tso:legType schemaType="ScottishDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="sdsi"
   	en="Draft Executive Notes"  pn="Draft Policy Note" singular="Scottish Draft Statutory Instrument" plural="{leg:TranslateText('Scottish Draft Statutory Instruments')}"
