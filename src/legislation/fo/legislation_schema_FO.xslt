@@ -70,6 +70,8 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:variable name="isRepealedAct" select="matches((/leg:Legislation/ukm:Metadata/dc:title)[1], '\((repealed|revoked)(\s*[\d]{1,2}\.[\d]{1,2}\.[\d]{4}\s*)?\)\s*$', 'i')"/>
 	
+	<xsl:variable name="doc-wsi-2026" as="xs:boolean" select="($g_strDocType = 'WelshStatutoryInstrument' and xs:integer($g_strDocYear) gt 2025 )"/>
+
 	<!-- this is a global variable which has to match the name of the version variable in the imported stylesheet statuswarning.xsl otherwise we will not have the correct status warnings when run from the PDF service -->
 	<!-- as we do not have the pramsdoc available to the PDF service we will have to determine the version from the document URI -->
 	<xsl:variable name="version">
@@ -185,7 +187,20 @@ exclude-result-prefixes="tso atom">
 
 	<!-- Book antiqua not available so we will use just Times
 	<xsl:variable name="g_strMainFont" select="if ($g_strDocClass = $g_strConstantSecondary) then 'Times' else 'BookAntiqua'" as="xs:string"/> -->
-	<xsl:variable name="g_strMainFont" select="if ($g_strDocClass = $g_strConstantSecondary) then 'Times New Roman' else 'Times New Roman'" as="xs:string"/> 
+	<xsl:variable name="g_strMainFont" as="xs:string">
+		<xsl:choose>
+			<xsl:when test="$doc-wsi-2026">
+				<xsl:text>Helvetica</xsl:text>
+			</xsl:when>
+			<xsl:when test="($g_strDocClass = $g_strConstantSecondary)">
+				<xsl:text>Times New Roman</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>Times New Roman</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
 	<xsl:variable name="g_strOutputType" as="xs:string">PrimaryStyle</xsl:variable>
 	<xsl:variable name="g_dblBodySize" as="xs:double">
 		<xsl:choose>
@@ -240,6 +255,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:variable name="g_ndsValidDate" select="/leg:Legislation/ukm:Metadata/dct:valid"/>
 	<xsl:variable name="g_ndsLegPrelims" select="/leg:Legislation/(leg:Primary/leg:PrimaryPrelims | leg:Secondary/leg:SecondaryPrelims | leg:EURetained/leg:EUPrelims)"/>
 	<xsl:variable name="g_strDocType" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string"/>
+	<xsl:variable name="g_strDocYear" select="($g_ndsLegMetadata/ukm:Year/@Value)[1]" as="xs:string"/>
 	<xsl:variable name="g_strDocClass" as="xs:string">
 		<!-- For NI Acts the look and feel is as for secondary legislation so set doc class accordingly -->
 		<xsl:choose>
