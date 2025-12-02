@@ -562,7 +562,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</li>
 									<li>
 										<a id="wsi" href="{$TranslateLangPrefix}/wsi">
-											<xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/>
+											<xsl:value-of select="leg:TranslateText('Welsh Statutory Instruments')"/>
 											<span></span>
 										</a>
 									</li>
@@ -719,7 +719,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</li>
 									<li>
 										<a id="wsi" href="{$TranslateLangPrefix}/wsi">
-											<xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/>
+											<xsl:value-of select="leg:TranslateText('Welsh Statutory Instruments')"/>
 											<span></span>
 										</a>
 									</li>

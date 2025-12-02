@@ -100,7 +100,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Instrument" plural="{leg:TranslateText('UK Statutory Instruments')}"
 		start="1948" complete="1987" revised="true" />
   <tso:legType schemaType="WelshStatutoryInstrument" class="secondary" category="Instrument" abbrev="wsi"
-  	em="Explanatory Memorandum" singular="Wales Statutory Instrument" pn="Policy Note" plural="{leg:TranslateText('Wales Statutory Instruments')}"
+  	em="Explanatory Memorandum" singular="Welsh Statutory Instrument" pn="Policy Note" plural="{leg:TranslateText('Welsh Statutory Instruments')}"
   	start="1999" complete="1999" revised="true" />
   <tso:legType schemaType="ScottishStatutoryInstrument" class="secondary" category="Instrument" abbrev="ssi"
   	en="Executive Note" pn="Policy Note" singular="Scottish Statutory Instrument" plural="{leg:TranslateText('Scottish Statutory Instruments')}"
