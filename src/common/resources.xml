@@ -1091,7 +1091,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_uk_summary">Deddfwriaeth a wnaed gan Senedd y DU a Llywodraeth y DU, a Seneddau Hanesyddol</resource>
 			<resource id="explore_eu_summary"><span xmlns="http://www.w3.org/1999/xhtml">Fel y mabwysiadwyd yn wreiddiol gan y Sefydliadau Ewropeaidd a’i gymryd o EUR-Lex hyd at 31 Hydref 2019</span></resource>
 			<resource id="explore_scotland_summary">Gan gynnwys deddfwriaeth a wnaed gan Senedd yr Alban a Llywodraeth yr Alban</resource>
-			<resource id="explore_wales_summary">Gan gynnwys deddfwriaeth a wnaed gan Senedd Cymru, Cynulliad Cymru a Llywodraeth Cymru</resource>
+			<resource id="explore_wales_summary">Gan gynnwys deddfwriaeth a wnaed gan Senedd Cymru a Llywodraeth Cymru</resource>
 			<resource id="explore_ni_summary">Gan gynnwys deddfwriaeth a wnaed gan Gynulliad Gogledd Iwerddon</resource>
 			<resource id="advanced_search_summary">Chwiliwch am allweddeiriau mewn cyd-destun, deddfwriaeth Gymraeg, deddfwriaeth â chwmpas daearyddol penodol, a mwy.</resource>
 			<resource id="changes_to_legislation_summary">Offeryn chwilio i ganfod yr holl newidiadau a wnaed i/gan ddarnau neu fathau penodol o ddeddfwriaeth.</resource>
@@ -1930,7 +1930,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="explore_uk_summary">Legislation made by the UK Parliament and UK Government, and Historic Parliaments</resource>
 		<resource id="explore_eu_summary">As originally adopted by the European Union up to 11.00 p.m. on 31 December 2020</resource>
 		<resource id="explore_scotland_summary">Including legislation made by the Scottish Parliament and Scottish Government</resource>
-		<resource id="explore_wales_summary">Including legislation made by the Welsh Parliament, Welsh Assembly and Welsh Government</resource>
+		<resource id="explore_wales_summary">Including legislation made by the Welsh Parliament and Welsh Government</resource>
 		<resource id="explore_ni_summary">Including legislation made by the Northern Ireland Assembly</resource>
 		<resource id="advanced_search_summary">Search for keywords in content, Welsh language legislation, legislation with specific geographical extent, and more.</resource>
 		<resource id="changes_to_legislation_summary">A search tool to find all changes made to or by specific pieces or types of legislation.</resource>
