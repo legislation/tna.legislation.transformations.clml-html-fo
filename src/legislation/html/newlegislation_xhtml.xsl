@@ -237,13 +237,14 @@ Added in welsh language support for UI.
 										<!-- <li><a href="{$TranslateLangPrefix}/new/anaw/data.feed"><xsl:value-of select="leg:TranslateText('Acts of the National Assembly for Wales')"/></a></li>-->
 										<li><a href="{$TranslateLangPrefix}/new/asc/data.feed"><xsl:value-of select="leg:TranslateText('Acts of Senedd Cymru')"/></a></li>
 										<!--<li><a href="/new/mwa/data.feed">Measures of the National Assembly for Wales</a></li>-->
-										<li><a href="{$TranslateLangPrefix}/new/wsi/data.feed"><xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/></a></li>
+										<li><a href="{$TranslateLangPrefix}/new/wsi/data.feed"><xsl:value-of select="leg:TranslateText('Welsh Statutory Instruments')"/></a></li>
 									</ul>
 									<h3 class="feedTitle p_one" id="subsFeeds-draft"><xsl:value-of select="leg:TranslateText('Draft legislation feeds')"/></h3>
 									<ul class="p_one">
 										<li><a href="{$TranslateLangPrefix}/new/draft/data.feed"><xsl:value-of select="leg:TranslateText('All Draft Legislation')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/ukdsi/data.feed"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instrument')"/></a></li>
-										<li><a href="{$TranslateLangPrefix}/new/wdsi/data.feed"><xsl:value-of select="leg:TranslateText('Welsh Draft Statutory Instruments')"/></a></li>
+										<!-- LEGDEV-9271 temporary removal until WDSI become effective -->
+<!--										<li><a href="{$TranslateLangPrefix}/new/wdsi/data.feed"><xsl:value-of select="leg:TranslateText('Welsh Draft Statutory Instruments')"/></a></li>-->
 										<li><a href="{$TranslateLangPrefix}/new/sdsi/data.feed"><xsl:value-of select="leg:TranslateText('Scottish Draft Statutory Instruments')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/nidsr/data.feed"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Statutory Rules')"/></a></li>
 									</ul>
