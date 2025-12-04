@@ -190,7 +190,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:variable name="g_strMainFont" as="xs:string">
 		<xsl:choose>
 			<xsl:when test="$doc-wsi-2026">
-				<xsl:text>Helvetica</xsl:text>
+				<xsl:text>Arimo</xsl:text>
 			</xsl:when>
 			<xsl:when test="($g_strDocClass = $g_strConstantSecondary)">
 				<xsl:text>Times New Roman</xsl:text>
