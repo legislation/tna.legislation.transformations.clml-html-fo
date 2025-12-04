@@ -124,7 +124,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:choose>-->
 	<xsl:value-of select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentCategory/@Value"/>
 </xsl:variable>
-<xsl:variable name="doc-wsi-2026" as="xs:boolean" select="($g_strDocType = 'WelshStatutoryInstrument' and xs:integer($g_strDocYear) gt 2025 )"/>
+<xsl:variable name="doc-wsi-2026" as="xs:boolean" select="($g_strDocType = ('WelshStatutoryInstrument', 'WelshDraftStatutoryInstrument') and xs:integer($g_strDocYear) gt 2025 )"/>
 <xsl:variable name="g_strDocStatus" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentStatus/@Value" as="xs:string"/>
 <xsl:variable name="g_ndsFootnotes" select="/leg:EN/leg:Footnotes/leg:Footnote"/>
 
