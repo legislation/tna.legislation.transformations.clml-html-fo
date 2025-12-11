@@ -54,7 +54,19 @@ exclude-result-prefixes="tso atom">
 <xsl:variable name="g_documentLanguage" select="if (/leg:EN/@xml:lang) then /leg:EN/@xml:lang else 'en'"  as="xs:string"/>
 
 <!--<xsl:variable name="g_strMainFont" select="if ($g_strDocClass = $g_strConstantSecondary) then 'Times' else 'BookAntiqua'" as="xs:string"/> -->
-<xsl:variable name="g_strMainFont" select="if ($g_strDocClass = $g_strConstantSecondary) then 'Times' else 'Times'" as="xs:string"/> 
+<xsl:variable name="g_strMainFont" as="xs:string">
+	<xsl:choose>
+		<xsl:when test="$doc-wsi-2026">
+			<xsl:text>Arimo</xsl:text>
+		</xsl:when>
+		<xsl:when test="($g_strDocClass = $g_strConstantSecondary)">
+			<xsl:text>Times</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text>Times</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:variable>
 <xsl:variable name="g_strOutputType" as="xs:string">PrimaryStyle</xsl:variable>
 <xsl:variable name="g_dblBodySize" as="xs:double">
 	<xsl:choose>
@@ -98,6 +110,7 @@ exclude-result-prefixes="tso atom">
 <xsl:variable name="g_ndsLegMetadata" select="/leg:EN/ukm:Metadata/ukm:ENmetadata"/>
 <xsl:variable name="g_ndsLegPrelims" select="/leg:EN/leg:ExplanatoryNotes/leg:ENprelims"/>
 <xsl:variable name="g_strDocType" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string"/>
+<xsl:variable name="g_strDocYear" select="($g_ndsLegMetadata/ukm:Year/@Value)[1]" as="xs:string"/>
 <xsl:variable name="g_dctitle" select="/leg:EN/ukm:Metadata/dc:title"/>
 <xsl:variable name="g_strDocClass" as="xs:string">
 	<!-- For NI Acts the look and feel is as for secondary legislation so set doc class accordingly 
@@ -111,6 +124,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:choose>-->
 	<xsl:value-of select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentCategory/@Value"/>
 </xsl:variable>
+<xsl:variable name="doc-wsi-2026" as="xs:boolean" select="($g_strDocType = ('WelshStatutoryInstrument', 'WelshDraftStatutoryInstrument') and xs:integer($g_strDocYear) gt 2025 )"/>
 <xsl:variable name="g_strDocStatus" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentStatus/@Value" as="xs:string"/>
 <xsl:variable name="g_ndsFootnotes" select="/leg:EN/leg:Footnotes/leg:Footnote"/>
 
