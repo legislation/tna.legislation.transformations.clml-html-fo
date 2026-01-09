@@ -1086,14 +1086,7 @@ exclude-result-prefixes="leg ukm math msxsl dc ukm fo xsl svg xhtml lnk">
 		<xsl:param name="ndContextNode" select="self::*" />
 		<xsl:variable name="strId" select="$ndContextNode/@id" />
 		<!-- No corresponding section found in legislation file, so generate an id  -->
-		<xsl:choose>
-			<xsl:when test="$ndContextNode/@id">
-				<xsl:sequence select="$strId/string()"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:call-template name="FuncCalcCommentaryID" />
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:call-template name="FuncCalcCommentaryID" />
 	</xsl:template>
 
 
@@ -2776,7 +2769,8 @@ TODO: need to add semantic id based on EN structure
 			<xsl:apply-templates/>
 		</a>
 	</xsl:template>
-	
+
+
 	<!-- ========== External Link - non legislation items ========== -->
 
 	<xsl:template match="leg:ExternalLink">
