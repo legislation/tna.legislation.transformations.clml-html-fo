@@ -4534,7 +4534,7 @@ exclude-result-prefixes="tso atom">
 			leg:P4para[.//leg:Repeal[@SubstitutionRef]] | leg:P5para[.//leg:Repeal[@SubstitutionRef]] | leg:P6para[.//leg:Repeal[@SubstitutionRef]] | leg:P7para[.//leg:Repeal[@SubstitutionRef]]"
 			priority="499">
 		<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
-		<xsl:if test="$selectedSectionSubstituted or not(tso:isSubstituted(.)) or $showRepeals">
+		<xsl:if test="$selectedSectionSubstituted or not(tso:isSubstituted(.)) or $showRepeals or .//leg:Repeal/@Extent or .//leg:Repeal[@RetainText='true']">
 			<xsl:next-match />
 		</xsl:if>
 	</xsl:template>
