@@ -1299,5 +1299,20 @@ It will get correct language string for the current language -->
 				</xsl:analyze-string>
 			</xsl:when>
 		</xsl:choose>
-	</xsl:function>	
+	</xsl:function>
+
+	<xsl:function name="tso:extract-label" as="xs:string">
+		<xsl:param name="path" as="xs:string"/>
+
+		<xsl:variable name="parts" select="tokenize($path, '/')"/>
+
+		<!-- find position of last non-numeric token -->
+		<xsl:variable name="last-non-num" select="
+			max(for $i in 1 to count($parts)
+			return
+				if (not($parts[$i] castable as xs:integer)) then $i
+				else ())"/>
+		<!-- take everything after that -->
+		<xsl:sequence select="string-join($parts[position() > $last-non-num], '.')"/>
+	</xsl:function>
 </xsl:stylesheet>
