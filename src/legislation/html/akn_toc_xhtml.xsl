@@ -113,7 +113,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:variable>
 		<xsl:variable name="level" select="@level"/>
 		<xsl:variable name="label">
-			<xsl:value-of select="tso:extract-label($url)"/>
+			<!--<xsl:value-of select="tso:extract-label($url)"/>-->
 		</xsl:variable>
 		<xsl:variable name="title" select="akn:inline[@name = 'tocHeading']"/>
 
