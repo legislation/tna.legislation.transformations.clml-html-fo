@@ -562,7 +562,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</li>
 									<li>
 										<a id="wsi" href="{$TranslateLangPrefix}/wsi">
-											<xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/>
+											<xsl:value-of select="leg:TranslateText('Welsh Statutory Instruments')"/>
 											<span></span>
 										</a>
 									</li>
@@ -616,6 +616,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<span></span>
 										</a>
 									</li>
+									<!-- LEGDEV-9271 temporary removal until WDSI become effective -->
+<!--									<li>
+										<a id="wdsi" href="{$TranslateLangPrefix}/wdsi">
+											<xsl:value-of
+												select="leg:TranslateText('Welsh Draft Statutory Instruments')"/>
+											<span></span>
+										</a>
+									</li>-->
 									<li>
 										<a id="sdsi" href="{$TranslateLangPrefix}/sdsi">
 											<xsl:value-of
@@ -712,10 +720,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</li>
 									<li>
 										<a id="wsi" href="{$TranslateLangPrefix}/wsi">
-											<xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/>
+											<xsl:value-of select="leg:TranslateText('Welsh Statutory Instruments')"/>
 											<span></span>
 										</a>
 									</li>
+									<!-- <li>
+										<a id="wsi" href="{$TranslateLangPrefix}/wdsi">
+											<xsl:value-of select="leg:TranslateText('Wales Draft Statutory Instruments')"/>
+											<span></span>
+										</a>
+									</li>-->
 									<li>
 										<a id="anaw" href="{$TranslateLangPrefix}/anaw">
 											<xsl:value-of
