@@ -2081,6 +2081,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:BlockAmendment[@Context = 'main' or @Context='unknown']//leg:P1//leg:P2" priority="4">
+		<xsl:param name="titleOutput" as="xs:boolean"/>
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
@@ -2092,7 +2093,7 @@ exclude-result-prefixes="tso atom">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:if test="parent::leg:P2group and not(preceding-sibling::leg:P2)">
+				<xsl:if test="parent::leg:P2group and not(preceding-sibling::leg:P2) and not($titleOutput)">
 					<fo:block font-style="italic" space-before="12pt">
 						<xsl:apply-templates select="parent::*/leg:Title"/>
 					</fo:block>
@@ -2115,7 +2116,12 @@ exclude-result-prefixes="tso atom">
 			</fo:block>
 		<!--</xsl:if>-->
 		<!-- HA048775 nisi1991/2628 failing to generate because no block element around P2para  -->
-		<fo:block><xsl:apply-templates select="*[not(self::leg:Title)]"/></fo:block>
+		<fo:block>
+			<!-- LEGDEV-9352 add param to confirm title has already been output so that P2 template above tests before outputting title potentially as duplicate -->
+			<xsl:apply-templates select="*[not(self::leg:Title)]">
+				<xsl:with-param name="titleOutput" select="true()" as="xs:boolean"/>
+			</xsl:apply-templates>
+		</fo:block>
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 
