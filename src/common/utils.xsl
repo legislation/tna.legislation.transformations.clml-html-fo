@@ -623,6 +623,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<label for="typeEUretained"><xsl:value-of select="leg:TranslateText('European_Union_All')"/></label>
 							</div>
 						</xsl:if>
+						<xsl:if test="$showEUretained">
+							<div id="allEuropeanAmended" class="typeCheckBoxCol" style="white-space:nowrap;">
+								<input type="checkbox" name="type" value="eu-origin?ukamended=true" id="typeEUretainedAmended">
+									<xsl:if test="contains($selected, 'eu-origin?ukamended=true')">
+										<xsl:attribute name="checked"/>
+									</xsl:if>
+								</input>
+								<label for="typeEUretained">
+									<xsl:value-of select="leg:TranslateText('All')"/>
+									<xsl:text> </xsl:text>
+									<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
+								</label>
+							</div>
+						</xsl:if>
 					</div>
 				</xsl:otherwise>
 			</xsl:choose>
