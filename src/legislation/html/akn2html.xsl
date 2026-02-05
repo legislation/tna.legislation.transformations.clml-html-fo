@@ -165,7 +165,7 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 
 /* IA TOC Link */
 .toc-container { display: flex; justify-content: center; align-items: center;}
-.toc-box { border: 2px solid #6aa9ff; padding: 8px 16px; border-radius: 4px; background: #fff; color: #1a5fd0; font-weight: bold; font-size:x-large}
+.toc-box { border: 2px solid #6aa9ff; padding: 8px 16px; border-radius: 4px; background: #fff; color: #1a5fd0; font-weight: bold; font-size: inherit}
 .toc-box a { color: inherit; text-decoration: none;}
 .toc-box a:hover,.toc-box a:focus {text-decoration: underline;}
 
