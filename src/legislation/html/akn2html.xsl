@@ -42,6 +42,7 @@
 			<xsl:call-template name="style" />
 		</head>
 		<body>
+			<xsl:call-template name="header"/>
 			<xsl:apply-templates />
 		</body>
 	</html>
