@@ -473,7 +473,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 			<xsl:otherwise>
 				<li class="legType">
-					<a href="{leg:GetLink(@href)}">
+					<a href="{
+						       leg:SetParam(
+						       leg:GetLink(@href),
+					               'stage',
+						       lower-case(normalize-space(@type))
+							   )
+						}">
 						<xsl:variable name="title" select="tso:GetTitleFromType(@type, $maxYear)"/>
 						<xsl:value-of select="leg:TranslateText($title)"/>
 						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
@@ -497,7 +503,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 			<xsl:otherwise>
 				<li class="legType">
-					<a href="{leg:GetLink(@href)}">
+					<a href="{
+						       leg:SetParam(
+						       leg:GetLink(@href),
+					               'department',
+						       lower-case(normalize-space(@type))
+							   )
+						}">
 						<xsl:variable name="title" select="tso:GetTitleFromType(@type, $maxYear)"/>
 						<xsl:value-of select="leg:TranslateText($title)"/>
 						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
