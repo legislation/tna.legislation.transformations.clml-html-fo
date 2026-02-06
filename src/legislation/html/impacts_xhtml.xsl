@@ -81,7 +81,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 	<xsl:variable name="resourceURI" as="xs:string"
-		select="leg:ImpactAssessment/ukm:Metadata/atom:link[@title='More Resources']/@href" />
+		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />
 
 	<xsl:variable name="impactURI" as="xs:string*"
 		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts/toc'][1]/@href" />
