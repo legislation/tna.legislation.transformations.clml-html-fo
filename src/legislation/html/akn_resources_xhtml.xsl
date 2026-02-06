@@ -25,7 +25,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="resourceURI" as="xs:string"
 		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/resources']/@href"/>
 
-	<xsl:variable name="documentMainType" as="xs:string" select="leg:GetDocumentMainType(/)"/>
+	<xsl:variable name="documentMainType" as="xs:string" select="leg:GetDocumentMainType(.)"/>
 
 	<xsl:output indent="yes" method="xhtml"/>
 
