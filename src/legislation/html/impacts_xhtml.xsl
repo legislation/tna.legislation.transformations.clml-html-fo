@@ -130,7 +130,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 	<xsl:variable name="IsMoreResourcesAvailable" as="xs:boolean"
-		select="if ($documentMainType) then tso:ShowMoreResources(/) else false()"/>
+		select="if ($documentMainType) then tso:ShowMoreResources(/leg:ImpactAssessment/root()) else false()"/>
 
 	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean"
 		select="exists($impactURI) or /leg:ImpactAssessment"/>
@@ -175,6 +175,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<a href="{leg:FormatURL($impactURI)}"><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></a>
 									<a href="#moreIATabHelp" class="helpItem helpItemToBot">
 										<img src="/images/chrome/helpIcon.gif" alt=" Help about ImpactAssessments" />
+									</a>
+								</li>
+								<li id="legResourcesLink">
+									<span class="presentation"></span>
+									<a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>
+									<a href="#moreResourcesTabHelp" class="helpItem helpItemToBot">
+										<img src="/images/chrome/helpIcon.gif" alt=" Help about More Resources"/>
 									</a>
 								</li>
 							</ul>
