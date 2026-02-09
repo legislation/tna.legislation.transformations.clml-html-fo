@@ -25,6 +25,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="resourceURI" as="xs:string"
 		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/resources']/@href"/>
 
+	<xsl:variable name="tocURI-IA" as="xs:string?" select="concat(/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts/toc']/@href, '/contents')" />
+
 	<xsl:variable name="documentMainType" as="xs:string" select="leg:GetDocumentMainType(/)"/>
 
 	<xsl:output indent="yes" method="xhtml"/>
@@ -56,7 +58,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:call-template name="TSOOutputBreadcrumbItems"/>
 
 					<!-- tabs -->
-					<xsl:call-template name="TSOOutputSubNavTabs"/>
+					<xsl:call-template name="TSOOutputSubNavTabs-IA"/>
 
 					<div class="interface"/>
 					<!--./interface -->
@@ -991,6 +993,26 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</div>
 		</xsl:if>
 
+	</xsl:template>
+
+	<xsl:template name="TSOOutputSubNavTabsIA">
+		<ul id="legSubNav">
+			<li id="{if (matches($requestInfoDoc/request/request-path, '/buynow$')) then 'buyNowTocLink' else 'legTocLink'}">
+				<span class="presentation"></span>
+				<a href="{leg:FormatURL($tocURI-IA, false())}">
+					<xsl:value-of select="leg:TranslateText('Table of Contents')"/>
+				</a>
+			</li>
+			<xsl:if test="$IsMoreResourcesAvailable">
+				<li id="legResourcesLink">
+					<span class="presentation"></span>
+					<a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>
+					<a href="#moreResourcesTabHelp" class="helpItem helpItemToBot">
+						<img src="/images/chrome/helpIcon.gif" alt=" Help about More Resources"/>
+					</a>
+				</li>
+			</xsl:if>
+		</ul>
 	</xsl:template>
 
 	<!-- ========== File size ========= -->
