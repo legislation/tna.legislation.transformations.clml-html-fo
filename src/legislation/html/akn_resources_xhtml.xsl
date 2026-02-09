@@ -995,7 +995,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	</xsl:template>
 
-	<xsl:template name="TSOOutputSubNavTabsIA">
+	<xsl:template name="TSOOutputSubNavTabs-IA">
 		<ul id="legSubNav">
 			<li id="{if (matches($requestInfoDoc/request/request-path, '/buynow$')) then 'buyNowTocLink' else 'legTocLink'}">
 				<span class="presentation"></span>
