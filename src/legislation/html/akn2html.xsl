@@ -389,6 +389,8 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 	</xsl:element>
 </xsl:template>
 
+<xsl:template match="toc"></xsl:template>
+
 <!--[ TOC Link Header ]-->
 <xsl:template name="header">
 	<xsl:variable name="toc-url">
