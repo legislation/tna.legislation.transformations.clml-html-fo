@@ -51,7 +51,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			else
 				()"/>
 
-	<xsl:variable name="iaStage" as="xs:string?" select="$aknDoc//akn:meta/uk:documentStage"/>
+	<xsl:variable name="iaStage" as="xs:string?" select="$aknDoc//akn:meta/akn:proprietary/uk:documentStage"/>
 
 	<xsl:template match="/">
 		<xsl:choose>
