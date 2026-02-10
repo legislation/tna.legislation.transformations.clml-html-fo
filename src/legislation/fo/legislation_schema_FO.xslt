@@ -2890,6 +2890,14 @@ exclude-result-prefixes="tso atom">
 									</xsl:if>
 								</xsl:for-each>
 							</xsl:when>
+							<!-- LEGDEV-9351 add new xsl:when to find AppendText content with multiple levels of BlockAmendments and add it to end of Text -->
+							<xsl:when test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract]/ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][last()]
+								/following-sibling::*[1][self::leg:AppendText] and not(parent::*[self::leg:Substitution or self::leg:Addition or self::leg:Repeal])">
+								<xsl:apply-templates/>
+								<xsl:for-each select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][last()]/following-sibling::*">
+									<xsl:apply-templates select="self::leg:AppendText/node()"/>
+								</xsl:for-each>
+							</xsl:when>
 							<xsl:otherwise>
 								<xsl:apply-templates/>
 							</xsl:otherwise>
