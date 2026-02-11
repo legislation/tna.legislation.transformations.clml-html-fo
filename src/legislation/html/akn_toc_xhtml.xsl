@@ -112,12 +112,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:value-of select="concat(replace($url, '//+', '/'), '/data.html')"/>
 		</xsl:variable>
 		<xsl:variable name="level" select="@level"/>
+		<xsl:variable name="indent" select="if ($level castable as xs:integer) then (concat('margin-left: ', $level, 'em')) else 'margin-left: 0em'"/>
 		<xsl:variable name="label">
 			<!--<xsl:value-of select="tso:extract-label($url)"/>-->
 		</xsl:variable>
 		<xsl:variable name="title" select="akn:inline[@name = 'tocHeading']"/>
 
-		<li class="LegContentsEntry">
+		<li class="LegContentsEntry" style="{$indent} !important">
 			<p class="LegContentsItem LegClearFix">
 				<span class="LegDS LegContentsNo">
 					<a href="{$link}">
