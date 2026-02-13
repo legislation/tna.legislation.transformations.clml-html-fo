@@ -392,35 +392,52 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 <xsl:template match="toc"></xsl:template>
 
 <!--[ TOC Link Header ]-->
-<xsl:template name="header">
-	<xsl:variable name="toc-url">
-		<xsl:choose>
-			<xsl:when test="$parameters/*:parameters/*:leg-type !=''">
-				<xsl:value-of select="string-join((
-					$parameters/*:parameters/*:leg-type,
-					$parameters/*:parameters/*:leg-year,
-					$parameters/*:parameters/*:leg-number,
-					'impacts',
-					$parameters/*:parameters/*:impact-year,
-					$parameters/*:parameters/*:impact-number,
-					'contents'), '/')"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="string-join((
-					$parameters/*:parameters/*:impact-type,
-					$parameters/*:parameters/*:impact-year,
-					$parameters/*:parameters/*:impact-number,
-					'contents'), '/')"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+	<xsl:template name="header">
+		<xsl:variable name="IA-toc-url">
+			<xsl:choose>
+				<xsl:when test="$parameters/*:parameters/*:leg-type !=''">
+					<xsl:value-of select="string-join((
+						$parameters/*:parameters/*:leg-type,
+						$parameters/*:parameters/*:leg-year,
+						$parameters/*:parameters/*:leg-number,
+						'impacts',
+						$parameters/*:parameters/*:impact-year,
+						$parameters/*:parameters/*:impact-number,
+						'contents'), '/')"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="string-join((
+						$parameters/*:parameters/*:impact-type,
+						$parameters/*:parameters/*:impact-year,
+						$parameters/*:parameters/*:impact-number,
+						'contents'), '/')"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 
-	<div class="toc-container">
-		<div class="toc-box">
-			<a href="/{$toc-url}">Impact Assessment Table of Contents</a>
+		<xsl:variable name="EM-toc-url">
+			<xsl:value-of select="string-join((
+				$parameters/*:parameters/*:leg-type,
+				$parameters/*:parameters/*:leg-year,
+				$parameters/*:parameters/*:leg-number,
+				'memorandum',
+				$parameters/*:parameters/*:counter,
+				'contents'), '/')"/>
+		</xsl:variable>
+
+		<div class="toc-container">
+			<div class="toc-box">
+				<xsl:choose>
+					<xsl:when test="$parameters/*:parameters/*:notes-type = 'memorandum' ">
+						<a href="/{$EM-toc-url}">Explanatory Memorandum Table of Contents</a>
+					</xsl:when>
+					<xsl:otherwise>
+						<a href="/{$IA-toc-url}">Impact Assessment Table of Contents</a>
+					</xsl:otherwise>
+				</xsl:choose>
+			</div>
 		</div>
-	</div>
-</xsl:template>
+	</xsl:template>
 
 <!-- end of templates -->
 
