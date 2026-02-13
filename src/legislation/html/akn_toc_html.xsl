@@ -147,9 +147,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<div class="tocItem" data-level="{$level}" href="{$link}" data-ukl-name="ContentsItem">
 			<a href="{$link}">
-				<span class="inline tocNum">
+				<!--<span class="inline tocNum">
 					<xsl:value-of select="$label"/>
-				</span>
+				</span>-->
 				<span class="inline tocHeading">
 					<xsl:value-of select="$title"/>
 				</span>

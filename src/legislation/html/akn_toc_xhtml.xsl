@@ -120,11 +120,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<li class="LegContentsEntry" style="{$indent} !important">
 			<p class="LegContentsItem LegClearFix">
-				<span class="LegDS LegContentsNo">
+				<!--<span class="LegDS LegContentsNo">
 					<a href="{$link}">
 						<xsl:value-of select="$label"/>
 					</a>
-				</span>
+				</span>-->
 				<span class="LegDS LegContentsTitle">
 					<a href="{$link}">
 						<xsl:value-of select="$title"/>
