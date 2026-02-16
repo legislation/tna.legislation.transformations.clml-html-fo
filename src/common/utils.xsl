@@ -607,7 +607,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 					<div class="typeCheckBoxDoubleCol" style="display:grid;">
 						<xsl:if test="$showSecondary">
-							<div id="allSecondary"  class="typeCheckBoxCol" style="padding-top:0;">
+							<div id="allSecondary"  class="typeCheckBoxCol">
 								<input type="checkbox" name="type" value="secondary" id="typeAllSecondary">
 									<xsl:if test="contains($selected, 'secondary')">
 										<xsl:attribute name="checked"/>
