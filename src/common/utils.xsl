@@ -618,7 +618,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>
 
 						<xsl:if test="$showEUretained">
-							<div id="allEuropean" class="typeCheckBoxCol"style="padding-top:0;">
+							<div id="allEuropean" class="typeCheckBoxCol">
 								<input type="checkbox" name="type" value="eu-origin" id="typeEUretained">
 									<xsl:if test="contains($selected, 'eu-origin')">
 										<xsl:attribute name="checked"/>
@@ -628,7 +628,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</div>
 						</xsl:if>
 						<xsl:if test="$showEUretained">
-							<div id="allEuropeanAmended" class="typeCheckBoxCol" style="white-space:nowrap; padding-top:0;">
+							<div id="allEuropeanAmended" class="typeCheckBoxCol" style="white-space:nowrap;">
 								<input type="checkbox" name="type" value="eu-origin?ukamended=true" id="typeEUretainedAmended">
 									<xsl:if test="contains($selected, 'eu-origin?ukamended=true')">
 										<xsl:attribute name="checked"/>
