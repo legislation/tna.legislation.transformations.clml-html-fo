@@ -412,6 +412,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 									<xsl:with-param name="associated-docs" select="$associatedDocuments"/>
 									<xsl:with-param name="startGroup" select="$startGroup"/>
 									<xsl:with-param name="endGroup" select="$endGroup"/>
+									<xsl:with-param name="type" select="'non-IA'"/>
 								</xsl:call-template>
 							</ul>
 						</div>
@@ -459,6 +460,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 								<xsl:copy-of
 										select="$associatedDocuments/*[position() &gt;= $startGroup and position() &lt;= $endGroup]"
 								/>
+								<!--[akn and html links]-->
+								<xsl:call-template name="generate-akn-html-links">
+									<xsl:with-param name="associated-docs" select="$associatedDocuments"/>
+									<xsl:with-param name="startGroup" select="$startGroup"/>
+									<xsl:with-param name="endGroup" select="$endGroup"/>
+									<xsl:with-param name="type" select="'IA'"/>
+								</xsl:call-template>
 							</ul>
 						</div>
 					</xsl:for-each>
@@ -1072,9 +1080,9 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		<xsl:param name="associated-docs"/>
 		<xsl:param name="startGroup"/>
 		<xsl:param name="endGroup"/>
+		<xsl:param name="type"/>
 
-		<xsl:for-each
-			select="$associated-docs/*[position() >= $startGroup and position() &lt;= $endGroup]">
+		<xsl:for-each select="$associated-docs/*[position() >= $startGroup and position() &lt;= $endGroup]">
 
 			<xsl:variable name="link" select="current()/*:a/@href"/>
 			<xsl:variable name="title" select="current()/*:a"/>
@@ -1083,33 +1091,50 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<xsl:variable name="file" select="tokenize($link, '/')[last()]"/>
 
 			<!-- Extract counter number (remove leading zeros) -->
-			<xsl:variable name="versionRaw"
-				select="substring-before(tokenize($file, '_')[last()], '.pdf')"/>
+			<xsl:variable name="versionRaw" select="substring-before(tokenize($file, '_')[last()], '.pdf')"/>
 			<xsl:variable name="counter" select="replace($versionRaw, '^0+', '')"/>
-
-			<!-- Map document type -->
-			<xsl:variable name="docType">
-				<xsl:choose>
-					<xsl:when test="contains($link, 'em_')">memorandum</xsl:when>
-					<xsl:when test="contains($link, 'cs_')">cs</xsl:when>
-					<xsl:when test="contains($link, 'od_')">od</xsl:when>
-					<xsl:otherwise>memorandum</xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
 
 			<!-- Extract base path: /type/year/number -->
 			<xsl:variable name="basePath" select="substring-before($link, '/pdfs/')"/>
 
+			<!-- Map document type -->
+			<xsl:variable name="docType">
+				<xsl:choose>
+					<xsl:when test="$type = 'IA'"/>
+					<xsl:otherwise>
+						<xsl:choose>
+							<xsl:when test="contains($link, 'em_')">memorandum/</xsl:when>
+							<xsl:when test="contains($link, 'cs_')">cs/</xsl:when>
+							<xsl:when test="contains($link, 'od_')">od/</xsl:when>
+							<xsl:otherwise>memorandum</xsl:otherwise>
+						</xsl:choose>
+						<xsl:value-of select="$counter"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+
+			<!-- Map document type -->
+			<xsl:variable name="fullPath">
+				<xsl:choose>
+					<xsl:when test="$type = 'IA'">
+						<xsl:value-of select="$basePath"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat($basePath, '/', $docType)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+
 			<!-- HTML links -->
 			<li>
-				<a href="{$basePath}/{$docType}/{$counter}/data.html" class="htmLink">
+				<a href="{$fullPath}/data.html" class="htmLink">
 					<xsl:value-of select="$title"/>
 				</a>
 			</li>
 
 			<!-- AKN links -->
 			<li>
-				<a href="{$basePath}/{$docType}/{$counter}/data.akn" class="aknLink">
+				<a href="{$fullPath}/data.akn" class="aknLink">
 					<xsl:value-of select="$title"/>
 				</a>
 			</li>
