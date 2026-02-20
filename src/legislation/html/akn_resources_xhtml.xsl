@@ -278,6 +278,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:copy-of
 									select="$associatedDocuments/*[position() &gt;= $startGroup and position() &lt;= $endGroup]"
 								/>
+								<!--[akn and html links]-->
+								<xsl:call-template name="generate-akn-html-links">
+									<xsl:with-param name="associated-docs" select="$associatedDocuments"/>
+									<xsl:with-param name="startGroup" select="$startGroup"/>
+									<xsl:with-param name="endGroup" select="$endGroup"/>
+									<xsl:with-param name="type" select="'IA'"/>
+								</xsl:call-template>
 							</ul>
 						</div>
 					</xsl:for-each>
