@@ -1125,20 +1125,21 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</xsl:choose>
 			</xsl:variable>
 
-			<!-- HTML links -->
-			<li>
-				<a href="{$fullPath}/data.html" class="htmLink">
-					<xsl:value-of select="$title"/>
-				</a>
-			</li>
+			<xsl:if test="$type = 'IA' or contains($link, 'em_')">
+				<!-- HTML links -->
+				<li>
+					<a href="{$fullPath}/data.html" class="htmLink">
+						<xsl:value-of select="$title"/>
+					</a>
+				</li>
 
-			<!-- AKN links -->
-			<li>
-				<a href="{$fullPath}/data.akn" class="aknLink">
-					<xsl:value-of select="$title"/>
-				</a>
-			</li>
-
+				<!-- AKN links -->
+				<li>
+					<a href="{$fullPath}/data.akn" class="aknLink">
+						<xsl:value-of select="$title"/>
+					</a>
+				</li>
+			</xsl:if>
 		</xsl:for-each>
 	</xsl:template>
 
