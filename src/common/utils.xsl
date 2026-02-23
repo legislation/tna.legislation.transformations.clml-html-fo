@@ -583,7 +583,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:otherwise>
 					<div class="typeCheckBoxDoubleCol">
 						<xsl:if test="$showPrimary and $showSecondary and $showEUretained">
-						   <div>
+						   <div class="legislationContent">
 							<input type="checkbox" name="type" value="all" id="typeAllLegislation">
 								<xsl:if test="contains($selected, 'all')">
 									<xsl:attribute name="checked"/>
