@@ -584,7 +584,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<div class="typeCheckBoxDoubleCol">
 						<xsl:if test="$showPrimary and $showSecondary and $showEUretained">
 						   <div>
-							<input type="checkbox" name="type" value="all" id="typeAllLegislation" style="margin-top:4px">
+							<input type="checkbox" name="type" value="all" id="typeAllLegislation">
 								<xsl:if test="contains($selected, 'all')">
 									<xsl:attribute name="checked"/>
 								</xsl:if>
@@ -594,7 +594,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>
 
 						<xsl:if test="$showPrimary">
-						  <div style="padding-top:4px;">
+						  <div class="primaryContent">
 							<input type="checkbox" name="type" value="primary" id="typePrimary">
 								<xsl:if test="contains($selected, 'primary')">
 									<xsl:attribute name="checked"/>
@@ -605,7 +605,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>
 					</div>
 
-					<div class="typeCheckBoxDoubleCol" style="display:grid;">
+					<div class="typeCheckBoxDoubleCol CheckBoxCol">
 						<xsl:if test="$showSecondary">
 							<div id="allSecondary"  class="typeCheckBoxCol">
 								<input type="checkbox" name="type" value="secondary" id="typeAllSecondary">
@@ -628,7 +628,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</div>
 						</xsl:if>
 						<xsl:if test="$showEUretained">
-							<div id="allEuropeanAmended" class="typeCheckBoxCol" style="white-space:nowrap;">
+							<div id="allEuropeanAmended" class="typeCheckBoxCol">
 								<input type="checkbox" name="type" value="eu-origin?ukamended=true" id="typeEUretainedAmended">
 									<xsl:if test="contains($selected, 'eu-origin?ukamended=true')">
 										<xsl:attribute name="checked"/>
@@ -710,7 +710,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 			<xsl:if test="$numberOfItems != 0">
 
-				<div id="uniqueExtents" class="typeCheckBoxCol extent" style="padding-top:4px;">
+				<div id="uniqueExtents" class="typeCheckBoxCol extent">
 					<input type="checkbox" id="ind" name="type" value="individual"/>
 					<label for="ind"><xsl:value-of select="leg:TranslateText('Select types')"/></label>
 				</div>
