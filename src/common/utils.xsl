@@ -635,8 +635,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:if>
 								</input>
 								<label for="typeEUretained">
-									<xsl:value-of select="leg:TranslateText('All')"/>
-									<xsl:text> </xsl:text>
 									<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
 								</label>
 							</div>
