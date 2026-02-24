@@ -404,9 +404,9 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<div>
 							<ul class="plainList">
 								<!-- [pdfs links] -->
-								<xsl:copy-of
+								<!--<xsl:copy-of
 										select="$associatedDocuments/*[position() &gt;= $startGroup and position() &lt;= $endGroup]"
-								/>
+								/>-->
 								<!--[akn and html links]-->
 								<xsl:call-template name="generate-akn-html-links">
 									<xsl:with-param name="associated-docs" select="$associatedDocuments"/>
@@ -456,10 +456,10 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:variable name="endGroup" as="xs:integer" select=". * $groups"/>
 						<!--<div class="column1 s_3_5 p_{if (. = 1) then 'one' else 'two'}">-->
 						<div>
-							<ul class="plainList">
+							<!--<ul class="plainList">
 								<xsl:copy-of
 										select="$associatedDocuments/*[position() &gt;= $startGroup and position() &lt;= $endGroup]"
-								/>
+								/>-->
 								<!--[akn and html links]-->
 								<xsl:call-template name="generate-akn-html-links">
 									<xsl:with-param name="associated-docs" select="$associatedDocuments"/>
@@ -467,7 +467,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 									<xsl:with-param name="endGroup" select="$endGroup"/>
 									<xsl:with-param name="type" select="'IA'"/>
 								</xsl:call-template>
-							</ul>
+							<!--</ul>-->
 						</div>
 					</xsl:for-each>
 				</xsl:when>
@@ -1125,11 +1125,15 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</xsl:choose>
 			</xsl:variable>
 
+			<!-- pdf links -->
+			<xsl:copy-of select="current()"/>
+
 			<xsl:if test="$type = 'IA' or contains($link, 'em_')">
 				<!-- HTML links -->
 				<li>
 					<a href="{$fullPath}/data.html" class="htmLink">
 						<xsl:value-of select="$title"/>
+						<xsl:value-of select="' (HTML5)'"/>
 					</a>
 				</li>
 
@@ -1137,6 +1141,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				<li>
 					<a href="{$fullPath}/data.akn" class="aknLink">
 						<xsl:value-of select="$title"/>
+						<xsl:value-of select="' (Akoma Ntoso)'"/>
 					</a>
 				</li>
 			</xsl:if>
