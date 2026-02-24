@@ -149,6 +149,8 @@ exclude-result-prefixes="tso atom">
 	<!-- use a value of FOP0.95 if FOP 0.95 is used to generate the footnote hacks -->
 	<xsl:param name="g_FOprocessor" select="'FOP1.0'" as="xs:string"/>
 	
+	<xsl:param name="xspecTest" as="xs:string?"/>
+	<xsl:param name="xspecDocType" as="xs:string?"/>
 	
 	<!-- ========== Global Constants ========== -->
 
@@ -254,11 +256,14 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:variable name="g_ndsValidDate" select="/leg:Legislation/ukm:Metadata/dct:valid"/>
 	<xsl:variable name="g_ndsLegPrelims" select="/leg:Legislation/(leg:Primary/leg:PrimaryPrelims | leg:Secondary/leg:SecondaryPrelims | leg:EURetained/leg:EUPrelims)"/>
-	<xsl:variable name="g_strDocType" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string"/>
+	<xsl:variable name="g_strDocType" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string?"/>
 	<xsl:variable name="g_strDocYear" select="($g_ndsLegMetadata/ukm:Year/@Value)[1]" as="xs:string"/>
 	<xsl:variable name="g_strDocClass" as="xs:string">
 		<!-- For NI Acts the look and feel is as for secondary legislation so set doc class accordingly -->
 		<xsl:choose>
+			<xsl:when test="$xspecTest = 'true'">
+				<xsl:value-of select="$xspecDocType"/>
+			</xsl:when>
 			<xsl:when test="$g_strDocType = 'NorthernIrelandAct'">
 				<xsl:value-of select="$g_strConstantSecondary"/>
 			</xsl:when>
@@ -3048,9 +3053,6 @@ exclude-result-prefixes="tso atom">
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 
-
-	
-	
 	<xsl:template match="leg:AppendText"/>
 
 	<xsl:include href="legislation_schema_lists_FO.xslt"/>
@@ -5146,6 +5148,9 @@ exclude-result-prefixes="tso atom">
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template name="xspec-test">
+	<xsl:apply-templates/>
+</xsl:template>
 
 	<xsl:function name="leg:format-number-as-alpha">
 		<xsl:param name="number" as="xs:decimal"/>	
