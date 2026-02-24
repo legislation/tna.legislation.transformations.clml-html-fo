@@ -1959,10 +1959,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
       </span>
     </resource>
     <resource id="European_Union_All">All Legislation originating from the EU</resource>
+		<resource id="European Union Amended">All Legislation originating from the EU that is amended by the UK</resource>
 		<resource id="European Union Directives">Directives originating from the EU</resource>
 		<resource id="European Union Regulations">Regulations originating from the EU</resource>
 		<resource id="European Union Decisions">Decisions originating from the EU</resource>
 		<resource id="European Union Treaties">European Union Treaties</resource>
+		<resource id="EU_Regulations_Amended_By_UK">Regulations originating from the EU that are amended by the UK</resource>
+		<resource id="EU_Decisions_Amended_By_UK">Decisions originating from the EU that are amended by the UK</resource>
 		<!--End Browse EU-->
 
 		<!-- EU-UK-Reg -->
