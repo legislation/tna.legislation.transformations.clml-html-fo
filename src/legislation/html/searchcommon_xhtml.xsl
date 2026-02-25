@@ -78,6 +78,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="type" as="xs:string?" select="$paramsDoc/parameters/type" />
 	<xsl:variable name="year" as="xs:string?" select="$paramsDoc/parameters/year" />
 	<xsl:variable name="subject" as="xs:string?" select="$paramsDoc/parameters/subject" />
+	<xsl:variable name="ukamended" as="xs:string?" select="($request-info/request/parameters/parameter[name='ukamended']/value,$paramsDoc/parameters/ukamended,'')[1]" />
 	
 	<xsl:variable name="defaultSort" as="xs:string"
 		select="if ($paramsDoc/parameters/text[. != '']) then '' 
@@ -443,6 +444,30 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:if test="position() != last()"><xsl:text> </xsl:text></xsl:if>
 					</xsl:for-each>
 				</xsl:if>
+					<xsl:variable name="isWelsh" select="$paramsDoc/parameters/wrapper = 'cy'"/>
+					<xsl:choose>
+						<xsl:when test="$ukamended = 'true'">
+							<xsl:choose>
+								<xsl:when test="$isWelsh">
+									<xsl:text> sydd wedi eu diwygio gan y DU</xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> that are amended by the UK</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+
+						<xsl:when test="$ukamended = 'false'">
+							<xsl:choose>
+								<xsl:when test="$isWelsh">
+									<xsl:text> nad ydynt wedi eu diwygio gan y DU</xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> that are not amended by the UK</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+					</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:text> has returned </xsl:text>

@@ -345,9 +345,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:value-of select="leg:TranslateText('All')"/>
 				<xsl:text> </xsl:text>
 				<xsl:if test="not($showUnrevised)"><xsl:value-of select="leg:TranslateText('Revised')"/><xsl:text> </xsl:text></xsl:if>
-				<xsl:value-of select="leg:TranslateText('Legislation (including originating from the EU)')"/>
+				<xsl:value-of select="leg:TranslateText('legislation_including_eu')"/>
 				<!--<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>-->
 			</option>
+			<option disabled="disabled">--------------------------------------------</option>
+
+				<option value="eu-origin?ukamended=true">
+					<xsl:if test="$selected = 'eu-origin?ukamended=true'">
+						<xsl:attribute name="selected" select="'selected'" />
+					</xsl:if>
+					<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
+				</option>
 		</xsl:if>
 
 		<xsl:if test="$showPrimary">
@@ -583,25 +591,29 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:otherwise>
 					<div class="typeCheckBoxDoubleCol">
 						<xsl:if test="$showPrimary and $showSecondary and $showEUretained">
+						   <div class="legislationContent">
 							<input type="checkbox" name="type" value="all" id="typeAllLegislation">
 								<xsl:if test="contains($selected, 'all')">
 									<xsl:attribute name="checked"/>
 								</xsl:if>
 							</input>
 							<label for="typeAllLegislation"><xsl:value-of select="leg:TranslateText('All Legislation')"/></label>
+							</div>
 						</xsl:if>
 
 						<xsl:if test="$showPrimary">
+						  <div class="primaryContent">
 							<input type="checkbox" name="type" value="primary" id="typePrimary">
 								<xsl:if test="contains($selected, 'primary')">
 									<xsl:attribute name="checked"/>
 								</xsl:if>
 							</input>
 							<label for="typePrimary"><xsl:value-of select="leg:TranslateText('All Primary')"/></label>
+						  </div>
 						</xsl:if>
 					</div>
 
-					<div class="typeCheckBoxDoubleCol">
+					<div class="typeCheckBoxDoubleCol CheckBoxCol">
 						<xsl:if test="$showSecondary">
 							<div id="allSecondary"  class="typeCheckBoxCol">
 								<input type="checkbox" name="type" value="secondary" id="typeAllSecondary">
@@ -623,6 +635,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<label for="typeEUretained"><xsl:value-of select="leg:TranslateText('European_Union_All')"/></label>
 							</div>
 						</xsl:if>
+						<xsl:if test="$showEUretained">
+								<div id="allEuropeanAmended" class="typeCheckBoxCol">
+									<input type="checkbox" name="type" value="eu-origin?ukamended=true" id="typeEUretainedAmended">
+										<xsl:if test="contains($selected, 'eu-origin?ukamended=true')">
+											<xsl:attribute name="checked"/>
+										</xsl:if>
+									</input>
+									<label for="typeEUretained">
+										<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
+									</label>
+								</div>
+							</xsl:if>
 					</div>
 				</xsl:otherwise>
 			</xsl:choose>
