@@ -350,6 +350,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:value-of select="leg:TranslateText('Legislation (including originating from the EU)')"/>
 				<!--<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>-->
 			</option>
+			<option disabled="disabled">--------------------------------------------</option>
 			<option value="eu-origin?ukamended=true">
 					<xsl:if test="$selected = 'eu-origin?ukamended=true'">
 						<xsl:attribute name="selected" select="'selected'" />
