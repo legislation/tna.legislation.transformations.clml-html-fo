@@ -456,8 +456,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:variable name="endGroup" as="xs:integer" select=". * $groups"/>
 						<!--<div class="column1 s_3_5 p_{if (. = 1) then 'one' else 'two'}">-->
 						<div>
-							<!--<ul class="plainList">
-								<xsl:copy-of
+							<ul class="plainList">
+								<!--<xsl:copy-of
 										select="$associatedDocuments/*[position() &gt;= $startGroup and position() &lt;= $endGroup]"
 								/>-->
 								<!--[akn and html links]-->
@@ -467,7 +467,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 									<xsl:with-param name="endGroup" select="$endGroup"/>
 									<xsl:with-param name="type" select="'IA'"/>
 								</xsl:call-template>
-							<!--</ul>-->
+							</ul>
 						</div>
 					</xsl:for-each>
 				</xsl:when>
