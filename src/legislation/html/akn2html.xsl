@@ -275,7 +275,7 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 <xsl:template match="img">
 	<img>
 		<xsl:attribute name="src">
-			<xsl:sequence select="concat($image-base, $doc-id, '/', @src)" />
+			<xsl:sequence select="concat(substring-after($doc-id, '/id'), '/', @src)" />
 		</xsl:attribute>
 		<xsl:apply-templates />
 	</img>
