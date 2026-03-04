@@ -163,9 +163,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<tso:legType schemaType="EuropeanUnionRegulation" abbrev="eur" class="euretained" category="Regulation"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="{leg:TranslateText('European Union Regulations')}"
   	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EURegulationsAmendedByUK" abbrev="eur?ukamended=true" class="euretained" category="Regulation" en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="{leg:TranslateText('EU_Regulations_Amended_By_UK')}" start="2018" complete="2018" revised="true" />
 	<tso:legType schemaType="EuropeanUnionDecision" abbrev="eudn" class="euretained" category="Decision"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="{leg:TranslateText('European Union Decisions')}"
   	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EUDecisionsAmendedByUK" abbrev="eudn?ukamended=true" class="euretained" category="Decision" en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="{leg:TranslateText('EU_Decisions_Amended_By_UK')}" start="2018" complete="2018" revised="true" />
 	<tso:legType schemaType="EuropeanUnionDirective" abbrev="eudr" class="euretained" category="Directive"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Directive" plural="{leg:TranslateText('European Union Directives')}"
   	start="2018" complete="2018" revised="true" />
