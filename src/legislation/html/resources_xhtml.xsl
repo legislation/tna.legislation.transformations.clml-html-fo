@@ -1138,12 +1138,12 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</li>
 
 				<!-- AKN links -->
-				<li>
+				<!--<li>
 					<a href="{$fullPath}/data.akn" class="aknLink">
 						<xsl:value-of select="$title"/>
 						<xsl:value-of select="' (Akoma Ntoso)'"/>
 					</a>
-				</li>
+				</li>-->
 			</xsl:if>
 		</xsl:for-each>
 	</xsl:template>
