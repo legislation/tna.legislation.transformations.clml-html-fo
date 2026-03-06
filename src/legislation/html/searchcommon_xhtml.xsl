@@ -78,7 +78,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="type" as="xs:string?" select="$paramsDoc/parameters/type" />
 	<xsl:variable name="year" as="xs:string?" select="$paramsDoc/parameters/year" />
 	<xsl:variable name="subject" as="xs:string?" select="$paramsDoc/parameters/subject" />
-	
+	<xsl:variable name="ukamended" as="xs:string?" select="($request-info/request/parameters/parameter[name='ukamended']/value,$paramsDoc/parameters/ukamended,'')[1]" />
+
 	<xsl:variable name="defaultSort" as="xs:string"
 		select="if ($paramsDoc/parameters/text[. != '']) then '' 
 		else if (/atom:feed/openSearch:Query/@leg:subject or (empty(/atom:feed/atom:entry/ukm:Number) and $year != '')) then 'subject' 
