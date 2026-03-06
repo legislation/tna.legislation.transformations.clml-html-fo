@@ -448,18 +448,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 					<xsl:variable name="title" select="tso:GetTitleFromType(@type, $maxYear)"/>
 
-					<xsl:variable name="isEURegOrDecision" select="contains($title,'Regulations originating from the EU')
-																or contains($title,'Decisions originating from the EU')"/>
 
-					<xsl:variable name="amended"
+					<xsl:variable name="amendedNode"
 						select="../leg:facetType[
 								@type = concat(current()/@type,'|ukamended=true')
 							]/@value"/>
 
-					<xsl:variable name="notAmended"
+					<xsl:variable name="notAmendedNode"
 						select="../leg:facetType[
 								@type = concat(current()/@type,'|ukamended=false')
 							]/@value"/>
+
+					<xsl:variable name="amended" select="$amendedNode/@value"/>
+					<xsl:variable name="notAmended" select="$notAmendedNode/@value"/>
+
+					<xsl:variable name="isEURegOrDecision" select="exists($amendedNode) or exists($notAmendedNode)"/>
 
 					<xsl:if test="$ukamended = ''">
 						<li class="legType">
@@ -487,7 +490,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 					<xsl:if test="$isEURegOrDecision">
 
-						<!-- amended -->
 						<xsl:if test="$ukamended = '' or $ukamended = 'true'">
 							<li class="legType">
 								<a href="{leg:SetParam(leg:GetLink(@href),'ukamended','true')}">
@@ -498,7 +500,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</li>
 						</xsl:if>
 
-						<!-- not amended -->
 						<xsl:if test="$ukamended = '' or $ukamended = 'false'">
 							<li class="legType">
 								<a href="{leg:SetParam(leg:GetLink(@href),'ukamended','false')}">
