@@ -275,9 +275,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<!--<div class="column1 s_3_5 p_{if (. = 1) then 'one' else 'two'}">-->
 						<div>
 							<ul class="plainList">
-								<xsl:copy-of
+								<!--<xsl:copy-of
 									select="$associatedDocuments/*[position() &gt;= $startGroup and position() &lt;= $endGroup]"
-								/>
+								/>-->
 								<!--[akn and html links]-->
 								<xsl:call-template name="generate-akn-html-links">
 									<xsl:with-param name="associated-docs" select="$associatedDocuments"/>
