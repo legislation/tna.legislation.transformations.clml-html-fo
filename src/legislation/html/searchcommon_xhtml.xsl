@@ -79,7 +79,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="year" as="xs:string?" select="$paramsDoc/parameters/year" />
 	<xsl:variable name="subject" as="xs:string?" select="$paramsDoc/parameters/subject" />
 	<xsl:variable name="ukamended" as="xs:string?" select="($request-info/request/parameters/parameter[name='ukamended']/value,$paramsDoc/parameters/ukamended,'')[1]" />
-
+	<xsl:variable name="isWelsh" select="$paramsDoc/parameters/wrapper = 'cy'"/>
 	<xsl:variable name="defaultSort" as="xs:string"
 		select="if ($paramsDoc/parameters/text[. != '']) then '' 
 		else if (/atom:feed/openSearch:Query/@leg:subject or (empty(/atom:feed/atom:entry/ukm:Number) and $year != '')) then 'subject' 
@@ -363,10 +363,155 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:apply-templates select="$params[self::theme]" mode="summary">
 					<xsl:with-param name="feed" select="." />
 				</xsl:apply-templates>
-							
+				<xsl:choose>
+						<xsl:when test="$params[self::year]">
+
+							<xsl:choose>
+								<xsl:when test="$ukamended = 'true'">
+									<span>
+										<xsl:choose>
+											<xsl:when test="$isWelsh">
+												<xsl:text> sydd wedi eu diwygio gan y DU </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> that are amended by the UK </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+									</span>
+								</xsl:when>
+
+								<xsl:when test="$ukamended = 'false'">
+									<span>
+										<xsl:choose>
+											<xsl:when test="$isWelsh">
+												<xsl:text> nad ydynt wedi eu diwygio gan y DU </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> that are not amended by the UK </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+									</span>
+								</xsl:when>
+							</xsl:choose>
+
+							<span>
+								<xsl:choose>
+									<xsl:when test="$isWelsh">
+										<xsl:text> o </xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:text>from </xsl:text>
+									</xsl:otherwise>
+								</xsl:choose>
+
+								<strong>
+									<xsl:value-of select="$params[self::year]" />
+								</strong>
+							</span>
+
+						</xsl:when>
+
+						<xsl:when test="$params[self::start-year] and $params[self::end-year]">
+
+							<xsl:choose>
+								<xsl:when test="$ukamended = 'true'">
+									<span>
+										<xsl:choose>
+											<xsl:when test="$isWelsh">
+												<xsl:text> sydd wedi eu diwygio gan y DU </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> that are amended by the UK </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+									</span>
+								</xsl:when>
+
+								<xsl:when test="$ukamended = 'false'">
+									<span>
+										<xsl:choose>
+											<xsl:when test="$isWelsh">
+												<xsl:text> nad ydynt wedi eu diwygio gan y DU </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> that are not amended by the UK </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+									</span>
+								</xsl:when>
+							</xsl:choose>
+
+							<span>
+								<xsl:choose>
+									<xsl:when test="$isWelsh">
+										<xsl:text> rhwng </xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:text>between </xsl:text>
+									</xsl:otherwise>
+								</xsl:choose>
+
+								<strong>
+									<xsl:value-of select="$params[self::start-year]" />
+								</strong>
+
+								<xsl:choose>
+									<xsl:when test="$isWelsh">
+										<xsl:text> a </xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:text> and </xsl:text>
+									</xsl:otherwise>
+								</xsl:choose>
+
+								<strong>
+									<xsl:value-of select="$params[self::end-year]" />
+								</strong>
+							</span>
+
+						</xsl:when>
+
+						<xsl:otherwise>
+
+							<xsl:apply-templates select="$params[self::start-year]" mode="summary"/>
+							<xsl:apply-templates select="$params[self::end-year]" mode="summary"/>
+
+							<xsl:choose>
+								<xsl:when test="$ukamended = 'true'">
+									<span>
+										<xsl:choose>
+											<xsl:when test="$isWelsh">
+												<xsl:text> sydd wedi eu diwygio gan y DU</xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> that are amended by the UK</xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+									</span>
+								</xsl:when>
+
+								<xsl:when test="$ukamended = 'false'">
+									<span>
+										<xsl:choose>
+											<xsl:when test="$isWelsh">
+												<xsl:text> nad ydynt wedi eu diwygio gan y DU</xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> that are not amended by the UK</xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+									</span>
+								</xsl:when>
+							</xsl:choose>
+
+						</xsl:otherwise>
+
+					</xsl:choose>
 				<xsl:choose>
 					<xsl:when test="$params[self::year]">
+					  <xsl:if test="not($ukamended)">
 						<xsl:apply-templates select="$params[self::year]" mode="summary"/>
+					  </xsl:if>
 					</xsl:when>
 					<xsl:when test="$params[self::start-year] and $params[self::end-year]">
 						<span>
