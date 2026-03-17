@@ -425,11 +425,23 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 				'contents'), '/')"/>
 		</xsl:variable>
 
+		<xsl:variable name="EN-toc-url">
+			<xsl:value-of select="string-join((
+				$parameters/*:parameters/*:leg-type,
+				$parameters/*:parameters/*:leg-year,
+				$parameters/*:parameters/*:leg-number,
+				'notes',
+				'contents'), '/')"/>
+		</xsl:variable>
+
 		<div class="toc-container">
 			<div class="toc-box">
 				<xsl:choose>
 					<xsl:when test="$parameters/*:parameters/*:notes-type = 'memorandum' ">
 						<a href="/{$EM-toc-url}">Explanatory Memorandum Table of Contents</a>
+					</xsl:when>
+					<xsl:when test="$parameters/*:parameters/*:notes-type = 'notes' ">
+						<a href="/{$EN-toc-url}">Explanatory Notes Table of Contents</a>
 					</xsl:when>
 					<xsl:otherwise>
 						<a href="/{$IA-toc-url}">Impact Assessment Table of Contents</a>
