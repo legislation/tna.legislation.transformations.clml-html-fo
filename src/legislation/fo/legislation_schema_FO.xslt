@@ -149,6 +149,8 @@ exclude-result-prefixes="tso atom">
 	<!-- use a value of FOP0.95 if FOP 0.95 is used to generate the footnote hacks -->
 	<xsl:param name="g_FOprocessor" select="'FOP1.0'" as="xs:string"/>
 	
+	<!-- Base URL for crest images passed from configuration (environment-specific: QA/UAT/PROD). Falls back to default path if not provided. -->
+	<xsl:param name="CrestImagePath" as="xs:string" select="''"/>
 	
 	<!-- ========== Global Constants ========== -->
 
@@ -159,7 +161,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:variable name="g_strConstantOutputTypePrimary" select="'PrimaryStyle'" as="xs:string"/>
 	<xsl:variable name="g_strConstantOutputTypeSecondary" select="'SecondaryStyle'" as="xs:string"/>
 	<xsl:variable name="g_strConstantOutputTypeEURetained" select="'euretainedStyle'" as="xs:string"/>
-	<xsl:variable name="g_strConstantImagesPath" select="'https://www.legislation.gov.uk/images/crests/'" as="xs:string"/>
+	<xsl:variable name="g_strConstantImagesPath" as="xs:string" select="if (string-length(normalize-space($CrestImagePath)) > 0) then normalize-space($CrestImagePath) else 'https://www.legislation.gov.uk/images/crests/'"/>
 	
 	
 	<xsl:variable name="g_documentLanguage" select="if (/leg:Legislation/@xml:lang) then /leg:Legislation/@xml:lang else 'en'"  as="xs:string"/>
