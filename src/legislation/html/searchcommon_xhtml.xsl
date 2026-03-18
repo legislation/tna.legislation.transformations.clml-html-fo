@@ -298,10 +298,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:variable name="href" as="xs:string"
 			select="replace($href, '[\?&amp;]$', '')" />
 		 <xsl:sequence select="
-					if ($isWelsh)
-					then concat('/cy', $href)
-					else $href
-				"/>
+				if ($isWelsh)
+				then concat('/cy', $href)
+				else $href
+			"/>
 	</xsl:function>	
 	
 	<xsl:template match="atom:link[@rel = ('prev', 'next')]">
