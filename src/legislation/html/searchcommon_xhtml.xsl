@@ -297,7 +297,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			select="replace($href, '\?level=search', '')" />
 		<xsl:variable name="href" as="xs:string"
 			select="replace($href, '[\?&amp;]$', '')" />
-		<xsl:sequence select="$href"/>
+		 <xsl:sequence select="
+				if ($isWelsh)
+				then concat('/cy', $href)
+				else $href
+			"/>
 	</xsl:function>	
 	
 	<xsl:template match="atom:link[@rel = ('prev', 'next')]">
@@ -508,11 +512,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 					</xsl:choose>
 				<xsl:choose>
-					<xsl:when test="$params[self::year]">
+					<!-- <xsl:when test="$params[self::year]">
 					  <xsl:if test="not($ukamended)">
 						<xsl:apply-templates select="$params[self::year]" mode="summary"/>
 					  </xsl:if>
-					</xsl:when>
+					</xsl:when> -->
 					<xsl:when test="$params[self::start-year] and $params[self::end-year]">
 						<span>
 							<xsl:text>between </xsl:text>
