@@ -349,7 +349,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<!-- <script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"></script>
 					<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"></script> -->
 
-					<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
+					<script type="text/javascript" src="/scripts/jquery-ui-1.14.2.custom.min.js"></script>
 					<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
 				</xsl:if>
 
