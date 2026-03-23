@@ -644,7 +644,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<xsl:attribute name="checked"/>
 										</xsl:if>
 									</input>
-									<label for="typeEUretained">
+									<label for="typeEUretainedAmended">
 										<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
 									</label>
 								</div>
