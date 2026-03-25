@@ -352,8 +352,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</option>
 			<option disabled="disabled">--------------------------------------------</option>
 
-				<option value="eu-origin?ukamended=true">
-					<xsl:if test="$selected = 'eu-origin?ukamended=true'">
+				<option value="eu-origin-ukamended">
+					<xsl:if test="contains($selected, 'eu-origin-ukamended')">
 						<xsl:attribute name="selected" select="'selected'" />
 					</xsl:if>
 					<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
