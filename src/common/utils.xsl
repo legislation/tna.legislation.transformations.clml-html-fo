@@ -639,7 +639,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>
 						<xsl:if test="$showEUretained">
 								<div id="allEuropeanAmended" class="typeCheckBoxCol">
-									<input type="checkbox" name="type" value="eu-origin?ukamended=true" id="typeEUretainedAmended">
+									<input type="checkbox" name="type" value="eu-origin-ukamended" id="typeEUretainedAmended">
 										<xsl:if test="contains($selected, 'eu-origin?ukamended=true')">
 											<xsl:attribute name="checked"/>
 										</xsl:if>
