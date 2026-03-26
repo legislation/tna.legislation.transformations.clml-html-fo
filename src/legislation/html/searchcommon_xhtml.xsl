@@ -223,24 +223,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:variable name="lastPage" as="xs:integer" select="min(($lastKnownPage, (if ($thisPage &lt;=5 and $maxPageSetSize = 10) then $maxPageSetSize else $thisPage + ($maxPageSetSize div 2) - 1)))" />
 		
 				
-		<xsl:variable name="baseLink" as="xs:string" select="leg:GetLink(atom:link[@rel = 'first']/@href)"/>
-
-		<xsl:variable name="link" as="xs:string"
-									select="
-									concat(
-										if ($isWelsh) then '/cy/' else '/',
-										$paramsDoc/parameters/type,
-										'/',
-										$paramsDoc/parameters/year,
-										'?',
-										if ($ukamended != '') then concat('ukamended=', $ukamended) else '',
-										if ($paramsDoc/parameters/text != '') then concat(
-											if ($ukamended != '') then '&amp;' else '',
-											'text=',
-											encode-for-uri($paramsDoc/parameters/text)
-										) else ''
-									)
-									"/>
+		<xsl:variable name="link" as="xs:string" select="leg:GetLink(atom:link[@rel = 'first']/@href)"/>
 			<div class="prevPagesNextNav">
 				<ul>
 					<xsl:if test="$thisPage > 1 or leg:morePages > 0">
@@ -323,28 +306,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 	<xsl:template match="atom:link[@rel = ('prev', 'next')]">
 		<li class="pageLink {@rel}">
-			<xsl:variable name="page" select="replace(@href, '.*page=([0-9]+).*', '$1')" />
-
-				 <a href="{concat(
-                if ($isWelsh) then '/cy/' else '/',
-                $paramsDoc/parameters/type,
-                '/',
-                $paramsDoc/parameters/year,
-                '?',
-                if ($ukamended != '') then concat('ukamended=', $ukamended) else '',
-                if ($paramsDoc/parameters/text != '') then concat(
-                    if ($ukamended != '') then '&amp;' else '',
-                    'text=',
-                    encode-for-uri($paramsDoc/parameters/text)
-                ) else '',
-                '&amp;page=',
-                $page,
-                if ($paramsDoc/parameters/type = 'ukia') then concat(
-                    if ($paramsDoc/parameters/start != '') then concat('&amp;start=', $paramsDoc/parameters/start) else '',
-                    if ($paramsDoc/parameters/end != '') then concat('&amp;end=', $paramsDoc/parameters/end) else ''
-                ) else ''
-            )}"
-           title="{if (@rel ='prev') then 'previous' else 'next'} page">
+			<a href="{leg:GetLink(concat(@href, if ($paramsDoc/parameters/type = 'ukia') then concat(if ($paramsDoc/parameters/start != '') then concat('&amp;start=', $paramsDoc/parameters/start) else '',if ($paramsDoc/parameters/end != '') then concat('&amp;end=', $paramsDoc/parameters/end) else '') else ''))}" title="{if (@rel ='prev') then 'previous' else @rel} page">
 				<span class="btl"/>
 				<span class="btr"/>
 				<xsl:choose>
@@ -891,7 +853,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 	
 	<xsl:template match="number" mode="summary">
-		<xsl:if test="string-length(.) > 0 and not(matches($type, '^(|all|secondary|eu-origin)$'))">
+	  <xsl:variable name="types" select="tokenize(normalize-space($paramsDoc/parameters/type), '( |\+)')" />
+	  <xsl:variable name="isSpecificType" select="count($types) = 1 and not($types = ('all','primary','secondary','draft','eu-origin','uk'))"/>
+	<xsl:if test="string-length(.) > 0 and $isSpecificType">
 			<span>
 				<xsl:text>numbered </xsl:text>
 				<xsl:apply-templates select="../series" mode="summary" />
