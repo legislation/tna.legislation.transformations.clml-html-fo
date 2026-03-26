@@ -853,9 +853,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 	
 	<xsl:template match="number" mode="summary">
-	  <xsl:variable name="types" select="tokenize(normalize-space($paramsDoc/parameters/type), '( |\+)')" />
-	  <xsl:variable name="isSpecificType" select="count($types) = 1 and not($types = ('all','primary','secondary','draft','eu-origin','uk'))"/>
-	<xsl:if test="string-length(.) > 0 and $isSpecificType">
+	  <xsl:if test="string-length(.) > 0">
 			<span>
 				<xsl:text>numbered </xsl:text>
 				<xsl:apply-templates select="../series" mode="summary" />
