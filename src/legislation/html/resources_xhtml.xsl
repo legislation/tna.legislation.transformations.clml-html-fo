@@ -1091,7 +1091,14 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<xsl:variable name="file" select="tokenize($link, '/')[last()]"/>
 
 			<!-- Extract counter number (remove leading zeros) -->
-			<xsl:variable name="versionRaw" select="substring-before(tokenize($file, '_')[last()], '.pdf')"/>
+			<xsl:variable name="versionRaw">
+				<xsl:choose>
+					<xsl:when test="matches($file, '_\d+\.pdf')">
+						<xsl:value-of select="substring-before(tokenize($file, '_')[last()], '.pdf')"/>
+					</xsl:when>
+					<xsl:otherwise>1</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
 			<xsl:variable name="counter" select="replace($versionRaw, '^0+', '')"/>
 
 			<!-- Extract base path: /type/year/number -->
@@ -1103,12 +1110,22 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<xsl:when test="$type = 'IA'"/>
 					<xsl:otherwise>
 						<xsl:choose>
-							<xsl:when test="contains($link, 'em_')">memorandum/</xsl:when>
-							<xsl:when test="contains($link, 'cs_')">cs/</xsl:when>
-							<xsl:when test="contains($link, 'od_')">od/</xsl:when>
+							<xsl:when test="contains($link, 'em_')">
+								<xsl:text>memorandum/</xsl:text>
+								<xsl:value-of select="$counter"/>
+							</xsl:when>
+							<xsl:when test="matches($link, 'en_\d{8}')">
+								<xsl:text>notes</xsl:text>
+							</xsl:when>
+							<xsl:when test="contains($link, 'cs_')">
+								<xsl:text>cs/</xsl:text>
+							</xsl:when>
+							<xsl:when test="contains($link, 'od_')">
+								<xsl:text>od/</xsl:text>
+								<xsl:value-of select="$counter"/>
+							</xsl:when>
 							<xsl:otherwise>memorandum</xsl:otherwise>
 						</xsl:choose>
-						<xsl:value-of select="$counter"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
@@ -1128,7 +1145,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<!-- pdf links -->
 			<xsl:copy-of select="current()"/>
 
-			<xsl:if test="$type = 'IA' or contains($link, 'em_') or contains($link, 'en_')">
+			<xsl:if test="$type = 'IA' or contains($link, 'em_') or matches($link, 'en_\d{8}')">
 				<!-- HTML links -->
 				<li>
 					<a href="{$fullPath}/data.html" class="htmLink">
