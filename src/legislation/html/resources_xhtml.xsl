@@ -1128,7 +1128,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<!-- pdf links -->
 			<xsl:copy-of select="current()"/>
 
-			<xsl:if test="$type = 'IA' or contains($link, 'em_')">
+			<xsl:if test="$type = 'IA' or contains($link, 'em_') or contains($link, 'en_')">
 				<!-- HTML links -->
 				<li>
 					<a href="{$fullPath}/data.html" class="htmLink">
