@@ -853,7 +853,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 	
 	<xsl:template match="number" mode="summary">
-		<xsl:if test="string-length(.) > 0">
+	  <xsl:if test="string-length(.) > 0">
 			<span>
 				<xsl:text>numbered </xsl:text>
 				<xsl:apply-templates select="../series" mode="summary" />

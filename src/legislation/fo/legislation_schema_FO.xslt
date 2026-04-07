@@ -2083,7 +2083,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:BlockAmendment[@Context = 'main' or @Context='unknown']//leg:P1//leg:P2" priority="4">
-		<xsl:param name="titleOutput" as="xs:boolean"/>
+		<xsl:param name="titleOutput" as="xs:boolean?"/>
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
