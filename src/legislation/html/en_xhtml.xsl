@@ -283,36 +283,36 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 							<xsl:if test="leg:IsEnTOC()">
 								<div id="info{if (leg:IsDraft(.)) then 'Draft' else 'Section'}">
-									<h2><xsl:value-of select="leg:TranslateText('Please note')" />: </h2>
-									<p class="intro">
-										<xsl:choose>
-											<xsl:when test="leg:IsEnPDFOnly(.)">
-												<xsl:variable name="translatedTitleType" select="leg:TranslateText(tso:GetTitleFromType($documentMainType,''))"/>
-												<xsl:choose>
-
-													<xsl:when test="leg:IsDraft(.)">
-														<xsl:value-of select="leg:TranslateText('EN_draft_message',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
-													</xsl:when>
-
-													<xsl:when test="$uriPrefix = 'uksi' and $IsEnAvailable and $IsEmAvailable">
-														<xsl:value-of select="leg:TranslateText('EN_Intro')" />
-													</xsl:when>
-													<xsl:when test="$uriPrefix = ('mwa','anaw', 'asc') and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
-														<xsl:value-of select="leg:TranslateText('EN_Intro2')" />
-													</xsl:when>
-													<xsl:when test="exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
-														<xsl:value-of select="leg:TranslateText('EN_Intro3',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
-													</xsl:when>
-													<xsl:otherwise>
-														<xsl:value-of select="leg:TranslateText('EN_Intro4',concat('type=',$enShortLabel))"/>
-													</xsl:otherwise>
-												</xsl:choose>
-											</xsl:when>
-											<xsl:otherwise>
-												<xsl:value-of select="leg:TranslateText('EN_Intro5',(concat('title=',$legislationTitle), concat('type=',$enLabel)))"/><a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>.
-											</xsl:otherwise>
-										</xsl:choose>
-									</p>
+									<xsl:if test="not($aknDoc//akn:toc)">
+										<h2><xsl:value-of select="leg:TranslateText('Please note')" />: </h2>
+										<p class="intro">
+											<xsl:choose>
+												<xsl:when test="leg:IsEnPDFOnly(.)">
+													<xsl:variable name="translatedTitleType" select="leg:TranslateText(tso:GetTitleFromType($documentMainType,''))"/>
+													<xsl:choose>
+														<xsl:when test="leg:IsDraft(.)">
+															<xsl:value-of select="leg:TranslateText('EN_draft_message',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
+														</xsl:when>
+														<xsl:when test="$uriPrefix = 'uksi' and $IsEnAvailable and $IsEmAvailable">
+															<xsl:value-of select="leg:TranslateText('EN_Intro')" />
+														</xsl:when>
+														<xsl:when test="$uriPrefix = ('mwa','anaw', 'asc') and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
+															<xsl:value-of select="leg:TranslateText('EN_Intro2')" />
+														</xsl:when>
+														<xsl:when test="exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
+															<xsl:value-of select="leg:TranslateText('EN_Intro3',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:value-of select="leg:TranslateText('EN_Intro4',concat('type=',$enShortLabel))"/>
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:value-of select="leg:TranslateText('EN_Intro5',(concat('title=',$legislationTitle), concat('type=',$enLabel)))"/><a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>.
+												</xsl:otherwise>
+											</xsl:choose>
+										</p>
+									</xsl:if>
 								</div>
 							</xsl:if>
 
