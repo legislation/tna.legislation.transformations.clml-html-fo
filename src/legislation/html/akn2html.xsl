@@ -100,6 +100,7 @@ article[data-doc-type='ImpactAssessment'] .paragraph:not(.num) {
 	border: 1px solid black;
 	width: 100%;
 	margin: 6pt 0;
+	table-layout: fixed;
 }
 
 .ia-table th,
@@ -119,7 +120,8 @@ article[data-doc-type='ImpactAssessment'] .paragraph:not(.num) {
 	height: 4pt;
 }
 
-.ia-table td:empty {
+.ia-table td:empty,
+.ia-table td:has(> p:only-child:empty) {
 	display: none !important;
 }
 
@@ -169,6 +171,38 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 .toc-box a { color: inherit; text-decoration: none;}
 .toc-box a:hover,.toc-box a:focus {text-decoration: underline;}
 
+/* Shared heading styles for text-oriented leg documents */
+article[data-doc-type='ExplanatoryNotes'] .preface,
+article[data-doc-type='CodeOfPractice'] .preface,
+article[data-doc-type='TranspositionNote'] .preface {
+	margin-bottom: 1.5em;
+}
+article[data-doc-type='ExplanatoryNotes'] .preface &gt; p,
+article[data-doc-type='CodeOfPractice'] .preface &gt; p,
+article[data-doc-type='TranspositionNote'] .preface &gt; p {
+	font-size: 20pt;
+	line-height: 1.2;
+	margin: 0 0 6pt 0;
+	font-weight: bold;
+}
+article[data-doc-type='ExplanatoryNotes'] section.section &gt; h2,
+article[data-doc-type='CodeOfPractice'] section.section &gt; h2,
+article[data-doc-type='TranspositionNote'] section.section &gt; h2 {
+	font-size: 14pt;
+	font-weight: bold;
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+/* Legacy "level with inline bold p" pattern used for introductory/sub-headings */
+article[data-doc-type='ExplanatoryNotes'] section.level &gt; p:only-child &gt; b:only-child,
+article[data-doc-type='CodeOfPractice'] section.level &gt; p:only-child &gt; b:only-child,
+article[data-doc-type='TranspositionNote'] section.level &gt; p:only-child &gt; b:only-child {
+	font-size: 14pt;
+	display: inline-block;
+	margin-top: 0.5em;
+	margin-bottom: 0.25em;
+}
+
 </style>
 </xsl:template>
 
@@ -214,7 +248,7 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 				<xsl:text> heading</xsl:text>
 			</xsl:if>
 		</xsl:attribute>
-		<xsl:if test="num | heading">
+		<xsl:if test="(num | heading)[normalize-space(.) != '']">
 			<h2>
 				<xsl:apply-templates select="num | heading" />
 			</h2>
@@ -255,8 +289,8 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 
 <!-- inline -->
 
-<!-- Hide section headings - they're for semantic structure, not display -->
-<xsl:template match="section/heading">
+<!-- Hide section headings for IA - they're for semantic structure, not display -->
+<xsl:template match="doc[@name='ImpactAssessment']//section/heading">
 	<!-- Hidden for semantic purposes only -->
 </xsl:template>
 
@@ -275,8 +309,9 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 <xsl:template match="img">
 	<img>
 		<xsl:attribute name="src">
-			<xsl:sequence select="concat(substring-after($doc-id, '/id'), '/', @src)" />
+			<xsl:sequence select="concat($image-base, $doc-id, '/', @src)" />
 		</xsl:attribute>
+		<xsl:attribute name="alt" select="(@alt, '')[1]" />
 		<xsl:apply-templates />
 	</img>
 </xsl:template>
@@ -308,9 +343,13 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 			</xsl:attribute>
 		</xsl:if>
 		<xsl:if test="exists(@uk:widths)">
+			<xsl:variable name="widths" as="xs:string*" select="tokenize(@uk:widths, ' ')" />
+			<xsl:variable name="total-in" as="xs:double"
+				select="sum(for $w in $widths return xs:double(replace($w, '[^0-9.]', '')))" />
 			<colgroup>
-				<xsl:for-each select="tokenize(@uk:widths, ' ')">
-					<col style="width:{.}" />
+				<xsl:for-each select="$widths">
+					<xsl:variable name="w-in" as="xs:double" select="xs:double(replace(., '[^0-9.]', ''))" />
+				<col style="width:{round($w-in div $total-in * 10000) div 100}%" />
 				</xsl:for-each>
 			</colgroup>
 		</xsl:if>
@@ -320,7 +359,7 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 	</table>
 </xsl:template>
 
-<xsl:template match="tr | td">
+<xsl:template match="tr | td | th">
 	<xsl:element name="{ local-name() }">
 		<xsl:copy-of select="@*" />
 		<xsl:apply-templates />
@@ -355,9 +394,9 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 <!-- footnotes -->
 
 <xsl:template match="authorialNote">
-	<span class="fn">
+	<a class="fn" id="fnref-{@marker}" href="#fn-{@marker}">
 		<xsl:value-of select="@marker" />
-	</span>
+	</a>
 </xsl:template>
 
 <xsl:template name="footnotes">
@@ -381,12 +420,24 @@ article[data-doc-type='ImpactAssessment'] .hcontainer.summary table td table tr:
 		<xsl:if test="@class">
 			<xsl:attribute name="class" select="@class" />
 		</xsl:if>
-		<span class="marker">
+		<a class="marker" id="fn-{../@marker}" href="#fnref-{../@marker}">
 			<xsl:value-of select="../@marker" />
-		</span>
+		</a>
 		<xsl:text> </xsl:text>
 		<xsl:apply-templates />
 	</xsl:element>
+</xsl:template>
+
+<!-- Auto-link bare URLs in footnote text -->
+<xsl:template match="authorialNote//text()">
+	<xsl:analyze-string select="." regex="https?://[^\s&lt;&gt;]+">
+		<xsl:matching-substring>
+			<a href="{.}"><xsl:value-of select="." /></a>
+		</xsl:matching-substring>
+		<xsl:non-matching-substring>
+			<xsl:value-of select="." />
+		</xsl:non-matching-substring>
+	</xsl:analyze-string>
 </xsl:template>
 
 <xsl:template match="toc"></xsl:template>
