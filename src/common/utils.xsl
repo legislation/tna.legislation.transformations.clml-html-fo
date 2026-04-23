@@ -607,14 +607,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 						<xsl:if test="$showPrimary">
 						  <div class="primaryContent">
-						  <div class="primaryContent">
 							<input type="checkbox" name="type" value="primary" id="typePrimary">
 								<xsl:if test="contains($selected, 'primary')">
 									<xsl:attribute name="checked"/>
 								</xsl:if>
 							</input>
 							<label for="typePrimary"><xsl:value-of select="leg:TranslateText('All Primary')"/></label>
-						  </div>
 						  </div>
 						</xsl:if>
 					</div>
@@ -648,7 +646,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<xsl:attribute name="checked"/>
 										</xsl:if>
 									</input>
-									<label for="typeEUretained">
+									<label for="typeEUretainedAmended">
 										<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
 									</label>
 								</div>
