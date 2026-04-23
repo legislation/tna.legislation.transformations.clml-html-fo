@@ -92,8 +92,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					 <script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"></script> 
 					 <script type="text/javascript" src="/scripts/advancedsearch/jquery.ui.datepicker.min.js"></script> -->
 
-					<link rel="stylesheet" href="/styles/advancedsearch/jquery-ui-1.14.1.min.css" type="text/css" />
-					<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
+					<!-- jQuery UI 1.14.1 update -->
+					<!-- <link rel="stylesheet" href="/styles/advancedsearch/jquery-ui-1.14.1.min.css" type="text/css" />
+					<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script> -->
+
+					<link rel="stylesheet" href="/styles/advancedsearch/jquery-ui-1.14.2.min.css" type="text/css" />
+					<script type="text/javascript" src="/scripts/jquery-ui-1.14.2.custom.min.js"></script>
 				</xsl:if>
 
 			</head>
