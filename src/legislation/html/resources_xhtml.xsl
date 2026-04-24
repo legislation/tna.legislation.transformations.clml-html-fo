@@ -1128,6 +1128,10 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 								<xsl:text>code-of-practice/</xsl:text>
 								<xsl:value-of select="$counter"/>
 							</xsl:when>
+							<xsl:when test="matches($link, 'tn_\d{8}')">
+								<xsl:text>transposition-note/</xsl:text>
+								<xsl:value-of select="$counter"/>
+							</xsl:when>
 							<xsl:otherwise>memorandum</xsl:otherwise>
 						</xsl:choose>
 					</xsl:otherwise>
@@ -1149,7 +1153,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<!-- pdf links -->
 			<xsl:copy-of select="current()"/>
 
-			<xsl:if test="$type = 'IA' or contains($link, 'em_') or matches($link, '(en|od|cop)_\d{8}')">
+			<xsl:if test="$type = 'IA' or contains($link, 'em_') or matches($link, '(en|od|cop|tn)_\d{8}')">
 				<!-- HTML links -->
 				<li>
 					<a href="{$fullPath}/data.html" class="htmLink">
