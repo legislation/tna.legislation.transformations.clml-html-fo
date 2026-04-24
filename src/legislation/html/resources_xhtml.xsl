@@ -1120,8 +1120,12 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							<xsl:when test="contains($link, 'cs_')">
 								<xsl:text>cs/</xsl:text>
 							</xsl:when>
-							<xsl:when test="contains($link, 'od_')">
-								<xsl:text>od/</xsl:text>
+							<xsl:when test="matches($link, 'od_\d{8}')">
+								<xsl:text>other-document/</xsl:text>
+								<xsl:value-of select="$counter"/>
+							</xsl:when>
+							<xsl:when test="matches($link, 'cop_\d{8}')">
+								<xsl:text>code-of-practice/</xsl:text>
 								<xsl:value-of select="$counter"/>
 							</xsl:when>
 							<xsl:otherwise>memorandum</xsl:otherwise>
@@ -1145,7 +1149,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<!-- pdf links -->
 			<xsl:copy-of select="current()"/>
 
-			<xsl:if test="$type = 'IA' or contains($link, 'em_') or matches($link, 'en_\d{8}')">
+			<xsl:if test="$type = 'IA' or contains($link, 'em_') or matches($link, '(en|od|cop)_\d{8}')">
 				<!-- HTML links -->
 				<li>
 					<a href="{$fullPath}/data.html" class="htmLink">
