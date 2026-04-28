@@ -442,60 +442,48 @@ article[data-doc-type='TranspositionNote'] section.level &gt; p:only-child &gt; 
 
 <!--[ TOC Link Header ]-->
 	<xsl:template name="header">
-		<xsl:variable name="IA-toc-url">
+		<xsl:variable name="p" select="$parameters/*:parameters"/>
+		<xsl:variable name="type" select="$p/*:notes-type"/>
+		<xsl:variable name="leg-path" select="string-join(($p/*:leg-type, $p/*:leg-year, $p/*:leg-number), '/')"/>
+
+		<xsl:variable name="uri-path">
 			<xsl:choose>
-				<xsl:when test="$parameters/*:parameters/*:leg-type !=''">
-					<xsl:value-of select="string-join((
-						$parameters/*:parameters/*:leg-type,
-						$parameters/*:parameters/*:leg-year,
-						$parameters/*:parameters/*:leg-number,
-						'impacts',
-						$parameters/*:parameters/*:impact-year,
-						$parameters/*:parameters/*:impact-number,
-						'contents'), '/')"/>
+				<xsl:when test="$type = 'memorandum'">
+					<xsl:value-of select="string-join(($leg-path, 'memorandum', $p/*:counter, 'contents'), '/')"/>
+				</xsl:when>
+				<xsl:when test="$type = 'notes'">
+					<xsl:value-of select="string-join(($leg-path, 'notes', 'contents'), '/')"/>
+				</xsl:when>
+				<xsl:when test="$type = 'transposition-note'">
+					<xsl:value-of select="string-join(($leg-path, 'transposition-note', $p/*:counter, 'contents'), '/')"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="string-join((
-						$parameters/*:parameters/*:impact-type,
-						$parameters/*:parameters/*:impact-year,
-						$parameters/*:parameters/*:impact-number,
-						'contents'), '/')"/>
+					<xsl:choose>
+						<xsl:when test="$p/*:leg-type != ''">
+							<xsl:value-of select="string-join(($leg-path, 'impacts', $p/*:impact-year, $p/*:impact-number, 'contents'), '/')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="string-join(($p/*:impact-type, $p/*:impact-year, $p/*:impact-number, 'contents'), '/')"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 
-		<xsl:variable name="EM-toc-url">
-			<xsl:value-of select="string-join((
-				$parameters/*:parameters/*:leg-type,
-				$parameters/*:parameters/*:leg-year,
-				$parameters/*:parameters/*:leg-number,
-				'memorandum',
-				$parameters/*:parameters/*:counter,
-				'contents'), '/')"/>
-		</xsl:variable>
-
-		<xsl:variable name="EN-toc-url">
-			<xsl:value-of select="string-join((
-				$parameters/*:parameters/*:leg-type,
-				$parameters/*:parameters/*:leg-year,
-				$parameters/*:parameters/*:leg-number,
-				'notes',
-				'contents'), '/')"/>
+		<xsl:variable name="label">
+			<xsl:choose>
+				<xsl:when test="$type = 'memorandum'">Explanatory Memorandum Table of Contents</xsl:when>
+				<xsl:when test="$type = 'notes'">Explanatory Notes Table of Contents</xsl:when>
+				<xsl:when test="$type = 'transposition-note'">Transposition Note Table of Contents</xsl:when>
+				<xsl:otherwise>Impact Assessment Table of Contents</xsl:otherwise>
+			</xsl:choose>
 		</xsl:variable>
 
 		<div class="toc-container">
 			<div class="toc-box">
-				<xsl:choose>
-					<xsl:when test="$parameters/*:parameters/*:notes-type = 'memorandum' ">
-						<a href="/{$EM-toc-url}">Explanatory Memorandum Table of Contents</a>
-					</xsl:when>
-					<xsl:when test="$parameters/*:parameters/*:notes-type = 'notes' ">
-						<a href="/{$EN-toc-url}">Explanatory Notes Table of Contents</a>
-					</xsl:when>
-					<xsl:otherwise>
-						<a href="/{$IA-toc-url}">Impact Assessment Table of Contents</a>
-					</xsl:otherwise>
-				</xsl:choose>
+				<a href="/{normalize-space($uri-path)}">
+					<xsl:value-of select="$label"/>
+				</a>
 			</div>
 		</div>
 	</xsl:template>
