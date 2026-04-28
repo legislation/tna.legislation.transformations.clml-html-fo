@@ -313,7 +313,13 @@
 					<xsl:value-of select="string-join(($leg-path, 'notes', 'contents'), '/')"/>
 				</xsl:when>
 				<xsl:when test="$type = 'transposition-note'">
-					<xsl:value-of select="string-join(($leg-path, 'transposition-note', $p/*:counter, 'contents'), '/')"/>
+					<xsl:value-of select="string-join(($leg-path, 'transposition-note', $p/*:counter, 'contents', 'data.html'), '/')"/>
+				</xsl:when>
+				<xsl:when test="$type = 'other-document'">
+					<xsl:value-of select="string-join(($leg-path, 'other-document', $p/*:counter, 'contents', 'data.html'), '/')"/>
+				</xsl:when>
+				<xsl:when test="$type = 'code-of-practice'">
+					<xsl:value-of select="string-join(($leg-path, 'code-of-practice', $p/*:counter, 'contents', 'data.html'), '/')"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:choose>
@@ -333,6 +339,8 @@
 				<xsl:when test="$type = 'memorandum'">Explanatory Memorandum Table of Contents</xsl:when>
 				<xsl:when test="$type = 'notes'">Explanatory Notes Table of Contents</xsl:when>
 				<xsl:when test="$type = 'transposition-note'">Transposition Note Table of Contents</xsl:when>
+				<xsl:when test="$type = 'other-document'">Other Document Table of Contents</xsl:when>
+				<xsl:when test="$type = 'code-of-practice'">Code-of-Practice Table of Contents</xsl:when>
 				<xsl:otherwise>Impact Assessment Table of Contents</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
