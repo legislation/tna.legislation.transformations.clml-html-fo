@@ -107,7 +107,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 	<xsl:template match="akn:tocItem" mode="toc">
-		<xsl:variable name="url" select="replace(substring-after(@href, 'http://www.legislation.gov.uk'), $pattern, '')"/>
+		<xsl:variable name="url" select="substring-after(@href, 'http://www.legislation.gov.uk')"/>
 		<xsl:variable name="link">
 			<xsl:value-of select="concat(replace($url, '//+', '/'), '/data.html')"/>
 		</xsl:variable>
