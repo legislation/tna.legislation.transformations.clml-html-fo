@@ -93,11 +93,18 @@
 
 <xsl:template match="level | section | paragraph | subparagraph | hcontainer">
 	<section>
+		<xsl:if test="@eId">
+			<xsl:attribute name="id" select="@eId" />
+		</xsl:if>
 		<xsl:attribute name="class">
 			<xsl:value-of select="local-name(.)" />
 			<xsl:if test="@name">
 				<xsl:text> </xsl:text>
 				<xsl:value-of select="@name" />
+			</xsl:if>
+			<xsl:if test="@class">
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="@class" />
 			</xsl:if>
 			<xsl:if test="num">
 				<xsl:text> num</xsl:text>
@@ -135,6 +142,9 @@
 <xsl:template match="p">
 	<xsl:element name="{ local-name() }">
 		<xsl:copy-of select="@class" />
+		<xsl:if test="@eId">
+			<xsl:attribute name="id" select="@eId" />
+		</xsl:if>
 		<xsl:apply-templates />
 	</xsl:element>
 </xsl:template>
@@ -145,12 +155,16 @@
 	</p>
 </xsl:template>
 
-<!-- inline -->
+<!-- IA cover-sheet sections (class="summary") preserve their visible
+     headers as DOCX-styled paragraphs in the body content. The section
+     <heading> is needed for AKN structure and TOC but rendering it would
+     duplicate the visible header. Other IA sections (e.g. "Declaration",
+     numbered chapters) keep their <heading> and render normally. -->
 
-<!-- Hide section headings for IA - they're for semantic structure, not display -->
-<xsl:template match="doc[@name='ImpactAssessment']//section/heading">
-	<!-- Hidden for semantic purposes only -->
+<xsl:template match="doc[@name='ImpactAssessment']//section[contains(concat(' ', @class, ' '), ' summary ')]/heading">
+	<!-- Hidden: visible heading lives in the body content. -->
 </xsl:template>
+<!-- inline -->
 
 <xsl:template match="num | heading | docType | docNumber | docTitle | docStage | docDate | docProponent | date">
 	<span class="{ local-name() }">
@@ -286,8 +300,16 @@
 	</xsl:element>
 </xsl:template>
 
-<!-- Auto-link bare URLs in footnote text -->
-<xsl:template match="authorialNote//text()">
+<!-- Drop leading tab markers in the first paragraph of a footnote. Some
+     source DOCX files use a tab between the footnote number and text;
+     others don't. Suppressing makes spacing consistent. Priority "2"
+     wins over the generic marker[@name='tab'] template. -->
+<xsl:template match="authorialNote/p[1]/marker[@name='tab'][not(preceding-sibling::node()[normalize-space()])]" priority="2" />
+
+<!-- Auto-link bare URLs in footnote text. Skip text that's already inside
+     an <a> in the source AKN — wrapping it again produces nested <a>s,
+     which are invalid HTML. -->
+<xsl:template match="authorialNote//text()[not(ancestor::a)]">
 	<xsl:analyze-string select="." regex="https?://[^\s&lt;&gt;]+">
 		<xsl:matching-substring>
 			<a href="{.}"><xsl:value-of select="." /></a>
@@ -315,13 +337,13 @@
 					<xsl:value-of select="string-join(($leg-path, 'notes', 'contents'), '/')"/>
 				</xsl:when>
 				<xsl:when test="$type = 'transposition-note'">
-					<xsl:value-of select="string-join(($leg-path, 'transposition-note', $p/*:counter, 'contents', 'data.html'), '/')"/>
+					<xsl:value-of select="string-join(($leg-path, 'transposition-note', $p/*:counter, 'contents'), '/')"/>
 				</xsl:when>
 				<xsl:when test="$type = 'other-document'">
-					<xsl:value-of select="string-join(($leg-path, 'other-document', $p/*:counter, 'contents', 'data.html'), '/')"/>
+					<xsl:value-of select="string-join(($leg-path, 'other-document', $p/*:counter, 'contents'), '/')"/>
 				</xsl:when>
 				<xsl:when test="$type = 'code-of-practice'">
-					<xsl:value-of select="string-join(($leg-path, 'code-of-practice', $p/*:counter, 'contents', 'data.html'), '/')"/>
+					<xsl:value-of select="string-join(($leg-path, 'code-of-practice', $p/*:counter, 'contents'), '/')"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:choose>
@@ -336,25 +358,20 @@
 			</xsl:choose>
 		</xsl:variable>
 
-		<xsl:variable name="label">
-			<xsl:choose>
-				<xsl:when test="$type = 'memorandum'">Explanatory Memorandum Table of Contents</xsl:when>
-				<xsl:when test="$type = 'notes'">Explanatory Notes Table of Contents</xsl:when>
-				<xsl:when test="$type = 'transposition-note'">Transposition Note Table of Contents</xsl:when>
-				<xsl:when test="$type = 'other-document'">Other Document Table of Contents</xsl:when>
-				<xsl:when test="$type = 'code-of-practice'">Code-of-Practice Table of Contents</xsl:when>
-				<xsl:otherwise>Impact Assessment Table of Contents</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
+		<header class="toc-header">
+			<a class="toc-link" href="/{normalize-space($uri-path)}">Back to Table of Contents</a>
+			<nav class="section-nav">
+				<!-- Disabled placeholders. Frontend hooks them up to point at
+			     the previous/next section's URL when those views exist. -->
+				<a class="section-link prev-section disabled" aria-disabled="true">Previous section</a>
+				<a class="section-link next-section disabled" aria-disabled="true">Next section</a>
+				</nav>
+		<!-- Back to full view: disabled on the whole-doc HTML (you are
+		     already on full view); frontend activates it on section views. -->
+			<a class="full-view-link disabled" aria-disabled="true">Back to full view</a>
+		</header>
 
-		<div class="toc-container">
-			<div class="toc-box">
-				<a href="/{normalize-space($uri-path)}">
-					<xsl:value-of select="$label"/>
-				</a>
-			</div>
-		</div>
-	</xsl:template>
+		</xsl:template>
 
 <!-- end of templates -->
 
