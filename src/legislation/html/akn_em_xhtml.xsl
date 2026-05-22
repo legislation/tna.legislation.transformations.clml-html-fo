@@ -114,7 +114,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<p class="LegContentsItem">
 				<span class="LegDS LegContentsTitle">
 					<a href="{$link}">
-						<xsl:value-of select="$title"/>
+						<xsl:value-of select="leg:truncate-text($title, 130)"/>
 					</a>
 				</span>
 			</p>

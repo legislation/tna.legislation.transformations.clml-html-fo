@@ -1315,4 +1315,22 @@ It will get correct language string for the current language -->
 		<!-- take everything after that -->
 		<xsl:sequence select="string-join($parts[position() > $last-non-num], '.')"/>
 	</xsl:function>
+
+	<xsl:function name="leg:truncate-text" as="xs:string">
+		<xsl:param name="text" as="xs:string?"/>
+		<xsl:param name="max-length" as="xs:integer"/>
+
+		<xsl:variable name="value" select="normalize-space(string($text))"/>
+
+		<xsl:sequence select="
+			if (string-length($value) le $max-length)
+			then $value
+			else
+				concat(
+					replace(
+						replace(substring($value, 1, $max-length), '\s+\S*$',''), '[.,;:!?]+$', ''),
+					'...'
+				)
+			"/>
+	</xsl:function>
 </xsl:stylesheet>
