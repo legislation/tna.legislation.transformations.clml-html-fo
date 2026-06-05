@@ -49,6 +49,12 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	<xsl:variable name="documentMainType" as="xs:string"
 				  select="leg:GetDocumentMainType(/)"/>
 
+	<xsl:variable name="associated-doc-enable" as="document-node()?" select="
+		if (doc-available('input:associated-doc-enable')) then
+		doc('input:associated-doc-enable')
+		else
+		()"/>
+
 	<xsl:output indent="yes" method="xhtml"/>
 
 	<xsl:template match="/">
@@ -1153,7 +1159,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<!-- pdf links -->
 			<xsl:copy-of select="current()"/>
 
-			<xsl:if test="$type = 'IA' or contains($link, 'em_') or matches($link, '(en|od|cop|tn)_\d{8}')">
+			<xsl:if test="
+				($type = 'IA' and string($associated-doc-enable/*:root/*:IA-AD) = 'true')
+				or (contains($link, 'em_') and string($associated-doc-enable/*:root/*:EM-AD) = 'true')
+				or (matches($link, 'en_\d{8}') and string($associated-doc-enable/*:root/*:EN-AD) = 'true')
+				or (matches($link, 'od_\d{8}') and string($associated-doc-enable/*:root/*:OD-AD) = 'true')
+				or (matches($link, 'cop_\d{8}') and string($associated-doc-enable/*:root/*:COP-AD) = 'true')
+				or (matches($link, 'tn_\d{8}') and string($associated-doc-enable/*:root/*:TN-AD) = 'true')">
 				<!-- HTML links -->
 				<li>
 					<a href="{$fullPath}/data.html" class="htmLink">
