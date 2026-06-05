@@ -326,7 +326,7 @@
 	<xsl:template name="header">
 		<xsl:variable name="p" select="$parameters/*:parameters"/>
 		<xsl:variable name="type" select="$p/*:notes-type"/>
-		<xsl:variable name="leg-path" select="string-join(($p/*:leg-type, $p/*:leg-year, $p/*:leg-number), '/')"/>
+		<xsl:variable name="leg-path" select="string-join(($p/*:type, $p/*:year, $p/*:number), '/')"/>
 
 		<xsl:variable name="uri-path">
 			<xsl:choose>
@@ -347,11 +347,11 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:choose>
-						<xsl:when test="$p/*:leg-type != ''">
-							<xsl:value-of select="string-join(($leg-path, 'impacts', $p/*:impact-year, $p/*:impact-number, 'contents'), '/')"/>
+						<xsl:when test="$p/*:type != ''">
+							<xsl:value-of select="string-join(($leg-path, 'impacts', $p/*:impactyear, $p/*:impactnumber, 'contents'), '/')"/>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:value-of select="string-join(($p/*:impact-type, $p/*:impact-year, $p/*:impact-number, 'contents'), '/')"/>
+							<xsl:value-of select="string-join(($p/*:impacttype, $p/*:impactyear, $p/*:impactnumber, 'contents'), '/')"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:otherwise>

@@ -368,7 +368,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:choose>
 					<xsl:when test="leg:IsEnPDFOnly(.)">
 						<xsl:choose>
-							<xsl:when test="string($flag//*:root//*:EM) = 'true'">
+							<xsl:when test="string($flag//*:root//*:EM-AD) = 'true'">
 								<div class="LegContents LegClearFix">
 									<ol>
 										<xsl:apply-templates select="$aknDoc//akn:toc" mode="toc"/>
