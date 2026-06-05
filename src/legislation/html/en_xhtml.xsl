@@ -195,7 +195,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		()"/>
 
 	<xsl:variable name="aknDoc" as="document-node()?" select="
-		if (doc-available('input:aknData') and string($flag//*:root//*:EM) = 'true') then
+		if (doc-available('input:aknData') and string($flag//*:root//*:EM-AD) = 'true') then
 		doc('input:aknData')
 		else
 		()"/>
