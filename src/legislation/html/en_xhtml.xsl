@@ -289,7 +289,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 							<xsl:if test="leg:IsEnTOC()">
 								<div id="info{if (leg:IsDraft(.)) then 'Draft' else 'Section'}">
-									<xsl:if test="not($aknDoc//akn:toc)">
+									<xsl:if test="not($aknDoc//akn:toc) or ($paramsDoc/parameters/notes-type = 'memorandum')">
 										<h2><xsl:value-of select="leg:TranslateText('Please note')" />: </h2>
 										<p class="intro">
 											<xsl:choose>
