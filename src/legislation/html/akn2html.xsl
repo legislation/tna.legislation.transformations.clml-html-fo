@@ -5,6 +5,7 @@
 	xmlns:uk="https://legislation.gov.uk/akn"
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:atom="http://www.w3.org/2005/Atom"
 	exclude-result-prefixes="uk html xs">
 
 <xsl:output method="html" version="5" encoding="utf-8" indent="yes" include-content-type="no" />
@@ -25,7 +26,7 @@
 	<xsl:variable name="work-uri" as="xs:string">
 		<xsl:sequence select="/akomaNtoso/*/meta/identification/FRBRWork/FRBRthis/@value" />
 	</xsl:variable>
-	<xsl:variable name="long-form-prefix" as="xs:string" select="'http://legislation.gov.uk/id/'" />
+	<xsl:variable name="long-form-prefix" as="xs:string" select="'http://www.legislation.gov.uk/id'" />
 	<xsl:choose>
 		<xsl:when test="starts-with($work-uri, $long-form-prefix)">
 			<xsl:sequence select="substring-after($work-uri, $long-form-prefix)" />
