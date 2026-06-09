@@ -325,53 +325,99 @@
 <!--[ TOC Link Header ]-->
 	<xsl:template name="header">
 		<xsl:variable name="p" select="$parameters/*:parameters"/>
-		<xsl:variable name="type" select="$p/*:notes-type"/>
-		<xsl:variable name="leg-path" select="string-join(($p/*:type, $p/*:year, $p/*:number), '/')"/>
+		<xsl:variable name="section" select="$p/*:section"/>
+		<xsl:variable name="prev" select="substring-after(//atom:link[@rel='prev'][1]/@href, 'http://www.legislation.gov.uk')"/>
+		<xsl:variable name="next" select="substring-after(//atom:link[@rel='next'][1]/@href, 'http://www.legislation.gov.uk')"/>
+		<xsl:variable name="full-view" select="concat($doc-id, '/data.html')"/>
 
-		<xsl:variable name="uri-path">
+		<xsl:variable name="is-section-view" select="$section != ''"/>
+		<xsl:variable name="has-prev" select="$prev != '' and $prev != $doc-id"/>
+		<xsl:variable name="has-next" select="$next != ''"/>
+
+		<xsl:variable name="uri-path" as="xs:string">
 			<xsl:choose>
-				<xsl:when test="$type = 'memorandum'">
-					<xsl:value-of select="string-join(($leg-path, 'memorandum', $p/*:counter, 'contents'), '/')"/>
+				<xsl:when test="$p/*:IA = 'yes' and $p/*:type != ''">
+					<xsl:sequence select="
+						string-join(
+						($p/*:type,
+						$p/*:year,
+						$p/*:number,
+						'impacts',
+						$p/*:impactyear,
+						$p/*:impactnumber,
+						'contents'),
+						'/'
+						)"/>
 				</xsl:when>
-				<xsl:when test="$type = 'notes'">
-					<xsl:value-of select="string-join(($leg-path, 'notes', 'contents'), '/')"/>
-				</xsl:when>
-				<xsl:when test="$type = 'transposition-note'">
-					<xsl:value-of select="string-join(($leg-path, 'transposition-note', $p/*:counter, 'contents'), '/')"/>
-				</xsl:when>
-				<xsl:when test="$type = 'other-document'">
-					<xsl:value-of select="string-join(($leg-path, 'other-document', $p/*:counter, 'contents'), '/')"/>
-				</xsl:when>
-				<xsl:when test="$type = 'code-of-practice'">
-					<xsl:value-of select="string-join(($leg-path, 'code-of-practice', $p/*:counter, 'contents'), '/')"/>
+				<xsl:when test="$p/*:IA = 'yes'">
+					<xsl:sequence select="
+						string-join(
+						($p/*:impacttype,
+						$p/*:impactyear,
+						$p/*:impactnumber,
+						'contents'),
+						'/'
+						)"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:choose>
-						<xsl:when test="$p/*:type != ''">
-							<xsl:value-of select="string-join(($leg-path, 'impacts', $p/*:impactyear, $p/*:impactnumber, 'contents'), '/')"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="string-join(($p/*:impacttype, $p/*:impactyear, $p/*:impactnumber, 'contents'), '/')"/>
-						</xsl:otherwise>
-					</xsl:choose>
+					<xsl:sequence select="concat($doc-id, '/contents')"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 
 		<header class="toc-header">
-			<a class="toc-link" href="/{normalize-space($uri-path)}">Back to Table of Contents</a>
+			<a class="toc-link" href="{normalize-space($uri-path)}">Back to Table of Contents</a>
 			<nav class="section-nav">
 				<!-- Disabled placeholders. Frontend hooks them up to point at
 			     the previous/next section's URL when those views exist. -->
-				<a class="section-link prev-section disabled" aria-disabled="true">Previous section</a>
-				<a class="section-link next-section disabled" aria-disabled="true">Next section</a>
-				</nav>
-		<!-- Back to full view: disabled on the whole-doc HTML (you are
+
+				<!-- Previous -->
+				<xsl:choose>
+					<xsl:when test="$has-prev">
+						<a class="section-link prev-section"
+							href="{$prev}/data.html">
+							<xsl:text>Previous section</xsl:text>
+						</a>
+					</xsl:when>
+					<xsl:otherwise>
+						<a class="section-link prev-section disabled" aria-disabled="true">
+							<xsl:text>Previous section</xsl:text>
+						</a>
+					</xsl:otherwise>
+				</xsl:choose>
+
+				<!-- Next -->
+				<xsl:choose>
+					<xsl:when test="$has-next">
+						<a class="section-link next-section" href="{$next}/data.html">
+							<xsl:text>Next section</xsl:text>
+						</a>
+					</xsl:when>
+					<xsl:otherwise>
+						<a class="section-link next-section disabled"
+							aria-disabled="true">
+							<xsl:text>Next section</xsl:text>
+						</a>
+					</xsl:otherwise>
+				</xsl:choose>
+			</nav>
+			<!-- Back to full view: disabled on the whole-doc HTML (you are
 		     already on full view); frontend activates it on section views. -->
-			<a class="full-view-link disabled" aria-disabled="true">Back to full view</a>
+			<xsl:choose>
+				<xsl:when test="$is-section-view">
+					<a class="full-view-link" href="{$full-view}">
+						<xsl:text>Back to full view</xsl:text>
+					</a>
+				</xsl:when>
+				<xsl:otherwise>
+					<a class="full-view-link disabled" aria-disabled="true">
+						<xsl:text>Back to full view</xsl:text>
+					</a>
+				</xsl:otherwise>
+			</xsl:choose>
 		</header>
 
-		</xsl:template>
+	</xsl:template>
 
 <!-- end of templates -->
 
