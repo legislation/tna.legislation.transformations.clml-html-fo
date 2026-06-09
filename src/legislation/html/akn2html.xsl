@@ -181,7 +181,7 @@
 
 <xsl:template match="img">
 	<img>
-		<xsl:attribute name="src" select="@src" />
+		<xsl:attribute name="src" select="substring-after(@src, 'http://www.legislation.gov.uk')"/>
 		<xsl:attribute name="alt" select="(@alt, '')[1]" />
 		<xsl:apply-templates />
 	</img>
