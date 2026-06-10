@@ -94,6 +94,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<div class="LegSnippet" id="viewLegSnippet">
 				<div class="LegContents LegClearFix">
 					<ol>
+						<xsl:call-template name="toc-link-whole-html-page"/>
 						<xsl:apply-templates select="$aknDoc//akn:toc" mode="toc"/>
 					</ol>
 				</div>
@@ -128,6 +129,51 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<span class="LegDS LegContentsTitle">
 					<a href="{$link}">
 						<xsl:value-of select="leg:truncate-text($title, 100)"/>
+					</a>
+				</span>
+			</p>
+		</li>
+	</xsl:template>
+
+	<xsl:template name="toc-link-whole-html-page">
+		<xsl:variable name="url" select="substring-after($aknDoc//akn:FRBRWork/akn:FRBRuri[1]/@value, 'http://www.legislation.gov.uk/id')"/>
+		<xsl:variable name="link">
+			<xsl:value-of select="concat(replace($url, '//+', '/'), '/data.html')"/>
+		</xsl:variable>
+		<xsl:variable name="indent" select="'margin-left: 1em'"/>
+
+		<xsl:variable name="title">
+			<xsl:choose>
+				<xsl:when test="$paramsDoc/parameters/IA = 'yes'">
+					<xsl:text>The whole Impact Assessment</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'memorandum'">
+					<xsl:text>The whole Explanatory Memorandum</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'notes'">
+					<xsl:text>The whole Explanatory Note</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'transposition-note'">
+					<xsl:text>The whole Transposition Note</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'other-document'">
+					<xsl:text>The whole Other Document</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'code-of-practice'">
+					<xsl:text>The whole Code of Practice</xsl:text>
+				</xsl:when>
+				<!--<xsl:otherwise>
+					<xsl:text>No title</xsl:text>
+				</xsl:otherwise>-->
+			</xsl:choose>
+		</xsl:variable>
+
+		<li class="LegContentsEntry" style="{$indent} !important">
+			<p class="LegContentsItem LegClearFix">
+				<span class="LegDS LegContentsNo"/>
+				<span class="LegDS LegContentsTitle">
+					<a href="{$link}">						
+						<xsl:value-of select="$title"/>
 					</a>
 				</span>
 			</p>

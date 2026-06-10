@@ -126,6 +126,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</span>
 						</div>
 						<div class="toc">
+							<xsl:call-template name="toc-link-whole-html-page"/>
 							<xsl:apply-templates select="//akn:toc" mode="plain-html"/>
 						</div>
 					</div>
@@ -150,6 +151,53 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<!--<span class="inline tocNum">
 					<xsl:value-of select="$label"/>
 				</span>-->
+				<span class="inline tocHeading">
+					<xsl:value-of select="$title"/>
+				</span>
+			</a>
+		</div>
+	</xsl:template>
+
+	<xsl:template name="toc-link-whole-html-page">
+		<xsl:variable name="url" select="substring-after($aknDoc//akn:FRBRWork/akn:FRBRuri[1]/@value, 'http://www.legislation.gov.uk/id')"/>
+		<xsl:variable name="link">
+			<xsl:value-of select="concat(replace($url, '//+', '/'), '/data.html')"/>
+		</xsl:variable>
+		<xsl:variable name="label">
+			<!--<xsl:value-of select="tso:extract-label($url)"/>-->
+		</xsl:variable>
+
+		<xsl:variable name="title">
+			<xsl:choose>
+				<xsl:when test="$paramsDoc/parameters/IA = 'yes'">
+					<xsl:text>The whole Impact Assessment</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'memorandum'">
+					<xsl:text>The whole Explanatory Memorandum</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'notes'">
+					<xsl:text>The whole Explanatory Note</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'transposition-note'">
+					<xsl:text>The whole Transposition Note</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'other-document'">
+					<xsl:text>The whole Other Document</xsl:text>
+				</xsl:when>
+				<xsl:when test="$paramsDoc/parameters/notes-type = 'code-of-practice'">
+					<xsl:text>The whole Code of Practice</xsl:text>
+				</xsl:when>
+				<!--<xsl:otherwise>
+					<xsl:text>No title</xsl:text>
+				</xsl:otherwise>-->
+			</xsl:choose>
+		</xsl:variable>
+
+		<div class="tocItem" data-level="1" href="{$link}" data-ukl-name="ContentsItem">
+			<a href="{$link}">
+				<span class="inline tocNum">
+					<xsl:value-of select="$label"/>
+				</span>
 				<span class="inline tocHeading">
 					<xsl:value-of select="$title"/>
 				</span>
