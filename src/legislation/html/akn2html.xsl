@@ -339,7 +339,7 @@
 			<xsl:choose>
 				<xsl:when test="$p/*:IA = 'yes' and $p/*:type != ''">
 					<xsl:sequence select="
-						string-join(
+						concat('/',string-join(
 						($p/*:type,
 						$p/*:year,
 						$p/*:number,
@@ -348,17 +348,17 @@
 						$p/*:impactnumber,
 						'contents'),
 						'/'
-						)"/>
+						))"/>
 				</xsl:when>
 				<xsl:when test="$p/*:IA = 'yes'">
 					<xsl:sequence select="
-						string-join(
+						concat('/',string-join(
 						($p/*:impacttype,
 						$p/*:impactyear,
 						$p/*:impactnumber,
 						'contents'),
 						'/'
-						)"/>
+						))"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:sequence select="concat($doc-id, '/contents')"/>
