@@ -1216,14 +1216,14 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 
 				<xsl:variable name="akndata" select="document($query-url)"/>
 
-				<!--<xsl:if test="$akndata/*:document">-->
+				<xsl:if test="$akndata/*:document">
 					<li>
-						<a href="{$fullPath}/data.html" class="htmLink" test="{$query-url}">
+						<a href="{$fullPath}/data.html" class="htmLink">
 							<xsl:value-of select="$title"/>
 							<xsl:text> (HTML5)</xsl:text>
 						</a>
 					</li>
-				<!--</xsl:if>-->
+				</xsl:if>
 			</xsl:if>
 		</xsl:for-each>
 	</xsl:template>
