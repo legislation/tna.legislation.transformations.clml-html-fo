@@ -1159,7 +1159,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 
 			<!-- html links -->
 			<xsl:variable name="p" select="$paramsDoc/*:parameters"/>
-			<xsl:variable name="db" select="'http://$USERNAME:$PASSWORD@$DBHOST:$DBPORT/queries/associated-docs.xq'"/>
+			<xsl:variable name="db" select="'http://@USERNAME@:@PASSWORD@@@DBHOST@:@DBPORT@/queries/associated-docs.xq'"/>
 
 			<!-- Determine document metadata -->
 			<xsl:variable name="doc-code">
