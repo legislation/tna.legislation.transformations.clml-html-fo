@@ -172,7 +172,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<p class="LegContentsItem LegClearFix">
 				<span class="LegDS LegContentsNo"/>
 				<span class="LegDS LegContentsTitle">
-					<a href="{$link}">						
+					<a href="{$link}">
 						<xsl:value-of select="$title"/>
 					</a>
 				</span>
