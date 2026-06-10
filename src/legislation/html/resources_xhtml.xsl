@@ -1089,13 +1089,14 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		<xsl:param name="type"/>
 
 		<xsl:for-each select="$associated-docs/*[position() >= $startGroup and position() &lt;= $endGroup]">
-
 			<xsl:variable name="link" select="current()/*:a/@href"/>
 			<xsl:variable name="title" select="current()/*:a"/>
-
+			<xsl:variable name="parts" select="tokenize(substring-after($link, 'http://www.legislation.gov.uk/'), '/')" />
+			<xsl:variable name="impacttype" select="$parts[1]" />
+			<xsl:variable name="impactyear" select="$parts[2]" />
+			<xsl:variable name="impactnumber" select="$parts[3]" />
 			<!-- Extract filename -->
 			<xsl:variable name="file" select="tokenize($link, '/')[last()]"/>
-
 			<!-- Extract counter number (remove leading zeros) -->
 			<xsl:variable name="versionRaw">
 				<xsl:choose>
@@ -1106,10 +1107,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</xsl:choose>
 			</xsl:variable>
 			<xsl:variable name="counter" select="replace($versionRaw, '^0+', '')"/>
-
 			<!-- Extract base path: /type/year/number -->
 			<xsl:variable name="basePath" select="substring-before($link, '/pdfs/')"/>
-
 			<!-- Map document type -->
 			<xsl:variable name="docType">
 				<xsl:choose>
@@ -1143,7 +1142,6 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
-
 			<!-- Map document type -->
 			<xsl:variable name="fullPath">
 				<xsl:choose>
@@ -1157,30 +1155,75 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			</xsl:variable>
 
 			<!-- pdf links -->
-			<xsl:copy-of select="current()"/>
+			<xsl:copy-of select="."/>
 
-			<xsl:if test="
-				($type = 'IA' and string($associated-doc-enable/*:root/*:IA-AD) = 'true')
-				or (contains($link, 'em_') and string($associated-doc-enable/*:root/*:EM-AD) = 'true')
-				or (matches($link, 'en_\d{8}') and string($associated-doc-enable/*:root/*:EN-AD) = 'true')
-				or (matches($link, 'od_\d{8}') and string($associated-doc-enable/*:root/*:OD-AD) = 'true')
-				or (matches($link, 'cop_\d{8}') and string($associated-doc-enable/*:root/*:COP-AD) = 'true')
-				or (matches($link, 'tn_\d{8}') and string($associated-doc-enable/*:root/*:TN-AD) = 'true')">
-				<!-- HTML links -->
-				<li>
-					<a href="{$fullPath}/data.html" class="htmLink">
-						<xsl:value-of select="$title"/>
-						<xsl:value-of select="' (HTML5)'"/>
-					</a>
-				</li>
+			<!-- html links -->
+			<xsl:variable name="p" select="$paramsDoc/*:parameters"/>
+			<xsl:variable name="db" select="'http://$USERNAME:$PASSWORD@$DBHOST:$DBPORT/queries/associated-docs.xq'"/>
 
-				<!-- AKN links -->
-				<!--<li>
-					<a href="{$fullPath}/data.akn" class="aknLink">
-						<xsl:value-of select="$title"/>
-						<xsl:value-of select="' (Akoma Ntoso)'"/>
-					</a>
-				</li>-->
+			<!-- Determine document metadata -->
+			<xsl:variable name="doc-code">
+				<xsl:choose>
+					<xsl:when test="$type = 'IA'">IA</xsl:when>
+					<xsl:when test="contains($link,'em_')">EM</xsl:when>
+					<xsl:when test="matches($link,'en_\d{8}')">EN</xsl:when>
+					<xsl:when test="matches($link,'od_\d{8}')">OD</xsl:when>
+					<xsl:when test="matches($link,'cop_\d{8}')">COP</xsl:when>
+					<xsl:when test="matches($link,'tn_\d{8}')">TN</xsl:when>
+				</xsl:choose>
+			</xsl:variable>
+
+			<xsl:variable name="notes-type">
+				<xsl:choose>
+					<xsl:when test="$doc-code='EM'">memorandum</xsl:when>
+					<xsl:when test="$doc-code='EN'">notes</xsl:when>
+					<xsl:when test="$doc-code='OD'">other-document</xsl:when>
+					<xsl:when test="$doc-code='COP'">code-of-practice</xsl:when>
+					<xsl:when test="$doc-code='TN'">transposition-note</xsl:when>
+				</xsl:choose>
+			</xsl:variable>
+
+			<xsl:variable name="feature-name" select="concat($doc-code, '-AD')"/>
+			<xsl:variable name="enabled" select="string($associated-doc-enable/*:root/*[local-name() = $feature-name]) = 'true'"/>
+
+			<xsl:if test="$enabled">
+				<xsl:variable name="query-url">
+					<xsl:choose>
+						<xsl:when test="$doc-code='IA'">
+							<xsl:value-of
+								select="concat(
+								$db,
+								'?impacttype=', $impacttype,
+								'&amp;impactyear=', $impactyear,
+								'&amp;impactnumber=', $impactnumber,
+								'&amp;level=basic-metadata&amp;lang=en'
+								)"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of
+								select="concat(
+								$db,
+								'?type=', $p/*:type,
+								'&amp;year=', $p/*:year,
+								'&amp;number=', $p/*:number,
+								'&amp;counter=', $counter,
+								'&amp;notes-type=', $notes-type,
+								'&amp;level=basic-metadata&amp;lang=en'
+								)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+
+				<xsl:variable name="akndata" select="document($query-url)"/>
+
+				<xsl:if test="$akndata/*:document">
+					<li>
+						<a href="{$fullPath}/data.html" class="htmLink">
+							<xsl:value-of select="$title"/>
+							<xsl:text> (HTML5)</xsl:text>
+						</a>
+					</li>
+				</xsl:if>
 			</xsl:if>
 		</xsl:for-each>
 	</xsl:template>
