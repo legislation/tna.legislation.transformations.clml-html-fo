@@ -289,7 +289,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 							<xsl:if test="leg:IsEnTOC()">
 								<div id="info{if (leg:IsDraft(.)) then 'Draft' else 'Section'}">
-									<xsl:if test="not($aknDoc//akn:toc) or ($paramsDoc/parameters/notes-type = ('memorandum', 'notes'))">
 										<h2><xsl:value-of select="leg:TranslateText('Please note')" />: </h2>
 										<p class="intro">
 											<xsl:choose>
@@ -305,8 +304,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 														<xsl:when test="$uriPrefix = ('mwa','anaw', 'asc') and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
 															<xsl:value-of select="leg:TranslateText('EN_Intro2')" />
 														</xsl:when>
+														<xsl:when test="($aknDoc//akn:toc) and ($paramsDoc/parameters/notes-type = ('memorandum', 'notes')) and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
+															<xsl:value-of select="leg:TranslateText('EM_Intro_revised',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
+														</xsl:when>
 														<xsl:when test="exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
 															<xsl:value-of select="leg:TranslateText('EN_Intro3',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
+														</xsl:when>
+														<xsl:when test="($aknDoc//akn:toc) and ($paramsDoc/parameters/notes-type = ('memorandum', 'notes'))">
+															<xsl:value-of select="leg:TranslateText('EM_Intro_enacted',concat('type=',$enShortLabel))"/>
 														</xsl:when>
 														<xsl:otherwise>
 															<xsl:value-of select="leg:TranslateText('EN_Intro4',concat('type=',$enShortLabel))"/>
@@ -318,7 +323,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												</xsl:otherwise>
 											</xsl:choose>
 										</p>
-									</xsl:if>
 								</div>
 							</xsl:if>
 
