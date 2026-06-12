@@ -259,7 +259,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<param ref-id="type"/> is only available to download and view as PDF.
 		</resource>
 		<resource id="EM_Intro_revised">This is a revised <param ref-id="type"/> to <param ref-id="legtype"/>. The unrevised version of the <param ref-id="type"/> can be accessed via the More Resources tab.</resource>
-		<resource id="EM_Intro_enacted">This <param ref-id="type"/> is only available to download and view via the More Resources tab.</resource>
+		<resource id="EM_Intro_enacted">This <param ref-id="type"/> is available to download and view via the More Resources tab.</resource>
 		<resource id="item_available_as_pdf_only">This item of legislation is only available to download and view as PDF.</resource>
 		<resource id="Memorandum">Memorandwm</resource>
 		<resource id="Note">Nodyn</resource>
@@ -1799,7 +1799,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="EN_Intro3">This is a revised <param ref-id="type"/> to <param ref-id="legtype"/>. The unrevised version of the <param ref-id="type"/> can be accessed via the More Resources tab. This <param ref-id="type"/> is only available to download and view in PDF.</resource>
 		<resource id="EN_Intro4">This <param ref-id="type"/> is only available to download and view as PDF.</resource>
 		<resource id="EM_Intro_revised">This is a revised <param ref-id="type"/> to <param ref-id="legtype"/>. The unrevised version of the <param ref-id="type"/> can be accessed via the More Resources tab.</resource>
-		<resource id="EM_Intro_enacted">This <param ref-id="type"/> is only available to download and view via the More Resources tab.</resource>
+		<resource id="EM_Intro_enacted">This <param ref-id="type"/> is available to download and view via the More Resources tab.</resource>
 		<!-- this next 2 resources are output one after the other, 'click here' is in a link element-->
 		<resource id="EN_Intro5">All reference to 'Parts' and 'sections' are from the <param ref-id="title"/>. For other versions of these <param ref-id="type"/>, see </resource>
 		<resource id="click here">click here</resource>
