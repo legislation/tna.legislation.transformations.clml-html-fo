@@ -128,16 +128,6 @@ exclude-result-prefixes="tso">
 							<xsl:text>&#160;</xsl:text>
 						</xsl:if>
 					</xsl:if>
-					<!-- LEGDEV-9907: add option for first node being an element like InternalLink whose text() won't fullfill the above xsl:if requirements -->
-					<xsl:if test="name(parent::node()/parent::node())='Title' and name(../../..)='P1group' and (ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@TargetClass = 'primary' and not(@Context='schedule')]] or ancestor::leg:P1group/@Layout = 'side')">
-						<!-- Title can have multiple elements, the Pnumber should only appear infront of the first text() -->
-						<xsl:if test="not(preceding-sibling::*)">
-							<xsl:apply-templates select="../../../leg:P1[1]/leg:Pnumber/text()"/>
-							<xsl:value-of select="../../../leg:P1[1]/leg:Pnumber/@PuncAfter"/>
-							<xsl:text>&#160;</xsl:text>
-						</xsl:if>
-					</xsl:if>
-					
 					<xsl:analyze-string select="$ndsText" regex="\w+—$">
 						<xsl:matching-substring>
 							<fo:inline keep-together.within-line="always">
