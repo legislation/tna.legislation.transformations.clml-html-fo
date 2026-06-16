@@ -838,7 +838,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					</xsl:if>
 					<xsl:if test="tso:countryType($documentMainType) = 'Wales'">
 						<li>
-							<a href="{leg:TranslateText('http://senedd.wales/en')}" target="_blank">
+							<a href="{leg:TranslateText('http://senedd.wales')}" target="_blank">
 								<xsl:value-of select="leg:TranslateText('Welsh Parliament')"/>
 								<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"
 									 class="newWin"/>

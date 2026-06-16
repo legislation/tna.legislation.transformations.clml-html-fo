@@ -297,11 +297,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			select="replace($href, '\?level=search', '')" />
 		<xsl:variable name="href" as="xs:string"
 			select="replace($href, '[\?&amp;]$', '')" />
-		 <xsl:sequence select="
-				if ($isWelsh)
-				then concat('/cy', $href)
-				else $href
-			"/>
+		<xsl:sequence select="$href"/>
 	</xsl:function>	
 	
 	<xsl:template match="atom:link[@rel = ('prev', 'next')]">
