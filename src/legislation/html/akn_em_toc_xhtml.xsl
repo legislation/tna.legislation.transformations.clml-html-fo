@@ -40,7 +40,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<div class="LegSnippet" xml:lang="{$language}">
 				<xsl:choose>
 					<xsl:when
-						test="$paramsDoc/parameters/view = 'contents' and $paramsDoc/parameters/notes-type = ('memorandum', 'notes')">
+						test="$paramsDoc/parameters/view = 'contents' and $paramsDoc/parameters/notes-type = ('memorandum', 'notes') and $aknDoc//akn:toc">
 						<xsl:if test="$aknDoc//akn:toc">
 							<xsl:attribute name="id">tocControlsAdded</xsl:attribute>
 						</xsl:if>
