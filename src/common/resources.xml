@@ -107,7 +107,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Act of the Welsh Parliament">Deddf Senedd Cymru</resource>
 		<resource id="Welsh Parliament">Senedd Cymru</resource>
 		<resource id="http://www.senedd.wales">http://www.senedd.cymru</resource>
-		<resource id="http://senedd.wales/en">http://senedd.cymru/cy</resource>
+		<resource id="http://senedd.wales">http://senedd.cymru</resource>
 		<resource id="Acts of the Senedd Cymru">Deddfau Senedd Cymru</resource>
 		<resource id="Acts of Senedd Cymru">Deddfau Senedd Cymru</resource>
 		<resource id="Acts of the Welsh Parliament">Deddfau Senedd Cymru</resource>
@@ -1122,6 +1122,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="European Union Decisions">Penderfyniadau yn deillio o’r UE</resource>
 			<resource id="European Union Treaties">Cytuniadau’r Undeb Ewropeaidd</resource>
 			<resource id="European Union">Undeb Ewropeaidd</resource>
+			<resource id="EU_Regulations_Amended_By_UK">Rheoliadau yn deillio o’r UE sydd wedi eu diwygio gan y DU</resource>
+			<resource id="EU_Regulations_Not_Amended_By_UK">Rheoliadau yn deillio o’r UE nad ydynt wedi eu diwygio gan y DU</resource>
+			<resource id="EU_Decisions_Amended_By_UK">Penderfyniadau yn deillio o’r UE sydd wedi eu diwygio gan y DU</resource>
+			<resource id="EU_Decisions_Not_Amended_By_UK">Penderfyniadau yn deillio o’r UE nad ydynt wedi eu diwygio gan y DU</resource>
+			<resource id="European Union Amended">Yr holl Ddeddfwriaeth sy’n deillio o’r UE sydd wedi ei diwygio gan y DU</resource>
+			<resource id="legislation_including_eu"> Deddfwriaeth (gan gynnwys yn deillio o’r UE)</resource>
 		<!--End Browse EU-->
 		<!-- EU-UK-Reg -->
 		<resource id="eu_uk_all">Deddfwriaeth yn deillio o’r UE</resource>
@@ -1959,10 +1965,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
       </span>
     </resource>
     <resource id="European_Union_All">All Legislation originating from the EU</resource>
+		<resource id="European Union Amended">All Legislation originating from the EU that is amended by the UK</resource>
 		<resource id="European Union Directives">Directives originating from the EU</resource>
 		<resource id="European Union Regulations">Regulations originating from the EU</resource>
 		<resource id="European Union Decisions">Decisions originating from the EU</resource>
 		<resource id="European Union Treaties">European Union Treaties</resource>
+		<resource id="EU_Regulations_Amended_By_UK">Regulations originating from the EU that are amended by the UK</resource>
+		<resource id="EU_Decisions_Amended_By_UK">Decisions originating from the EU that are amended by the UK</resource>
+		<resource id="legislation_including_eu"> Legislation (including originating from EU)</resource>
 		<!--End Browse EU-->
 
 		<!-- EU-UK-Reg -->

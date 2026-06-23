@@ -349,7 +349,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<!-- <script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"></script>
 					<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"></script> -->
 
-					<script type="text/javascript" src="/scripts/jquery-ui-1.14.1.custom.min.js"></script>
+					<script type="text/javascript" src="/scripts/jquery-ui-1.14.2.custom.min.js"></script>
 					<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
 				</xsl:if>
 
@@ -1414,26 +1414,29 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:variable>
 									<li>
 										<a class="pdfLink" href="{@URI}">
-											<xsl:choose>
-												<!--added revised version-->
-												<xsl:when test="@Title/starts-with(., 'Reprint')">
-													<xsl:value-of select="leg:TranslateText(@Title)"/>
-												</xsl:when>
-												<!--added revised version-->
-												<xsl:when test="exists(@Revised)">
-													<xsl:value-of select="leg:TranslateText('PDF_Revised_Version')"/>
-													<xsl:text> </xsl:text>
-													<xsl:value-of select="if (@Revised castable as xs:date) then format-date(@Revised,'[D]/[M]/[Y]') else @Revised"/>
-												</xsl:when>
-												<xsl:when test="$documentMainType = $createdTypes">
-													<xsl:value-of select="leg:TranslateText('Original Print PDF')"/>
-												</xsl:when>
-												<xsl:otherwise>
-													<xsl:value-of select="leg:TranslateText('PDF_Versions_final')"/>
-												</xsl:otherwise>
-											</xsl:choose>
+											<xsl:variable name="printer">
+												<xsl:choose>
+													<!--added revised version-->
+													<xsl:when test="@Title/starts-with(., 'Reprint')">
+														<xsl:value-of select="leg:TranslateText(@Title)"/>
+													</xsl:when>
+													<!--added revised version-->
+													<xsl:when test="exists(@Revised)">
+														<xsl:value-of select="leg:TranslateText('PDF_Revised_Version')"/>
+														<xsl:text> </xsl:text>
+														<xsl:value-of select="if (@Revised castable as xs:date) then format-date(@Revised,'[D]/[M]/[Y]') else @Revised"/>
+													</xsl:when>
+													<xsl:when test="$documentMainType = $createdTypes">
+														<xsl:value-of select="leg:TranslateText('Original Print PDF')"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="leg:TranslateText('PDF_Versions_final')"/>
+													</xsl:otherwise>
+												</xsl:choose>
+											</xsl:variable>
+											<xsl:value-of select="$printer"/>
 
-											<xsl:if test="string-length($title) ne 0 and not(@Revised) and not(@Title/starts-with(., 'Reprint'))">
+											<xsl:if test="string-length($title) ne 0 and not(@Revised) and not(@Title/starts-with(., 'Reprint')) and not(starts-with($printer, 'Original: King'))">
 												<xsl:value-of select="concat(' ', $title)"/>
 											</xsl:if>
 										</a>
