@@ -149,11 +149,12 @@ exclude-result-prefixes="tso atom">
 	<!-- use a value of FOP0.95 if FOP 0.95 is used to generate the footnote hacks -->
 	<xsl:param name="g_FOprocessor" select="'FOP1.0'" as="xs:string"/>
 	
+	<!-- Base URL for crest images passed from configuration (environment-specific: QA/UAT/PROD). Falls back to default path if not provided. -->
+	<xsl:param name="CrestImagePath" as="xs:string" select="'https://www.legislation.gov.uk/images/crests/'"/>
+	
 	<xsl:param name="xspecTest" as="xs:string?"/>
 	<xsl:param name="xspecDocType" as="xs:string?"/>
 	
-	<!-- Base URL for crest images passed from configuration (environment-specific: QA/UAT/PROD). Falls back to default path if not provided. -->
-	<xsl:param name="CrestImagePath" as="xs:string" select="'https://www.legislation.gov.uk/images/crests/'"/>
 	
 	<!-- ========== Global Constants ========== -->
 
