@@ -3669,6 +3669,13 @@ exclude-result-prefixes="tso atom">
 				<xsl:apply-templates select="(//leg:Version[@id = current()/parent::*/@AltVersionRefs])[1]/*"/>
 				<xsl:call-template name="TSOcheckEndOfAmendment"/>
 			</xsl:when>
+			<!-- LEGDEV-9593 MR 2026/06/08: copy of first xsl:when that allows for the Substitution element which broke the direct parent::* step -->
+			<xsl:when test="parent::leg:Substitution/parent::*/@AltVersionRefs">
+				<fo:inline><xsl:for-each select="1 to count(ancestor::*[matches(name(), '^(P\d+|ListItem$)')]) * 2">&#160;</xsl:for-each></fo:inline>
+				<xsl:call-template name="TSOcheckStartOfAmendment"/>
+				<xsl:apply-templates select="(//leg:Version[@id = current()/parent::leg:Substitution/parent::*/@AltVersionRefs])[1]/*"/>
+				<xsl:call-template name="TSOcheckEndOfAmendment"/>
+			</xsl:when>
 			<xsl:otherwise>
 				<fo:block space-before="6pt" space-after="6pt">
 					<xsl:if test="contains(@style, 'font-weight: bold')">
