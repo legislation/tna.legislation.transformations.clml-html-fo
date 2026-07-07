@@ -344,18 +344,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											</a>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:choose>
-												<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation','EuropeanUnionDecision')">
-													<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects_eudn_eudr'), ' ')"/>
-												</xsl:when>
-												<xsl:otherwise>
-													<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
-												</xsl:otherwise>
-											</xsl:choose>
-											<xsl:value-of select="$status-legtitle"/>
-											<xsl:if test="string-length($sectionTitle) ne 0">
-												<xsl:value-of select="concat(', ', $sectionTitle)"/>
-											</xsl:if>
+											<xsl:variable name="title">
+												<xsl:choose>
+													<xsl:when test="$g_strDocumentMainType = ('EuropeanUnionRegulation','EuropeanUnionDecision')">
+														<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects_eudn_eudr'), ' ')"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="concat(leg:TranslateMessage('no_outstanding_effects'), ' ')"/>
+													</xsl:otherwise>
+												</xsl:choose>
+												<xsl:value-of select="$status-legtitle"/>
+												<xsl:if test="string-length($sectionTitle) ne 0">
+													<xsl:value-of select="concat(', ', $sectionTitle)"/>
+												</xsl:if>
+											</xsl:variable>
+											<xsl:value-of select="replace($title, 'the The', 'The')"/>
 										</xsl:otherwise>
 									</xsl:choose>
 									<xsl:text>.</xsl:text>
@@ -564,7 +567,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:otherwise>
 										<xsl:value-of select="leg:TranslateText('status_warning_original_version',(concat('type=',leg:GetCodeSchemaStatus(.))))" />
 										<xsl:if test="$Scenario = '2' or $Scenario = '3'">
-											<xsl:value-of select="leg:TranslateMessage(concat('status_warning_original_version',$Scenario))" />
+											<xsl:value-of select="leg:TranslateText(concat('status_warning_original_version',$Scenario))" />
 										</xsl:if>
 										<xsl:text>.</xsl:text>
 									</xsl:otherwise>
@@ -577,6 +580,17 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							<xsl:value-of select="concat(' ',tso:GetSingularTitleFromType($g_strDocumentMainType,''),' ')" />
 							<xsl:value-of select="concat(leg:TranslateMessage('status_warning_is_from_westlaw_pt2'),'. ')"/>
 							<a href="/contributors#westlaw" class="more"><strong><xsl:value-of select="leg:TranslateMessage('Read more')"/></strong></a>
+						</xsl:if>
+						<xsl:if test="leg:isFromBritishHistoryOnline(.)">
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="leg:TranslateText('BritishHistoryOnline')" />
+							<br/>
+							<a href="/contributors#BritishHistoryOnline" class="more">
+								<xsl:text> </xsl:text>
+								<strong>
+									<xsl:value-of select="leg:TranslateText('Read more')"/>
+								</strong>
+							</a>
 						</xsl:if>
 					</p>
 				</xsl:otherwise>
@@ -1297,6 +1311,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			or ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @hreflang='cy' and @title = ('enacted', 'made', 'created', 'adopted')])"/>
 	</xsl:function>
 
+	<!-- MR 2025/10/21: new Draft language tests for WDSI -->
+	<xsl:function name="leg:IsEnglishDraftVersionExists" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="$legislation/leg:Legislation[(not(@xml:lang) or @xml:lang='en')]/ukm:Metadata/ukm:SecondaryMetadata/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'draft'
+			or (($legislation/leg:Legislation[@xml:lang='cy']/ukm:Metadata/ukm:SecondaryMetadata/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'draft') and ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel='alternate' and @hreflang='en']))
+			or ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and (@hreflang='en' or empty(@hreflang)) and @title = ('draft')])"/>
+	</xsl:function>
+	
+	<xsl:function name="leg:IsWelshDraftVersionExists" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="$legislation/leg:Legislation[@xml:lang='cy']/ukm:Metadata/ukm:SecondaryMetadata/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'draft'
+			or (($legislation/leg:Legislation[(not(@xml:lang) or @xml:lang='en')]/ukm:Metadata/ukm:SecondaryMetadata/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'draft') and ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel='alternate' and @hreflang='cy']))
+			or ($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @hreflang='cy' and @title = ('draft')])"/>
+	</xsl:function>
+
 	<!--[to check if current doc is a ENGLISH revised]-->
 	<xsl:function name="leg:IsCurrentEnglishRevised" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
@@ -1358,6 +1387,11 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:function name="leg:isFromWestlaw" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()" />
 		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/dc:publisher = 'Westlaw'" />
+	</xsl:function>
+
+	<xsl:function name="leg:isFromBritishHistoryOnline" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()" />
+		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/dc:publisher = 'British History Online'" />
 	</xsl:function>
 
 	<xsl:function name="leg:IsLegislationWeRevise" as="xs:boolean">

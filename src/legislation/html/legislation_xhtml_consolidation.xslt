@@ -663,7 +663,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
 	<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
 	<xsl:variable name="showCommentary" as="xs:boolean" select="tso:showCommentary(.)" />
-	<xsl:variable name="changeId" as="xs:string" select="@ChangeId" />
+	<xsl:variable name="changeId" as="xs:string?" select="@ChangeId" />
 	<xsl:variable name="showSection" as="node()" select="leg:showSection(., $showSection)" />
 	<xsl:variable name="allChanges" as="element()*" select="key('additionRepealChanges', $changeId, root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary))" />
 	<xsl:variable name="sameChanges" as="element()*" select="key('additionRepealChanges', $changeId, $showSection)" />
@@ -705,7 +705,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:function name="leg:isFirstChange" as="xs:boolean">
-	<xsl:param name="node"  as="node()"/>
+	<xsl:param name="node" as="node()"/>
 	<xsl:param name="allChanges" />
 	<xsl:param name="firstChange" />
 	<xsl:param name="changeId" />
@@ -731,7 +731,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				empty($node/ancestor::leg:Title/parent::leg:P1group/leg:P1[1]/leg:Pnumber//(leg:Addition|leg:Repeal|leg:Substitution)[@ChangeId = $changeId])" />
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:sequence select="$firstChange is $node" />
+			<xsl:sequence select="if ($firstChange is $node) then true() else false()" />
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:function>
@@ -1327,7 +1327,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 <!--For schedules you have to look inside the ScheduleBody: -->
-<xsl:template match="leg:Schedule | leg:Appendix" priority="50">
+<xsl:template match="leg:Schedule | leg:Appendix" priority="51">
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
 	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
 	<xsl:choose>
@@ -1337,7 +1337,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		  satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
 				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))
 				   or (
-				   (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal|omitted|revoked', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
+				   (some $text in $commentary satisfies matches(string((/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text])[1]), 'repeal|omitted|revoked', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
 				   ))
 				   ">
 			<xsl:call-template name="FuncProcessRepealedMajorHeading"/>
@@ -1380,7 +1380,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:choose>
 </xsl:template>
 
-<xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="60">
+<xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="61">
 	<xsl:param name="showingProspective" tunnel="yes" as="xs:boolean" select="false()" />
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
 	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
@@ -1480,7 +1480,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group[not(count(leg:P1) gt 1)]  | leg:P1[not(parent::leg:P1group)] | leg:Schedule/leg:ScheduleBody/leg:Tabular | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment">
+	<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group[not(count(leg:P1) gt 1)]  | leg:P1[not(parent::leg:P1group)][not($g_strDocumentType = ($g_strEUretained))] | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:Appendix/leg:AppendixBody/leg:Tabular | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment" priority="60">
 	<xsl:next-match/>
 	<!-- If there are alternate versions outputting ot annotations will happen there -->
 	<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
@@ -1594,6 +1594,11 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 <xsl:template match="text()" priority="0.25">
 	<xsl:choose>
 		<xsl:when test="ancestor::leg:BlockAmendment">
+			<!-- Hotfix TNALEGPLATSD23-1559 to remove code from Release 189:
+				causes additional double quotes in some circumstances so needs fixing -->
+			<!--			<span class="LegAmendQuote">
+				<xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
+			</span>-->
 			<span class="LegAmendingText">
 				<xsl:next-match/>
 			</span>
@@ -2041,7 +2046,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	
 </xsl:template>
 
-<xsl:template match="*[@xml:lang != 'en']" priority="1000">
+<xsl:template match="*[@xml:lang != 'en']" priority="1001">
 	<xsl:next-match>
 		<xsl:with-param name="strLanguage" tunnel="yes" select="@xml:lang" />
 	</xsl:next-match>
@@ -2151,6 +2156,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 <!-- this is an empty division heading so just process everything within it -->
 <xsl:template match="leg:Division[not(leg:Title)][not(leg:Number)]"  priority="5">
 	<xsl:apply-templates/>
+	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
 <xsl:template match="leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:EUSubsection | leg:Division[@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNEX')] | leg:Division[leg:Title]"  priority="15">
@@ -2270,6 +2276,10 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 				<xsl:with-param name="strHeading" select="$element"/>
 			</xsl:call-template>
 		</xsl:when>
+		<!-- LEGDEV-4098 suppress span when EU content inside table to allow single block element rendering -->
+		<xsl:when test="ancestor::xhtml:td or ancestor::xhtml:th">
+			<xsl:apply-templates/><xsl:text> </xsl:text>
+		</xsl:when>
 		<xsl:otherwise>
 			<span class="Leg{$element}No{$strAmendmentSuffix}">
 				<xsl:apply-templates/>
@@ -2351,9 +2361,17 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
-	<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">
-		<xsl:apply-templates select="leg:Text[1]/node()"/>
-	</span>
+	<!-- LEGDEV-4098 suppress span when EU content inside table to allow single block element rendering -->
+	<xsl:choose>
+		<xsl:when test="ancestor::leg:Division[ancestor::xhtml:td or ancestor::xhtml:th]">
+			<xsl:apply-templates select="leg:Text[1]/node()"/>
+		</xsl:when>
+	<xsl:otherwise>
+			<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">
+				<xsl:apply-templates select="leg:Text[1]/node()"/>
+			</span>
+		</xsl:otherwise>
+	</xsl:choose>
 	<!-- Issue LEGDEV-2742 numbered paras with annotations see eur-2011-1169-annex-IX-division-2 -->
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
@@ -2420,7 +2438,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 <xsl:template match="leg:P1group/leg:P1[1]/leg:Pnumber/node()[last()][not(ancestor::leg:BlockAmendment)][$g_strDocumentType = ($g_strEUretained)]" priority="10">
 	<xsl:variable name="nstContent" as="node()*">
-		<xsl:copy-of select="tso:generateExtentInfo(ancestor::leg:P1group)"/>
+		<xsl:copy-of select="tso:generateExtentInfo(ancestor::leg:P1group[1])"/>
 	</xsl:variable>
 	<xsl:next-match/>
 	<xsl:if test="ancestor-or-self::*/@RestrictExtent">
@@ -2517,7 +2535,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 <!-- the title elemnent in the preamble appears to just be a first paragraph so treat as such-->
-<xsl:template match="leg:EUPreamble/leg:Division/leg:Title">
+<xsl:template match="leg:EUPreamble/leg:Division/leg:Title" priority="5">
 	<span class="LegDS LegRHS LegPreambleP1Text">
 		<xsl:apply-templates/>
 	</span>
@@ -2776,16 +2794,16 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<!-- the EU preamble will have the commetnary ref if it is repealed - we need to allow this trhough so do not count this as repealed -->
 	<xsl:variable name="isRepealed" as="xs:boolean" select="$fragment/@Match = 'false' and (not($fragment/@Status) or $fragment/@Status != 'Prospective') and not($isValidFrom) and not($commentaryRef/ancestor::leg:EUPreamble)"/>
 	
-	<xsl:variable name="commentary" as="element(leg:Commentary)?" select="key('commentary', $commentaryRef/(@Ref | @CommentaryRef), $commentaryRef/root())" />
+	<xsl:variable name="commentary" as="element(leg:Commentary)*" select="key('commentary', $commentaryRef/(@Ref | @CommentaryRef), $commentaryRef/root())" />
 	<xsl:variable name="viewingProv" select="$commentaryRef/ancestor-or-self::*[@DocumentURI]/@DocumentURI" />
 	<xsl:sequence select="tso:showCommentary($commentary, $isRepealed, $isDead) or ($isRepealed and $viewingProv = $dcIdentifier)" />
 </xsl:function>
 
 <xsl:function name="tso:showCommentary" as="xs:boolean">
-	<xsl:param name="commentary" as="element(leg:Commentary)?" />
+	<xsl:param name="commentary" as="element(leg:Commentary)*" />
 	<xsl:param name="isRepealed" as="xs:boolean" />
 	<xsl:param name="isDead" as="xs:boolean" />
-	<xsl:sequence select="not($isRepealed) or ($isRepealed and contains($commentary, 'temp.')) or $isDead" />
+	<xsl:sequence select="not($isRepealed) or ($isRepealed and contains(string-join($commentary, ' '), 'temp.')) or $isDead" />
 </xsl:function>
 
 <xsl:function name="tso:commentaryNumber" as="xs:integer">

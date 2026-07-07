@@ -284,7 +284,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="hasCurrentWelshAtomLink" as="xs:boolean" select="exists($currentWelshAtomLink)"/>
 	<xsl:variable name="isWelshLangDoc" as="xs:boolean" select="/leg:Legislation/@xml:lang = 'cy'"/>
 	<xsl:variable name="requestMatchesIdentifier" as="xs:boolean" select="($requestInfoDoc//request-uri = substring-after(leg:adjust-canonical-uri($dcIdentifier), 'legislation.gov.uk'))"/>
-	
+
+	<xsl:variable name="buynow-enable">
+		<xsl:sequence select="
+			if (doc-available('input:buynow')) then
+			doc('input:buynow')//*:buynow
+			else
+			('false')"/>
+	</xsl:variable>
+
 	<xsl:template name="applyCanonicalUri">
 		<xsl:choose>					
 			<xsl:when test="not($isWelshLangDoc) and $hasRequestQueryString and $hasSelfAtomLink and not($currentAtomLink)">
@@ -337,8 +345,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 				<xsl:if test="$showTimeline">
 					<link rel="stylesheet" href="/styles/view/changesOverTime.css" type="text/css"/>
-					<script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"></script>
-					<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"></script>
+					<!-- Legacy jQuery UI 1.8 -->
+					<!-- <script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"></script>
+					<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"></script> -->
+
+					<script type="text/javascript" src="/scripts/jquery-ui-1.14.2.custom.min.js"></script>
 					<script type="text/javascript" src="/scripts/view/scrollbar.js"></script>
 				</xsl:if>
 
@@ -415,7 +426,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:if>-->
 			</head>
 			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}"
-				  class="{concat('browse', if ($showExtent) then ' geoExtShowing' else '', if ($pointInTimeView and $version != 'prospective') then ' pointInTimeView' else '', if ($repealed) then ' hideChangestoLegislation' else '', if ($isLarge) then ' removeScripting' else '')}">
+				  class="{concat('browse', if ($showExtent) then ' geoExtShowing' else '', if ($pointInTimeView and $version != 'prospective') then ' pointInTimeView' else '', if ($repealed) then ' hideChangestoLegislation' else '')}">
 				<!-- commenting out the highlighting
 					<xsl:if test="leg:IsContentTabDisplaying()">
 						<xsl:attribute name="onload">RunHighlight();</xsl:attribute>
@@ -675,6 +686,126 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</span>
 								</span>
 							</li>
+						</xsl:when>
+						<xsl:when test="leg:IsDraft(.) and leg:IsWelshLegType(.)">
+							<li>
+								<xsl:variable name="ndsDraft">
+									<span class="background">
+										<span class="btl"/>
+										<span class="btr"/>
+										<xsl:variable name="textoiginal">
+											<xsl:text>Draft </xsl:text>
+											<xsl:if test="leg:IsWelshLegType(.)">
+												<xsl:text> - English</xsl:text>
+											</xsl:if>
+										</xsl:variable>
+										<xsl:value-of select="leg:TranslateText($textoiginal)"/>
+										<span class="bbl"/>
+										<span class="bbr"/>
+									</span>
+								</xsl:variable>
+								<xsl:choose>
+									<xsl:when test="$enableOriginalVersion = true() and leg:IsEnglishDraftVersionExists(.)">
+										<xsl:choose>
+											<xsl:when test="$selectOriginalVersion = true() and not($pointInTimeView) and not($selectRevisedVersion)">
+												<xsl:choose>
+													<xsl:when test="not(leg:IsCurrentWelsh(.))">
+														<span class="userFunctionalElement active">
+															<xsl:copy-of select="$ndsDraft"/>
+														</span>
+													</xsl:when>
+													<xsl:when
+														test="empty(//atom:link[@rel='alternate' and @hreflang='en'])">
+														<span class="userFunctionalElement disabled">
+															<xsl:copy-of select="$ndsDraft"/>
+														</span>														
+													</xsl:when>
+													<xsl:otherwise>
+														<a href="{leg:FormatURL(//atom:link[@rel='alternate' and @hreflang='en']/@href)}"
+															class="userFunctionalElement">
+															<xsl:copy-of select="$ndsDraft"/>
+														</a>
+													</xsl:otherwise>
+												</xsl:choose>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:variable name="enactedLink" as="element(atom:link)?"
+													select="//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted') and (not(@hreflang) or @hreflang='en')]"/>
+												<!-- this changes the link if we're looking a PDF-only revised version to go to the as-enacted ToC -->
+												<xsl:variable name="enactedLink" as="xs:string?"
+													select="if (not($isLargeData) and $IsPDFOnly and not(contains($enactedLink/@href,'/contents/'))) then
+													replace($enactedLink/@href, concat('/', $enactedLink/@title), concat('/contents/', $enactedLink/@title))
+													else
+													$enactedLink/@href"/>
+												<a href="{leg:FormatURL($enactedLink)}" class="userFunctionalElement">
+													<xsl:copy-of select="$ndsDraft"/>
+												</a>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:when>
+									<xsl:otherwise>
+										<span class="userFunctionalElement disabled">
+											<xsl:copy-of select="$ndsDraft"/>
+										</span>
+									</xsl:otherwise>
+								</xsl:choose>
+							</li>
+							
+							<xsl:if test="leg:IsWelshLegType(.)">
+								<li>
+									<xsl:variable name="ndsOriginal">
+										<span class="background">
+											<span class="btl"/>
+											<span class="btr"/>
+											<xsl:variable name="textoriginal">
+												<xsl:text>Draft - Welsh</xsl:text>
+											</xsl:variable>
+											<xsl:value-of select="leg:TranslateText($textoriginal)"/>
+											<span class="bbl"/>
+											<span class="bbr"/>
+										</span>
+									</xsl:variable>
+									<xsl:choose>
+										<xsl:when test="$enableOriginalVersion = true() and leg:IsWelshDraftVersionExists(.)">
+											<xsl:choose>
+												<xsl:when
+													test="$selectOriginalVersion = true() and not($pointInTimeView) and not($selectRevisedVersion)">
+													<xsl:choose>
+														<xsl:when test="leg:IsCurrentWelsh(.)">
+															<span class="userFunctionalElement active">
+																<xsl:copy-of select="$ndsOriginal"/>
+															</span>
+														</xsl:when>
+														<xsl:when
+															test="empty(//atom:link[@rel='alternate' and @hreflang='cy'])">
+															<span class="userFunctionalElement disabled">
+																<xsl:copy-of select="$ndsOriginal"/>
+															</span>
+														</xsl:when>
+														<xsl:otherwise>
+															<a href="{leg:FormatURL(//atom:link[@rel='alternate' and @hreflang='cy']/@href)}"
+																class="userFunctionalElement">
+																<xsl:copy-of select="$ndsOriginal"/>
+															</a>
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:when>
+												<xsl:otherwise>
+													<a href="{leg:FormatURL(//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted') and @hreflang='cy']/@href)}"
+														class="userFunctionalElement">
+														<xsl:copy-of select="$ndsOriginal"/>
+													</a>
+												</xsl:otherwise>
+											</xsl:choose>
+										</xsl:when>
+										<xsl:otherwise>
+											<span class="userFunctionalElement disabled">
+												<xsl:copy-of select="$ndsOriginal"/>
+											</span>
+										</xsl:otherwise>
+									</xsl:choose>
+								</li>
+							</xsl:if>
 						</xsl:when>
 						<xsl:when test="leg:IsDraft(.)">
 							<li>
@@ -1283,26 +1414,29 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:variable>
 									<li>
 										<a class="pdfLink" href="{@URI}">
-											<xsl:choose>
-												<!--added revised version-->
-												<xsl:when test="@Title/starts-with(., 'Reprint')">
-													<xsl:value-of select="leg:TranslateText(@Title)"/>
-												</xsl:when>
-												<!--added revised version-->
-												<xsl:when test="exists(@Revised)">
-													<xsl:value-of select="leg:TranslateText('PDF_Revised_Version')"/>
-													<xsl:text> </xsl:text>
-													<xsl:value-of select="if (@Revised castable as xs:date) then format-date(@Revised,'[D]/[M]/[Y]') else @Revised"/>
-												</xsl:when>
-												<xsl:when test="$documentMainType = $createdTypes">
-													<xsl:value-of select="leg:TranslateText('Original Print PDF')"/>
-												</xsl:when>
-												<xsl:otherwise>
-													<xsl:value-of select="leg:TranslateText('PDF_Versions_final')"/>
-												</xsl:otherwise>
-											</xsl:choose>
+											<xsl:variable name="printer">
+												<xsl:choose>
+													<!--added revised version-->
+													<xsl:when test="@Title/starts-with(., 'Reprint')">
+														<xsl:value-of select="leg:TranslateText(@Title)"/>
+													</xsl:when>
+													<!--added revised version-->
+													<xsl:when test="exists(@Revised)">
+														<xsl:value-of select="leg:TranslateText('PDF_Revised_Version')"/>
+														<xsl:text> </xsl:text>
+														<xsl:value-of select="if (@Revised castable as xs:date) then format-date(@Revised,'[D]/[M]/[Y]') else @Revised"/>
+													</xsl:when>
+													<xsl:when test="$documentMainType = $createdTypes">
+														<xsl:value-of select="leg:TranslateText('Original Print PDF')"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="leg:TranslateText('PDF_Versions_final')"/>
+													</xsl:otherwise>
+												</xsl:choose>
+											</xsl:variable>
+											<xsl:value-of select="$printer"/>
 
-											<xsl:if test="string-length($title) ne 0 and not(@Revised) and not(@Title/starts-with(., 'Reprint'))">
+											<xsl:if test="string-length($title) ne 0 and not(@Revised) and not(@Title/starts-with(., 'Reprint')) and not(starts-with($printer, 'Original: King'))">
 												<xsl:value-of select="concat(' ', $title)"/>
 											</xsl:if>
 										</a>
@@ -2027,6 +2161,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- for print options -->
 	<xsl:template match="leg:Legislation" mode="TSOPrintOptions" priority="1000">
+
+<!--buynow menu option is disabled -->
+		<xsl:if test="exists($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:ISBN/@Value) and ($g_ndsMetadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)//ukm:DocumentStatus[1][@Value='final']) and $buynow-enable = ('true')">
+			<xsl:variable name="docUri" select="substring-after(//atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act']/@href, 'http://www.legislation.gov.uk')"/>
+			<li class="printOfficialCopy">
+				<h4>Official printed copies</h4>
+				<ul>
+					<li>
+						<a href="{$docUri}/buynow" class="printedLink">
+							<xsl:value-of select="leg:TranslateText('Order a copy of this legislation')"/>
+							<span class="accessibleText">buy now</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</xsl:if>
 		<xsl:if test="leg:IsTOC()">
 			<li class="printToc">
 				<h4>
@@ -2035,13 +2185,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</h4>
 				<ul>
 					<li>
-						<a href="{leg:FormatPDFDataURL($dcIdentifier)}" target="_blank" class="pdfLink">
-							<xsl:attribute name="rel">alternate no-follow</xsl:attribute>PDF
+						<a href="{replace(leg:FormatPDFDataURL($dcIdentifier),'(/en/|/cy/)','/')}" target="_blank" class="pdfLink">
+							<xsl:attribute name="rel">alternate nofollow</xsl:attribute>PDF
 							<span class="accessibleText">table of contents</span>
 						</a>
 					</li>
 					<li>
-						<a href="{leg:FormatHTMLDataURL($dcIdentifier)}" target="_blank" class="htmLink">
+						<a href="{replace(leg:FormatHTMLDataURL($dcIdentifier), '(/en/|/cy/)','/')}" target="_blank" class="htmLink">
 							<xsl:value-of select="leg:TranslateText('Web page')"/>
 							<span class="accessibleText">table of contents</span>
 						</a>
@@ -2121,11 +2271,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:attribute name="class" select="'pdfLink warning'"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:attribute name="href" select="leg:FormatPDFDataURL($documentURI)"/>
+								<xsl:attribute name="href" select="replace(leg:FormatPDFDataURL($documentURI), '(/en/|/cy/)', '/')"/>
 								<xsl:attribute name="target">_blank</xsl:attribute>
 							</xsl:otherwise>
 						</xsl:choose>
-						<xsl:attribute name="rel">alternate no-follow</xsl:attribute>
+						<xsl:attribute name="rel">alternate nofollow</xsl:attribute>
 						<xsl:text>PDF</xsl:text>
 						<span class="accessibleText">
 							<xsl:text> </xsl:text>
@@ -2141,7 +2291,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:attribute name="class" select="'htmLink warning'"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:attribute name="href" select="leg:FormatHTMLDataURL($documentURI)"/>
+								<xsl:attribute name="href" select="replace(leg:FormatHTMLDataURL($documentURI), '(/en/|/cy/)', '/')"/>
 								<xsl:attribute name="target">_blank</xsl:attribute>
 							</xsl:otherwise>
 						</xsl:choose>

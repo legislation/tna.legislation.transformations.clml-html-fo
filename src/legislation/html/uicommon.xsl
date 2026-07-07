@@ -56,7 +56,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:attribute name="target">_blank</xsl:attribute>
 								</xsl:if>
 								<xsl:if test="$messageType = 'pdfWarning'">
-									<xsl:attribute name="rel">alternate no-follow</xsl:attribute>
+									<xsl:attribute name="rel">alternate nofollow</xsl:attribute>
 								</xsl:if>
 							<span class="btl"></span><span class="btr"></span><xsl:value-of select="leg:TranslateText('Continue to open')"/><span class="bbl"></span><span class="bbr"></span></a></li>
 					</ul>
@@ -82,7 +82,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 	<xsl:template match="ukm:Metadata" mode="HTMLmetadata">
 		<xsl:apply-templates mode="HTMLmetadata" />
-		<meta name="Legislation.year" content="{*/ukm:Year/@Value}" />	
+		<meta name="Legislation.year" content="{*/ukm:Year/@Value}" />
+		<xsl:if test="$IsEURetained and $hideLimitedEUdata and $isDeIndexedEUDocument">
+			<meta name="robots" content="noindex, nofollow" />
+		</xsl:if>
 	</xsl:template>
 	
 	<!--HA070053: condition added to exclude the PDF alternate link from documents which are print only ie. we don't hold any xml data for, as these create a broken link-->
@@ -165,7 +168,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<xsl:template name="TSOOutputSubNavTabs">
 		<ul id="legSubNav">
-				<li id="legTocLink">
+			<!-- buynow option is diabled -->			
+				<li id="{if (matches($requestInfoDoc/request/request-path, '/buynow$')) then 'buyNowTocLink' else 'legTocLink'}">
+				<!-- <li id="legTocLink"> -->
 					<span class="presentation"></span>
 					<a href="{leg:FormatURL($tocURI, false())}"><xsl:value-of select="leg:TranslateText('Table of Contents')"/></a>					
 				</li>
@@ -300,6 +305,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:value-of select="leg:TranslateText('EN_Help_10')"/>
 					</xsl:when>
 					<xsl:when test="$uriPrefix = 'ukdsi'">
+						<xsl:value-of select="leg:TranslateText('EN_Help_11')"/>					
+					</xsl:when>
+					<xsl:when test="$uriPrefix = 'wdsi'">
 						<xsl:value-of select="leg:TranslateText('EN_Help_11')"/>					
 					</xsl:when>
 					<xsl:when test="$uriPrefix = 'nidsr'">

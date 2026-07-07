@@ -77,7 +77,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New legislation">Deddfwriaeth newydd</resource>
 		<resource id="Number">Rhif</resource>
 		<resource id="Open Government Licence">Drwydded Llywodraeth Agored v3.0</resource>
-		<resource id="OGL Link">http://www.nationalarchives.gov.uk/doc/open-government-licence-cymraeg/version/3</resource>
+		<resource id="OGL Link">https://www.nationalarchives.gov.uk/doc/open-government-licence-cymraeg/version/3</resource>
         <resource id="Privacy Notice">Rhybudd preifatrwydd</resource>
 		<resource id="Privacy notice">Rhybudd preifatrwydd</resource>
 		<resource id="Revised">ddiwygiedig</resource>
@@ -107,7 +107,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Act of the Welsh Parliament">Deddf Senedd Cymru</resource>
 		<resource id="Welsh Parliament">Senedd Cymru</resource>
 		<resource id="http://www.senedd.wales">http://www.senedd.cymru</resource>
-		<resource id="http://senedd.wales/en">http://senedd.cymru/cy</resource>
+		<resource id="http://senedd.wales">http://senedd.cymru</resource>
 		<resource id="Acts of the Senedd Cymru">Deddfau Senedd Cymru</resource>
 		<resource id="Acts of Senedd Cymru">Deddfau Senedd Cymru</resource>
 		<resource id="Acts of the Welsh Parliament">Deddfau Senedd Cymru</resource>
@@ -123,7 +123,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Measures of the Northern Ireland Assembly">Mesurau Cynulliad Gogledd Iwerddon</resource>
 		<resource id="Acts of the Northern Ireland Parliament">Deddfau Senedd Gogledd Iwerddon</resource>
 		<resource id="UK Statutory Instruments">Offerynnau Statudol y Deyrnas Unedig</resource>
-		<resource id="Wales Statutory Instruments">Offerynnau Statudol Cymru</resource>
+		<resource id="Welsh Statutory Instruments">Offerynnau Statudol Cymru</resource>
 		<resource id="Scottish Statutory Instruments">Offerynnau Statudol yr Alban</resource>
 		<resource id="Northern Ireland Statutory Rules">Rheolau Statudol Gogledd Iwerddon</resource>
 		<resource id="Church Instruments">Offerynnau Eglwysig</resource>
@@ -170,7 +170,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="UK Public General Act">Deddf Gyhoeddus Gyffredinol y Deyrnas Unedig</resource>
 		<resource id="UK Statutory Instrument">Offeryn Statudol y Deyrnas Unedig</resource>
 		<resource id="UK Statutory Rules and Order">Rheol a Gorchymyn Statudol y Deyrnas Unedig</resource>
-		<resource id="Wales Statutory Instrument">Offeryn Statudol Cymru</resource>
+		<resource id="Welsh Statutory Instrument">Offeryn Statudol Cymru</resource>
 		<resource id="Table of Contents">Tabl o’r Cynnwys</resource>
 		<resource id="Table of contents">Tabl o’r Cynnwys</resource>
 		<resource id="table of contents">tabl o’r cynnwys</resource>
@@ -1091,7 +1091,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_uk_summary">Deddfwriaeth a wnaed gan Senedd y DU a Llywodraeth y DU, a Seneddau Hanesyddol</resource>
 			<resource id="explore_eu_summary"><span xmlns="http://www.w3.org/1999/xhtml">Fel y mabwysiadwyd yn wreiddiol gan y Sefydliadau Ewropeaidd a’i gymryd o EUR-Lex hyd at 31 Hydref 2019</span></resource>
 			<resource id="explore_scotland_summary">Gan gynnwys deddfwriaeth a wnaed gan Senedd yr Alban a Llywodraeth yr Alban</resource>
-			<resource id="explore_wales_summary">Gan gynnwys deddfwriaeth a wnaed gan Senedd Cymru, Cynulliad Cymru a Llywodraeth Cymru</resource>
+			<resource id="explore_wales_summary">Gan gynnwys deddfwriaeth a wnaed gan Senedd Cymru a Llywodraeth Cymru</resource>
 			<resource id="explore_ni_summary">Gan gynnwys deddfwriaeth a wnaed gan Gynulliad Gogledd Iwerddon</resource>
 			<resource id="advanced_search_summary">Chwiliwch am allweddeiriau mewn cyd-destun, deddfwriaeth Gymraeg, deddfwriaeth â chwmpas daearyddol penodol, a mwy.</resource>
 			<resource id="changes_to_legislation_summary">Offeryn chwilio i ganfod yr holl newidiadau a wnaed i/gan ddarnau neu fathau penodol o ddeddfwriaeth.</resource>
@@ -1122,6 +1122,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="European Union Decisions">Penderfyniadau yn deillio o’r UE</resource>
 			<resource id="European Union Treaties">Cytuniadau’r Undeb Ewropeaidd</resource>
 			<resource id="European Union">Undeb Ewropeaidd</resource>
+			<resource id="EU_Regulations_Amended_By_UK">Rheoliadau yn deillio o’r UE sydd wedi eu diwygio gan y DU</resource>
+			<resource id="EU_Regulations_Not_Amended_By_UK">Rheoliadau yn deillio o’r UE nad ydynt wedi eu diwygio gan y DU</resource>
+			<resource id="EU_Decisions_Amended_By_UK">Penderfyniadau yn deillio o’r UE sydd wedi eu diwygio gan y DU</resource>
+			<resource id="EU_Decisions_Not_Amended_By_UK">Penderfyniadau yn deillio o’r UE nad ydynt wedi eu diwygio gan y DU</resource>
+			<resource id="European Union Amended">Yr holl Ddeddfwriaeth sy’n deillio o’r UE sydd wedi ei diwygio gan y DU</resource>
+			<resource id="legislation_including_eu"> Deddfwriaeth (gan gynnwys yn deillio o’r UE)</resource>
 		<!--End Browse EU-->
 		<!-- EU-UK-Reg -->
 		<resource id="eu_uk_all">Deddfwriaeth yn deillio o’r UE</resource>
@@ -1152,7 +1158,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Original_Print_PDF_EU">PDF Print Gwreiddiol o Fersiwn Cyfnodolyn Swyddogol yr UE</resource>
 		<resource id="Original_Print_PDF_UK_created" translated="false" stage2="true">Original Print PDF of as created Version</resource>
 		<!-- End PDF Version -->
-		<resource id="Copyright_Statement">Mae’r holl gynnwys ar gael dan <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="_blank" rel="license">Drwydded Llywodraeth Agored v3.0</a> ac eithrio ble nodir yn wahanol. Yn ychwanegol mae’r safle hwn â chynnwys sy’n deillio o EUR-Lex, a ailddefnyddiwyd dan delerau <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011D0833" target="_blank">Penderfyniad y Comisiwn 2011/833/EU</a> ar ailddefnyddio dogfennau o sefydliadau’r UE. Am ragor o wybodaeth gweler ddatganiad cyhoeddus <a href="https://eur-lex.europa.eu/content/legal-notice/legal-notice.html" target="_blank">Swyddfa Gyhoeddiadau’r UE ar ailddefnyddio</a>.</resource>
+		<resource id="Copyright_Statement">Mae’r holl gynnwys ar gael dan <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="_blank" rel="license">Drwydded Llywodraeth Agored v3.0</a> ac eithrio ble nodir yn wahanol. Yn ychwanegol mae’r safle hwn â chynnwys sy’n deillio o EUR-Lex, a ailddefnyddiwyd dan delerau <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011D0833" target="_blank">Penderfyniad y Comisiwn 2011/833/EU</a> ar ailddefnyddio dogfennau o sefydliadau’r UE. Am ragor o wybodaeth gweler ddatganiad cyhoeddus <a href="https://eur-lex.europa.eu/content/legal-notice/legal-notice.html" target="_blank">Swyddfa Gyhoeddiadau’r UE ar ailddefnyddio</a>.</resource>
 		<resource id="No In Force">Nid oes data Mewn Grym ar gael ar gyfer y ddogfen hon</resource>
 		<resource id="date">dyddiad</resource>
 		<resource id="Date of document">Dyddiad y ddogfen</resource>
@@ -1434,19 +1440,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="understanding-legislation">Darganfyddwch sut y mae deddfau'n cael eu creu, beth yw ystyr termau amrywiol, sut y gall deddfwriaeth newid deddfwriaeth arall a beth yw deddfwriaeth ddiwygiedig.</resource>
 		<resource id="Our editorial process">Ein proses olygu</resource>
 		<resource id="editorialpractice_summary">Darganfyddwch pa ddeddfwriaeth yr ydym yn eu hadolygu, ein hamserlenni ar gyfer adolygu, y confensiynau yr ydym yn eu dilyn a'r egwyddorion yr ydym yn cadw atynt.</resource>
-		<resource id="Research_tools_summary">Mae ein hofferyn chwilio Newidiadau i ddeddfwriaeth yn ffordd wych o ddarganfod sut y mae darn o ddeddfwriaeth wedi newid, a sut y mae wedi'i newid gan ddeddfwriaeth arall. Os oes gennych ddiddordeb mewn tueddiadau a phatrymau mewn deddfwriaeth, neu sut y mae iaith wedi newid dros dreigl amser, gallwch ganfod yr holl offerynnau sydd eu hangen arnoch ar ein gwefan Ymchwil. Gallwch bellach weld dyfarniadau a phenderfyniadau i ganfod sut y mae deddfwriaeth wedi'i chymhwyso a'i dehongli mewn llysoedd a thribiwnlysoedd drwy ymweld â'r wefan Canfod cyfraith achosion. Os ydych yn creu'ch gwasanaeth deddfwriaeth eich hun neu'n ailddefnyddio data deddfwriaeth yn eich prosiectau eich hun, gallwch ddefnyddio ein API deddfwriaeth - ceir rhagor o wybodaeth isod.</resource>
+		<resource id="Research_tools_summary">Mae'r offeryn chwilio Newidiadau i Ddeddfwriaeth yn ffordd wych o ddarganfod sut mae darn o ddeddfwriaeth wedi newid, ac wedi cael ei newid gan, ddeddfwriaeth arall, ac mae’r Chwiliad Manwl yn cynnig ffyrdd ychwanegol o ganfod deddfwriaeth yn ôl math, neu yn ôl ystod o flynyddoedd. Nawr gallwch gyrchu dyfarniadau a phenderfyniadau i weld sut mae deddfwriaeth wedi’i chymhwyso a’i dehongli mewn llysoedd a thribiwnlysoedd drwy droi at y wefan Find Case Law.</resource>
 		<resource id="Find case law">Canfod cyfraith achosion</resource>
 		<resource id="Changes to Local, and Private and Personal Acts">Newidiadau i Ddeddfau Lleol a rhai Preifat a Phersonol</resource>
 		<resource id="altFormats-1">Mae'r data ar y dudalen hon ar gael yn y </resource>
 		<resource id="altFormats-2">fformatau data amgen</resource>
 		<resource id="altFormats-3"> a restrir</resource>
+		<resource id="BritishHistoryOnline">The electronic version of this Act has been contributed by British History Online and is taken from the printed publication.</resource>
 	</resources>
 
 	<resources lang="en">
 		<resource id="Home_description" translated="false" stage2="true">The official home of UK legislation, revised and as enacted 1267-present. This website is managed by The National Archives on behalf of HM Government. Publishing all UK legislation is a core part of the remit of His Majesty’s Stationery Office (HMSO), part of The National Archives, and the Office of the King's Printer for Scotland.</resource>
 		<resource id="Homepage Footer">All content is available under the </resource>
 		<resource id="Open Government Licence">Open Government Licence v3.0</resource>
-		<resource id="OGL Link">http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3</resource>
+		<resource id="OGL Link">https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3</resource>
 		<resource id="Homepage Footer End"> except where otherwise stated</resource>
 		<resource id="Key_title_text">(or keywords in the title)</resource>
 		<resource id="Use_double_quote_text">(using double quotes around a phrase will give faster results)</resource>
@@ -1929,7 +1936,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="explore_uk_summary">Legislation made by the UK Parliament and UK Government, and Historic Parliaments</resource>
 		<resource id="explore_eu_summary">As originally adopted by the European Union up to 11.00 p.m. on 31 December 2020</resource>
 		<resource id="explore_scotland_summary">Including legislation made by the Scottish Parliament and Scottish Government</resource>
-		<resource id="explore_wales_summary">Including legislation made by the Welsh Parliament, Welsh Assembly and Welsh Government</resource>
+		<resource id="explore_wales_summary">Including legislation made by the Welsh Parliament and Welsh Government</resource>
 		<resource id="explore_ni_summary">Including legislation made by the Northern Ireland Assembly</resource>
 		<resource id="advanced_search_summary">Search for keywords in content, Welsh language legislation, legislation with specific geographical extent, and more.</resource>
 		<resource id="changes_to_legislation_summary">A search tool to find all changes made to or by specific pieces or types of legislation.</resource>
@@ -1958,10 +1965,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
       </span>
     </resource>
     <resource id="European_Union_All">All Legislation originating from the EU</resource>
+		<resource id="European Union Amended">All Legislation originating from the EU that is amended by the UK</resource>
 		<resource id="European Union Directives">Directives originating from the EU</resource>
 		<resource id="European Union Regulations">Regulations originating from the EU</resource>
 		<resource id="European Union Decisions">Decisions originating from the EU</resource>
 		<resource id="European Union Treaties">European Union Treaties</resource>
+		<resource id="EU_Regulations_Amended_By_UK">Regulations originating from the EU that are amended by the UK</resource>
+		<resource id="EU_Decisions_Amended_By_UK">Decisions originating from the EU that are amended by the UK</resource>
+		<resource id="legislation_including_eu"> Legislation (including originating from EU)</resource>
 		<!--End Browse EU-->
 
 		<!-- EU-UK-Reg -->
@@ -1998,7 +2009,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Original_Print_PDF_EU">Original Print PDF of EU Official Journal Version</resource>
 		<resource id="Original_Print_PDF_UK_created">Original Print PDF of as created Version</resource>
 		<!-- End PDF Version -->
-		<resource id="Copyright_Statement">All content is available under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="_blank" rel="license">Open Government Licence v3.0</a> except where <a href="/contributors">otherwise stated</a>. This site additionally contains content derived from EUR-Lex, reused under the terms of the <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011D0833" target="_blank">Commission Decision 2011/833/EU</a> on the reuse of documents from the EU institutions. For more information see the <a href="https://eur-lex.europa.eu/content/legal-notice/legal-notice.html" target="_blank">EUR-Lex public statement on re-use</a>.</resource>
+		<resource id="Copyright_Statement">All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="_blank" rel="license">Open Government Licence v3.0</a> except where <a href="/contributors">otherwise stated</a>. This site additionally contains content derived from EUR-Lex, reused under the terms of the <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011D0833" target="_blank">Commission Decision 2011/833/EU</a> on the reuse of documents from the EU institutions. For more information see the <a href="https://eur-lex.europa.eu/content/legal-notice/legal-notice.html" target="_blank">EUR-Lex public statement on re-use</a>.</resource>
 		<resource id="No In Force">There is no In Force data available for this document</resource>
 		<resource id="Original (As adopted)">Original (As adopted by EU)</resource>
 		<resource id="Date of document"/>
@@ -2190,12 +2201,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="understanding-legislation">Find out how laws get made, what various terms mean, how legislation can change other legislation and what revised legislation is.</resource>
 		<resource id="Our editorial process">Our editorial process</resource>
 		<resource id="editorialpractice_summary">Find out what legislation we revise, our timescales for revision, the conventions we follow and the principles that we abide by.</resource>
-		<resource id="Research_tools_summary">Our Changes to legislation search tool is a great way to discover how a piece of legislation has changed, and has been changed by, other legislation. If you are interested in trends and patterns in legislation, or how language has changed over time, you will find all the tools you need on our Research website. You can now access judgments and decisions to see how legislation has been applied and interpreted in courts and tribunals by visiting the Find case law website. If you are creating your own legislation service or reusing legislation data in your own projects, you can make use of our legislation API - find out more below.</resource>
+		<resource id="Research_tools_summary">The Changes To Legislation search tool is a great way to discover how a piece of legislation has changed, and has been changed by, other legislation and the Advanced Search provides extra ways to find legislation by type, or by a range of years. You can now access judgments and decisions to see how legislation has been applied and interpreted in courts and tribunals by visiting the Find Case Law website.</resource>
 		<resource id="Find case law">Find case law</resource>
 		<resource id="Changes to Local, and Private and Personal Acts">Changes to Local, and Private and Personal Acts</resource>
 		<resource id="altFormats-1">The data on this page is available in the </resource>
 		<resource id="altFormats-2">alternative data formats</resource>
 		<resource id="altFormats-3"> listed</resource>
 		<resource id="Help">Help</resource>
+		<resource id="BritishHistoryOnline">The electronic version of this Act has been contributed by British History Online and is taken from the printed publication.</resource>
 	</resources>
 </allResources>

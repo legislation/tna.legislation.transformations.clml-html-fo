@@ -20,7 +20,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	version="2.0">
 
 
-
+<xsl:variable name="hideLimitedEUdata" as="xs:boolean" select="true()" />
+<xsl:variable name="isDeIndexedEUDocument" as="xs:boolean" select="exists(/leg:Legislation/ukm:Metadata//ukm:DocumentCurrentStatus/ukm:UKAmended[@Value='false']) or 
+	exists(/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/legislation/DeIndexedEUDocument']/@title) or 
+	(/leg:Legislation/ukm:Metadata/ukm:EUMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value = 'EuropeanUnionDirective')"/>
 
 <xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier,
 	/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href" />
@@ -97,7 +100,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Instrument" plural="{leg:TranslateText('UK Statutory Instruments')}"
 		start="1948" complete="1987" revised="true" />
   <tso:legType schemaType="WelshStatutoryInstrument" class="secondary" category="Instrument" abbrev="wsi"
-  	em="Explanatory Memorandum" singular="Wales Statutory Instrument" pn="Policy Note" plural="{leg:TranslateText('Wales Statutory Instruments')}"
+  	em="Explanatory Memorandum" singular="Welsh Statutory Instrument" pn="Policy Note" plural="{leg:TranslateText('Welsh Statutory Instruments')}"
   	start="1999" complete="1999" revised="true" />
   <tso:legType schemaType="ScottishStatutoryInstrument" class="secondary" category="Instrument" abbrev="ssi"
   	en="Executive Note" pn="Policy Note" singular="Scottish Statutory Instrument" plural="{leg:TranslateText('Scottish Statutory Instruments')}"
@@ -133,11 +136,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<tso:legType schemaType="UnitedKingdomDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="ukdsi"
 		pn="Draft Policy Note" en="Draft Executive Notes" em="Draft Explanatory Memorandum" singular="UK Draft Statutory Instrument" plural="{leg:TranslateText('UK Draft Statutory Instruments')}"
 		start="1998" complete="1998" legType="UnitedKingdomStatutoryInstrument" revised="false" />
-	<!--
+	
+  <!-- 
   <tso:legType schemaType="WelshDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="wdsi"
 		em="Explanatory Memorandum" singular="Wales Draft Statutory Instrument" plural="Wales Draft Statutory Instruments"
-  	start="1999" complete="1999" legType="WelshStatutoryInstrument" />
-  -->
+  	start="2026" complete="2026" legType="WelshStatutoryInstrument" />
+-->	
+  
   <tso:legType schemaType="ScottishDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="sdsi"
   	en="Draft Executive Notes"  pn="Draft Policy Note" singular="Scottish Draft Statutory Instrument" plural="{leg:TranslateText('Scottish Draft Statutory Instruments')}"
   	start="2001" complete="2001" legType="ScottishStatutoryInstrument" revised="false" />
@@ -158,9 +163,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<tso:legType schemaType="EuropeanUnionRegulation" abbrev="eur" class="euretained" category="Regulation"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="{leg:TranslateText('European Union Regulations')}"
   	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EURegulationsAmendedByUK" abbrev="eur?ukamended=true" class="euretained" category="Regulation" en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="{leg:TranslateText('EU_Regulations_Amended_By_UK')}" start="2018" complete="2018" revised="true" />
 	<tso:legType schemaType="EuropeanUnionDecision" abbrev="eudn" class="euretained" category="Decision"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="{leg:TranslateText('European Union Decisions')}"
   	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EUDecisionsAmendedByUK" abbrev="eudn?ukamended=true" class="euretained" category="Decision" en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="{leg:TranslateText('EU_Decisions_Amended_By_UK')}" start="2018" complete="2018" revised="true" />
 	<tso:legType schemaType="EuropeanUnionDirective" abbrev="eudr" class="euretained" category="Directive"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Directive" plural="{leg:TranslateText('European Union Directives')}"
   	start="2018" complete="2018" revised="true" />
@@ -175,7 +182,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:variable>
 
 <xsl:variable name="leg:welshType" as="xs:string+">
-	<xsl:sequence select="('WelshStatutoryInstrument', 'WelshAssemblyMeasure','WelshNationalAssemblyAct','WelshParliamentAct')"/>
+	<xsl:sequence select="('WelshStatutoryInstrument', 'WelshDraftStatutoryInstrument', 'WelshAssemblyMeasure','WelshNationalAssemblyAct','WelshParliamentAct')"/>
 </xsl:variable>
 
 <xsl:function name="leg:abridgeContent">
@@ -340,9 +347,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:value-of select="leg:TranslateText('All')"/>
 				<xsl:text> </xsl:text>
 				<xsl:if test="not($showUnrevised)"><xsl:value-of select="leg:TranslateText('Revised')"/><xsl:text> </xsl:text></xsl:if>
-				<xsl:value-of select="leg:TranslateText('Legislation (including originating from the EU)')"/>
+				<xsl:value-of select="leg:TranslateText('legislation_including_eu')"/>
 				<!--<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>-->
 			</option>
+			<option disabled="disabled">--------------------------------------------</option>
+
+				<option value="eu-origin?ukamended=true">
+					<xsl:if test="$selected = 'eu-origin?ukamended=true'">
+						<xsl:attribute name="selected" select="'selected'" />
+					</xsl:if>
+					<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
+				</option>
 		</xsl:if>
 
 		<xsl:if test="$showPrimary">
@@ -578,25 +593,31 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:otherwise>
 					<div class="typeCheckBoxDoubleCol">
 						<xsl:if test="$showPrimary and $showSecondary and $showEUretained">
-							<input type="checkbox" name="type" value="all" id="typeAllLegislation">
-								<xsl:if test="contains($selected, 'all')">
-									<xsl:attribute name="checked"/>
-								</xsl:if>
-							</input>
-							<label for="typeAllLegislation"><xsl:value-of select="leg:TranslateText('All Legislation')"/></label>
+							<div class="legislationContent">
+								<div class="legislationContent">
+									<input type="checkbox" name="type" value="all" id="typeAllLegislation">
+										<xsl:if test="contains($selected, 'all')">
+											<xsl:attribute name="checked"/>
+										</xsl:if>
+									</input>
+									<label for="typeAllLegislation"><xsl:value-of select="leg:TranslateText('All Legislation')"/></label>
+								</div>
+							</div>
 						</xsl:if>
 
 						<xsl:if test="$showPrimary">
+						  <div class="primaryContent">
 							<input type="checkbox" name="type" value="primary" id="typePrimary">
 								<xsl:if test="contains($selected, 'primary')">
 									<xsl:attribute name="checked"/>
 								</xsl:if>
 							</input>
 							<label for="typePrimary"><xsl:value-of select="leg:TranslateText('All Primary')"/></label>
+						  </div>
 						</xsl:if>
 					</div>
 
-					<div class="typeCheckBoxDoubleCol">
+					<div class="typeCheckBoxDoubleCol CheckBoxCol">
 						<xsl:if test="$showSecondary">
 							<div id="allSecondary"  class="typeCheckBoxCol">
 								<input type="checkbox" name="type" value="secondary" id="typeAllSecondary">
@@ -618,6 +639,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<label for="typeEUretained"><xsl:value-of select="leg:TranslateText('European_Union_All')"/></label>
 							</div>
 						</xsl:if>
+						<xsl:if test="$showEUretained">
+								<div id="allEuropeanAmended" class="typeCheckBoxCol">
+									<input type="checkbox" name="type" value="eu-origin?ukamended=true" id="typeEUretainedAmended">
+										<xsl:if test="contains($selected, 'eu-origin?ukamended=true')">
+											<xsl:attribute name="checked"/>
+										</xsl:if>
+									</input>
+									<label for="typeEUretainedAmended">
+										<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
+									</label>
+								</div>
+							</xsl:if>
 					</div>
 				</xsl:otherwise>
 			</xsl:choose>
