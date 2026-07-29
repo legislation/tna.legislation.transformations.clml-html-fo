@@ -4322,7 +4322,6 @@ exclude-result-prefixes="tso atom">
 				</xsl:apply-templates>
 			</xsl:for-each>
 		</xsl:variable>
-		<!--<xsl:if test="descendant-or-self::*[@Ref='c1088016']"><xsl:message>FOUND</xsl:message><xsl:result-document href="{generate-id(.)}.{count(preceding-sibling::leg:Version)}.xml"><total><xsl:sequence select="$rtfNormalisedDoc"/><KEYS><xsl:for-each select="//*[@Ref='c1088016']"><ID><xsl:value-of select="generate-id(.)"/></ID></xsl:for-each></KEYS></total></xsl:result-document></xsl:if>-->
 		<xsl:for-each select="$rtfNormalisedDoc">
 			<xsl:apply-templates select="//*[@VersionReplacement = 'True']"/>
 		</xsl:for-each>
@@ -4839,7 +4838,6 @@ exclude-result-prefixes="tso atom">
 	
 	<!-- LEGDEV-8941 fix: Numbering of provisions within block amendment incorrect in generated PDF -->
 	<xsl:template match="leg:P1/leg:Pnumber[ancestor::leg:BlockAmendment[1]]">
-		<xsl:message>2B to fix <xsl:value-of select="ancestor::leg:P1[1]/leg:Pnumber"/></xsl:message>
 		<fo:inline>
 			<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
 				<xsl:attribute name="font-weight">bold</xsl:attribute>
