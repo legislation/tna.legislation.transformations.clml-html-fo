@@ -2730,6 +2730,62 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		)}">View table</a></p>
 	</xsl:template>
 
+	<!-- Allowance for AKN defined class definitions for border styles  -->
+	<xsl:template match="xhtml:table[@class]" priority="25">
+		<xsl:variable name="strAmendmentSuffix">
+		<xsl:call-template name="FuncCalcAmendmentNo"/>
+		</xsl:variable>
+		<div>
+			<xsl:attribute name="class">
+				<xsl:text>LegClearFix LegTableContainer</xsl:text>
+				<xsl:if test="$strAmendmentSuffix != ''">
+					<xsl:text> Leg</xsl:text>
+					<xsl:value-of select="$strAmendmentSuffix"/>
+				</xsl:if>
+			</xsl:attribute>		
+			<table class="LegTable" cellpadding="5">
+				<xsl:attribute name="id">
+					<xsl:call-template name="FuncGenerateAnchorID"/>
+				</xsl:attribute>
+				<xsl:copy-of select="@class"/>
+				<xsl:copy-of select="@summary"/>
+				<xsl:variable name="dblTablePercentageWidth">
+					<xsl:call-template name="FuncCalcTableColWidths"/>
+				</xsl:variable>		
+					
+				<xsl:apply-templates select="* | processing-instruction()"/>
+			</table>
+		</div>
+	</xsl:template>
+
+	<xsl:template match="xhtml:table[@class]/xhtml:tbody" priority="25">
+		<tbody>
+			<xsl:copy-of select="@class"/>
+			<xsl:attribute name="id">
+				<xsl:call-template name="FuncGenerateAnchorID"/>
+			</xsl:attribute>			
+			<xsl:apply-templates select="* | processing-instruction()"/>
+		</tbody>
+	</xsl:template>
+
+
+	<xsl:template match="xhtml:table[@class]/xhtml:thead" priority="25">
+		<thead>
+			<xsl:copy-of select="@class"/>
+			<xsl:call-template name="FuncCheckForID"/>			
+			<xsl:apply-templates select="* | processing-instruction()"/>
+		</thead>
+	</xsl:template>
+
+	<xsl:template match="xhtml:table[@class]/xhtml:tfoot">
+		<tfoot>
+			<xsl:copy-of select="@class"/>
+			<xsl:call-template name="FuncCheckForID"/>
+			<xsl:apply-templates select="* | processing-instruction()"/>
+		</tfoot>
+	</xsl:template>
+
+
 <xsl:function name="tso:showCommentary" as="xs:boolean">
 	<xsl:param name="commentaryRef" as="element()" />
 	<xsl:variable name="fragment" select="$commentaryRef/ancestor::*[@RestrictStartDate or @RestrictEndDate or @Match or @Status][1]" />
