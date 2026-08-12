@@ -26,6 +26,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:xforms="http://www.w3.org/2002/xforms"
     xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:akn="http://docs.oasis-open.org/legaldocml/ns/akn/3.0"
 	>
 
 	<!-- ========== Standard code for outputing UI wireframes========= -->
@@ -137,7 +138,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />
 
 	<xsl:variable name="impactURI" as="xs:string?"
-		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />
+		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts/toc']/@href" />
 	<xsl:variable name="emURI" as="xs:string?" select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc']/@href" />
 	<xsl:variable name="enURI" as="xs:string?"
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/notes/toc']/@href |
@@ -169,6 +170,35 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="enType" as="xs:string?" select="if (contains(/leg:EN/ukm:Metadata/dc:identifier[1], '/memorandum')) then 'em'
 						else if (contains(/leg:EN/ukm:Metadata/dc:identifier[1], '/policy-note')) then 'pn' else 'en'" />
 	<xsl:variable name="enLabel" select="tso:GetENLabel(/leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, $enType)" />
+
+	<xsl:variable name="stages" as="xs:string*" select="
+		('consultation', 'development', 'enactment', 'final',
+		'implementation', 'options', 'post-implementation')"/>
+
+	<xsl:variable name="associated-doc-types" as="xs:string*" select="
+		('code-of-conduct', 'code-of-practice', 'draft-policy-note',
+		'equality-impact-assessment', 'explanatory-document',
+		'impact-assessment', 'ni-draft-explanatory-memorandum',
+		'ni-explanatory-memorandum', 'other-document',
+		'policy-equality-statement', 'policy-note',
+		'revised-policy-note', 'revised-uk-explanatory-memorandum',
+		'revised-welsh-explanatory-memorandum', 'transposition-note',
+		'uk-draft-explanatory-memorandum', 'uk-explanatory-memorandum',
+		'uk-rpc-opinion', 'welsh-explanatory-memorandum')"/>
+
+	<xsl:variable name="pattern" select="string-join(($stages, $associated-doc-types), '|')"/>
+
+	<xsl:variable name="flag" as="document-node()?" select="
+		if (doc-available('input:flag')) then
+		doc('input:flag')
+		else
+		()"/>
+
+	<xsl:variable name="aknDoc" as="document-node()?" select="
+		if (doc-available('input:aknData') and string($flag//*:root//*:EM-AD) = 'true') then
+		doc('input:aknData')
+		else
+		()"/>
 
 	<xsl:template match="/">
 		<html>
@@ -252,40 +282,47 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</xsl:when>
 						</xsl:choose>
 					</xsl:variable>
-					<div id="content">
+					<div>
+						<xsl:if test="not($aknDoc//akn:toc)">
+							<xsl:attribute name="id" select="'content'"/>
+						</xsl:if>
 
 							<xsl:if test="leg:IsEnTOC()">
 								<div id="info{if (leg:IsDraft(.)) then 'Draft' else 'Section'}">
-									<h2><xsl:value-of select="leg:TranslateText('Please note')" />: </h2>
-									<p class="intro">
-										<xsl:choose>
-											<xsl:when test="leg:IsEnPDFOnly(.)">
-												<xsl:variable name="translatedTitleType" select="leg:TranslateText(tso:GetTitleFromType($documentMainType,''))"/>
-												<xsl:choose>
-
-													<xsl:when test="leg:IsDraft(.)">
-														<xsl:value-of select="leg:TranslateText('EN_draft_message',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
-													</xsl:when>
-
-													<xsl:when test="$uriPrefix = 'uksi' and $IsEnAvailable and $IsEmAvailable">
-														<xsl:value-of select="leg:TranslateText('EN_Intro')" />
-													</xsl:when>
-													<xsl:when test="$uriPrefix = ('mwa','anaw', 'asc') and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
-														<xsl:value-of select="leg:TranslateText('EN_Intro2')" />
-													</xsl:when>
-													<xsl:when test="exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
-														<xsl:value-of select="leg:TranslateText('EN_Intro3',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
-													</xsl:when>
-													<xsl:otherwise>
-														<xsl:value-of select="leg:TranslateText('EN_Intro4',concat('type=',$enShortLabel))"/>
-													</xsl:otherwise>
-												</xsl:choose>
-											</xsl:when>
-											<xsl:otherwise>
-												<xsl:value-of select="leg:TranslateText('EN_Intro5',(concat('title=',$legislationTitle), concat('type=',$enLabel)))"/><a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>.
-											</xsl:otherwise>
-										</xsl:choose>
-									</p>
+										<h2><xsl:value-of select="leg:TranslateText('Please note')" />: </h2>
+										<p class="intro">
+											<xsl:choose>
+												<xsl:when test="leg:IsEnPDFOnly(.)">
+													<xsl:variable name="translatedTitleType" select="leg:TranslateText(tso:GetTitleFromType($documentMainType,''))"/>
+													<xsl:choose>
+														<xsl:when test="leg:IsDraft(.)">
+															<xsl:value-of select="leg:TranslateText('EN_draft_message',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
+														</xsl:when>
+														<xsl:when test="$uriPrefix = 'uksi' and $IsEnAvailable and $IsEmAvailable">
+															<xsl:value-of select="leg:TranslateText('EN_Intro')" />
+														</xsl:when>
+														<xsl:when test="$uriPrefix = ('mwa','anaw', 'asc') and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
+															<xsl:value-of select="leg:TranslateText('EN_Intro2')" />
+														</xsl:when>
+														<xsl:when test="($aknDoc//akn:toc) and ($paramsDoc/parameters/notes-type = ('memorandum', 'notes')) and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
+															<xsl:value-of select="leg:TranslateText('EM_Intro_revised',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
+														</xsl:when>
+														<xsl:when test="exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
+															<xsl:value-of select="leg:TranslateText('EN_Intro3',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
+														</xsl:when>
+														<xsl:when test="($aknDoc//akn:toc) and ($paramsDoc/parameters/notes-type = ('memorandum', 'notes'))">
+															<xsl:value-of select="leg:TranslateText('EM_Intro_enacted',concat('type=',$enShortLabel))"/>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:value-of select="leg:TranslateText('EN_Intro4',concat('type=',$enShortLabel))"/>
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:value-of select="leg:TranslateText('EN_Intro5',(concat('title=',$legislationTitle), concat('type=',$enLabel)))"/><a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>.
+												</xsl:otherwise>
+											</xsl:choose>
+										</p>
 								</div>
 							</xsl:if>
 
@@ -334,13 +371,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<div class="LegSnippet" xml:lang="{$language}">
 				<xsl:choose>
 					<xsl:when test="leg:IsEnPDFOnly(.)">
-						<!-- If EN/EM is only available in PDFOnly then display PDF link -->
-						<p class="downloadPdfVersion">
-							<xsl:variable name="pdfLinks"
-								select="/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_'))]"/>
+						<xsl:choose>
+							<xsl:when test="string($flag//*:root//*:EM-AD) = 'true' and $aknDoc//akn:toc">
+								<div class="LegContents LegClearFix">
+									<ol>
+										<xsl:apply-templates select="$aknDoc//akn:toc" mode="toc"/>
+									</ol>
+								</div>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- If EN/EM is only available in PDFOnly then display PDF link -->
+								<p class="downloadPdfVersion">
+									<xsl:variable name="pdfLinks"
+										select="/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_'))]"/>
 
-							<!-- filter out if we have mixed language available -->
-							<!--<xsl:variable name="pdfLinks"
+									<!-- filter out if we have mixed language available -->
+									<!--<xsl:variable name="pdfLinks"
 								select="if ($documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')) then
 												if (exists($pdfLinks[@Language = 'Mixed' or contains(@Title, 'Mixed Language')])) then
 													$pdfLinks[@Language = 'Mixed' or contains(@Title, 'Mixed Language')]
@@ -352,32 +398,34 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												else
 													$pdfLinks">
 							</xsl:variable>		-->
-							<!-- HA052620: updated to display welsh pdf for welsh explanatory note and english pdf for english EN instead of Mixed PDF-->
-							<xsl:variable name="pdfLinks"
-								select="if ($documentMainType = $welshDocumentMainTypes) then
-								if ($isReferrerWelsh) then
-								$pdfLinks[@Language = 'Welsh']
-								else
-								$pdfLinks[not(@Language)]
-								else
-								if (exists($pdfLinks[contains(@Title, 'Revised')])) then
-								$pdfLinks[contains(@Title, 'Revised')]
-								else
-								$pdfLinks">
-							</xsl:variable>
+									<!-- HA052620: updated to display welsh pdf for welsh explanatory note and english pdf for english EN instead of Mixed PDF-->
+									<xsl:variable name="pdfLinks"
+										select="if ($documentMainType = $welshDocumentMainTypes) then
+										if ($isReferrerWelsh) then
+										$pdfLinks[@Language = 'Welsh']
+										else
+										$pdfLinks[not(@Language)]
+										else
+										if (exists($pdfLinks[contains(@Title, 'Revised')])) then
+										$pdfLinks[contains(@Title, 'Revised')]
+										else
+										$pdfLinks">
+									</xsl:variable>
 
-							<xsl:choose>
-								<xsl:when test="count($pdfLinks) > 1">
-									<!-- if there are multiple PDFs and then add a span around it so that they are displayed in two columns-->
-									<span>
-										<xsl:apply-templates select="$pdfLinks" mode="PDFOnly"/>
-									</span>
-								</xsl:when>
-								<xsl:otherwise>
-										<xsl:apply-templates select="$pdfLinks" mode="PDFOnly"/>
-								</xsl:otherwise>
-							</xsl:choose>
-						</p>
+									<xsl:choose>
+										<xsl:when test="count($pdfLinks) > 1">
+											<!-- if there are multiple PDFs and then add a span around it so that they are displayed in two columns-->
+											<span>
+												<xsl:apply-templates select="$pdfLinks" mode="PDFOnly"/>
+											</span>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:apply-templates select="$pdfLinks" mode="PDFOnly"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</p>
+							</xsl:otherwise>
+						</xsl:choose>
 
 					</xsl:when>
 					<xsl:otherwise>
@@ -1116,6 +1164,33 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	</xsl:template>
 
+	<xsl:template match="akn:tocItem" mode="toc">
+		<xsl:variable name="url" select="replace(substring-after(@href, 'http://www.legislation.gov.uk'), $pattern, '')"/>
+		<xsl:variable name="link">
+			<xsl:value-of select="concat(replace($url, '//+', '/'), '/data.html')"/>
+		</xsl:variable>
+		<xsl:variable name="level" select="@level"/>
+		<xsl:variable name="indent" select="if ($level castable as xs:integer) then (concat('margin-left: ', $level, 'em')) else 'margin-left: 0em'"/>
+		<xsl:variable name="label">
+			<!--<xsl:value-of select="tso:extract-label($url)"/>-->
+		</xsl:variable>
+		<xsl:variable name="title" select="akn:inline[@name = 'tocHeading']"/>
+
+		<li class="LegContentsEntry" style="{$indent} !important">
+			<p class="LegContentsItem LegClearFix">
+				<span class="LegDS LegContentsNo">
+					<a href="{$link}">
+						<xsl:value-of select="$label"/>
+					</a>
+				</span>
+				<span class="LegDS LegContentsTitle">
+					<a href="{$link}">
+						<xsl:value-of select="$title"/>
+					</a>
+				</span>
+			</p>
+		</li>
+	</xsl:template>
 
 	<!-- ========== Help Tips ========================= -->
 

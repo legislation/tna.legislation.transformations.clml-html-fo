@@ -81,10 +81,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 	<xsl:variable name="resourceURI" as="xs:string"
-		select="leg:ImpactAssessment/ukm:Metadata/atom:link[@title='More Resources']/@href" />
+		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />
 
 	<xsl:variable name="impactURI" as="xs:string*"
-		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts'][1]/@href" />
+		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts/toc'][1]/@href" />
 
 	<xsl:variable name="emURI" as="xs:string?" select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc']/@href" />
 
@@ -130,7 +130,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 	<xsl:variable name="IsMoreResourcesAvailable" as="xs:boolean"
-		select="if ($documentMainType) then tso:ShowMoreResources(/) else false()"/>
+		select="if ($documentMainType) then tso:ShowMoreResources(/leg:ImpactAssessment/root()) else false()"/>
 
 	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean"
 		select="exists($impactURI) or /leg:ImpactAssessment"/>
@@ -175,6 +175,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<a href="{leg:FormatURL($impactURI)}"><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></a>
 									<a href="#moreIATabHelp" class="helpItem helpItemToBot">
 										<img src="/images/chrome/helpIcon.gif" alt=" Help about ImpactAssessments" />
+									</a>
+								</li>
+								<li id="legResourcesLink">
+									<span class="presentation"></span>
+									<a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>
+									<a href="#moreResourcesTabHelp" class="helpItem helpItemToBot">
+										<img src="/images/chrome/helpIcon.gif" alt=" Help about More Resources"/>
 									</a>
 								</li>
 							</ul>
@@ -388,7 +395,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:variable name="intIaNo" select="position()"/>
 							<xsl:variable name="buttonPart" as="element()">
 								<span class="background">
-									<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' ',leg:TranslateText('part'),' ',$intIaNo)" /><span class="bbl" /><span class="bbr" />
+									<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' ',$intIaNo)" /><span class="bbl" /><span class="bbr" />
 								</span>
 							</xsl:variable>
 							<li>

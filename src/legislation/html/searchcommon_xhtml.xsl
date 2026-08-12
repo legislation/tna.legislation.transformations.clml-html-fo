@@ -1217,7 +1217,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				substring-after(atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]/@href, 'http://www.legislation.gov.uk/') 
 			else if (ukm:DocumentMainType/@Value='UnitedKingdomImpactAssessment' and atom:link[@rel='alternate'][not(@type='application/pdf')]) 
 			then
-				substring-after(atom:link[@rel='alternate'][not(@type='application/pdf')][last()]/@href, 'http://www.legislation.gov.uk/')
+			replace(substring-after(atom:link[@rel='alternate'][not(@type='application/pdf')][last()]/@href, 'http://www.legislation.gov.uk/'), '/data.html', '/contents')
 			else if (atom:link[@rel='self']/@href) then 
 				substring-after(atom:link[@rel='self']/@href, 'http://www.legislation.gov.uk/')
 			else if (ends-with(atom:link/@href,'made')) then
