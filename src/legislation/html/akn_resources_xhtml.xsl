@@ -25,7 +25,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="resourceURI" as="xs:string"
 		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/resources']/@href"/>
 
-	<xsl:variable name="tocURI-IA" as="xs:string?" select="concat(/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts/toc']/@href, '/contents')" />
+	<xsl:variable name="tocURI-IA" as="xs:string?" select="concat(/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href, '/contents')" />
 
 	<xsl:variable name="documentMainType" as="xs:string" select="leg:GetDocumentMainType(/)"/>
 

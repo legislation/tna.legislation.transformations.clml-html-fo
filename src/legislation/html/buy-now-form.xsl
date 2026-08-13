@@ -46,7 +46,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="resourceURI" as="xs:string"
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/resources']/@href"/>
 	<xsl:variable name="impactURI" as="xs:string?"
-		select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/impacts/toc']/@href"/>
+		select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/impacts']/@href"/>
 	<xsl:variable name="legislationIdURI" select="/leg:Legislation/@IdURI"/>
 	<xsl:variable name="enURI" as="xs:string?"
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/notes/toc' and not(@hreflang = 'cy')]/@href | /leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href"/>
