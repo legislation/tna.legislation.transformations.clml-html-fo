@@ -194,43 +194,27 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		else
 		()"/>
 
-	<xsl:variable name="EM-Flag" as="xs:boolean">
-		<xsl:sequence select="($flag//*:root//*:EM-AD = 'true') and ($paramsDoc/parameters/notes-type = 'memorandum')"/>
-	</xsl:variable>
+	<xsl:variable name="notes-type" as="xs:string?" select="$paramsDoc/parameters/notes-type"/>
 
-	<xsl:variable name="EN-Flag" as="xs:boolean">
-		<xsl:sequence select="($flag//*:root//*:EN-AD = 'true') and ($paramsDoc/parameters/notes-type = 'notes')"/>
-	</xsl:variable>
-	<xsl:variable name="OD-Flag" as="xs:boolean">
-		<xsl:sequence select="($flag//*:root//*:OD-AD = 'true') and ($paramsDoc/parameters/notes-type = 'other-document')"/>
-	</xsl:variable>
-	<xsl:variable name="COP-Flag" as="xs:boolean">
-		<xsl:sequence select="($flag//*:root//*:COP-AD = 'true') and ($paramsDoc/parameters/notes-type = 'code-of-practice')"/>
-	</xsl:variable>
-	<xsl:variable name="TN-Flag" as="xs:boolean">
-		<xsl:sequence select="($flag//*:root//*:TN-AD = 'true') and ($paramsDoc/parameters/notes-type = 'transposition-note')"/>
-	</xsl:variable>
+	<xsl:variable name="doc-code" as="xs:string?"
+		select="
+		if ($notes-type = 'memorandum') then 'EM-AD'
+		else if ($notes-type = 'notes') then 'EN-AD'
+		else if ($notes-type = 'other-document') then 'OD-AD'
+		else if ($notes-type = 'code-of-practice') then 'COP-AD'
+		else if ($notes-type = 'transposition-note') then 'TN-AD'
+		else ()
+		"/>
 
-	<xsl:variable name="aknDoc" as="document-node()?">
-		<xsl:choose>
-			<xsl:when test="$EM-Flag">
-				<xsl:sequence select="if (doc-available('input:aknData')) then doc('input:aknData') else ()"/>
-			</xsl:when>
-			<xsl:when test="$EN-Flag">
-				<xsl:sequence select="if (doc-available('input:aknData')) then doc('input:aknData') else ()"/>
-			</xsl:when>
-			<xsl:when test="$OD-Flag">
-				<xsl:sequence select="if (doc-available('input:aknData')) then doc('input:aknData') else ()"/>
-			</xsl:when>
-			<xsl:when test="$COP-Flag">
-				<xsl:sequence select="if (doc-available('input:aknData')) then doc('input:aknData') else ()"/>
-			</xsl:when>
-			<xsl:when test="$TN-Flag">
-				<xsl:sequence select="if (doc-available('input:aknData')) then doc('input:aknData') else ()"/>
-			</xsl:when>
-			<xsl:otherwise><xsl:sequence select="()"/></xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+	<xsl:variable name="enabled" as="xs:boolean"
+		select="$flag/root/*[name() = $doc-code] = 'true'"/>
+
+	<xsl:variable name="aknDoc" as="document-node()?"
+		select="
+		if ($enabled and doc-available('input:aknData'))
+		then doc('input:aknData')
+		else ()
+		"/>
 
 	<xsl:template match="/">
 		<html>
