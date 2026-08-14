@@ -81,7 +81,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 	<xsl:variable name="resourceURI" as="xs:string"
-		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />
+		select="leg:ImpactAssessment/ukm:Metadata/atom:link[@title='More Resources']/@href" />
 
 	<xsl:variable name="impactURI" as="xs:string*"
 		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts'][1]/@href" />
@@ -130,7 +130,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 	<xsl:variable name="IsMoreResourcesAvailable" as="xs:boolean"
-		select="if ($documentMainType) then tso:ShowMoreResources(/leg:ImpactAssessment/root()) else false()"/>
+		select="if ($documentMainType) then tso:ShowMoreResources(/) else false()"/>
 
 	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean"
 		select="exists($impactURI) or /leg:ImpactAssessment"/>
@@ -177,14 +177,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<img src="/images/chrome/helpIcon.gif" alt=" Help about ImpactAssessments" />
 									</a>
 								</li>
-								<li id="legResourcesLink">
-									<span class="presentation"></span>
-									<a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>
-									<a href="#moreResourcesTabHelp" class="helpItem helpItemToBot">
-										<img src="/images/chrome/helpIcon.gif" alt=" Help about More Resources"/>
-									</a>
-								</li>
-							</ul>
+								</ul>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:call-template name="TSOOutputSubNavTabs" />
