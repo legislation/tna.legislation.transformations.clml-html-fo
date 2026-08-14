@@ -435,22 +435,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<div class="LegSnippet" xml:lang="{$language}">
 				<xsl:choose>
 					<xsl:when test="leg:IsEnPDFOnly(.)">
-						<xsl:choose>
-							<xsl:when test="$aknDoc//akn:toc">
-								<div class="LegContents LegClearFix">
-									<ol>
-										<xsl:apply-templates select="$aknDoc//akn:toc" mode="toc"/>
-									</ol>
-								</div>
-							</xsl:when>
-							<xsl:otherwise>
-								<!-- If EN/EM is only available in PDFOnly then display PDF link -->
-								<p class="downloadPdfVersion">
-									<xsl:variable name="pdfLinks"
-										select="/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_'))]"/>
+						<!-- If EN/EM is only available in PDFOnly then display PDF link -->
+						<p class="downloadPdfVersion">
+							<xsl:variable name="pdfLinks"
+								select="/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_'))]"/>
 
-									<!-- filter out if we have mixed language available -->
-									<!--<xsl:variable name="pdfLinks"
+							<!-- filter out if we have mixed language available -->
+							<!--<xsl:variable name="pdfLinks"
 								select="if ($documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')) then
 												if (exists($pdfLinks[@Language = 'Mixed' or contains(@Title, 'Mixed Language')])) then
 													$pdfLinks[@Language = 'Mixed' or contains(@Title, 'Mixed Language')]
@@ -462,34 +453,32 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												else
 													$pdfLinks">
 							</xsl:variable>		-->
-									<!-- HA052620: updated to display welsh pdf for welsh explanatory note and english pdf for english EN instead of Mixed PDF-->
-									<xsl:variable name="pdfLinks"
-										select="if ($documentMainType = $welshDocumentMainTypes) then
-										if ($isReferrerWelsh) then
-										$pdfLinks[@Language = 'Welsh']
-										else
-										$pdfLinks[not(@Language)]
-										else
-										if (exists($pdfLinks[contains(@Title, 'Revised')])) then
-										$pdfLinks[contains(@Title, 'Revised')]
-										else
-										$pdfLinks">
-									</xsl:variable>
+							<!-- HA052620: updated to display welsh pdf for welsh explanatory note and english pdf for english EN instead of Mixed PDF-->
+							<xsl:variable name="pdfLinks"
+								select="if ($documentMainType = $welshDocumentMainTypes) then
+								if ($isReferrerWelsh) then
+								$pdfLinks[@Language = 'Welsh']
+								else
+								$pdfLinks[not(@Language)]
+								else
+								if (exists($pdfLinks[contains(@Title, 'Revised')])) then
+								$pdfLinks[contains(@Title, 'Revised')]
+								else
+								$pdfLinks">
+							</xsl:variable>
 
-									<xsl:choose>
-										<xsl:when test="count($pdfLinks) > 1">
-											<!-- if there are multiple PDFs and then add a span around it so that they are displayed in two columns-->
-											<span>
-												<xsl:apply-templates select="$pdfLinks" mode="PDFOnly"/>
-											</span>
-										</xsl:when>
-										<xsl:otherwise>
-											<xsl:apply-templates select="$pdfLinks" mode="PDFOnly"/>
-										</xsl:otherwise>
-									</xsl:choose>
-								</p>
-							</xsl:otherwise>
-						</xsl:choose>
+							<xsl:choose>
+								<xsl:when test="count($pdfLinks) > 1">
+									<!-- if there are multiple PDFs and then add a span around it so that they are displayed in two columns-->
+									<span>
+										<xsl:apply-templates select="$pdfLinks" mode="PDFOnly"/>
+									</span>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:apply-templates select="$pdfLinks" mode="PDFOnly"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</p>
 
 					</xsl:when>
 					<xsl:otherwise>
