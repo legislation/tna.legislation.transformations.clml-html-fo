@@ -242,13 +242,56 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<!-- Sub Navigation tabs-->
 					<xsl:call-template name="TSOOutputSubNavTabs" />
 
+					<div class="interface">
 
-					<xsl:choose>
+						<ul id="wholeNav">
+							<li class="wholeuri">
+								<xsl:element name="{if ($explanatoryNotesWholeURI != $dcIdentifier and not(leg:IsEnPDFOnly(.))) then 'a' else 'span' }">
+									<xsl:choose>
+										<xsl:when test="leg:IsEnPDFOnly(.)">
+											<xsl:attribute name="class" select="'userFunctionalElement disabled'"/>
+										</xsl:when>
+										<xsl:when test="$explanatoryNotesWholeURI != $dcIdentifier">
+											<xsl:attribute name="href" select="leg:FormatENURL($explanatoryNotesWholeURI)"/>
+											<xsl:attribute name="class" select="'userFunctionalElement'"/>
+											<xsl:attribute name="title">Open <xsl:value-of select="$enLabel"/></xsl:attribute>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:attribute name="class" select="'userFunctionalElement active'"/>
+										</xsl:otherwise>
+									</xsl:choose>
+									<span class="btl"/>
+									<span class="btr"/>
+									<xsl:variable name="openfullNotestext">
+										<xsl:text>Open full </xsl:text>
+										<xsl:choose>
+											<xsl:when test="contains($enLabel, 'Explanatory Notes')">notes</xsl:when>
+											<xsl:when test="contains($enLabel, 'Executive Note')">note</xsl:when>
+											<xsl:when test="contains($enLabel, 'Policy Note')">note</xsl:when>
+											<xsl:when test="contains($enLabel, 'Explanatory Memorandum')">memorandum</xsl:when>
+										</xsl:choose>
+									</xsl:variable>
+									<xsl:value-of select="leg:TranslateText($openfullNotestext)"/>
+									<span class="bbl"/>
+									<span class="bbr"/>
+								</xsl:element>
+							</li>
+						</ul>
 
-						<!-- excluding EN XML docs -->
+						<!-- adding the previous/next toc links-->
+						<xsl:call-template name="TSOOutputPreviousTOCNextLinks"/>
+
+						<!-- adding the links for view print links-->
+						<xsl:call-template name="TSOOutputViewPrintLinks"/>
+
+					</div>
+
+					<!--<xsl:choose>
+
+						<!-\- excluding EN XML docs -\->
 
 						<xsl:when test="leg:IsEnPDFOnly(.)"/>
-						<!-- all other associated docs -->
+						<!-\- all other associated docs -\->
 
 						<xsl:when test="$aknDoc//akn:toc or ($paramsDoc/parameters/notes-type = $associated-doc-types)"/>
 						<xsl:otherwise>
@@ -288,16 +331,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</li>
 								</ul>
 
-								<!-- adding the previous/next toc links-->
+								<!-\- adding the previous/next toc links-\->
 								<xsl:call-template name="TSOOutputPreviousTOCNextLinks"/>
 
-								<!-- adding the links for view print links-->
+								<!-\- adding the links for view print links-\->
 								<xsl:call-template name="TSOOutputViewPrintLinks"/>
 
 							</div>
 						</xsl:otherwise>
 
-					</xsl:choose>
+					</xsl:choose>-->
 					<!-- /interface  -->
 
 					<xsl:variable name="enShortLabel">
@@ -310,20 +353,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</xsl:when>
 						</xsl:choose>
 					</xsl:variable>
-					<div>
-						<xsl:choose>
-							<!-- excluding EN XML docs -->
+					<div id="content">
+						<!--<xsl:choose>
+							<!-\- excluding EN XML docs -\->
 						<xsl:when test="leg:IsEnPDFOnly(.)">
 								<xsl:attribute name="style" select="'margin-top: 3em;'"/>
 							</xsl:when>
-							<!-- all other associated docs -->
+							<!-\- all other associated docs -\->
 							<xsl:when test="$aknDoc//akn:toc or ($paramsDoc/parameters/notes-type = $associated-doc-types)">
 								<xsl:attribute name="style" select="'margin-top: 3em;'"/>
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:attribute name="id" select="'content'"/>
 							</xsl:otherwise>
-						</xsl:choose>
+						</xsl:choose>-->
 
 							<xsl:if test="leg:IsEnTOC()">
 								<div id="info{if (leg:IsDraft(.)) then 'Draft' else 'Section'}">
@@ -367,22 +410,29 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<!-- outputing the legislation content-->
 							<xsl:call-template name="TSOOutputLegislationContent" />
 
-					<xsl:choose>
+					<!--<xsl:choose>
 
-						<!-- excluding EN XML docs -->
+						<!-\- excluding EN XML docs -\->
 						<xsl:when test="leg:IsEnPDFOnly(.)"/>
 
-					<!-- all other associated docs -->
+					<!-\- all other associated docs -\->
 						<xsl:when test="$aknDoc//akn:toc or ($paramsDoc/parameters/notes-type = $associated-doc-types)"/>
 						<xsl:otherwise>
 							<div class="interface">
 
-								<!-- adding the previous/next/toc links-->
+								<!-\- adding the previous/next/toc links-\->
 								<xsl:call-template name="TSOOutputPreviousTOCNextLinks"/>
 
 							</div>
 						</xsl:otherwise>
-					</xsl:choose>
+					</xsl:choose>-->
+						<div class="interface">
+
+							<!-- adding the previous/next/toc links-->
+							<xsl:call-template name="TSOOutputPreviousTOCNextLinks"/>
+
+						</div>
+
 					<!-- /interface  -->
 
 					<p class="backToTop">
