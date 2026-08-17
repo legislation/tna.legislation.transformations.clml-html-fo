@@ -388,7 +388,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:variable name="intIaNo" select="position()"/>
 							<xsl:variable name="buttonPart" as="element()">
 								<span class="background">
-									<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' ',$intIaNo)" /><span class="bbl" /><span class="bbr" />
+									<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' ',leg:TranslateText('part'),' ',$intIaNo)" /><span class="bbl" /><span class="bbr" />
 								</span>
 							</xsl:variable>
 							<li>
