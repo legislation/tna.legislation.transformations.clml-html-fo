@@ -223,7 +223,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:function name="tso:ShowMoreResources" as="xs:boolean">
 	<xsl:param name="item" as="document-node()" />
-	<xsl:variable name="documentMainType" as="xs:string" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:ENmetadata | ukm:Legislation | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+	<xsl:variable name="documentMainType" as="xs:string+" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:ENmetadata | ukm:Legislation | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
 	<xsl:sequence select="
 		(: PDF documents :)
 		exists($item/*/ukm:Metadata/(ukm:Notes|ukm:Alternatives|ukm:TableOfDestinations|ukm:TableOfOrigins|ukm:CorrectionSlip|ukm:TableOfEffects|ukm:CodeOfPractice|ukm:OrderInCouncil|ukm:OrdersInCouncil|ukm:OtherDocument|ukm:ExplanatoryDocuments|ukm:ExplanatoryDocument|ukm:PolicyEqualityStatements|ukm:PolicyEqualityStatement)//*[contains(@URI, '.pdf')]) or
@@ -1327,5 +1327,38 @@ It will get correct language string for the current language -->
 				</xsl:analyze-string>
 			</xsl:when>
 		</xsl:choose>
-	</xsl:function>	
+	</xsl:function>
+
+	<xsl:function name="tso:extract-label" as="xs:string">
+		<xsl:param name="path" as="xs:string"/>
+
+		<xsl:variable name="parts" select="tokenize($path, '/')"/>
+
+		<!-- find position of last non-numeric token -->
+		<xsl:variable name="last-non-num" select="
+			max(for $i in 1 to count($parts)
+			return
+				if (not($parts[$i] castable as xs:integer)) then $i
+				else ())"/>
+		<!-- take everything after that -->
+		<xsl:sequence select="string-join($parts[position() > $last-non-num], '.')"/>
+	</xsl:function>
+
+	<xsl:function name="leg:truncate-text" as="xs:string">
+		<xsl:param name="text" as="xs:string?"/>
+		<xsl:param name="max-length" as="xs:integer"/>
+
+		<xsl:variable name="value" select="normalize-space(string($text))"/>
+
+		<xsl:sequence select="
+			if (string-length($value) le $max-length)
+			then $value
+			else
+				concat(
+					replace(
+						replace(substring($value, 1, $max-length), '\s+\S*$',''), '[.,;:!?]+$', ''),
+					'...'
+				)
+			"/>
+	</xsl:function>
 </xsl:stylesheet>

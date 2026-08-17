@@ -177,7 +177,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<img src="/images/chrome/helpIcon.gif" alt=" Help about ImpactAssessments" />
 									</a>
 								</li>
-							</ul>
+								</ul>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:call-template name="TSOOutputSubNavTabs" />

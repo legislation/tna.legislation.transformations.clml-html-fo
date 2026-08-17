@@ -34,7 +34,7 @@ xmlns:atom="http://www.w3.org/2005/Atom"
 exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs err">
 
 	<!-- document metadata -->
-	<xsl:variable 	name="g_ndsMetadata" select="/(leg:Legislation|leg:EN)/ukm:Metadata"/>
+	<xsl:variable 	name="g_ndsMetadata" select="/(leg:Legislation|leg:EN|leg:ImpactAssessment)/ukm:Metadata"/>
 
 	<xsl:variable 	name="g_strDocumentStatus" select="$g_ndsMetadata/*/ukm:DocumentClassification/ukm:DocumentStatus/@Value"/>
 	<xsl:variable 	name="g_strDocumentMainType" select="$g_ndsMetadata/*/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
