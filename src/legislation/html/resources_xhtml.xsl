@@ -496,7 +496,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					  select="if (@Stage = 'Impact Assessment') then () else 'Impact Assessment '"/>
 		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>
 		<xsl:variable name="title" select="if ($totalStage &gt; 1) then
-					concat($draftText, $stage, ' ', $iaTitle, count(preceding-sibling::ukm:ImpactAssessment[@Stage = $stage]) + 1)
+			concat($draftText, $stage, ' ', $iaTitle, 'part ', count(preceding-sibling::ukm:ImpactAssessment[@Stage = $stage]) + 1)
 					else
 					concat($draftText, $stage, ' ', $iaTitle)"/>
 		<xsl:sequence select="tso:makeAssociatedDocListItem(@URI,$title,@Size)"/>
