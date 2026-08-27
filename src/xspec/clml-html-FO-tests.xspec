@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+               xmlns:functx="http://www.functx.com"
+               stylesheet="../legislation/fo/legislation_schema_FO.xslt"
+               run-as='external'
+               xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:fo="http://www.w3.org/1999/XSL/Format"
+               xmlns:local="#local">
+
+	<x:param name="xspecTest" as="xs:string?" select="'true'"/>
+	
+	<x:scenario label="LEGDEV-8941: Numbering of provisions within block amendment incorrect in generated PDF for UKSI 2025/922">
+		<x:param name="xspecDocType" as="xs:string?" select="'secondary'"/>
+		<x:context>
+			<BlockAmendment xmlns="http://www.legislation.gov.uk/namespaces/legislation" Context="schedule" Format="double" TargetClass="primary" TargetSubClass="unknown">
+						<Part id="p00129">
+							<Number>Part 1A</Number>
+							<Title>Exceptions</Title>
+							<P1group>
+								<Title>Introduction</Title>
+								<P1>
+									<Pnumber>2A</Pnumber>
+									<P1para>
+										<Text>This Part applies where a foreign power would (apart from this Part of this Schedule) be able to control or influence the policy of a person
+											(a “newspaper owner”) carrying on a newspaper enterprise for the purposes of section 70A by virtue of condition 1 or condition 2 in paragraph 1
+											(respectively, “the shares condition” and “the voting rights condition”).</Text>
+									</P1para>
+								</P1>
+							</P1group>
+							<P1group>
+								<Title>State owned investors</Title>
+								<P1 id="p00138">
+									<Pnumber>2B</Pnumber>
+									<P1para>
+										<P2>
+											<Pnumber>1</Pnumber>
+											<P2para>
+												<Text>A foreign power is not able to control or influence the policy of a newspaper owner by virtue of the shares condition or the voting rights condition where—</Text>
+												<P3>
+													<Pnumber>a</Pnumber>
+													<P3para>
+														<Text>all of the shares or voting rights that the foreign power holds in the newspaper owner are held by the foreign power indirectly via a state owned investor acting on behalf of the foreign power (see <InternalLink Ref="p00157">paragraph 2C</InternalLink>), and</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>b</Pnumber>
+													<P3para>
+														<Text>the state owned investor holds, directly or indirectly, no more than 15% of the shares or voting rights in the newspaper owner.</Text>
+													</P3para>
+												</P3>
+											</P2para>
+										</P2>
+										<P2>
+											<Pnumber>2</Pnumber>
+											<P2para>
+												<Text>Where shares or voting rights are held by different state owned investors acting on behalf of one or more foreign powers of the same country or territory, those state owned investors are to be treated as if they were a single state owned investor (and, accordingly, their holdings of shares or voting rights are to be treated as if they were a single holding of shares or voting rights).</Text>
+											</P2para>
+										</P2>
+									</P1para>
+								</P1>
+								<P1 id="p00157">
+									<Pnumber>2C</Pnumber>
+									<P1para>
+										<P2>
+											<Pnumber>1</Pnumber>
+											<P2para>
+												<Text>For the purposes of <InternalLink Ref="p00138">paragraph 2B</InternalLink>, a person is a state owned investor acting on behalf of a foreign power where—</Text>
+												<P3>
+													<Pnumber>a</Pnumber>
+													<P3para>
+														<Text>condition 1 or 2 is met, and</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>b</Pnumber>
+													<P3para>
+														<Text>conditions 3 to 5 are met.</Text>
+													</P3para>
+												</P3>
+											</P2para>
+										</P2>
+										<P2>
+											<Pnumber>2</Pnumber>
+											<P2para>
+												<Text>Condition 1 is that the foreign power holds, directly or indirectly—</Text>
+												<P3>
+													<Pnumber>a</Pnumber>
+													<P3para>
+														<Text>100% of the shares in the person,</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>b</Pnumber>
+													<P3para>
+														<Text>100% of the voting rights in the person, or</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>c</Pnumber>
+													<P3para>
+														<Text>the right to appoint or remove a majority of the officers of the person.</Text>
+													</P3para>
+												</P3>
+											</P2para>
+										</P2>
+										<P2>
+											<Pnumber>3</Pnumber>
+											<P2para>
+												<Text>Condition 2 is that—</Text>
+												<P3>
+													<Pnumber>a</Pnumber>
+													<P3para>
+														<Text>the trustees of a trust, or the members of a partnership, unincorporated association or other entity, that is not a legal person under the law by which it is governed meet one or more of the requirements set out in <InternalLink Ref="p00200">sub-paragraph (4)</InternalLink>, in their capacity as such, in relation to the person, and</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>b</Pnumber>
+													<P3para>
+														<Text>the foreign power directs or controls the activities of that trust or entity (in whole or in part).</Text>
+													</P3para>
+												</P3>
+											</P2para>
+										</P2>
+										<P2 id="p00200">
+											<Pnumber>4</Pnumber>
+											<P2para>
+												<Text>The requirements are that the trustees or members—</Text>
+												<P3>
+													<Pnumber>a</Pnumber>
+													<P3para>
+														<Text>have the right to direct or control, or actually direct or control, the person’s activities (in whole or in part);</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>b</Pnumber>
+													<P3para>
+														<Text>hold, directly or indirectly, 100% of the shares in the person;</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>c</Pnumber>
+													<P3para>
+														<Text>hold, directly or indirectly, 100% of the voting rights in the person;</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>d</Pnumber>
+													<P3para>
+														<Text>hold the right, directly or indirectly, to appoint or remove a majority of the officers of the person.</Text>
+													</P3para>
+												</P3>
+											</P2para>
+										</P2>
+										<P2>
+											<Pnumber>5</Pnumber>
+											<P2para>
+												<Text>Condition 3 is that—</Text>
+												<P3>
+													<Pnumber>a</Pnumber>
+													<P3para>
+														<Text>the principal activity of the person is to make or manage investments, and</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>b</Pnumber>
+													<P3para>
+														<Text>the activities of the person include making or managing investments in countries or territories other than the country or territory of the foreign power (“the overseas investments”).</Text>
+													</P3para>
+												</P3>
+											</P2para>
+										</P2>
+										<P2>
+											<Pnumber>6</Pnumber>
+											<P2para>
+												<Text>Condition 4 is that the principal source of the funds for the overseas investments is the foreign power or another foreign power of the same country or territory as the foreign power.</Text>
+											</P2para>
+										</P2>
+										<P2>
+											<Pnumber>7</Pnumber>
+											<P2para>
+												<Text>Condition 5 is that the sole purpose of the overseas investments is to benefit—</Text>
+												<P3>
+													<Pnumber>a</Pnumber>
+													<P3para>
+														<Text>the foreign power or the public or a section of the public of the country or territory of the foreign power, or</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>b</Pnumber>
+													<P3para>
+														<Text>where the overseas investments are made or managed for the purposes of a public pension fund of the country or territory of the foreign power, the beneficiaries of that fund.</Text>
+													</P3para>
+												</P3>
+											</P2para>
+										</P2>
+									</P1para>
+								</P1>
+							</P1group>
+						</Part>
+					</BlockAmendment>
+			</x:context>
+		<x:call template="xspec-test"/>
+		<x:expect label="Numbering of provisions within block amendment has correct layout in generated PDF">
+			<fo:block xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:err="http://www.tso.co.uk/assets/namespace/error" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:fox="http://xmlgraphics.apache.org/fop/extensions" xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xmp="http://ns.adobe.com/xap/1.0/"><fo:block><fo:block font-size="14pt" space-before="24pt" text-align="center" keep-with-next="always" line-height="16.8pt"><fo:marker marker-class-name="runningheadpart">Part 1A – Exceptions</fo:marker><fo:marker marker-class-name="SideBar">Part 1A</fo:marker><fo:inline font-weight="normal">“</fo:inline>Part 1A</fo:block><fo:block font-size="12pt" space-before="6pt" text-align="center" keep-with-next="always" line-height="14.4pt">Exceptions</fo:block></fo:block><fo:block font-size="10.5pt" font-weight="bold" text-align="left" keep-with-next="always" space-before="16pt" space-after="6pt" margin-left="24pt">Introduction</fo:block><fo:block text-align="justify" space-before="6pt" text-indent="12pt"><fo:inline font-weight="bold"><fo:inline font-weight="bold">2A.</fo:inline></fo:inline><fo:leader leader-pattern="space" leader-length="0.5em"/>This Part applies where a foreign power would (apart from this Part of this Schedule) be able to control or influence the policy of a person (a “newspaper owner”) carrying on a newspaper enterprise for the purposes of section&#160;70A by virtue of condition 1 or condition 2 in paragraph 1 (respectively, “the shares condition” and “the voting rights condition”).</fo:block><fo:block font-size="10.5pt" font-weight="bold" text-align="left" keep-with-next="always" space-before="16pt" space-after="6pt" margin-left="24pt">State owned investors</fo:block><fo:block text-align="justify" text-indent="12pt" space-before="4pt"><fo:inline font-weight="bold">2B.</fo:inline>—(1)&#160;&#160;A foreign power is not able to control or influence the policy of a newspaper owner by virtue of the shares condition or the voting rights condition <fo:inline keep-together.within-line="always">where—</fo:inline></fo:block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(a)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">all of the shares or voting rights that the foreign power holds in the newspaper owner are held by the foreign power indirectly via a state owned investor acting on behalf of the foreign power (see&#160;<fo:basic-link internal-destination="p00157" color="rgb(0,102,153)">paragraph 2C</fo:basic-link>), and</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(b)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">the state owned investor holds, directly or indirectly, no more than 15% of the shares or voting rights in the newspaper owner.</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:block text-align="justify" text-indent="12pt" space-before="4pt">(2)&#160;&#160;Where shares or voting rights are held by different state owned investors acting on behalf of one or more foreign powers of the same country or territory, those state owned investors are to be treated as if they were a single state owned investor (and, accordingly, their holdings of shares or voting rights are to be treated as if they were a single holding of shares or voting rights).</fo:block><fo:block text-align="justify" text-indent="12pt" space-before="12pt"><fo:inline font-weight="bold">2C.</fo:inline>—(1)&#160;&#160;For the purposes of&#160;<fo:basic-link internal-destination="p00138" color="rgb(0,102,153)">paragraph 2B</fo:basic-link>, a person is a state owned investor acting on behalf of a foreign power <fo:inline keep-together.within-line="always">where—</fo:inline></fo:block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(a)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">condition 1 or 2 is met, and</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(b)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">conditions 3 to 5 are met.</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:block text-align="justify" text-indent="12pt" space-before="4pt">(2)&#160;&#160;Condition 1 is that the foreign power holds, directly or <fo:inline keep-together.within-line="always">indirectly—</fo:inline></fo:block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(a)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">100% of the shares in the person,</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(b)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">100% of the voting rights in the person, or</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(c)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">the right to appoint or remove a majority of the officers of the person.</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:block text-align="justify" text-indent="12pt" space-before="4pt">(3)&#160;&#160;Condition 2 is <fo:inline keep-together.within-line="always">that—</fo:inline></fo:block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(a)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">the trustees of a trust, or the members of a partnership, unincorporated association or other entity, that is not a legal person under the law by which it is governed meet one or more of the requirements set out in&#160;<fo:basic-link internal-destination="p00200" color="rgb(0,102,153)">sub-paragraph&#160;(4)</fo:basic-link>, in their capacity as such, in relation to the person, and</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(b)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">the foreign power directs or controls the activities of that trust or entity (in whole or in part).</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:block text-align="justify" text-indent="12pt" space-before="4pt">(4)&#160;&#160;The requirements are that the trustees or <fo:inline keep-together.within-line="always">members—</fo:inline></fo:block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(a)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">have the right to direct or control, or actually direct or control, the person’s activities (in whole or in part);</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(b)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">hold, directly or indirectly, 100% of the shares in the person;</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(c)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">hold, directly or indirectly, 100% of the voting rights in the person;</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(d)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">hold the right, directly or indirectly, to appoint or remove a majority of the officers of the person.</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:block text-align="justify" text-indent="12pt" space-before="4pt">(5)&#160;&#160;Condition 3 is <fo:inline keep-together.within-line="always">that—</fo:inline></fo:block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(a)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">the principal activity of the person is to make or manage investments, and</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(b)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">the activities of the person include making or managing investments in countries or territories other than the country or territory of the foreign power (“the overseas investments”).</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:block text-align="justify" text-indent="12pt" space-before="4pt">(6)&#160;&#160;Condition 4 is that the principal source of the funds for the overseas investments is the foreign power or another foreign power of the same country or territory as the foreign power.</fo:block><fo:block text-align="justify" text-indent="12pt" space-before="4pt">(7)&#160;&#160;Condition 5 is that the sole purpose of the overseas investments is to <fo:inline keep-together.within-line="always">benefit—</fo:inline></fo:block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(a)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">the foreign power or the public or a section of the public of the country or territory of the foreign power, or</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block><fo:list-block provisional-label-separation="6pt" space-before="4pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"><fo:list-item><fo:list-item-label end-indent="label-end()"><fo:block font-size="10.5pt" text-align="right">(b)</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block font-size="10.5pt" text-align="justify"><fo:block><fo:block text-align="justify" space-before="4pt" text-indent="0pt">where the overseas investments are made or managed for the purposes of a public pension fund of the country or territory of the foreign power, the beneficiaries of that fund.</fo:block></fo:block></fo:block></fo:list-item-body></fo:list-item></fo:list-block>
+			</fo:block>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="LEGDEV-9351: Missing semicolon after the inserted text for UKPGA 2025/33, Page 80, Schedule 2, paragraph 30(c)(ii)">
+		<x:param name="xspecDocType" as="xs:string?" select="'primary'"/>
+		<x:context>
+			<ScheduleBody xmlns="http://www.legislation.gov.uk/namespaces/legislation">
+				<Part DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/part/3" IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/part/3" NumberOfProvisions="10"
+					Match="false" Status="Prospective" id="schedule-2-part-3" RestrictExtent="E+W+S+N.I.">
+					<Number>Part 3</Number>
+					<Title>Patients concerned in criminal proceedings etc: functions of nominated person</Title>
+					<P1 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30" IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30"
+						Match="false" Status="Prospective" id="schedule-2-paragraph-30" RestrictExtent="E+W+S+N.I.">
+						<Pnumber><CommentaryRef Ref="key-17dd6fd99fe02057cc101fcfdb700eda"/>30</Pnumber>
+						<P1para>
+							<Text>In Part 2 of Schedule 1 (application of certain provisions to patients subject to hospital and guardianship orders who are subject to special
+								restrictions)—</Text>
+							<P3 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/a" IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/a"
+								id="schedule-2-paragraph-30-a">
+								<Pnumber>a</Pnumber>
+								<P3para>
+									<Text>in paragraph 1, after “Sections” insert <InlineAmendment>“<InternalLink Ref="p07448">30A</InternalLink>,”</InlineAmendment>;</Text>
+								</P3para>
+							</P3>
+							<P3 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/b" IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/b"
+								id="schedule-2-paragraph-30-b">
+								<Pnumber>b</Pnumber>
+								<P3para>
+									<Text>in paragraph 2—</Text>
+									<P4 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/b/i"
+										IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/b/i" id="schedule-2-paragraph-30-b-i">
+										<Pnumber>i</Pnumber>
+										<P4para>
+											<Text>after “23” insert <InlineAmendment>“, <InternalLink Ref="p07462">30B</InternalLink>”</InlineAmendment>;</Text>
+										</P4para>
+									</P4>
+									<P4 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/b/ii"
+										IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/b/ii" id="schedule-2-paragraph-30-b-ii">
+										<Pnumber>ii</Pnumber>
+										<P4para>
+											<Text>after “34” insert <InlineAmendment>“and <InternalLink Ref="p07573">Schedule A1</InternalLink>”</InlineAmendment>;</Text>
+										</P4para>
+									</P4>
+									<P4 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/b/iii"
+										IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/b/iii" id="schedule-2-paragraph-30-b-iii">
+										<Pnumber>iii</Pnumber>
+										<P4para>
+											<Text>for “8” substitute <InlineAmendment>“<InternalLink Ref="p08660">9</InternalLink>”</InlineAmendment>;</Text>
+										</P4para>
+									</P4>
+								</P3para>
+							</P3>
+							<P3 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/c" IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/c"
+								id="schedule-2-paragraph-30-c">
+								<Pnumber>c</Pnumber>
+								<P3para>
+									<Text>in paragraph 5—</Text>
+									<P4 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/c/i"
+										IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/c/i" id="schedule-2-paragraph-30-c-i">
+										<Pnumber>i</Pnumber>
+										<P4para>
+											<Text>omit the “and” at the end of paragraph (b);</Text>
+										</P4para>
+									</P4>
+									<P4 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/c/ii"
+										IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/c/ii" id="schedule-2-paragraph-30-c-ii">
+										<Pnumber>ii</Pnumber>
+										<P4para>
+											<Text>at the end of paragraph (c) insert </Text>
+											<BlockAmendment Context="main" PartialRefs="p10008" Format="default" TargetClass="primary" TargetSubClass="unknown">
+												<Text id="p10008">and</Text>
+												<P3>
+													<Pnumber>d</Pnumber>
+													<P3para>
+														<Text>in subsection (3A), after paragraph (a) there is to be inserted—</Text>
+														<BlockAmendment Context="main" Format="double" TargetClass="primary" TargetSubClass="unknown">
+															<P3>
+																<Pnumber>za</Pnumber>
+																<P3para>
+																	<Text>is inappropriate,</Text>
+																</P3para>
+															</P3>
+														</BlockAmendment>
+													</P3para>
+												</P3>
+											</BlockAmendment>
+											<AppendText>;</AppendText>
+										</P4para>
+									</P4>
+								</P3para>
+							</P3>
+							<P3 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/d" IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/d"
+								id="schedule-2-paragraph-30-d">
+								<Pnumber>d</Pnumber>
+								<P3para>
+									<Text>in paragraph 7(b)(i), for “the nearest relative of the patient” substitute <InlineAmendment>“the patient’s nominated person”</InlineAmendment>;</Text>
+								</P3para>
+							</P3>
+							<P3 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/e" IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/e"
+								id="schedule-2-paragraph-30-e">
+								<Pnumber>e</Pnumber>
+								<P3para>
+									<Text>after paragraph 7 insert—</Text>
+									<BlockAmendment Context="schedule" Format="double" TargetClass="primary" TargetSubClass="unknown">
+										<P1>
+											<Pnumber>7A</Pnumber>
+											<P1para>
+												<Text>In section <InternalLink Ref="p07462">30B</InternalLink>—</Text>
+												<P3>
+													<Pnumber>a</Pnumber>
+													<P3para>
+														<Text>in subsection <InternalLink Ref="p07468">(2)</InternalLink><InternalLink Ref="p07475">(b)</InternalLink> the reference to an approved
+															mental health professional is to be read as a reference to the responsible clinician;</Text>
+													</P3para>
+												</P3>
+												<P3>
+													<Pnumber>b</Pnumber>
+													<P3para>
+														<Text>in subsection <InternalLink Ref="p07484">(3)</InternalLink>, paragraphs <InternalLink Ref="p07471">(a)</InternalLink> to <InternalLink
+																Ref="p07479">(c)</InternalLink> are to be omitted.</Text>
+													</P3para>
+												</P3>
+											</P1para>
+										</P1>
+									</BlockAmendment>
+									<AppendText>;</AppendText>
+								</P3para>
+							</P3>
+							<P3 DocumentURI="http://www.legislation.gov.uk/ukpga/2025/33/schedule/2/paragraph/30/f" IdURI="http://www.legislation.gov.uk/id/ukpga/2025/33/schedule/2/paragraph/30/f"
+								id="schedule-2-paragraph-30-f">
+								<Pnumber>f</Pnumber>
+								<P3para>
+									<Text>after paragraph 8 insert—</Text>
+									<BlockAmendment Context="schedule" Format="double" TargetClass="primary" TargetSubClass="unknown">
+										<P1 id="p08660">
+											<Pnumber>9</Pnumber>
+											<P1para>
+												<Text>In <InternalLink Ref="p07573">Schedule A1</InternalLink>, references to an approved mental health professional are to be read as references to
+													the responsible clinician.</Text>
+											</P1para>
+										</P1>
+									</BlockAmendment>
+								</P3para>
+							</P3>
+						</P1para>
+					</P1>
+				</Part>
+			</ScheduleBody>
+		</x:context>
+		<x:call template="xspec-test"/>
+		<x:expect label="Missing semicolon after the inserted text">
+			<fo:block xmlns:dc="http://purl.org/dc/elements/1.1/"
+				xmlns:dct="http://purl.org/dc/terms/"
+				xmlns:err="http://www.tso.co.uk/assets/namespace/error"
+				xmlns:fo="http://www.w3.org/1999/XSL/Format"
+				xmlns:fox="http://xmlgraphics.apache.org/fop/extensions"
+				xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
+				xmlns:math="http://www.w3.org/1998/Math/MathML"
+				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+				xmlns:rx="http://www.renderx.com/XSL/Extensions"
+				xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
+				xmlns:xhtml="http://www.w3.org/1999/xhtml"
+				xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+				xmlns:xs="http://www.w3.org/2001/XMLSchema"
+				background-color="#eff5f5"
+				space-before="12pt"
+				padding-bottom="6pt"
+				padding-top="0pt"
+				padding-left="6pt"
+				padding-right="6pt"
+				margin-left="0pt">
+				<fo:block background-color="#7a8093"
+					text-align="right"
+					padding="6pt"
+					keep-with-next="always">
+					<fo:inline color="#ffffff"
+						text-transform="uppercase"
+						font-size="10pt">Prospective</fo:inline>
+				</fo:block><fo:block><fo:block><fo:block font-size="11pt" space-before="24pt" text-align="center" keep-with-next="always" font-weight="bold"
+						font-variant="small-caps"><fo:marker marker-class-name="runningheadpart">Part 3 – Patients concerned in criminal proceedings etc: functions of nominated person</fo:marker><fo:marker
+							marker-class-name="SideBar">Part 3</fo:marker>P<fo:inline font-size="9pt" text-transform="uppercase">art</fo:inline> 3</fo:block><fo:block font-size="11pt" space-before="12pt"
+								text-align="center" keep-with-next="always">P<fo:inline font-size="9pt" text-transform="uppercase">atients</fo:inline> <fo:inline font-size="9pt" text-transform="uppercase"
+									>concerned</fo:inline> <fo:inline font-size="9pt" text-transform="uppercase">in</fo:inline> <fo:inline font-size="9pt" text-transform="uppercase">criminal</fo:inline> <fo:inline
+										font-size="9pt" text-transform="uppercase">proceedings</fo:inline> <fo:inline font-size="9pt" text-transform="uppercase">etc</fo:inline>: <fo:inline font-size="9pt"
+											text-transform="uppercase">functions</fo:inline> <fo:inline font-size="9pt" text-transform="uppercase">of</fo:inline> <fo:inline font-size="9pt" text-transform="uppercase"
+												>nominated</fo:inline> <fo:inline font-size="9pt" text-transform="uppercase">person</fo:inline></fo:block></fo:block><fo:list-block provisional-label-separation="3pt"
+													provisional-distance-between-starts="48pt" space-before="6pt" id="schedule-2-paragraph-30">
+													<fo:list-item>
+														<fo:list-item-label end-indent="label-end()">
+															<fo:block font-size="11pt" text-align="left" start-indent="3pt">30</fo:block>
+														</fo:list-item-label>
+														<fo:list-item-body start-indent="body-start()">
+															<fo:block font-size="11pt" text-align="justify"><fo:block text-align="justify" space-before="8pt" margin-left="6pt">In Part 2 of Schedule&#160;1 (application of certain provisions
+																	to patients subject to hospital and guardianship orders who are subject to special restrictions)—</fo:block><fo:list-block provisional-label-separation="12pt"
+																		space-before="2pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt" id="schedule-2-paragraph-30-a">
+																		<fo:list-item>
+																			<fo:list-item-label end-indent="label-end()">
+																				<fo:block font-size="11pt" text-align="right">(a)</fo:block>
+																			</fo:list-item-label>
+																			<fo:list-item-body start-indent="body-start()">
+																				<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">in paragraph 1, after “Sections” insert
+																							<fo:inline>“<fo:basic-link internal-destination="p07448" color="rgb(0,102,153)">30A</fo:basic-link>,”</fo:inline>;</fo:block></fo:block></fo:block>
+																			</fo:list-item-body>
+																		</fo:list-item>
+																	</fo:list-block><fo:list-block provisional-label-separation="12pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"
+																		id="schedule-2-paragraph-30-b">
+																		<fo:list-item>
+																			<fo:list-item-label end-indent="label-end()">
+																				<fo:block font-size="11pt" text-align="right">(b)</fo:block>
+																			</fo:list-item-label>
+																			<fo:list-item-body start-indent="body-start()">
+																				<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">in paragraph <fo:inline keep-together.within-line="always"
+																								>2—</fo:inline></fo:block><fo:list-block provisional-label-separation="3pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="0pt"
+																									text-indent="0pt" id="schedule-2-paragraph-30-b-i">
+																									<fo:list-item>
+																										<fo:list-item-label end-indent="label-end()">
+																											<fo:block font-size="11pt" text-align="right">(i)</fo:block>
+																										</fo:list-item-label>
+																										<fo:list-item-body start-indent="body-start()">
+																											<fo:block font-size="11pt" text-align="justify"><fo:block space-before="8pt" text-align="justify">after “23” insert <fo:inline>“,&#160;<fo:basic-link
+																															internal-destination="p07462" color="rgb(0,102,153)">30B</fo:basic-link>”</fo:inline>;</fo:block></fo:block>
+																										</fo:list-item-body>
+																									</fo:list-item>
+																								</fo:list-block><fo:list-block provisional-label-separation="3pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="0pt" text-indent="0pt"
+																									id="schedule-2-paragraph-30-b-ii">
+																									<fo:list-item>
+																										<fo:list-item-label end-indent="label-end()">
+																											<fo:block font-size="11pt" text-align="right">(ii)</fo:block>
+																										</fo:list-item-label>
+																										<fo:list-item-body start-indent="body-start()">
+																											<fo:block font-size="11pt" text-align="justify"><fo:block space-before="8pt" text-align="justify">after “34” insert <fo:inline>“and&#160;<fo:basic-link
+																															internal-destination="p07573" color="rgb(0,102,153)">Schedule A1</fo:basic-link>”</fo:inline>;</fo:block></fo:block>
+																										</fo:list-item-body>
+																									</fo:list-item>
+																								</fo:list-block><fo:list-block provisional-label-separation="3pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="0pt" text-indent="0pt"
+																									id="schedule-2-paragraph-30-b-iii">
+																									<fo:list-item>
+																										<fo:list-item-label end-indent="label-end()">
+																											<fo:block font-size="11pt" text-align="right">(iii)</fo:block>
+																										</fo:list-item-label>
+																										<fo:list-item-body start-indent="body-start()">
+																											<fo:block font-size="11pt" text-align="justify"><fo:block space-before="8pt" text-align="justify">for “8” substitute <fo:inline>“<fo:basic-link
+																															internal-destination="p08660" color="rgb(0,102,153)">9</fo:basic-link>”</fo:inline>;</fo:block></fo:block>
+																										</fo:list-item-body>
+																									</fo:list-item>
+																								</fo:list-block></fo:block></fo:block>
+																			</fo:list-item-body>
+																		</fo:list-item>
+																	</fo:list-block><fo:list-block provisional-label-separation="12pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"
+																		id="schedule-2-paragraph-30-c">
+																		<fo:list-item>
+																			<fo:list-item-label end-indent="label-end()">
+																				<fo:block font-size="11pt" text-align="right">(c)</fo:block>
+																			</fo:list-item-label>
+																			<fo:list-item-body start-indent="body-start()">
+																				<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">in paragraph <fo:inline keep-together.within-line="always"
+																								>5—</fo:inline></fo:block><fo:list-block provisional-label-separation="3pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="0pt"
+																									text-indent="0pt" id="schedule-2-paragraph-30-c-i">
+																									<fo:list-item>
+																										<fo:list-item-label end-indent="label-end()">
+																											<fo:block font-size="11pt" text-align="right">(i)</fo:block>
+																										</fo:list-item-label>
+																										<fo:list-item-body start-indent="body-start()">
+																											<fo:block font-size="11pt" text-align="justify"><fo:block space-before="8pt" text-align="justify">omit the “and” at the end of
+																													paragraph&#160;(b);</fo:block></fo:block>
+																										</fo:list-item-body>
+																									</fo:list-item>
+																								</fo:list-block><fo:list-block provisional-label-separation="3pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="0pt" text-indent="0pt"
+																									id="schedule-2-paragraph-30-c-ii">
+																									<fo:list-item>
+																										<fo:list-item-label end-indent="label-end()">
+																											<fo:block font-size="11pt" text-align="right">(ii)</fo:block>
+																										</fo:list-item-label>
+																										<fo:list-item-body start-indent="body-start()">
+																											<fo:block font-size="11pt" text-align="justify"><fo:block space-before="8pt" text-align="justify">at the end of paragraph&#160;(c) insert <fo:inline
+																														font-weight="normal">“</fo:inline>and</fo:block><fo:block text-align="justify" font-size="11pt"><fo:list-block provisional-label-separation="12pt"
+																																space-before="2pt" provisional-distance-between-starts="36pt" margin-left="36pt" text-indent="0pt">
+																																<fo:list-item>
+																																	<fo:list-item-label end-indent="label-end()">
+																																		<fo:block font-size="11pt" text-align="right">(d)</fo:block>
+																																	</fo:list-item-label>
+																																	<fo:list-item-body start-indent="body-start()">
+																																		<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">in subsection&#160;(3A), after
+																																					paragraph&#160;(a) there is to be <fo:inline keep-together.within-line="always">inserted—</fo:inline></fo:block><fo:block
+																																						text-align="justify" font-size="11pt"><fo:list-block provisional-label-separation="12pt" space-before="2pt"
+																																							provisional-distance-between-starts="36pt" margin-left="36pt" text-indent="0pt">
+																																							<fo:list-item>
+																																								<fo:list-item-label end-indent="label-end()">
+																																									<fo:block font-size="11pt" text-align="right"><fo:inline font-weight="normal">“</fo:inline>(za)</fo:block>
+																																								</fo:list-item-label>
+																																								<fo:list-item-body start-indent="body-start()">
+																																									<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">is
+																																												inappropriate,””;</fo:block></fo:block></fo:block>
+																																								</fo:list-item-body>
+																																							</fo:list-item>
+																																						</fo:list-block></fo:block></fo:block></fo:block>
+																																	</fo:list-item-body>
+																																</fo:list-item>
+																														</fo:list-block></fo:block></fo:block>
+																										</fo:list-item-body>
+																									</fo:list-item>
+																								</fo:list-block></fo:block></fo:block>
+																			</fo:list-item-body>
+																		</fo:list-item>
+																	</fo:list-block><fo:list-block provisional-label-separation="12pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"
+																		id="schedule-2-paragraph-30-d">
+																		<fo:list-item>
+																			<fo:list-item-label end-indent="label-end()">
+																				<fo:block font-size="11pt" text-align="right">(d)</fo:block>
+																			</fo:list-item-label>
+																			<fo:list-item-body start-indent="body-start()">
+																				<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">in paragraph 7(b)(i), for “the nearest relative of the
+																							patient” substitute <fo:inline>“the patient’s nominated person”</fo:inline>;</fo:block></fo:block></fo:block>
+																			</fo:list-item-body>
+																		</fo:list-item>
+																	</fo:list-block><fo:list-block provisional-label-separation="12pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"
+																		id="schedule-2-paragraph-30-e">
+																		<fo:list-item>
+																			<fo:list-item-label end-indent="label-end()">
+																				<fo:block font-size="11pt" text-align="right">(e)</fo:block>
+																			</fo:list-item-label>
+																			<fo:list-item-body start-indent="body-start()">
+																				<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">after paragraph 7 <fo:inline
+																								keep-together.within-line="always">insert—</fo:inline></fo:block><fo:block text-align="justify" font-size="11pt"><fo:list-block provisional-label-separation="3pt"
+																										provisional-distance-between-starts="48pt" space-before="6pt">
+																										<fo:list-item>
+																											<fo:list-item-label end-indent="label-end()">
+																												<fo:block font-size="11pt" text-align="left" margin-left="6pt"><fo:inline font-weight="normal">“</fo:inline>7A</fo:block>
+																											</fo:list-item-label>
+																											<fo:list-item-body start-indent="body-start()">
+																												<fo:block font-size="11pt" text-align="justify"><fo:block text-align="justify" space-before="8pt" margin-left="6pt">In section&#160;<fo:basic-link
+																															internal-destination="p07462" color="rgb(0,102,153)">30B</fo:basic-link>—</fo:block><fo:list-block provisional-label-separation="12pt"
+																																space-before="2pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt">
+																																<fo:list-item>
+																																	<fo:list-item-label end-indent="label-end()">
+																																		<fo:block font-size="11pt" text-align="right">(a)</fo:block>
+																																	</fo:list-item-label>
+																																	<fo:list-item-body start-indent="body-start()">
+																																		<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">in subsection&#160;<fo:basic-link
+																																						internal-destination="p07468" color="rgb(0,102,153)">(2)</fo:basic-link><fo:basic-link internal-destination="p07475" color="rgb(0,102,153)"
+																																							>(b)</fo:basic-link> the reference to an approved mental health professional is to be read as a reference to the responsible
+																																					clinician;</fo:block></fo:block></fo:block>
+																																	</fo:list-item-body>
+																																</fo:list-item>
+																															</fo:list-block><fo:list-block provisional-label-separation="12pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="6pt"
+																																text-indent="0pt">
+																																<fo:list-item>
+																																	<fo:list-item-label end-indent="label-end()">
+																																		<fo:block font-size="11pt" text-align="right">(b)</fo:block>
+																																	</fo:list-item-label>
+																																	<fo:list-item-body start-indent="body-start()">
+																																		<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">in subsection&#160;<fo:basic-link
+																																						internal-destination="p07484" color="rgb(0,102,153)">(3)</fo:basic-link>, paragraphs&#160;<fo:basic-link internal-destination="p07471"
+																																							color="rgb(0,102,153)">(a)</fo:basic-link> to&#160;<fo:basic-link internal-destination="p07479" color="rgb(0,102,153)">(c)</fo:basic-link>
+																																					are to be omitted.”;</fo:block></fo:block></fo:block>
+																																	</fo:list-item-body>
+																																</fo:list-item>
+																															</fo:list-block></fo:block>
+																											</fo:list-item-body>
+																										</fo:list-item>
+																								</fo:list-block></fo:block></fo:block></fo:block>
+																			</fo:list-item-body>
+																		</fo:list-item>
+																	</fo:list-block><fo:list-block provisional-label-separation="12pt" space-before="2pt" provisional-distance-between-starts="36pt" margin-left="6pt" text-indent="0pt"
+																		id="schedule-2-paragraph-30-f">
+																		<fo:list-item>
+																			<fo:list-item-label end-indent="label-end()">
+																				<fo:block font-size="11pt" text-align="right">(f)</fo:block>
+																			</fo:list-item-label>
+																			<fo:list-item-body start-indent="body-start()">
+																				<fo:block font-size="11pt" text-align="justify"><fo:block><fo:block space-before="8pt" text-align="justify">after paragraph 8 <fo:inline
+																								keep-together.within-line="always">insert—</fo:inline></fo:block><fo:block text-align="justify" font-size="11pt"><fo:list-block provisional-label-separation="3pt"
+																										provisional-distance-between-starts="48pt" space-before="6pt" id="p08660">
+																										<fo:list-item>
+																											<fo:list-item-label end-indent="label-end()">
+																												<fo:block font-size="11pt" text-align="left" margin-left="6pt"><fo:inline font-weight="normal">“</fo:inline>9</fo:block>
+																											</fo:list-item-label>
+																											<fo:list-item-body start-indent="body-start()">
+																												<fo:block font-size="11pt" text-align="justify"><fo:block text-align="justify" space-before="8pt" margin-left="6pt">In&#160;<fo:basic-link
+																															internal-destination="p07573" color="rgb(0,102,153)">Schedule A1</fo:basic-link>, references to an approved mental health professional are to be read as
+																														references to the responsible clinician.”</fo:block></fo:block>
+																											</fo:list-item-body>
+																										</fo:list-item>
+																								</fo:list-block></fo:block></fo:block></fo:block>
+																			</fo:list-item-body>
+																		</fo:list-item>
+																	</fo:list-block></fo:block>
+														</fo:list-item-body>
+													</fo:list-item>
+												</fo:list-block><fo:block margin-left="0pt" margin-right="0pt" font-size="10pt" border="0.75pt #c7c7c7 solid" padding="6pt" color="black" space-before="8pt"><fo:block font-weight="bold"
+														padding-top="6pt" border-top="0.75pt #c7c7c7 dotted" space-before="6pt" keep-with-next="always">Commencement Information</fo:block><fo:block xmlns="http://www.w3.org/1999/xhtml"
+															xmlns:atom="http://www.w3.org/2005/Atom" id="commentary-key-17dd6fd99fe02057cc101fcfdb700eda" space-after="0pt"><fo:list-block provisional-label-separation="3pt" space-before="0pt"
+																provisional-distance-between-starts="24pt" margin-left="6pt">
+																<fo:list-item font-size="9pt" space-before="0pt" space-after="0pt">
+																	<fo:list-item-label end-indent="label-end()" font-weight="bold">
+																		<fo:block>I1</fo:block>
+																	</fo:list-item-label>
+																	<fo:list-item-body start-indent="body-start()">
+																		<fo:block>Sch. 2 para. 30 not in force at Royal Assent, see <fo:basic-link color="rgb(0,102,153)"
+																				external-destination="url('http://www.legislation.gov.uk/id/ukpga/2025/33/section/56/3')" font-weight="bold">s. 56(3)</fo:basic-link></fo:block>
+																	</fo:list-item-body>
+																</fo:list-item>
+															</fo:list-block></fo:block></fo:block></fo:block></fo:block>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="LEGDEV-9352: P2group heading repeated in the generated PDF for UKPGA 2025.32 s.2(1)">
+		<x:param name="xspecDocType" as="xs:string?" select="'primary'"/>
+		<x:context>
+			
+		</x:context>
+		<x:call template="xspec-test"/>
+		<x:expect label="P2group heading not repeated in the generated PDF">
+			
+		</x:expect>
+	</x:scenario>
+	
+</x:description>
