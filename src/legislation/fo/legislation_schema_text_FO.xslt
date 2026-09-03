@@ -117,7 +117,9 @@ exclude-result-prefixes="tso">
 					</xsl:call-template>
 				</xsl:when>
 				<!-- Chunyu HA049446 21/05/12 Fop1.0 cant handle the text has only one single '-' -->
-				<xsl:when test=".='-'"/>
+				<xsl:when test=".='-'">
+					<xsl:text>&#160;-</xsl:text>
+			        </xsl:when>
 				<xsl:otherwise>
 					<!-- HA098003- only if Title is a child of BlockAmendment/@TargetClass="primary" or P1group/@Layout = 'side'.-->
 					<xsl:if test="name(parent::node())='Title' and name(../..)='P1group' and (ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@TargetClass = 'primary' and not(@Context='schedule')]] or ancestor::leg:P1group/@Layout = 'side')">
