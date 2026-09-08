@@ -1839,6 +1839,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:template name="FuncCalcListClass">
 	<xsl:param name="flOutputPrefix" select="true()"/>
+	<xsl:variable name="node" as="node()" select="."/>
 	<xsl:variable name="intStartLevel">
 		<xsl:call-template name="TSOcalculateListLevel"/>
 	</xsl:variable>
@@ -1862,6 +1863,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:text>LegLevel</xsl:text>
 			</xsl:if>
 			<xsl:value-of select="floor($intCurrentLevel)"/>
+		</xsl:when>
+		<xsl:when test="$node instance of element(leg:BlockText) and $node/parent::leg:P and $node/parent::leg:P/parent::leg:ExplanatoryNotes">
+			<xsl:text>LegExpNoteText</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>Unknown</xsl:otherwise>
 	</xsl:choose>
