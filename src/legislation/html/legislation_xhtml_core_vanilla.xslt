@@ -1867,7 +1867,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:when test="$node instance of element(leg:BlockText) and $node/parent::leg:P and $node/parent::leg:P/parent::leg:ExplanatoryNotes">
 			<xsl:text>LegExpNoteText</xsl:text>
 		</xsl:when>
-		<xsl:otherwise>Unknown</xsl:otherwise>
+		<xsl:otherwise><xsl:value-of select="local-name($node)" />Unknown</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
 
@@ -2598,13 +2598,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!-- ========== Block text ========== -->
 
 <xsl:template match="leg:BlockText">
-	<div class="LegBlockText">
-		<xsl:call-template name="FuncCheckForID"/>
-		<xsl:apply-templates select="* | processing-instruction()"/>
-	</div>
-	<xsl:call-template name="FuncApplyVersions"/>
+    <div class="LegBlockText">
+	    <xsl:call-template name="FuncCheckForID"/>
+			<xsl:apply-templates select="* | processing-instruction()"/>
+		</div>
+    <xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
-
 
 <!-- ========== Extracts ========== -->
 
@@ -2883,7 +2882,15 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <!-- ========== Explanatory notes/Earlier orders ========== -->
 
-<xsl:template match="leg:ExplanatoryNotes">
+	<xsl:template match="leg:ExplanatoryNotes">
+		<xsl:variable name="node" as="node()" select="." />
+		<xsl:variable name="new-node" >
+			<xsl:apply-templates select="$node" mode="en-blocktext" />
+		</xsl:variable>
+		<xsl:apply-templates select="$new-node" mode="ExplanatoryNotes" />
+	</xsl:template>
+
+	<xsl:template match="leg:ExplanatoryNotes" mode="ExplanatoryNotes">
 	<!-- The title is not obligatory as is always there - therefore if missing we will autogenerate -->
 	<!-- We will generate a standard anchor name for the explanatory note -->
 	<xsl:if test="not(ancestor::leg:Versions)">
@@ -2912,6 +2919,43 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:apply-templates select="* | processing-instruction()"/>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
+
+
+
+	<!-- identity transform -->
+	<xsl:template match="@*|node()" priority="-5" mode="en-blocktext">
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" mode="en-blocktext"/>
+		</xsl:copy>
+	</xsl:template>
+	
+	<xsl:template match="leg:ExplanatoryNotes/leg:P/leg:BlockText[leg:Para[leg:Text] or leg:OrderedList[leg:ListItem[leg:Para[leg:Text]]]]" priority="1" mode="en-blocktext">
+		<xsl:apply-templates select="node()" mode="en-blocktext" />
+	</xsl:template>
+	
+	<xsl:template match="leg:ExplanatoryNotes/leg:P/leg:BlockText/leg:Para[leg:Text]" priority="1" mode="en-blocktext">
+		<xsl:apply-templates select="node()" mode="en-blocktext"/>
+	</xsl:template>
+	
+	<xsl:template match="leg:ExplanatoryNotes/leg:P/leg:BlockText/leg:OrderedList[leg:ListItem[leg:Para[leg:Text]]]" priority="1" mode="en-blocktext">
+		<xsl:apply-templates select="node()" mode="en-blocktext" />
+	</xsl:template>
+	
+	<xsl:template match="leg:ExplanatoryNotes/leg:P/leg:BlockText/leg:OrderedList/leg:ListItem[leg:Para[leg:Text]]" priority="1" mode="en-blocktext">
+		<xsl:variable name="node" as="node()" select="." />
+		<leg:P3>
+			<leg:Pnumber>
+				<xsl:value-of select="$node/@NumberOverride" />
+			</leg:Pnumber>
+			<xsl:apply-templates select="node()" mode="en-blocktext" />
+		</leg:P3>
+	</xsl:template>
+	
+	<xsl:template match="leg:ExplanatoryNotes/leg:P/leg:BlockText/leg:OrderedList/leg:ListItem/leg:Para[leg:Text]" priority="1" mode="en-blocktext">
+		<leg:P3para>
+			<xsl:apply-templates select="node()" mode="en-blocktext" />
+		</leg:P3para>
+	</xsl:template>
 
 <xsl:template match="leg:EarlierOrders">
 	<!-- The title is not obligatory as is always there - therefore if missing we will autogenerate -->
