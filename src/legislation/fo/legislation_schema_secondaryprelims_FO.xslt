@@ -107,8 +107,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:apply-templates select="$g_ndsLegPrelims/leg:LaidDraft[leg:DateText],
 							 $g_ndsLegPrelims/leg:SiftedDate,							 
 							 $g_ndsLegPrelims/leg:MadeDate,
-							 $g_ndsLegPrelims/leg:ComingIntoForce,
-							 $g_ndsLegPrelims/leg:LaidDate"/>
+							 ($g_ndsLegPrelims/leg:LaidDate | $g_ndsLegPrelims/leg:ComingIntoForce)"/>
 					</fo:table-body>
 				</fo:table>		
 			</fo:block>
