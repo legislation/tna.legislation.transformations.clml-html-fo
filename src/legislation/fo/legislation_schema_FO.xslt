@@ -5163,6 +5163,12 @@ exclude-result-prefixes="tso atom">
 	<xsl:apply-templates/>
 </xsl:template>
 
+	<xsl:template match="leg:Underline">
+		<fo:inline text-decoration="underline">
+			<xsl:apply-templates/>
+		</fo:inline>
+	</xsl:template>
+
 	<xsl:function name="leg:format-number-as-alpha">
 		<xsl:param name="number" as="xs:decimal"/>	
 		<xsl:value-of select="leg:format-number-as-alpha($number, ())"/>
