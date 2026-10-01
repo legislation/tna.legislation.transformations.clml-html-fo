@@ -129,7 +129,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template match="xhtml:table">
 	<xsl:apply-templates select="xhtml:caption"/>
 	<xsl:variable name="charCount" as="xs:integer" select="string-length(xhtml:tfoot)"/>
-	<fo:table table-layout="fixed">
+	<fo:table table-layout="fixed" table-omit-header-at-break="true">
 		<xsl:if test="@class and contains(@class, 'noPersist')">
 			<xsl:attribute name="table-omit-header-at-break" select="'true'"/>
 		</xsl:if>
