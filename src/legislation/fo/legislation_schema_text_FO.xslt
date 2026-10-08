@@ -163,7 +163,10 @@ exclude-result-prefixes="tso">
 			
 	<!-- If part of a long quote and last text node output quote and any run-on text -->
 	<xsl:variable name="processAppendText" as="xs:boolean" select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText] and not(parent::*[self::leg:Substitution or self::leg:Addition or self::leg:Repeal])"/>
-	<xsl:if test="$seqLastTextNodes = generate-id()">
+	<xsl:variable name="is-last-text-element"
+		select="$seqLastTextNodes = generate-id()"/>
+	
+	<xsl:if test="$is-last-text-element">
 		<xsl:for-each select="ancestor::leg:BlockAmendment[generate-id(current()) = generate-id(descendant::text()[normalize-space(.) != ''][last()])],
 			                  ancestor::leg:BlockExtract[generate-id(current()) = generate-id(descendant::text()[normalize-space(.) != ''][last()])]">
 			<xsl:if test="not($g_strDocClass =  $g_strConstantEuretained)"><xsl:text>&#x201d;</xsl:text></xsl:if>
@@ -181,10 +184,7 @@ exclude-result-prefixes="tso">
 			<xsl:apply-templates/>
 		</xsl:for-each>								
 	</xsl:if>
-	
-	
-	
-	</xsl:template>
+</xsl:template>
 
 <xsl:template name="TSOcheckStartOfAmendment">
 	<xsl:param name="provenance" tunnel="yes" as="node()?"/>
