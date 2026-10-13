@@ -190,7 +190,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 				<xsl:comment><![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 				<xsl:comment><![CDATA[[if lte IE 7]><link rel="stylesheet" href="/styles/IE/ie7chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
-				<script type="text/javascript" src="/scripts/jquery-3.7.1.min.js"/>
+				<script type="text/javascript" src="/scripts/jquery-4.0.0.min.js"/>
 				<script type="text/javascript" src="/scripts/CentralConfig.js"/>
 				<!-- <script type="text/javascript" src="/scripts/sitestat.js"></script> -->
 				<script type="text/javascript" src="/scripts/survey/survey.js"/>

@@ -437,27 +437,112 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 	<xsl:template match="leg:facetType">
-		<xsl:param name="selected" as="xs:boolean" required="yes" />
-		<xsl:param name="maxYear" as="xs:string" required="yes" tunnel="yes" />
-		<xsl:choose>
-			<xsl:when test="$selected">
-				<li class="legType">
-					<span class="userFunctionalElement disabled">
-						<xsl:value-of select="tso:GetTitleFromType(@type, $maxYear)" />
-						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
-					</span>
-				</li>
-			</xsl:when>
-			<xsl:otherwise>
-				<li class="legType">
-					<a href="{leg:GetLink(@href)}">
-						<xsl:value-of select="tso:GetTitleFromType(@type, $maxYear)"/>
-						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
-					</a>
-				</li>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
+			<xsl:param name="selected" as="xs:boolean" required="yes"/>
+			<xsl:param name="maxYear" as="xs:string" required="yes" tunnel="yes"/>
+
+			<xsl:variable name="currentType" select="$paramsDoc/parameters/type"/>
+			<xsl:variable name="isEurPage"
+				select="$currentType = ('eur','eudn','eut','eudr')"/>
+
+			<xsl:if test="not(contains(@type,'|ukamended='))">
+
+				<xsl:variable name="title"
+					select="tso:GetTitleFromType(@type, $maxYear)"/>
+
+				<xsl:variable name="amendedNode"
+					select="../leg:facetType[
+							@type = concat(current()/@type,'|ukamended=true')
+						]"/>
+
+				<xsl:variable name="notAmendedNode"
+					select="../leg:facetType[
+							@type = concat(current()/@type,'|ukamended=false')
+						]"/>
+
+				<xsl:variable name="amended" select="$amendedNode/@value"/>
+				<xsl:variable name="notAmended" select="$notAmendedNode/@value"/>
+
+				<xsl:variable name="isEURegOrDecision"
+					select="exists($amendedNode) or exists($notAmendedNode)"/>
+
+				<xsl:variable name="isWelsh"
+					select="$paramsDoc/parameters/wrapper = 'cy'"/>
+
+					<xsl:if test="$ukamended = ''">
+						<li class="legType">
+							<xsl:choose>
+								<xsl:when test="$isEurPage">
+									<span class="userFunctionalElement disabled">
+										<xsl:value-of select="leg:TranslateText($title)"/>
+										<xsl:if test="exists(@value)">
+											(<xsl:value-of select="@value"/>)
+										</xsl:if>
+									</span>
+								</xsl:when>
+								<xsl:otherwise>
+									<a href="{leg:GetLink(@href)}">
+										<xsl:value-of select="leg:TranslateText($title)"/>
+										<xsl:if test="exists(@value)">
+											(<xsl:value-of select="@value"/>)
+										</xsl:if>
+									</a>
+								</xsl:otherwise>
+							</xsl:choose>
+						</li>
+					</xsl:if>
+
+					<xsl:if test="$isEURegOrDecision">
+
+						<xsl:if test="$ukamended = '' or $ukamended = 'true'">
+							<li class="legType">
+								<a href="{leg:SetParam(leg:GetLink(@href),'ukamended','true')}">
+
+									<xsl:value-of select="leg:TranslateText($title)"/>
+									<xsl:text> </xsl:text>
+
+									<xsl:choose>
+										<xsl:when test="$isWelsh">
+											<xsl:text>sydd wedi eu diwygio gan y DU</xsl:text>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:text>that are amended by the UK</xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
+
+									<xsl:text> </xsl:text>
+									(<xsl:value-of select="$amended"/>)
+
+								</a>
+							</li>
+						</xsl:if>
+
+						<xsl:if test="$ukamended = '' or $ukamended = 'false'">
+							<li class="legType">
+								<a href="{leg:SetParam(leg:GetLink(@href),'ukamended','false')}">
+
+									<xsl:value-of select="leg:TranslateText($title)"/>
+									<xsl:text> </xsl:text>
+
+									<xsl:choose>
+										<xsl:when test="$isWelsh">
+											<xsl:text>nad ydynt wedi eu diwygio gan y DU</xsl:text>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:text>that are not amended by the UK</xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
+
+									<xsl:text> </xsl:text>
+									(<xsl:value-of select="$notAmended"/>)
+
+								</a>
+							</li>
+						</xsl:if>
+
+					</xsl:if>
+
+				</xsl:if>
+		</xsl:template>
 
 	<xsl:template match="leg:facetStage">
 		<xsl:param name="selected" as="xs:boolean" required="yes" />
@@ -473,7 +558,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 			<xsl:otherwise>
 				<li class="legType">
-					<a href="{leg:GetLink(@href)}">
+					<a href="{
+						       leg:SetParam(
+						       leg:GetLink(@href),
+					               'stage',
+						       lower-case(normalize-space(@type))
+							   )
+						}">
 						<xsl:variable name="title" select="tso:GetTitleFromType(@type, $maxYear)"/>
 						<xsl:value-of select="leg:TranslateText($title)"/>
 						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
@@ -497,7 +588,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 			<xsl:otherwise>
 				<li class="legType">
-					<a href="{leg:GetLink(@href)}">
+					<a href="{
+						       leg:SetParam(
+						       leg:GetLink(@href),
+					               'department',
+						       lower-case(normalize-space(@type))
+							   )
+						}">
 						<xsl:variable name="title" select="tso:GetTitleFromType(@type, $maxYear)"/>
 						<xsl:value-of select="leg:TranslateText($title)"/>
 						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
@@ -520,7 +617,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 			<xsl:otherwise>
 				<li class="legYear">
-					<a href="{leg:GetLink(concat(@href, if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/start != '' and $paramsDoc/parameters/end != '') then concat(if (contains(@href,'?')) then '&amp;' else '?', 'start=', $paramsDoc/parameters/start, '&amp;end=', $paramsDoc/parameters/end) else if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/start != '') then concat(if (contains(@href,'?')) then '&amp;' else '?','start=', $paramsDoc/parameters/start) else if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/end != '') then concat(if (contains(@href,'?')) then '&amp;' else '?','end=', $paramsDoc/parameters/end) else''))}">
+					<a href="{if ($ukamended != '') then leg:SetParam(leg:GetLink(concat(@href, if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/start != '' and $paramsDoc/parameters/end != '') then concat(if (contains(@href,'?')) then '&amp;' else '?','start=', $paramsDoc/parameters/start,'&amp;end=', $paramsDoc/parameters/end) else if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/start != '') then concat(if (contains(@href,'?')) then '&amp;' else '?','start=', $paramsDoc/parameters/start) else if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/end != '') then concat(if (contains(@href,'?')) then '&amp;' else '?','end=', $paramsDoc/parameters/end) else '')), 'ukamended', $ukamended) else leg:GetLink(concat(@href, if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/start != '' and $paramsDoc/parameters/end != '') then concat(if (contains(@href,'?')) then '&amp;' else '?','start=', $paramsDoc/parameters/start,'&amp;end=', $paramsDoc/parameters/end) else if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/start != '') then concat(if (contains(@href,'?')) then '&amp;' else '?','start=', $paramsDoc/parameters/start) else if ($paramsDoc/parameters/type = 'ukia' and $paramsDoc/parameters/end != '') then concat(if (contains(@href,'?')) then '&amp;' else '?','end=', $paramsDoc/parameters/end) else ''))}">
 						<xsl:value-of select="@year"/>
 						<xsl:if test="exists(@total)"> (<xsl:value-of select="@total"/>)</xsl:if>
 					</a>

@@ -96,19 +96,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 		
 		<xsl:if test="$g_ndsLegPrelims[leg:SiftedDate or leg:MadeDate or leg:LaidDate or leg:ComingIntoForce or leg:LaidDraft[leg:DateText]]">
-			<fo:block text-align="center" margin-left="90pt" margin-right="90pt">
+			<fo:block text-align="center" margin-left="70pt" margin-right="70pt">
 				<xsl:attribute name="space-before" select="if($g_ndsLegPrelims/leg:LaidDraft) then '0pt' else if($g_ndsLegPrelims[leg:Approved]) then '12pt' else '24pt'"/>
 				<xsl:attribute name="space-after" select="if ($g_ndsLegPrelims[leg:Approved] and ($g_strDocType = 'NorthernIrelandStatutoryRule' or $g_strDocType = 'NorthernIrelandStatutoryRuleOrOrder')) then '0pt' else '24pt'"/>
 				<fo:table font-size="{$g_strBodySize}" font-style="italic" margin-left="0pt" margin-right="0pt" table-layout="fixed" width="100%">
-					<fo:table-column column-width="57%"/>
+					<fo:table-column column-width="48%"/>
 					<fo:table-column column-width="5%"/>
-					<fo:table-column column-width="38%"/>	
+					<fo:table-column column-width="47%"/>
 					<fo:table-body margin-left="0pt" margin-right="0pt">
 						<xsl:apply-templates select="$g_ndsLegPrelims/leg:LaidDraft[leg:DateText],
 							 $g_ndsLegPrelims/leg:SiftedDate,							 
 							 $g_ndsLegPrelims/leg:MadeDate,
-							 $g_ndsLegPrelims/leg:LaidDate,
-							 $g_ndsLegPrelims/leg:ComingIntoForce"/>
+							 ($g_ndsLegPrelims/leg:LaidDate | $g_ndsLegPrelims/leg:ComingIntoForce)"/>
 					</fo:table-body>
 				</fo:table>		
 			</fo:block>
@@ -201,7 +200,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<fo:block/>
 			</fo:table-cell>
 			<fo:table-cell text-align="right" display-align="after" margin-left="0pt" margin-right="0pt">
-				<fo:block>
+				<fo:block wrap-option="no-wrap">
 					<xsl:apply-templates select="leg:DateText"/>
 				</fo:block>
 			</fo:table-cell>

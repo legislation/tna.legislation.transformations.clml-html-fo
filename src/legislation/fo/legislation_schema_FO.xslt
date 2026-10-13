@@ -149,6 +149,12 @@ exclude-result-prefixes="tso atom">
 	<!-- use a value of FOP0.95 if FOP 0.95 is used to generate the footnote hacks -->
 	<xsl:param name="g_FOprocessor" select="'FOP1.0'" as="xs:string"/>
 	
+	<!-- Base URL for crest images passed from configuration (environment-specific: QA/UAT/PROD). Falls back to default path if not provided. -->
+	<xsl:param name="CrestImagePath" as="xs:string" select="'https://www.legislation.gov.uk/images/crests/'"/>
+	
+	<xsl:param name="xspecTest" as="xs:string?"/>
+	<xsl:param name="xspecDocType" as="xs:string?"/>
+	
 	
 	<!-- ========== Global Constants ========== -->
 
@@ -159,7 +165,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:variable name="g_strConstantOutputTypePrimary" select="'PrimaryStyle'" as="xs:string"/>
 	<xsl:variable name="g_strConstantOutputTypeSecondary" select="'SecondaryStyle'" as="xs:string"/>
 	<xsl:variable name="g_strConstantOutputTypeEURetained" select="'euretainedStyle'" as="xs:string"/>
-	<xsl:variable name="g_strConstantImagesPath" select="'https://www.legislation.gov.uk/images/crests/'" as="xs:string"/>
+	<xsl:variable name="g_strConstantImagesPath" select="$CrestImagePath" as="xs:string"/>
 	
 	
 	<xsl:variable name="g_documentLanguage" select="if (/leg:Legislation/@xml:lang) then /leg:Legislation/@xml:lang else 'en'"  as="xs:string"/>
@@ -254,11 +260,14 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:variable name="g_ndsValidDate" select="/leg:Legislation/ukm:Metadata/dct:valid"/>
 	<xsl:variable name="g_ndsLegPrelims" select="/leg:Legislation/(leg:Primary/leg:PrimaryPrelims | leg:Secondary/leg:SecondaryPrelims | leg:EURetained/leg:EUPrelims)"/>
-	<xsl:variable name="g_strDocType" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string"/>
+	<xsl:variable name="g_strDocType" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string?"/>
 	<xsl:variable name="g_strDocYear" select="($g_ndsLegMetadata/ukm:Year/@Value)[1]" as="xs:string"/>
 	<xsl:variable name="g_strDocClass" as="xs:string">
 		<!-- For NI Acts the look and feel is as for secondary legislation so set doc class accordingly -->
 		<xsl:choose>
+			<xsl:when test="$xspecTest = 'true'">
+				<xsl:value-of select="$xspecDocType"/>
+			</xsl:when>
 			<xsl:when test="$g_strDocType = 'NorthernIrelandAct'">
 				<xsl:value-of select="$g_strConstantSecondary"/>
 			</xsl:when>
@@ -1852,10 +1861,15 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<!-- P1 as part of an amendment in a schedule context or an unknown context but in a schedule (so the context is implied) -->
-	<xsl:template match="leg:P1[ancestor::leg:BlockAmendment[1][@Context = 'schedule']] | leg:P1[ancestor::leg:BlockAmendment[1][@Context = 'unknown' and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule]]]" priority="3">
+	<!-- MR 20260202: Surely the second match condition never gets met due to the following template having higher priority with less specificity? -->
+	<xsl:template match="leg:P1[ancestor::leg:BlockAmendment[1][@Context = 'schedule']] | 
+		leg:P1[ancestor::leg:BlockAmendment[1][@Context = 'unknown' and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule]]]" priority="3">
 		<xsl:choose>
-			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
+			<xsl:when test="$g_strDocClass = $g_strConstantSecondary and self::leg:P1[not(descendant::leg:P2[child::leg:Pnumber])]">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
+				<xsl:apply-templates select="* except leg:Pnumber"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="48pt" space-before="6pt">		
@@ -2081,6 +2095,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:BlockAmendment[@Context = 'main' or @Context='unknown']//leg:P1//leg:P2" priority="4">
+		<xsl:param name="titleOutput" as="xs:boolean?"/>
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
@@ -2092,7 +2107,7 @@ exclude-result-prefixes="tso atom">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:if test="parent::leg:P2group and not(preceding-sibling::leg:P2)">
+				<xsl:if test="parent::leg:P2group and not(preceding-sibling::leg:P2) and not($titleOutput)">
 					<fo:block font-style="italic" space-before="12pt">
 						<xsl:apply-templates select="parent::*/leg:Title"/>
 					</fo:block>
@@ -2115,7 +2130,12 @@ exclude-result-prefixes="tso atom">
 			</fo:block>
 		<!--</xsl:if>-->
 		<!-- HA048775 nisi1991/2628 failing to generate because no block element around P2para  -->
-		<fo:block><xsl:apply-templates select="*[not(self::leg:Title)]"/></fo:block>
+		<fo:block>
+			<!-- LEGDEV-9352 add param to confirm title has already been output so that P2 template above tests before outputting title potentially as duplicate -->
+			<xsl:apply-templates select="*[not(self::leg:Title)]">
+				<xsl:with-param name="titleOutput" select="true()" as="xs:boolean"/>
+			</xsl:apply-templates>
+		</fo:block>
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 
@@ -2665,7 +2685,19 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:P2para/leg:Text | leg:P3para/leg:Text | leg:P4para/leg:Text | leg:P5para/leg:Text | leg:Para/leg:Text | leg:P/leg:Text">
-
+		<xsl:variable name="node" as="node()" select="."/>
+		
+		<xsl:variable name="processAppendText" as="xs:boolean" select="
+			exists(
+			ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]
+			/following-sibling::*[1][self::leg:AppendText]
+			)
+			and
+			not(parent::*[self::leg:Substitution
+			or self::leg:Addition
+			or self::leg:Repeal])
+			"/>
+		
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:choose>
@@ -2686,21 +2718,25 @@ exclude-result-prefixes="tso atom">
 										<xsl:attribute name="space-before">12pt</xsl:attribute>
 									</xsl:if>
 									<!-- HA098003- only if Title is a child of BlockAmendment and TargetClass="primary", or P1group/@Layout = 'side'-->
-									<xsl:if test="not(ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@TargetClass = 'primary']] or ancestor::leg:P1group/@Layout = 'side')">
-								  		<fo:inline>
-											<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
-												<xsl:attribute name="font-weight">bold</xsl:attribute>
-											</xsl:if>
-											<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-								  			<xsl:value-of select="if(string-length(normalize-space((ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter))) gt 0) then ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter else '.'"/>
-										</fo:inline>
-										<xsl:text>&#8212;</xsl:text>
-							  		</xsl:if>
+									<xsl:choose>
+										<xsl:when test="not(ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@TargetClass = 'primary']] or ancestor::leg:P1group/@Layout = 'side')">
+											<fo:inline>
+												<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
+													<xsl:attribute name="font-weight">bold</xsl:attribute>
+												</xsl:if>
+												<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
+									  			<xsl:value-of select="if(string-length(normalize-space((ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter))) gt 0) then ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter else '.'"/>
+											</fo:inline>
+											<xsl:text>&#8212;</xsl:text>
+										</xsl:when>
+										<xsl:when test="self::leg:P2[not(preceding-sibling::leg:P2)]">
+											<xsl:apply-templates select="(ancestor::leg:P1)[last()]/leg:Pnumber"/>
+										</xsl:when>
+									</xsl:choose>
 								</xsl:if>
 								<xsl:apply-templates select="leg:Pnumber"/>
 								<!-- FOP doesn't handle 2003 well - look for alternative -->
 								<xsl:text>&#160;&#160;</xsl:text>
-								<!--<xsl:text>&#2003;</xsl:text>-->						
 							</xsl:for-each>
 							<!--HA055410: added for N1-N2-N3 paragraphs-->
 							<xsl:if test="parent::leg:P3para and not(parent::leg:P3para/parent::leg:P3/preceding-sibling::leg:P3)">
@@ -2761,6 +2797,7 @@ exclude-result-prefixes="tso atom">
 
 						<fo:block text-align="{$strAlignment}" space-before="4pt">
 							<xsl:if test="ancestor::xhtml:table and $g_flSuppressTableLineSpace">
+								<xsl:comment select="'line 2788'" />
 								<xsl:choose>
 									<xsl:when test="not(preceding-sibling::*)">
 										<xsl:attribute name="space-before">
@@ -2787,7 +2824,32 @@ exclude-result-prefixes="tso atom">
 									<xsl:attribute name="text-indent">0pt</xsl:attribute>
 								</xsl:otherwise>
 							</xsl:choose>
-							<xsl:apply-templates/>
+							
+							<xsl:for-each select="$node/node()">
+								<xsl:variable name="child" as="node()" select="." />
+								<xsl:apply-templates select="$child" />
+								<xsl:variable name="is-definition-list-append-text-case"
+									select="
+									$child instance of element(leg:FootnoteRef)
+									and
+									empty($child/following-sibling::node()[. instance of element() or string-length(normalize-space(string(.))) gt 0])
+									and
+									exists($node/ancestor::leg:ListItem)
+									and
+									empty($node/parent::leg:Para/following-sibling::*)
+									and
+									exists($node/ancestor::leg:BlockAmendment[1]/following-sibling::*[1][self::leg:AppendText])"/>
+								<xsl:if test="$is-definition-list-append-text-case">
+									<xsl:if test="not($g_strDocClass = $g_strConstantEuretained)">
+										<xsl:text>&#x201d;</xsl:text>
+									</xsl:if>
+									
+									<xsl:if test="$processAppendText">
+										<xsl:apply-templates
+											select="$node/ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText]/node()"/>
+									</xsl:if>
+								</xsl:if>
+							</xsl:for-each>
 						</fo:block>
 					</xsl:when>
 					<xsl:otherwise>
@@ -2890,6 +2952,14 @@ exclude-result-prefixes="tso atom">
 									</xsl:if>
 								</xsl:for-each>
 							</xsl:when>
+							<!-- LEGDEV-9351 add new xsl:when to find AppendText content with multiple levels of BlockAmendments and add it to end of Text -->
+							<xsl:when test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract]/ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][last()]
+								/following-sibling::*[1][self::leg:AppendText] and not(parent::*[self::leg:Substitution or self::leg:Addition or self::leg:Repeal])">
+								<xsl:apply-templates/>
+								<xsl:for-each select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][last()]/following-sibling::*">
+									<xsl:apply-templates select="self::leg:AppendText/node()"/>
+								</xsl:for-each>
+							</xsl:when>
 							<xsl:otherwise>
 								<xsl:apply-templates/>
 							</xsl:otherwise>
@@ -2921,15 +2991,8 @@ exclude-result-prefixes="tso atom">
 										<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
 											<xsl:attribute name="font-weight">bold</xsl:attribute>
 										</xsl:if>
-										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>										
-										<xsl:if test="ancestor::leg:P1[1]/leg:Pnumber and normalize-space(.) != ''">
-											<xsl:choose>
-												<xsl:when test="not(ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter) and ancestor::leg:P1">.</xsl:when>
-												<xsl:otherwise>
-													<xsl:value-of select="ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter"/>
-												</xsl:otherwise>
-											</xsl:choose>
-										</xsl:if>
+										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
+										<xsl:value-of select="if(string-length(normalize-space((ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter))) gt 0) then ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter else '.'"/>
 									</fo:inline>
 								</xsl:if>
 								<fo:leader leader-pattern="space" leader-length="0.5em"/>
@@ -3036,9 +3099,6 @@ exclude-result-prefixes="tso atom">
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 
-
-	
-	
 	<xsl:template match="leg:AppendText"/>
 
 	<xsl:include href="legislation_schema_lists_FO.xslt"/>
@@ -3651,6 +3711,13 @@ exclude-result-prefixes="tso atom">
 					This SHOULD be the case but bugs in augment.xsl caused duplciation if the version with 
 					same ID if the same image was referrenced twice as is the case with HA052048 -->
 				<xsl:apply-templates select="(//leg:Version[@id = current()/parent::*/@AltVersionRefs])[1]/*"/>
+				<xsl:call-template name="TSOcheckEndOfAmendment"/>
+			</xsl:when>
+			<!-- LEGDEV-9593 MR 2026/06/08: copy of first xsl:when that allows for the Substitution element which broke the direct parent::* step -->
+			<xsl:when test="parent::leg:Substitution/parent::*/@AltVersionRefs">
+				<fo:inline><xsl:for-each select="1 to count(ancestor::*[matches(name(), '^(P\d+|ListItem$)')]) * 2">&#160;</xsl:for-each></fo:inline>
+				<xsl:call-template name="TSOcheckStartOfAmendment"/>
+				<xsl:apply-templates select="(//leg:Version[@id = current()/parent::leg:Substitution/parent::*/@AltVersionRefs])[1]/*"/>
 				<xsl:call-template name="TSOcheckEndOfAmendment"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -4295,7 +4362,6 @@ exclude-result-prefixes="tso atom">
 				</xsl:apply-templates>
 			</xsl:for-each>
 		</xsl:variable>
-		<!--<xsl:if test="descendant-or-self::*[@Ref='c1088016']"><xsl:message>FOUND</xsl:message><xsl:result-document href="{generate-id(.)}.{count(preceding-sibling::leg:Version)}.xml"><total><xsl:sequence select="$rtfNormalisedDoc"/><KEYS><xsl:for-each select="//*[@Ref='c1088016']"><ID><xsl:value-of select="generate-id(.)"/></ID></xsl:for-each></KEYS></total></xsl:result-document></xsl:if>-->
 		<xsl:for-each select="$rtfNormalisedDoc">
 			<xsl:apply-templates select="//*[@VersionReplacement = 'True']"/>
 		</xsl:for-each>
@@ -4534,7 +4600,7 @@ exclude-result-prefixes="tso atom">
 			leg:P4para[.//leg:Repeal[@SubstitutionRef]] | leg:P5para[.//leg:Repeal[@SubstitutionRef]] | leg:P6para[.//leg:Repeal[@SubstitutionRef]] | leg:P7para[.//leg:Repeal[@SubstitutionRef]]"
 			priority="499">
 		<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
-		<xsl:if test="$selectedSectionSubstituted or not(tso:isSubstituted(.)) or $showRepeals">
+		<xsl:if test="$selectedSectionSubstituted or not(tso:isSubstituted(.)) or $showRepeals or .//leg:Repeal/@Extent or .//leg:Repeal[@RetainText='true']">
 			<xsl:next-match />
 		</xsl:if>
 	</xsl:template>
@@ -4809,7 +4875,26 @@ exclude-result-prefixes="tso atom">
 			<xsl:apply-templates select="*[not(self::leg:Title or self::leg:Pnumber)]"/>
 		</fo:block>
 	</xsl:template>
-
+	
+	<!-- LEGDEV-8941 fix: Numbering of provisions within block amendment incorrect in generated PDF -->
+	<xsl:template match="leg:P1/leg:Pnumber[ancestor::leg:BlockAmendment[1]]">
+		<fo:inline>
+			<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
+				<xsl:attribute name="font-weight">bold</xsl:attribute>
+			</xsl:if>
+			<xsl:apply-templates/>
+			<xsl:choose>
+				<xsl:when test="not(@PuncAfter)">.</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="@PuncAfter"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</fo:inline>
+		<xsl:if test="not(following-sibling::*/leg:Text)">
+			<xsl:text>&#8212;</xsl:text>
+		</xsl:if>
+	</xsl:template>
+	
 	<!-- EU special case numbered P2group elements -->
 	<xsl:template match="leg:P2group[leg:Pnumber][leg:Title]" priority="50">
 		<fo:block>
@@ -5114,6 +5199,15 @@ exclude-result-prefixes="tso atom">
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template name="xspec-test">
+	<xsl:apply-templates/>
+</xsl:template>
+
+	<xsl:template match="leg:Underline">
+		<fo:inline text-decoration="underline">
+			<xsl:apply-templates/>
+		</fo:inline>
+	</xsl:template>
 
 	<xsl:function name="leg:format-number-as-alpha">
 		<xsl:param name="number" as="xs:decimal"/>	

@@ -163,9 +163,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<tso:legType schemaType="EuropeanUnionRegulation" abbrev="eur" class="euretained" category="Regulation"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="{leg:TranslateText('European Union Regulations')}"
   	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EURegulationsAmendedByUK" abbrev="eur?ukamended=true" class="euretained" category="Regulation" en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="{leg:TranslateText('EU_Regulations_Amended_By_UK')}" start="2018" complete="2018" revised="true" />
 	<tso:legType schemaType="EuropeanUnionDecision" abbrev="eudn" class="euretained" category="Decision"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="{leg:TranslateText('European Union Decisions')}"
   	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EUDecisionsAmendedByUK" abbrev="eudn?ukamended=true" class="euretained" category="Decision" en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="{leg:TranslateText('EU_Decisions_Amended_By_UK')}" start="2018" complete="2018" revised="true" />
 	<tso:legType schemaType="EuropeanUnionDirective" abbrev="eudr" class="euretained" category="Directive"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Directive" plural="{leg:TranslateText('European Union Directives')}"
   	start="2018" complete="2018" revised="true" />
@@ -221,7 +223,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:function name="tso:ShowMoreResources" as="xs:boolean">
 	<xsl:param name="item" as="document-node()" />
-	<xsl:variable name="documentMainType" as="xs:string" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:ENmetadata | ukm:Legislation | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+	<xsl:variable name="documentMainType" as="xs:string+" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:ENmetadata | ukm:Legislation | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
 	<xsl:sequence select="
 		(: PDF documents :)
 		exists($item/*/ukm:Metadata/(ukm:Notes|ukm:Alternatives|ukm:TableOfDestinations|ukm:TableOfOrigins|ukm:CorrectionSlip|ukm:TableOfEffects|ukm:CodeOfPractice|ukm:OrderInCouncil|ukm:OrdersInCouncil|ukm:OtherDocument|ukm:ExplanatoryDocuments|ukm:ExplanatoryDocument|ukm:PolicyEqualityStatements|ukm:PolicyEqualityStatement)//*[contains(@URI, '.pdf')]) or
@@ -345,9 +347,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:value-of select="leg:TranslateText('All')"/>
 				<xsl:text> </xsl:text>
 				<xsl:if test="not($showUnrevised)"><xsl:value-of select="leg:TranslateText('Revised')"/><xsl:text> </xsl:text></xsl:if>
-				<xsl:value-of select="leg:TranslateText('Legislation (including originating from the EU)')"/>
+				<xsl:value-of select="leg:TranslateText('legislation_including_eu')"/>
 				<!--<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>-->
 			</option>
+			<option disabled="disabled">--------------------------------------------</option>
+
+				<option value="eu-origin?ukamended=true">
+					<xsl:if test="$selected = 'eu-origin?ukamended=true'">
+						<xsl:attribute name="selected" select="'selected'" />
+					</xsl:if>
+					<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
+				</option>
 		</xsl:if>
 
 		<xsl:if test="$showPrimary">
@@ -583,25 +593,31 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:otherwise>
 					<div class="typeCheckBoxDoubleCol">
 						<xsl:if test="$showPrimary and $showSecondary and $showEUretained">
-							<input type="checkbox" name="type" value="all" id="typeAllLegislation">
-								<xsl:if test="contains($selected, 'all')">
-									<xsl:attribute name="checked"/>
-								</xsl:if>
-							</input>
-							<label for="typeAllLegislation"><xsl:value-of select="leg:TranslateText('All Legislation')"/></label>
+							<div class="legislationContent">
+								<div class="legislationContent">
+									<input type="checkbox" name="type" value="all" id="typeAllLegislation">
+										<xsl:if test="contains($selected, 'all')">
+											<xsl:attribute name="checked"/>
+										</xsl:if>
+									</input>
+									<label for="typeAllLegislation"><xsl:value-of select="leg:TranslateText('All Legislation')"/></label>
+								</div>
+							</div>
 						</xsl:if>
 
 						<xsl:if test="$showPrimary">
+						  <div class="primaryContent">
 							<input type="checkbox" name="type" value="primary" id="typePrimary">
 								<xsl:if test="contains($selected, 'primary')">
 									<xsl:attribute name="checked"/>
 								</xsl:if>
 							</input>
 							<label for="typePrimary"><xsl:value-of select="leg:TranslateText('All Primary')"/></label>
+						  </div>
 						</xsl:if>
 					</div>
 
-					<div class="typeCheckBoxDoubleCol">
+					<div class="typeCheckBoxDoubleCol CheckBoxCol">
 						<xsl:if test="$showSecondary">
 							<div id="allSecondary"  class="typeCheckBoxCol">
 								<input type="checkbox" name="type" value="secondary" id="typeAllSecondary">
@@ -623,6 +639,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<label for="typeEUretained"><xsl:value-of select="leg:TranslateText('European_Union_All')"/></label>
 							</div>
 						</xsl:if>
+						<xsl:if test="$showEUretained">
+								<div id="allEuropeanAmended" class="typeCheckBoxCol">
+									<input type="checkbox" name="type" value="eu-origin?ukamended=true" id="typeEUretainedAmended">
+										<xsl:if test="contains($selected, 'eu-origin?ukamended=true')">
+											<xsl:attribute name="checked"/>
+										</xsl:if>
+									</input>
+									<label for="typeEUretainedAmended">
+										<xsl:value-of select="leg:TranslateText('European Union Amended')"/>
+									</label>
+								</div>
+							</xsl:if>
 					</div>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -1299,5 +1327,38 @@ It will get correct language string for the current language -->
 				</xsl:analyze-string>
 			</xsl:when>
 		</xsl:choose>
-	</xsl:function>	
+	</xsl:function>
+
+	<xsl:function name="tso:extract-label" as="xs:string">
+		<xsl:param name="path" as="xs:string"/>
+
+		<xsl:variable name="parts" select="tokenize($path, '/')"/>
+
+		<!-- find position of last non-numeric token -->
+		<xsl:variable name="last-non-num" select="
+			max(for $i in 1 to count($parts)
+			return
+				if (not($parts[$i] castable as xs:integer)) then $i
+				else ())"/>
+		<!-- take everything after that -->
+		<xsl:sequence select="string-join($parts[position() > $last-non-num], '.')"/>
+	</xsl:function>
+
+	<xsl:function name="leg:truncate-text" as="xs:string">
+		<xsl:param name="text" as="xs:string?"/>
+		<xsl:param name="max-length" as="xs:integer"/>
+
+		<xsl:variable name="value" select="normalize-space(string($text))"/>
+
+		<xsl:sequence select="
+			if (string-length($value) le $max-length)
+			then $value
+			else
+				concat(
+					replace(
+						replace(substring($value, 1, $max-length), '\s+\S*$',''), '[.,;:!?]+$', ''),
+					'...'
+				)
+			"/>
+	</xsl:function>
 </xsl:stylesheet>

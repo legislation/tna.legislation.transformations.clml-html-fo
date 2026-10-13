@@ -964,12 +964,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:when test="@AffectedClass = $leg:welshType ">
 					<xsl:choose>
 						<xsl:when test="@RequiresApplied eq 'false' and @RequiresWelshApplied eq 'true'">
-							<span>Not yet made to Welsh language version</span>
+							<xsl:choose>
+								<xsl:when test="@WelshApplied eq 'true'"><span class="effectsApplied welshEffectStatus">Applied to Welsh language version</span></xsl:when>
+								<xsl:otherwise><span>Not yet made to Welsh language version</span></xsl:otherwise>
+							</xsl:choose>
 							<span  class="englishEffectStatus">Not applicable to English language version</span>
 						</xsl:when>
 						<xsl:when test="@RequiresApplied eq 'true' and @RequiresWelshApplied eq 'false'">
 							<span>Not applicable to Welsh language version</span>
-							<span class="englishEffectStatus">Not yet made to English language version</span>							
+							<xsl:choose>
+								<xsl:when test="@Applied eq 'true'"><span class="effectsApplied englishEffectStatus">Applied to English language version</span></xsl:when>
+								<xsl:otherwise><span class="englishEffectStatus">Not yet made to English language version</span></xsl:otherwise>
+							</xsl:choose>												
 						</xsl:when>
 						<xsl:when test="@RequiresWelshApplied and @RequiresApplied eq 'false'">See note</xsl:when>
 						<xsl:when test="@WelshApplied eq 'false' and @Applied eq 'false'">Not yet</xsl:when>
