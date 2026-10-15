@@ -2685,6 +2685,19 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:P2para/leg:Text | leg:P3para/leg:Text | leg:P4para/leg:Text | leg:P5para/leg:Text | leg:Para/leg:Text | leg:P/leg:Text">
+		<xsl:variable name="node" as="node()" select="."/>
+		
+		<xsl:variable name="processAppendText" as="xs:boolean" select="
+			exists(
+			ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]
+			/following-sibling::*[1][self::leg:AppendText]
+			)
+			and
+			not(parent::*[self::leg:Substitution
+			or self::leg:Addition
+			or self::leg:Repeal])
+			"/>
+		
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:choose>
@@ -2784,6 +2797,7 @@ exclude-result-prefixes="tso atom">
 
 						<fo:block text-align="{$strAlignment}" space-before="4pt">
 							<xsl:if test="ancestor::xhtml:table and $g_flSuppressTableLineSpace">
+								<xsl:comment select="'line 2788'" />
 								<xsl:choose>
 									<xsl:when test="not(preceding-sibling::*)">
 										<xsl:attribute name="space-before">
@@ -2810,7 +2824,32 @@ exclude-result-prefixes="tso atom">
 									<xsl:attribute name="text-indent">0pt</xsl:attribute>
 								</xsl:otherwise>
 							</xsl:choose>
-							<xsl:apply-templates/>
+							
+							<xsl:for-each select="$node/node()">
+								<xsl:variable name="child" as="node()" select="." />
+								<xsl:apply-templates select="$child" />
+								<xsl:variable name="is-definition-list-append-text-case"
+									select="
+									$child instance of element(leg:FootnoteRef)
+									and
+									empty($child/following-sibling::node()[. instance of element() or string-length(normalize-space(string(.))) gt 0])
+									and
+									exists($node/ancestor::leg:ListItem)
+									and
+									empty($node/parent::leg:Para/following-sibling::*)
+									and
+									exists($node/ancestor::leg:BlockAmendment[1]/following-sibling::*[1][self::leg:AppendText])"/>
+								<xsl:if test="$is-definition-list-append-text-case">
+									<xsl:if test="not($g_strDocClass = $g_strConstantEuretained)">
+										<xsl:text>&#x201d;</xsl:text>
+									</xsl:if>
+									
+									<xsl:if test="$processAppendText">
+										<xsl:apply-templates
+											select="$node/ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText]/node()"/>
+									</xsl:if>
+								</xsl:if>
+							</xsl:for-each>
 						</fo:block>
 					</xsl:when>
 					<xsl:otherwise>
@@ -2953,6 +2992,7 @@ exclude-result-prefixes="tso atom">
 											<xsl:attribute name="font-weight">bold</xsl:attribute>
 										</xsl:if>
 										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
+										<xsl:value-of select="if(string-length(normalize-space((ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter))) gt 0) then ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter else '.'"/>
 									</fo:inline>
 								</xsl:if>
 								<fo:leader leader-pattern="space" leader-length="0.5em"/>
