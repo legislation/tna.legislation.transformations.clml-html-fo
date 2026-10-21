@@ -2797,7 +2797,6 @@ exclude-result-prefixes="tso atom">
 
 						<fo:block text-align="{$strAlignment}" space-before="4pt">
 							<xsl:if test="ancestor::xhtml:table and $g_flSuppressTableLineSpace">
-								<xsl:comment select="'line 2788'" />
 								<xsl:choose>
 									<xsl:when test="not(preceding-sibling::*)">
 										<xsl:attribute name="space-before">
