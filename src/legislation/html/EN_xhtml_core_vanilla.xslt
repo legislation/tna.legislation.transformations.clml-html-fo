@@ -1086,7 +1086,14 @@ exclude-result-prefixes="leg ukm math msxsl dc ukm fo xsl svg xhtml lnk">
 		<xsl:param name="ndContextNode" select="self::*" />
 		<xsl:variable name="strId" select="$ndContextNode/@id" />
 		<!-- No corresponding section found in legislation file, so generate an id  -->
+		<xsl:choose>
+			<xsl:when test="$ndContextNode/@id">
+				<xsl:sequence select="$strId/string()"/>
+			</xsl:when>
+			<xsl:otherwise>
 		<xsl:call-template name="FuncCalcCommentaryID" />
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 
@@ -2755,11 +2762,23 @@ TODO: need to add semantic id based on EN structure
 		</xsl:variable>
 		<a>
 			<xsl:attribute name="href">
-				<xsl:text>#</xsl:text>
+<!--				<xsl:text>#</xsl:text>
 				<xsl:variable name="strIDref" select="@Ref"/>
 				<xsl:for-each select="key('g_keyNodeIDs', $strIDref)">
 					<xsl:call-template name="FuncGenerateAnchorID"/>
-				</xsl:for-each>
+				</xsl:for-each>-->
+				<xsl:choose>						
+					<xsl:when test="normalize-space($strTitleText) != 'Go to'">
+						<xsl:value-of select="concat('#', @Ref)"/>
+					</xsl:when>
+					<xsl:when test="@DocumentURI">
+						<xsl:value-of select="@DocumentURI"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="@IdURI"/>
+					</xsl:otherwise>
+				</xsl:choose>
+				
 			</xsl:attribute>
 			<xsl:if test="normalize-space($strTitleText)">
 				<xsl:attribute name="title">
